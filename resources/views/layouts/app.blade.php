@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -79,6 +79,6 @@
     {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
 
     <script src="{{ asset('/js/vendor.js') }}"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src="{{ url(asset('js/all.js')) }}"></script>
 </body>
 </html>

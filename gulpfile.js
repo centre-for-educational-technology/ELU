@@ -17,8 +17,15 @@ elixir(function(mix) {
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.js',
         '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+        'bootstrap-tagsinput.js'
     ], 'public/js/vendor.js');
 
-    mix.less('app.less')
+    mix.scripts([
+        'app.js']
+    )
+
+      .version(['js/all.js']);
+
+    mix.less(['app.less'])
       .version('css/app.css');
 });

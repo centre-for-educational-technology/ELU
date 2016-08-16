@@ -7,8 +7,6 @@
 * SSH enabled on server
 
 * Composer
-
-* Node.js (used by Gulp)
   
 * Supports databases
   * MySQL
@@ -23,13 +21,13 @@
 
 Run `composer install` command in the root folder of the project.
 
-### 2. Import the database scheme
+### 2. Edit the configuration file
+
+`.env.example`  and change name to `.env`
+
+### 3. Import the database scheme
 
 Run `artisan migrate` to create database tables
-
-### 3. Edit the configuration file
-
-`.env.example` 
 
 ### 4. Make sure `.htaccess` file in `public` directory and server config files are configured correctly
 

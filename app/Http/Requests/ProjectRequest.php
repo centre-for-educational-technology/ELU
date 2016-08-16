@@ -26,6 +26,15 @@ class ProjectRequest extends Request
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:3000',
+            'project_outcomes' => 'required|max:3000',
+            'student_outcomes' => 'required|max:3000',
+            'related_courses' => 'required|max:3000',
+            'project_start' => 'required|max:100',
+            'project_end' => 'required|max:100',
+            'institutes' => 'required',
+            'supervisors' => 'required|max:3000',
+            'status' => 'required',
+            'tags' => 'required|max:3000',
         ];
     }
 }

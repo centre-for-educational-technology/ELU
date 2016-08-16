@@ -29,34 +29,37 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 
 
-    Route::get('/project-new', 'ProjectController@index');
+    Route::get('/project', 'ProjectController@index');
 
-//    /**
-//     * Show Task Dashboard
-//     */
+
 //    Route::get('/project-new', function () {
 //        return view('project-new', [
 //            'projects' => Project::orderBy('created_at', 'asc')->get()
 //        ]);
 //    });
 
-    /**
-     * Add New Task
-     */
+
 //    Route::post('/project-new', function () {
 //        return redirect('/');
 //
 //    });
 
-    Route::post('/project-new', 'ProjectController@store');
+    Route::post('/project', 'ProjectController@store');
 
 
-    /**
-     * Delete Task
-     */
-    Route::delete('/project-new/{id}', function ($id) {
+    Route::get('/project/{id}', function ($id) {
+
+        return view('/project', [
+            'current_project' => Project::find($id),
+            'projects' => Project::orderBy('created_at', 'asc')->get()
+        ]);
+
+
+    });
+
+    Route::delete('/project/{id}', function ($id) {
         Project::findOrFail($id)->delete();
 
-        return redirect('/');
+        return redirect('/')->with('message', 'Projekt on kustutanud!');
     });
 });

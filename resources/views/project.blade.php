@@ -170,7 +170,7 @@
                             <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
 
                             <div class="col-sm-6">
-                                <textarea name="supervisors" id="supervisors" class="form-control">{{ old('supervisors') }}</textarea>
+                                <textarea name="supervisors" id="supervisors" class="form-control">{{ (empty($current_project) ? old('supervisors') : $current_project->supervisor) }}</textarea>
                             </div>
                         </div>
 
@@ -181,14 +181,14 @@
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="status" name="status">
-                                    @if (old('status') == 0)
+                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 0)
                                         <option value="0" selected>Lõppenud</option>
                                     @else
                                         <option value="0">Lõppenud</option>
                                     @endif
 
 
-                                    @if (old('status') == 1)
+                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 1)
                                         <option value="1" selected>Aktiivne</option>
                                     @else
                                         <option value="1">Aktiivne</option>
@@ -203,7 +203,7 @@
                             <label for="tags" class="col-sm-3 control-label">Märksõnad</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />
+                                <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty($current_project) ? old('tags') : $current_project->tags) }}" data-role="tagsinput" />
                             </div>
                         </div>
 

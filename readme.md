@@ -1,15 +1,36 @@
-# Laravel Quickstart - Basic
+# IDP application
 
-## Quck Installation
+## Requirements
 
-    git clone https://github.com/laravel/quickstart-basic quickstart
+* PHP 7.0 and higher
 
-    cd quickstart
+* SSH enabled on server
 
-    composer install
+* Composer
+  
+* Supports databases
+  * MySQL
+  * Postgres
+  * SQLite
+  * SQL Server
+  (Tested on MySQL 5.5)
+  
+## Installation 
 
-    php artisan migrate
+### 1. Install dependencies
 
-    php artisan serve
+Run `composer install` command in the root folder of the project.
 
-[Complete Tutorial](http://laravel.com/docs/quickstart)
+### 2. Import the database scheme
+
+Run `artisan migrate` to create database tables
+
+### 3. Edit the configuration file
+
+`.env.example` 
+
+### 4. Make sure `.htaccess` file in `public` directory and server config files are configured correctly
+
+## Post-installation procedures
+
+Register a new user.

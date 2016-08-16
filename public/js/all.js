@@ -23,5 +23,22 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
+  $("button#delete").on("click", function(){
+
+    swal({
+        title: "Kas olete kindel?",
+        text: "Projekti ei saa taastada!",         type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Jah, kustutan!",
+        cancelButtonText: "Ei",
+        closeOnConfirm: false
+      },
+      function(){
+        $("#delete-project").submit();
+      });
+
+  });
+
 });
 //# sourceMappingURL=all.js.map

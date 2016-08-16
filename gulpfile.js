@@ -1,4 +1,5 @@
 var elixir = require('laravel-elixir');
+// var gulp = require('gulp');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,14 +12,23 @@ var elixir = require('laravel-elixir');
  |
  */
 
+// gulp.task("copyfiles", function() {
+//     gulp.src("resources/assets/bg/1.jpg")
+//       .pipe(gulp.dest("public/build/bg"));
+// });
+
 elixir(function(mix) {
     mix.scripts([
         '../bower/jquery/dist/jquery.js',
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.js',
         '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-        'bootstrap-tagsinput.js'
+        '../bower/sweetalert/dist/sweetalert.min.js',
+        'bootstrap-tagsinput.js',
+        'bootbox.min.js'
     ], 'public/js/vendor.js');
+
+
 
     mix.scripts([
         'app.js']

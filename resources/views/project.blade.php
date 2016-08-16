@@ -14,7 +14,7 @@
                     @include('common.errors')
 
                     <!-- New Project Form -->
-                    <form action="{{ url('project')}}" method="POST" class="form-horizontal">
+                    <form action="{{ url('project')}}" method="POST" class="form-horizontal new-project">
                         {{ csrf_field() }}
 
                         <!-- Project Name -->
@@ -40,7 +40,8 @@
 
                         <!-- Project Outcomes -->
                         <div class="form-group">
-                            <label for="project_outcomes" class="col-sm-3 control-label">Projekti väljundid</label>
+                            <label for="project_outcomes" class="col-sm-3 control-label">Projekti väljundid <p>Üks per rida</p></label>
+
 
                             <div class="col-sm-6">
                                 <textarea name="project_outcomes" id="project_outcomes" class="form-control">{{ (empty($current_project) ? old('project_outcomes') : $current_project->project_outcomes) }}</textarea>
@@ -49,7 +50,7 @@
 
                         <!-- Student Outcomes -->
                         <div class="form-group">
-                            <label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid</label>
+                            <label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
                                 <textarea name="student_outcomes" id="student_outcomes" class="form-control">{{ (empty($current_project) ? old('student-outcomes') : $current_project->student_outcomes) }}</textarea>
@@ -59,7 +60,7 @@
 
                         <!-- Related Courses -->
                         <div class="form-group">
-                            <label for="related_courses" class="col-sm-3 control-label">Seotud kursused</label>
+                            <label for="related_courses" class="col-sm-3 control-label">Seotud kursused <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
                                 <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty($current_project) ? old('related_courses') : $current_project->courses) }}</textarea>
@@ -167,7 +168,7 @@
 
                         <!-- Supervisors -->
                         <div class="form-group">
-                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
+                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d) <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
                                 <textarea name="supervisors" id="supervisors" class="form-control">{{ (empty($current_project) ? old('supervisors') : $current_project->supervisor) }}</textarea>
@@ -200,7 +201,7 @@
 
                         <!-- Tags -->
                         <div class="form-group">
-                            <label for="tags" class="col-sm-3 control-label">Märksõnad</label>
+                            <label for="tags" class="col-sm-3 control-label">Märksõnad <p>Eralda komaga</p></label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty($current_project) ? old('tags') : $current_project->tags) }}" data-role="tagsinput" />
@@ -228,13 +229,13 @@
             @if (count($projects) > 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Current Projects
+                        Olemasolevad projektid
                     </div>
 
                     <div class="panel-body">
                         <table class="table table-striped project-table">
                             <thead>
-                                <th>Project</th>
+                                <th>Projekt</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
@@ -253,14 +254,15 @@
                                                     <i class="fa fa-btn fa-pencil"></i>Muuda
                                                 </button>
                                             </form>
-                                            <form action="{{ url('project/'.$project->id) }}" method="POST">
+                                            <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
 
-                                                <button type="submit" class="btn btn-danger pull-right">
-                                                    <i class="fa fa-btn fa-trash"></i>Kustuta
-                                                </button>
+
                                             </form>
+                                            <button type="submit" id="delete" class="btn btn-danger pull-right">
+                                                <i class="fa fa-btn fa-trash"></i>Kustuta
+                                            </button>
 
                                         </td>
                                     </tr>

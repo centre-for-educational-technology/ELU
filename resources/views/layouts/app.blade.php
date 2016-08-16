@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
 
     <style>
@@ -40,22 +41,23 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    IDP Projektid
+                    <i class="fa fa-lightbulb-o"></i> IDP Projektid
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">Projektide nimekiri</a></li>
+                    <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ url('/login') }}">Logi Sisse</a></li>
+                        <li><a href="{{ url('/register') }}">Lisa Konto</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -63,7 +65,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
                             </ul>
                         </li>
                     @endif
@@ -78,7 +80,15 @@
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>--}}
     {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
 
-    <script src="{{ asset('/js/vendor.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+
+    <script src="{{ url(asset('/js/vendor.js')) }}"></script>
     <script src="{{ url(asset('js/all.js')) }}"></script>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">© 2016 Tallinna Ülikooli Haridustehnoloogia Keskus</p>
+        </div>
+    </footer>
 </body>
 </html>

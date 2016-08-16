@@ -7,6 +7,8 @@
 * SSH enabled on server
 
 * Composer
+
+* Node.js (used by Gulp)
   
 * Supports databases
   * MySQL

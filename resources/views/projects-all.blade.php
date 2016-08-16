@@ -87,6 +87,17 @@
                     </div>
                     @endforeach
                 </div>
+
+            @else
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Projekte ei leidnud</h3>
+                </div>
+                <div class="panel-body">
+                    Logi sisse ja lisa projekti!
+                </div>
+            </div>
+
             @endif
 
         </div>

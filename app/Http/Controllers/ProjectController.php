@@ -31,12 +31,13 @@ class ProjectController extends Controller
    */
   public function index()
   {
-    return view('project')
+    return view('project.new')
         ->with('projects', Project::orderBy('created_at', 'asc')->get());
   }
 
   public function store(ProjectRequest $request)
   {
+
 
     $project = new Project;
     $project->name = $request->name;
@@ -52,11 +53,11 @@ class ProjectController extends Controller
     $project->institute = $request->institutes;
 
 
-    $date_start = date_create_from_format('m/d/Y g:i A', $request->project_start);
-    $project->start = date("Y-m-d H:i:s", $date_start->getTimestamp());
+    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+    $project->start = date("Y-m-d", $date_start->getTimestamp());
 
-    $date_end = date_create_from_format('m/d/Y g:i A', $request->project_end);
-    $project->end = date("Y-m-d H:i:s", $date_end->getTimestamp());
+    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+    $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
     $project->supervisor = $request->supervisors;
@@ -69,13 +70,69 @@ class ProjectController extends Controller
 
 
     $project->save();
-//
-//    return view('project-new')
+
+    return view('project.all')
+        ->with('projects', Project::orderBy('created_at', 'asc')->get());
+
+
+//    return \Redirect::to('/')
+//        ->with('message', 'Uus projekt on lisatud!')
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
-//
+
+
+
+
+
+  }
+
+
+
+
+  public function update(ProjectRequest $request, $id)
+  {
+
+
+
+    \Debugbar::info($id);
+
+    $project = Project::find($id);
+    $project->name = $request->name;
+    $project->description = $request->description;
+
+
+    $project->project_outcomes = $request->project_outcomes;
+    $project->student_outcomes = $request->student_outcomes;
+
+    $project->courses = $request->related_courses;
+
+
+    $project->institute = $request->institutes;
+
+
+    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+    $project->start = date("Y-m-d", $date_start->getTimestamp());
+
+    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+    $project->end = date("Y-m-d", $date_end->getTimestamp());
+
+
+    $project->supervisor = $request->supervisors;
+
+
+    $project->status = $request->status;
+
+    $project->tags = $request->tags;
+
+
+
+    $project->save();
+
+//    return view('project')
+//        ->with('projects', Project::orderBy('created_at', 'asc')->get());
+
 
     return \Redirect::to('/')
-        ->with('message', 'Uus projekt on lisatud!')
+        ->with('message', 'Projekt on muudatud')
         ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
 

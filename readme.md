@@ -1,5 +1,7 @@
 # IDP application
 
+Version 0.1.0
+
 ## Requirements
 
 * PHP 7.0 and higher

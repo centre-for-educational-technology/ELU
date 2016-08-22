@@ -35,13 +35,28 @@
                                     <h1>{{ $project->name }}</h1>
                                     <p>{{ $project->description }}</p>
                                     <h3>Projekti väljundid</h3>
-                                    <p>{{ $project->project_outcomes }}</p>
+
+                                    {{--Explode by new line--}}
+                                    @foreach (explode(PHP_EOL, $project->project_outcomes) as $project_outcome)
+                                        <p>{{ $project_outcome }}</p>
+                                    @endforeach
+
+
                                     <h3>Tudengi õpiväljundid</h3>
-                                    <p>{{ $project->student_outcomes }}</p>
+                                    @foreach (explode(PHP_EOL, $project->student_outcomes) as $student_outcome)
+                                        <p>{{ $student_outcome }}</p>
+                                    @endforeach
+
                                     <h3>Seotud kursused</h3>
-                                    <p>{{ $project->courses }}</p>
+                                    @foreach (explode(PHP_EOL, $project->courses) as $course)
+                                        <p>{{ $course }}</p>
+                                    @endforeach
                                     <h3>Kestus</h3>
-                                    <p>{{ $project->start }} – {{ $project->end }}</p>
+
+
+                                    <p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>
+
+
                                     <h3>Instituut</h3>
 
                                     @if ( $project->institute == 0 )
@@ -63,7 +78,13 @@
                                     @endif
 
                                     <h3>Juhendaja(d)</h3>
-                                    <p>{{ $project->supervisor }}</p>
+                                    <h3>
+                                    @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
+                                        <span class="label label-info">{{ $single_supervisor }}</span>
+
+                                    @endforeach
+                                    </h3>
+
                                     <h3>Staatus</h3>
 
                                     @if ( $project->status == 0 )

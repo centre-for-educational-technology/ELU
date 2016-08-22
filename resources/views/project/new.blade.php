@@ -22,7 +22,7 @@
                             <label for="name" class="col-sm-3 control-label">Nimi</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="name" class="form-control" value="{{ (empty($current_project) ? old('name') : $current_project->name) }}">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
                             </div>
                         </div>
 
@@ -33,7 +33,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control">{{ (empty($current_project) ? old('description') : $current_project->description) }}</textarea>
+                                <textarea name="description" id="description" class="form-control">{{  old('description') }}</textarea>
                             </div>
                         </div>
 
@@ -44,7 +44,7 @@
 
 
                             <div class="col-sm-6">
-                                <textarea name="project_outcomes" id="project_outcomes" class="form-control">{{ (empty($current_project) ? old('project_outcomes') : $current_project->project_outcomes) }}</textarea>
+                                <textarea name="project_outcomes" id="project_outcomes" class="form-control">{{  old('project_outcomes') }}</textarea>
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@
                             <label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="student_outcomes" id="student_outcomes" class="form-control">{{ (empty($current_project) ? old('student-outcomes') : $current_project->student_outcomes) }}</textarea>
+                                <textarea name="student_outcomes" id="student_outcomes" class="form-control">{{  old('student-outcomes') }}</textarea>
                             </div>
                         </div>
 
@@ -63,7 +63,7 @@
                             <label for="related_courses" class="col-sm-3 control-label">Seotud kursused <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty($current_project) ? old('related_courses') : $current_project->courses) }}</textarea>
+                                <textarea name="related_courses" id="related_courses" class="form-control">{{  old('related_courses') }}</textarea>
                             </div>
                         </div>
 
@@ -106,55 +106,55 @@
                             <div class="col-sm-6">
                                 <select class="form-control" id="institutes" name="institutes">
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 0 )
+                                    @if ( old('institutes')) == 0 )
                                         <option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
                                     @else
                                         <option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 1)
+                                    @if ( old('institutes')) == 1)
                                         <option value="1" selected>Digitehnoloogiate instituut</option>
                                     @else
                                         <option value="1">Digitehnoloogiate instituut</option>
                                     @endif
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 2)
+                                    @if ( old('institutes')) == 2)
                                         <option value="2" selected>Humanitaarteaduste instituut</option>
                                     @else
                                         <option value="2">Humanitaarteaduste instituut</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 3)
+                                    @if ( old('institutes')) == 3)
                                         <option value="3" selected>Haridusteaduste instituut</option>
                                     @else
                                         <option value="3">Haridusteaduste instituut</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 4)
+                                    @if ( old('institutes')) == 4)
                                         <option value="4" selected>Loodus- ja terviseteaduste instituut</option>
                                     @else
                                         <option value="4">Loodus- ja terviseteaduste instituut</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 5)
+                                    @if ( old('institutes')) == 5)
                                         <option value="5" selected>Rakvere kolledž</option>
                                     @else
                                         <option value="5">Rakvere kolledž</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 6)
+                                    @if ( old('institutes')) == 6)
                                         <option value="6" selected>Haapsalu kolledž</option>
                                     @else
                                         <option value="6">Haapsalu kolledž</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 7)
+                                    @if ( old('institutes')) == 7)
                                         <option value="7" selected>Ühiskonnateaduste instituut</option>
                                     @else
                                         <option value="7">Ühiskonnateaduste instituut</option>
@@ -171,7 +171,7 @@
                             <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d) <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="supervisors" id="supervisors" class="form-control">{{ (empty($current_project) ? old('supervisors') : $current_project->supervisor) }}</textarea>
+                                <textarea name="supervisors" id="supervisors" class="form-control">{{ old('supervisors') }}</textarea>
                             </div>
                         </div>
 
@@ -182,14 +182,14 @@
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="status" name="status">
-                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 0)
+                                    @if ( old('status')) == 0)
                                         <option value="0" selected>Lõppenud</option>
                                     @else
                                         <option value="0">Lõppenud</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 1)
+                                    @if ( old('status')) == 1)
                                         <option value="1" selected>Aktiivne</option>
                                     @else
                                         <option value="1">Aktiivne</option>
@@ -204,7 +204,7 @@
                             <label for="tags" class="col-sm-3 control-label">Märksõnad <p>Eralda komaga</p></label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty($current_project) ? old('tags') : $current_project->tags) }}" data-role="tagsinput" />
+                                <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />
                             </div>
                         </div>
 
@@ -246,14 +246,17 @@
                                         <!-- Project Delete Button -->
                                         <td>
 
-                                            <form action="{{ url('project/'.$project->id) }}" method="GET">
-                                                {{ csrf_field() }}
+                                            <a href="{{ url('project/'.$project->id) }}" class="btn btn-warning pull-left" style="margin-right: 3px;"><i class="fa fa-btn fa-pencil"></i>Muuda</a>
+
+
+                                            {{--<form action="{{ url('project/'.$project->id) }}" method="GET">--}}
+                                                {{--{{ csrf_field() }}--}}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-warning pull-left">
-                                                    <i class="fa fa-btn fa-pencil"></i>Muuda
-                                                </button>
-                                            </form>
+                                                {{--<button type="submit" class="btn btn-warning pull-left">--}}
+                                                    {{----}}
+                                                {{--</button>--}}
+                                            {{--</form>--}}
                                             <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}

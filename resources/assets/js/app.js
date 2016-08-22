@@ -1,4 +1,11 @@
 jQuery(document).ready(function($) {
+  $('#project_start').datetimepicker({
+    format: 'L'
+  });
+
+  $('#project_end').datetimepicker({
+    format: 'L'
+  });
 
   $('#project_start').datetimepicker();
   $('#project_end').datetimepicker({

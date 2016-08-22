@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
-        return view('projects-all', [
+        return view('project.all', [
             'projects' => Project::orderBy('created_at', 'asc')->get()
         ]);
     });
@@ -49,13 +49,25 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/project/{id}', function ($id) {
 
-        return view('/project', [
-            'current_project' => Project::find($id),
-            'projects' => Project::orderBy('created_at', 'asc')->get()
-        ]);
-
+        return view('project.edit')
+            ->with('current_project', Project::find($id))
+            ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
     });
+
+    Route::post('/project/{id}', 'ProjectController@update');
+
+
+//
+//
+//    Route::post('/project/{id}', function ($id) {
+////        Project::findOrFail($id)->put();
+//
+//        return redirect('/')->with('message', 'Projekt on muudatud!');
+//
+//
+//    });
+
 
     Route::delete('/project/{id}', function ($id) {
         Project::findOrFail($id)->delete();

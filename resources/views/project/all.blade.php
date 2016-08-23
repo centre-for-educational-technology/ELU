@@ -4,7 +4,25 @@
 
     <div class="container">
 
+        <div class="col-sm-offset-1 col-sm-10">
 
+            <form action="{{ url('/project/search') }}" method="GET" class="form-horizontal search-project pull-left">
+                {{ csrf_field() }}
+
+
+                <div class="input-group pull-left col-sm-4">
+                    <input type="text" class="form-control" name="search" placeholder="Projekti nimi...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Otsi!</button>
+                  </span>
+                </div><!-- /input-group -->
+
+
+
+            </form>
+
+
+        </div>
 
         <div class="col-sm-offset-1 col-sm-10">
             <div class="page-header">
@@ -108,6 +126,7 @@
                     </div>
                     @endforeach
                 </div>
+                {{ $projects->links() }}
 
             @else
             <div class="panel panel-warning">

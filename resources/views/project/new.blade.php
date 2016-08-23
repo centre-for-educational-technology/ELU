@@ -274,6 +274,7 @@
                         </table>
                     </div>
                 </div>
+                {{ $projects->links() }}
             @endif
         </div>
     </div>

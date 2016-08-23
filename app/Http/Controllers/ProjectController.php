@@ -11,6 +11,8 @@ use App\Http\Requests\ProjectRequest;
 
 use App\Project;
 
+use Illuminate\Support\Facades\Input;
+
 class ProjectController extends Controller
 {
 
@@ -19,10 +21,10 @@ class ProjectController extends Controller
    *
    * @return void
    */
-  public function __construct()
-  {
-    $this->middleware('auth');
-  }
+//  public function __construct()
+//  {
+//    $this->middleware('auth');
+//  }
 
   /**
    * Show the application dashboard.
@@ -31,8 +33,12 @@ class ProjectController extends Controller
    */
   public function index()
   {
+
+    $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+
+
     return view('project.new')
-        ->with('projects', Project::orderBy('created_at', 'asc')->get());
+        ->with('projects', $projects);
   }
 
   public function store(ProjectRequest $request)
@@ -72,7 +78,7 @@ class ProjectController extends Controller
     $project->save();
 
     return view('project.all')
-        ->with('projects', Project::orderBy('created_at', 'asc')->get());
+        ->with('projects', Project::orderBy('created_at', 'asc')->paginate(10));
 
 
 //    return \Redirect::to('/')
@@ -139,5 +145,16 @@ class ProjectController extends Controller
 
 
 
+  }
+
+
+
+  public function search()
+  {
+    $name = Input::get('search');
+    $projects = Project::where('name', 'LIKE', '%'.$name.'%')->get();
+    return view('project.search')
+        ->with('name', $name)
+        ->with('projects', $projects);
   }
 }

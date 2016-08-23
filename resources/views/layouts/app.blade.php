@@ -74,6 +74,14 @@
         </div>
     </nav>
 
+    {{--<form id="custom-search-form" class="form-search form-horizontal pull-right" method="get">--}}
+        {{--<div class="input-append spancustom">--}}
+            {{--<input type="text" class="search-query" name="character" >--}}
+            {{--<button type="submit" class="btn"><i class="icon-search"></i></button>--}}
+        {{--</div>--}}
+    {{--</form>--}}
+
+
     @yield('content')
 
     <!-- JavaScripts -->

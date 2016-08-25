@@ -39,30 +39,9 @@ class ProjectController extends Controller
     $projects = Project::orderBy('created_at', 'desc')->paginate(10);
 
 
-
-
-
-
-    $embed = Embed::make('http://youtu.be/uifYHNyH-jA')->parseUrl();
-
-    if ($embed) {
-      // Set width of the embed.
-      $embed->setAttribute(['width' => 600]);
-
-      // Print html: '<iframe width="600" height="338" src="//www.youtube.com/embed/uifYHNyH-jA" frameborder="0" allowfullscreen></iframe>'.
-      // Height will be set automatically based on provider width/height ratio.
-      // Height could be set explicitly via setAttr() method.
-    }
-
-    $embed_html = $embed->getHtml();
-
-
-    \Debugbar::info($embed_html);
-
-
     return view('project.all')
-        ->with('projects', $projects)
-        ->with('embed', $embed_html);
+        ->with('projects', $projects);
+
   }
 
 
@@ -109,7 +88,7 @@ class ProjectController extends Controller
 
     }
 
-    
+
 
     $project->project_outcomes = $request->project_outcomes;
     $project->student_outcomes = $request->student_outcomes;

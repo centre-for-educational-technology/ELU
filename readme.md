@@ -1,4 +1,4 @@
-# IDP application
+# ELU application
 
 Version 0.1.0
 

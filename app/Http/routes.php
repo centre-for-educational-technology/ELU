@@ -17,11 +17,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
-    Route::get('/', function () {
-        return view('project.all', [
-            'projects' => Project::orderBy('created_at', 'asc')->paginate(10)
-        ]);
-    });
+    Route::get('/', 'ProjectController@index');
 
 
 
@@ -43,7 +39,7 @@ Route::group(['middleware' =>['web']], function () {
 
 
     Route::group(['middleware' =>['auth']], function () {
-        Route::get('/project', 'ProjectController@index');
+        Route::get('/project', 'ProjectController@add');
         Route::get('/home', 'HomeController@index');
 
 
@@ -55,7 +51,7 @@ Route::group(['middleware' =>['web']], function () {
 
             return view('project.edit')
                 ->with('current_project', Project::find($id))
-                ->with('projects', Project::orderBy('created_at', 'asc')->get());
+                ->with('projects', Project::orderBy('created_at', 'desc')->get());
 
         });
 

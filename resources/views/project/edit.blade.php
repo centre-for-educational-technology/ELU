@@ -38,6 +38,15 @@
                             </div>
                         </div>
 
+                        <!-- Project Embedded media -->
+                        <div class="form-group">
+                            <label for="description" class="col-sm-3 control-label">Embed-sisu url</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty($current_project) ? old('embedded') : $current_project->embedded) }}">
+                            </div>
+                        </div>
+
 
                         <!-- Project Outcomes -->
                         <div class="form-group">
@@ -54,7 +63,7 @@
                             <label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid <p>Üks per rida</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="student_outcomes" id="student_outcomes" class="form-control">{{ (empty($current_project) ? old('student-outcomes') : $current_project->student_outcomes) }}</textarea>
+                                <textarea name="student_outcomes" id="student_outcomes" class="form-control">{{ (empty($current_project) ? old('student_outcomes') : $current_project->student_outcomes) }}</textarea>
                             </div>
                         </div>
 

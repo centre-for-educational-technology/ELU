@@ -26,7 +26,7 @@
 
         <div class="col-sm-offset-1 col-sm-10">
             <div class="page-header">
-                <h1>IDP Projektide nimekiri <small>Vajuta pealkirjal</small></h1>
+                <h1>ELU Projektide nimekiri <small>Vajuta pealkirjal</small></h1>
             </div>
 
 
@@ -51,7 +51,8 @@
                             <div class="panel-body">
                                 <div class="jumbotron" id="project-view">
                                     <h1>{{ $project->name }}</h1>
-                                    <p>{{ $project->description }}</p>
+                                    <p>{{ $project->desciption }}</p>
+                                    <p>{!! $project->embedded !!}</p>
                                     <h3>Projekti väljundid</h3>
 
                                     {{--Explode by new line--}}
@@ -98,7 +99,7 @@
                                     <h3>Juhendaja(d)</h3>
                                     <h3>
                                     @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
-                                        <span class="label label-info">{{ $single_supervisor }}</span>
+                                        <span class="label label-success">{{ $single_supervisor }}</span>
 
                                     @endforeach
                                     </h3>

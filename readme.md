@@ -29,10 +29,18 @@ Run `composer install` command in the root folder of the project.
 
 ### 3. Import the database scheme
 
-Run `artisan migrate` to create database tables
+Run `php artisan migrate` to create database tables
+
+Run `php artisan db:seed` to populate pages content
 
 ### 4. Make sure `.htaccess` file in `public` directory and server config files are configured correctly
 
 ## Post-installation procedures
 
 Register a new user.
+
+## Special cases 
+
+### Recreate database structure (NB! THIS WILL ERASE EXISTING DATA)
+
+Run `php artisan migrate:refresh --seed` to re-create the entire database

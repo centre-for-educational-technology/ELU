@@ -4,7 +4,8 @@
 
     <div class="container">
 
-        <div class="col-sm-offset-1 col-sm-10">
+        {{--Search form--}}
+        <div class="col-md-12">
 
             <form action="{{ url('/project/search') }}" method="GET" class="form-horizontal search-project pull-left">
                 {{ csrf_field() }}
@@ -24,7 +25,7 @@
 
         </div>
 
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-md-12">
             <div class="page-header">
                 <h1>ELU Projektide nimekiri <small>Vajuta pealkirjal</small></h1>
             </div>
@@ -97,7 +98,7 @@
                                     @endif
 
                                     <h3>Juhendaja(d)</h3>
-                                    <h3>
+                                    <h3 class="tag-label">
                                     @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
                                         <span class="label label-success">{{ $single_supervisor }}</span>
 
@@ -114,7 +115,7 @@
 
                                     <h3>Märksõnad</h3>
 
-                                    <h3>
+                                    <h3 class="tag-label">
                                     @foreach (explode(',', $project->tags) as $tag)
                                         <span class="label pull-left label-info">{{ $tag }}</span>
 

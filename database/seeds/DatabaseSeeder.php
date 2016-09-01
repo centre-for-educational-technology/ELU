@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call('PagesTableSeeder');
+        $this->command->info('Pages table seeded.');
+
+
+        $this->call('MakeAdminSeeder');
+        $this->command->info('User with id 1 is assigned to admin role.');
+
     }
 }

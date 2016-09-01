@@ -13,11 +13,29 @@
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Page;
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
-    Route::get('/', 'ProjectController@index');
+
+
+    Route::get('/', function () {
+        return view('welcome', [
+            'projects' => Project::orderBy('created_at', 'desc')->take(5)->get(),
+            'news' => Page::where('permalink', 'LIKE', '%news%')->first(),
+            'faq' => Page::where('permalink', 'LIKE', '%faq%')->first(),
+            'info' => Page::where('permalink', 'LIKE', '%info%')->first()]);
+    });
+
+    Route::get('/faq', function () {
+        return view('page.faq', [
+            'faq' => Page::where('permalink', 'LIKE', '%faq%')->first()]);
+    });
+
+
+    Route::get('/projects-all', 'ProjectController@index');
+
 
 
 
@@ -74,6 +92,14 @@ Route::group(['middleware' =>['web']], function () {
 
             return redirect('/')->with('message', 'Projekt on kustutanud!');
         });
+
+
+
+
+        Route::get('/pages', 'PageController@index');
+
+
+        Route::post('/pages', 'PageController@store');
     });
 
 

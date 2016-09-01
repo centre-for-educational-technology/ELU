@@ -2,12 +2,34 @@
 @import (less) "bootstrap-datetimepicker.css";
 @import (less) "bootstrap-tagsinput.css";
 
+@tlu_red: #b71234;
+
 body{
-  background: #FF5F6D; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #FF5F6D , #FFC371); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #FF5F6D , #FFC371); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background: #ECE9E6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #ECE9E6 , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
+
+}
+
+h1, h2, h3:not(.tag-label), .navbar-nav.menu {
+  font-style: italic;
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+  letter-spacing: -.1em;
+}
+
+
+.panel.with-nav-tabs .panel-heading{
+  padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs{
+  border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+  margin-bottom: -1px;
 }
 
 #project-view .label{
@@ -36,4 +58,45 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+
+
+
+.bs-callout {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+}
+
+
+.bs-callout-info {
+  border-left-color: @tlu_red;
+}
+
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.bs-callout-info h4 {
+  color: @tlu_red;
+}
+
+.latest-projects-list-button{
+  height:55px;
+}
+
+.pages-edit textarea {
+  height: 300px;
+}
+
+.panel-default > .panel-heading {
+  color: @tlu_red;
+}
+
+.search{
+  margin-bottom: 20px;
 }

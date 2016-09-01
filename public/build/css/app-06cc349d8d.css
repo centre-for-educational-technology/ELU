@@ -7064,11 +7064,29 @@ button.close {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 body {
-  background: #FF5F6D;
+  background: #ECE9E6;
   /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #FF5F6D, #FFC371);
+  background: linear-gradient(to left, #ECE9E6, #FFFFFF);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+h1,
+h2,
+h3:not(.tag-label),
+.navbar-nav.menu {
+  font-style: italic;
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+  letter-spacing: -0.1em;
+}
+.panel.with-nav-tabs .panel-heading {
+  padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs {
+  border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified {
+  margin-bottom: -1px;
 }
 #project-view .label {
   margin-right: 5px;
@@ -7092,6 +7110,36 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+.bs-callout {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+}
+.bs-callout-info {
+  border-left-color: #b71234;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout-info h4 {
+  color: #b71234;
+}
+.latest-projects-list-button {
+  height: 55px;
+}
+.pages-edit textarea {
+  height: 300px;
+}
+.panel-default > .panel-heading {
+  color: #b71234;
+}
+.search {
+  margin-bottom: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

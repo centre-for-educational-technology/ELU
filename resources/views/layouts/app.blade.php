@@ -47,8 +47,9 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Projektide nimekiri</a></li>
+                <ul class="nav navbar-nav menu">
+                    <li><a href="{{ url('/projects-all') }}">Projektide nimekiri</a></li>
+                    <li><a href="{{ url('/faq') }}">KKK</a></li>
                     <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
                 </ul>
 
@@ -61,10 +62,17 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->name }}
+                                @if (Auth::user()->role == 2)
+                                    <span class="badge">admin</span>
+                                @endif
+                                <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                @if (Auth::user()->role == 2)
+                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
+                                @endif
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
                             </ul>
                         </li>

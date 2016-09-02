@@ -100,7 +100,7 @@
             <div class="col-md-6">
                 <div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin"> <h3>Viimane Uudis</h3> <p>{!! nl2br($news->body) !!}</p> </div>
             </div>
-            <div class="col-md-6 pull-right">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3>KKK</h3></div>
 
@@ -111,8 +111,12 @@
             </div>
             <div class="col-md-12">
                 <div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin"> <h3>Üldinfo</h3> <p>{!! nl2br($info->body) !!}</p> </div>
+
             </div>
+
+
         </div>
+
 
     </div>
 @endsection

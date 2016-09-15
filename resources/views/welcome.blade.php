@@ -54,22 +54,10 @@
 
                                         <h4 class="list-group-item-heading">{{ $project->name }}</h4>
 
-                                        @if ( $project->institute == 0 )
-                                            <p class="list-group-item-text">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>
-                                        @elseif ( $project->institute == 1 )
-                                            <p class="list-group-item-text">Digitehnoloogiate instituut</p>
-                                        @elseif ( $project->institute == 2 )
-                                            <p class="list-group-item-text">Humanitaarteaduste instituut</p>
-                                        @elseif ( $project->institute == 3 )
-                                            <p class="list-group-item-text">Haridusteaduste instituut</p>
-                                        @elseif ( $project->institute == 4 )
-                                            <p class="list-group-item-text">Loodus- ja terviseteaduste instituut</p>
-                                        @elseif ( $project->institute == 5 )
-                                            <p class="list-group-item-text">Rakvere kolledž</p>
-                                        @elseif ( $project->institute == 6 )
-                                            <p class="list-group-item-text">Haapsalu kolledž</p>
-                                        @elseif ( $project->institute == 7 )
-                                            <p class="list-group-item-text">Ühiskonnateaduste instituut</p>
+                                        @if ( $project->status == 0 )
+                                            <p class="list-group-item-text">Lõppenud</p>
+                                        @elseif ( $project->status == 1 )
+                                            <p class="list-group-item-text">Aktiivne</p>
                                         @endif
 
                                     </td>

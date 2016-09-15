@@ -7089,7 +7089,7 @@ h3:not(.tag-label),
   margin-bottom: -1px;
 }
 #project-view .label {
-  margin-right: 5px;
+  line-height: 40px;
 }
 .new-project label p {
   font-size: 10px;

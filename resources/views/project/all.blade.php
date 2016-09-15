@@ -114,8 +114,9 @@
                                         {{--@endif--}}
 
                                         <h3>Juhendaja(d)</h3>
+
                                         <h3 class="tag-label">
-                                        @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
+                                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_supervisor)
                                             <span class="label label-warning">{{ $single_supervisor }}</span>
 
                                         @endforeach

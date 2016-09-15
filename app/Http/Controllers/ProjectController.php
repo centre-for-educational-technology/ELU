@@ -65,10 +65,6 @@ class ProjectController extends Controller
     $project->description = $request->description;
 
 
-
-
-
-
     if($request->embedded != null){
 
       $embed = Embed::make($request->embedded)->parseUrl();
@@ -77,9 +73,6 @@ class ProjectController extends Controller
         // Set width of the embed.
         $embed->setAttribute(['width' => 600]);
 
-        // Print html: '<iframe width="600" height="338" src="//www.youtube.com/embed/uifYHNyH-jA" frameborder="0" allowfullscreen></iframe>'.
-        // Height will be set automatically based on provider width/height ratio.
-        // Height could be set explicitly via setAttr() method.
       }
 
       $embed_html = $embed->getHtml();
@@ -89,21 +82,25 @@ class ProjectController extends Controller
     }
 
 
+    $project->integrated_areas = $request->integrated_areas;
 
-    $project->project_outcomes = $request->project_outcomes;
-    $project->student_outcomes = $request->student_outcomes;
-
-    $project->courses = $request->related_courses;
+    $project->study_term = $request->study_term;
 
 
-    $project->institute = $request->institutes;
+//    $project->project_outcomes = $request->project_outcomes;
+//    $project->student_outcomes = $request->student_outcomes;
+//
+//    $project->courses = $request->related_courses;
+//
+//
+//    $project->institute = $request->institutes;
 
 
-    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-    $project->start = date("Y-m-d", $date_start->getTimestamp());
-
-    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-    $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//    $project->start = date("Y-m-d", $date_start->getTimestamp());
+//
+//    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//    $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
     $project->supervisor = $request->supervisors;
@@ -112,6 +109,8 @@ class ProjectController extends Controller
     $project->status = $request->status;
 
     $project->tags = $request->tags;
+
+    $project->join_link = $request->join_link;
 
 
 
@@ -146,20 +145,43 @@ class ProjectController extends Controller
     $project->description = $request->description;
 
 
-    $project->project_outcomes = $request->project_outcomes;
-    $project->student_outcomes = $request->student_outcomes;
-
-    $project->courses = $request->related_courses;
 
 
-    $project->institute = $request->institutes;
+    if($request->embedded != null){
+
+      $embed = Embed::make($request->embedded)->parseUrl();
+
+      if ($embed) {
+        // Set width of the embed.
+        $embed->setAttribute(['width' => 600]);
+
+      }
+
+      $embed_html = $embed->getHtml();
+
+      $project->embedded = $embed_html;
+
+    }
+
+    $project->integrated_areas = $request->integrated_areas;
+
+    $project->study_term = $request->study_term;
 
 
-    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-    $project->start = date("Y-m-d", $date_start->getTimestamp());
-
-    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-    $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    $project->project_outcomes = $request->project_outcomes;
+//    $project->student_outcomes = $request->student_outcomes;
+//
+//    $project->courses = $request->related_courses;
+//
+//
+//    $project->institute = $request->institutes;
+//
+//
+//    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//    $project->start = date("Y-m-d", $date_start->getTimestamp());
+//
+//    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//    $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
     $project->supervisor = $request->supervisors;
@@ -169,6 +191,8 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
+    $project->join_link = $request->join_link;
+
 
 
     $project->save();
@@ -177,8 +201,8 @@ class ProjectController extends Controller
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
 
-    return \Redirect::to('/')
-        ->with('message', 'Projekt on muudatud')
+    return \Redirect::to('projects-all')
+        ->with('message', 'Projekt '.$project->name.' on muudatud')
         ->with('projects', Project::orderBy('created_at', 'desc')->get());
 
 

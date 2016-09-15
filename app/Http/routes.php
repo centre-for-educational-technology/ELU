@@ -67,8 +67,15 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('/project/{id}', function ($id) {
 
+            $project = Project::find($id);
+
+            preg_match('/src="([^"]+)"/', $project->embedded, $match);
+
+            $project->embedded = $match[1];
+
+
             return view('project.edit')
-                ->with('current_project', Project::find($id))
+                ->with('current_project', $project)
                 ->with('projects', Project::orderBy('created_at', 'desc')->get());
 
         });

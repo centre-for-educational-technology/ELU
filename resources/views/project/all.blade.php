@@ -54,55 +54,69 @@
                                 <div class="jumbotron" id="project-view">
                                     <div class="container-fluid">
                                         <h1>{{ $project->name }}</h1>
-                                        <p>{{ $project->desciption }}</p>
                                         <p>{!! $project->embedded !!}</p>
-                                        <h3>Projekti väljundid</h3>
+                                        <p><strong>{{ $project->description }}</strong></p>
+
+                                        {{--<h3>Projekti väljundid</h3>--}}
 
                                         {{--Explode by new line--}}
-                                        @foreach (explode(PHP_EOL, $project->project_outcomes) as $project_outcome)
-                                            <p>{{ $project_outcome }}</p>
+                                        {{--@foreach (explode(PHP_EOL, $project->project_outcomes) as $project_outcome)--}}
+                                            {{--<p>{{ $project_outcome }}</p>--}}
+                                        {{--@endforeach--}}
+
+                                        <h3>Lõimitud valdkonnad</h3>
+                                        @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
+                                        <p>{{ $integrated_area }}</p>
                                         @endforeach
 
+                                        <h3>Projekti kestus</h3>
 
-                                        <h3>Tudengi õpiväljundid</h3>
-                                        @foreach (explode(PHP_EOL, $project->student_outcomes) as $student_outcome)
-                                            <p>{{ $student_outcome }}</p>
-                                        @endforeach
-
-                                        <h3>Seotud kursused</h3>
-                                        @foreach (explode(PHP_EOL, $project->courses) as $course)
-                                            <p>{{ $course }}</p>
-                                        @endforeach
-                                        <h3>Kestus</h3>
-
-
-                                        <p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>
-
-
-                                        <h3>Instituut</h3>
-
-                                        @if ( $project->institute == 0 )
-                                            <p>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>
-                                        @elseif ( $project->institute == 1 )
-                                            <p>Digitehnoloogiate instituut</p>
-                                        @elseif ( $project->institute == 2 )
-                                            <p>Humanitaarteaduste instituut</p>
-                                        @elseif ( $project->institute == 3 )
-                                            <p>Haridusteaduste instituut</p>
-                                        @elseif ( $project->institute == 4 )
-                                            <p>Loodus- ja terviseteaduste instituut</p>
-                                        @elseif ( $project->institute == 5 )
-                                            <p>Rakvere kolledž</p>
-                                        @elseif ( $project->institute == 6 )
-                                            <p>Haapsalu kolledž</p>
-                                        @elseif ( $project->institute == 7 )
-                                            <p>Ühiskonnateaduste instituut</p>
+                                        @if ( $project->study_term == 0 )
+                                            <p>Sügissemester</p>
+                                        @elseif ( $project->study_term == 1 )
+                                            <p>Kevadsemester</p>
                                         @endif
+
+
+                                        {{--<h3>Tudengi õpiväljundid</h3>--}}
+                                        {{--@foreach (explode(PHP_EOL, $project->student_outcomes) as $student_outcome)--}}
+                                            {{--<p>{{ $student_outcome }}</p>--}}
+                                        {{--@endforeach--}}
+
+                                        {{--<h3>Seotud kursused</h3>--}}
+                                        {{--@foreach (explode(PHP_EOL, $project->courses) as $course)--}}
+                                            {{--<p>{{ $course }}</p>--}}
+                                        {{--@endforeach--}}
+                                        {{--<h3>Kestus</h3>--}}
+
+
+                                        {{--<p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>--}}
+
+
+                                        {{--<h3>Instituut</h3>--}}
+
+                                        {{--@if ( $project->institute == 0 )--}}
+                                            {{--<p>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>--}}
+                                        {{--@elseif ( $project->institute == 1 )--}}
+                                            {{--<p>Digitehnoloogiate instituut</p>--}}
+                                        {{--@elseif ( $project->institute == 2 )--}}
+                                            {{--<p>Humanitaarteaduste instituut</p>--}}
+                                        {{--@elseif ( $project->institute == 3 )--}}
+                                            {{--<p>Haridusteaduste instituut</p>--}}
+                                        {{--@elseif ( $project->institute == 4 )--}}
+                                            {{--<p>Loodus- ja terviseteaduste instituut</p>--}}
+                                        {{--@elseif ( $project->institute == 5 )--}}
+                                            {{--<p>Rakvere kolledž</p>--}}
+                                        {{--@elseif ( $project->institute == 6 )--}}
+                                            {{--<p>Haapsalu kolledž</p>--}}
+                                        {{--@elseif ( $project->institute == 7 )--}}
+                                            {{--<p>Ühiskonnateaduste instituut</p>--}}
+                                        {{--@endif--}}
 
                                         <h3>Juhendaja(d)</h3>
                                         <h3 class="tag-label">
                                         @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
-                                            <span class="label label-success">{{ $single_supervisor }}</span>
+                                            <span class="label label-warning">{{ $single_supervisor }}</span>
 
                                         @endforeach
                                         </h3>
@@ -119,10 +133,13 @@
 
                                         <h3 class="tag-label">
                                         @foreach (explode(',', $project->tags) as $tag)
-                                            <span class="label pull-left label-info">{{ $tag }}</span>
+                                            <span class="label label-info">{{ $tag }}</span>
 
                                         @endforeach
                                         </h3>
+
+                                        <h3>Projektiga liitumine</h3>
+                                        <a href="{!! $project->join_link !!}" class="btn btn-lg btn-success" role="button"><i class="fa fa-btn fa-rocket"></i>Liitun</a>
                                     </div>
                                 </div>
 

@@ -25,7 +25,7 @@ class ProjectRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'description' => 'required|max:3000',
+            'description' => 'required|max:9000',
             'integrated_areas' => 'required|max:3000',
             'embedded' => 'active_url',
 //            'project_outcomes' => 'required|max:3000',

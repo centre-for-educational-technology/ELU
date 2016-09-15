@@ -140,7 +140,11 @@
                                         </h3>
 
                                         <h3>Projektiga liitumine</h3>
-                                        <a href="{!! $project->join_link !!}" class="btn btn-lg btn-success" role="button"><i class="fa fa-btn fa-rocket"></i>Liitun</a>
+                                        @if ($project->join_link != null)
+                                            <a href="{!! $project->join_link !!}" class="btn btn-lg btn-success" role="button"><i class="fa fa-btn fa-rocket"></i>Liitun</a>
+                                        @else
+                                            <p>Varsti tuleb!</p>
+                                        @endif
                                     </div>
                                 </div>
 

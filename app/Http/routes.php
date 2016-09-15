@@ -69,9 +69,13 @@ Route::group(['middleware' =>['web']], function () {
 
             $project = Project::find($id);
 
-            preg_match('/src="([^"]+)"/', $project->embedded, $match);
+            if($project->embedded != null){
+                preg_match('/src="([^"]+)"/', $project->embedded, $match);
 
-            $project->embedded = $match[1];
+                $project->embedded = $match[1];
+            }
+
+
 
 
             return view('project.edit')

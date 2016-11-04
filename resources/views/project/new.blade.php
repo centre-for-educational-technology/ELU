@@ -288,6 +288,7 @@
                             <thead>
                                 <th>Projekt</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                             </thead>
                             <tbody>
                                 @foreach ($projects as $project)

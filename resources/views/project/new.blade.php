@@ -296,9 +296,7 @@
 
                                         <!-- Project Delete Button -->
                                         <td>
-
                                             <a href="{{ url('project/'.$project->id) }}" class="btn btn-warning pull-left" style="margin-right: 3px;"><i class="fa fa-btn fa-pencil"></i>Muuda</a>
-
 
                                             {{--<form action="{{ url('project/'.$project->id) }}" method="GET">--}}
                                                 {{--{{ csrf_field() }}--}}
@@ -308,10 +306,11 @@
                                                     {{----}}
                                                 {{--</button>--}}
                                             {{--</form>--}}
+                                        </td>
+                                        <td>
                                             <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
-
 
                                             </form>
                                             <button type="submit" id="delete" class="btn btn-danger pull-right">

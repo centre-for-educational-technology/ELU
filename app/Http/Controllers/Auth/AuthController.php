@@ -65,14 +65,14 @@ class AuthController extends Controller
     {
         if(User::all()->count()==0){
             return User::create([
-                'role_id' => 2,
+                'role' => 2,
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
             ]);
         }else{
             return User::create([
-                'role_id' => 0,
+                'role' => 0,
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),

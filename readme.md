@@ -11,11 +11,11 @@ Version 0.1.1
 * Composer
   
 * Supports databases
-  * MySQL
+  * MySQL (Tested on MySQL 5.5)
   * Postgres
   * SQLite
   * SQL Server
-  (Tested on MySQL 5.5)
+  
   
 ## Installation 
 

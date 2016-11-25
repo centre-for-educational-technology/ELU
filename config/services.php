@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'simplesamlphp' => [
+        'basePath' => '/Applications/MAMP/htdocs/simplesaml/',
+    ],
+
 ];

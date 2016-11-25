@@ -15,8 +15,16 @@ use App\Project;
 use Illuminate\Http\Request;
 use App\Page;
 
+
+Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+
+
+
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
+
+
+
 
 
 

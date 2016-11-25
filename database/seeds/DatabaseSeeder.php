@@ -18,5 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call('MakeAdminSeeder');
         $this->command->info('User with id 1 is assigned to admin role.');
 
+        $this->call('CoursesTableSeeder');
+        $this->command->info('Courses table seeded.');
+
+
+        $this->call('RolesTableSeeder');
+        $this->command->info('Roles table seeded.');
     }
 }

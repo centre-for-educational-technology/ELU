@@ -8,6 +8,13 @@
 
         <div class="col-sm-offset-2 col-sm-8">
 
+
+            @if(\Session::has('message'))
+                <div class="alert alert-info">
+                    {{\Session::get('message')}}
+                </div>
+            @endif
+
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
                     <h3><i class="fa fa-btn fa-users"></i>Kasutajate rollid</h3>
@@ -44,14 +51,30 @@
                                 <!-- Assign admin Button -->
                                     <td>
 
-                                        <form action="{{ url('admin/edit/'.$user->id) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{--{{ method_field('PATCH') }}--}}
+                                        @if ($user->is('admin'))
 
-                                            <button type="submit" class="btn btn-warning pull-left">
-                                                <i class="fa fa-btn fa-user"></i>Lisa adminisse
-                                            </button>
-                                        </form>
+                                            <form action="{{ url('admin/edit/'.$user->id).'/remove' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-danger pull-left">
+                                                    <i class="fa fa-btn fa-user"></i>Kustuta admini
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ url('admin/edit/'.$user->id).'/add' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-warning pull-left">
+                                                    <i class="fa fa-btn fa-user"></i>Lisa adminisse
+                                                </button>
+                                            </form>
+
+
+                                        @endif
+
+
 
                                     </td>
 

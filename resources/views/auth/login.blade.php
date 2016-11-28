@@ -8,7 +8,7 @@
                 <div class="panel-heading">Login TLÜ kontoga</div>
                 <div class="panel-body text-center">
                     <div class="btn-group">
-                        <a class="btn btn-lg btn-success" href="{{ url('/login/tlu') }}">Logi sisse TLÜ kontoga</a>
+                        <a class="btn btn-lg btn-success" href="{{ url('/login/tlu') }}"><i class="fa fa-btn fa-university"></i>Logi sisse TLÜ kontoga</a>
 
                     </div>
 
@@ -63,11 +63,21 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
+
+                                <div class="btn-group">
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-btn fa-sign-in"></i>Logi sisse
+                                    </button>
+                                    <a class="btn btn-success" href="{{ url('/register') }}"><i class="fa fa-btn fa-user"></i>Registreeru</a>
+
+                                </div>
 
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+
+
+
+
                             </div>
                         </div>
                     </form>

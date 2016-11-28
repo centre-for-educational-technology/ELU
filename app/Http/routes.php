@@ -23,7 +23,7 @@ use App\Page;
 Route::group(['middleware' => ['web']], function () {
 
 
-  Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+    Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
 
 
     Route::auth();
@@ -130,7 +130,9 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('/admin/edit', 'AdminController@index');
 
-        Route::post('/admin/edit/{id}', 'AdminController@update');
+        Route::post('/admin/edit/{id}/add', 'AdminController@update');
+
+        Route::post('/admin/edit/{id}/remove', 'AdminController@remove');
 
     });
 

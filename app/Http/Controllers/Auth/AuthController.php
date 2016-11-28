@@ -64,20 +64,24 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         if(User::all()->count()==0){
-            return User::create([
-                'role' => 2,
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-            ]);
+          $new_user = User::create([
+              'name' => $data['name'],
+              'email' => $data['email'],
+              'password' => bcrypt($data['password']),
+          ]);
+          //Admin
+          $new_user->roles()->attach(3);
         }else{
-            return User::create([
-                'role' => 0,
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-            ]);
+          $new_user = User::create([
+              'name' => $data['name'],
+              'email' => $data['email'],
+              'password' => bcrypt($data['password']),
+          ]);
+
+          $new_user->roles()->attach(2);
         }
+
+        return $new_user;
 
     }
 }

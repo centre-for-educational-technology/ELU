@@ -16,11 +16,16 @@ use Illuminate\Http\Request;
 use App\Page;
 
 
-Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+
 
 
 
 Route::group(['middleware' => ['web']], function () {
+
+
+  Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+
+
     Route::auth();
 
 
@@ -119,6 +124,14 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::post('/pages', 'PageController@store');
+
+
+
+
+        Route::get('/admin/edit', 'AdminController@index');
+
+        Route::post('/admin/edit/{id}', 'AdminController@update');
+
     });
 
 

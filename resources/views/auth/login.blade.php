@@ -3,7 +3,20 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login TLÜ kontoga</div>
+                <div class="panel-body text-center">
+                    <div class="btn-group">
+                        <a class="btn btn-lg btn-success" href="{{ url('/login/tlu') }}">Logi sisse TLÜ kontoga</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">

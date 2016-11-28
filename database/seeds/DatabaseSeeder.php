@@ -24,5 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call('RolesTableSeeder');
         $this->command->info('Roles table seeded.');
+
+        $this->call('DeleteRoleColumnInUserSeeder');
+        $this->command->info('Role column deleted from User table.');
     }
 }

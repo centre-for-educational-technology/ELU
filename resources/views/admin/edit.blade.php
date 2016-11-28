@@ -7,59 +7,61 @@
 
 
         <div class="col-sm-offset-2 col-sm-8">
-            <h3><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</h3>
+
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1info" data-toggle="tab">Esilehe Uudis</a></li>
-                        <li><a href="#tab2info" data-toggle="tab">KKK</a></li>
-                        <li><a href="#tab3info" data-toggle="tab">Üldinfo</a></li>
-                        {{--<li class="dropdown">--}}
-                        {{--<a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>--}}
-                        {{--<ul class="dropdown-menu" role="menu">--}}
-                        {{--<li><a href="#tab4info" data-toggle="tab">Info 4</a></li>--}}
-                        {{--<li><a href="#tab5info" data-toggle="tab">Info 5</a></li>--}}
-                        {{--</ul>--}}
-                        {{--</li>--}}
-                    </ul>
+                    <h3><i class="fa fa-btn fa-users"></i>Kasutajate rollid</h3>
+
                 </div>
-                <div class="panel-body pages-edit">
-                    <form action="{{ url('/pages')}}" method="POST" class="form-horizontal new-project">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="tab1info">
-                                    <div class="col-sm-12">
-                                        <textarea name="news" id="news" class="form-control">{{ (empty($news) ? old('news') : $news) }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab2info">
-                                    <div class="col-sm-12">
-                                        <textarea name="faq" id="faq" class="form-control">{{ (empty($faq) ? old('faq') : $faq) }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab3info">
-                                    <div class="col-sm-12">
-                                        <textarea name="info" id="info" class="form-control">{{ (empty($info) ? old('info') : $info) }}</textarea>
-                                    </div>
-                                </div>
-                                {{--<div class="tab-pane fade" id="tab4info">Info 4</div>--}}
-                                {{--<div class="tab-pane fade" id="tab5info">Info 5</div>--}}
-                            </div>
-                        </div>
+                <div class="panel-body">
 
 
-                        <!-- Add Project Button -->
 
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <button type="submit" class="btn btn-default pull-left">
-                                    <i class="fa fa-btn fa-pencil"></i>Muudan
-                                </button>
-                            </div>
-                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                            <th>Nimi</th>
+                            <th>E-post</th>
+                            <th>Roll</th>
+                            <th>&nbsp;</th>
 
-                    </form>
+                            </thead>
+                            <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td class="table-text"><div>{{ $user->name }}</div></td>
+                                    <td class="table-text"><div>{{ $user->email }}</div></td>
+
+                                    @if ($user->roles != null)
+
+                                        <td class="table-text">
+                                            @foreach ($user->roles as $role)
+
+                                                <span class="label label-info">{{ $role->name }}</span>
+                                            @endforeach
+                                        </td>
+                                    @endif
+
+                                <!-- Assign admin Button -->
+                                    <td>
+
+                                        <form action="{{ url('admin/edit/'.$user->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{--{{ method_field('PATCH') }}--}}
+
+                                            <button type="submit" class="btn btn-warning pull-left">
+                                                <i class="fa fa-btn fa-user"></i>Lisa adminisse
+                                            </button>
+                                        </form>
+
+                                    </td>
+
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+
                 </div>
             </div>
         </div>

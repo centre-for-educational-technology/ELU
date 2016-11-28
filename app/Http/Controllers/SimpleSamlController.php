@@ -93,7 +93,7 @@ class SimpleSamlController extends Controller
     }
 
 
-    return view('home');
+    return redirect('/');
 
   }
 

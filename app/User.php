@@ -33,6 +33,10 @@ class User extends Authenticatable
     return $this->belongsToMany('App\Course')->withPivot('degree');
   }
 
+  public function projects(){
+    return $this->belongsToMany('App\Project');
+  }
+
 
   public function is($roleName)
   {

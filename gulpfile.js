@@ -19,13 +19,14 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.scripts([
-        '../bower/jquery/dist/jquery.js',
+        '../bower/jquery/dist/jquery.min.js',
         '../bower/moment/min/moment.min.js',
-        '../bower/bootstrap/dist/js/bootstrap.js',
+        '../bower/bootstrap/dist/js/bootstrap.min.js',
         '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
         '../bower/sweetalert/dist/sweetalert.min.js',
         'bootstrap-tagsinput.js',
-        'bootbox.min.js'
+        'bootbox.min.js',
+        '../bower/select2/dist/js/select2.full.min.js',
     ], 'public/js/vendor.js');
 
 

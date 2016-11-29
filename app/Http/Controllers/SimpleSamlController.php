@@ -42,7 +42,7 @@ class SimpleSamlController extends Controller
         //Create new account
         $new_user = new User;
         $new_user->name = $attrs['uid'][0];
-        $new_user->full_name = $attrs['givenName'][0];
+        $new_user->full_name = $attrs['cn'][0];
         $new_user->email = $attrs['mail'][0];
         $new_user->password = Hash::make('');
 
@@ -71,7 +71,7 @@ class SimpleSamlController extends Controller
       }else{
 
         //Update account
-        $user->full_name = $attrs['givenName'][0];
+        $user->full_name = $attrs['cn'][0];
         $user->save();
 
         $course_and_degree = $this->getCourseAndDegree($attrs);
@@ -81,8 +81,6 @@ class SimpleSamlController extends Controller
         //Set user course and degree
         $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
 
-
-        \Debugbar::info($user->name);
 
 
         auth()->login($user, true);

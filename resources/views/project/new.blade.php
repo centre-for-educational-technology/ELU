@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+
+
         <div class="col-sm-offset-2 col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -28,7 +30,7 @@
 
                         <!-- Project Embedded media -->
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">Embed-sisu url <p>Nt. https://youtu.be/...</p></label>
+                            <label for="description" class="col-sm-3 control-label">Tutvustava video link (YouTube) <p>Nt. https://youtu.be/...</p></label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{  old('embedded') }}">
@@ -100,120 +102,139 @@
                         {{--</div>--}}
 
 
-                        {{--<!-- Related Courses -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="related_courses" class="col-sm-3 control-label">Seotud kursused <p>Üks per rida</p></label>--}}
+                        <!-- Related Courses -->
+                        <div class="form-group">
+                            <label for="related_courses" class="col-sm-3 control-label">Seotud kursused <p>Üks per rida</p></label>
 
-                            {{--<div class="col-sm-6">--}}
-                                {{--<textarea name="related_courses" id="related_courses" class="form-control">{{  old('related_courses') }}</textarea>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        {{--<!-- Project start -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="project_start" class="col-sm-3 control-label">Algus</label>--}}
-                            {{--<div class='col-sm-6'>--}}
-                                {{--<div class='input-group date' id='project_start'>--}}
-
-                                    {{--<input type='text' class="form-control" name="project_start" id="project_start" value="{{ old('project_start') }}"/>--}}
-                                    {{--<span class="input-group-addon">--}}
-                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                                    {{--</span>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                            <div class="col-sm-6">
+                                <textarea name="related_courses" id="related_courses" class="form-control">{{  old('related_courses') }}</textarea>
+                            </div>
+                        </div>
 
 
-                        {{--<!-- Project end -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="project_end" class="col-sm-3 control-label">Lõpp</label>--}}
-                            {{--<div class='col-sm-6'>--}}
-                                {{--<div class='input-group date' id='project_end'>--}}
-                                    {{--<input type='text' class="form-control" name="project_end" id="project_end" value="{{ old('project_end') }}"/>--}}
-                                    {{--<span class="input-group-addon">--}}
-                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                                    {{--</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <!-- Project start -->
+                        <div class="form-group">
+                            <label for="project_start" class="col-sm-3 control-label">Algus</label>
+                            <div class='col-sm-6'>
+                                <div class='input-group date' id='project_start'>
+
+                                    <input type='text' class="form-control" name="project_start" id="project_start" value="{{ old('project_start') }}"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
 
 
-
-                        {{--<!-- Institutes -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="institutes" class="col-sm-3 control-label">Instituut</label>--}}
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<select class="form-control" id="institutes" name="institutes">--}}
-
-                                    {{--@if ( old('institutes')) == 0 )--}}
-                                        {{--<option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ( old('institutes')) == 1)--}}
-                                        {{--<option value="1" selected>Digitehnoloogiate instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="1">Digitehnoloogiate instituut</option>--}}
-                                    {{--@endif--}}
-
-                                    {{--@if ( old('institutes')) == 2)--}}
-                                        {{--<option value="2" selected>Humanitaarteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="2">Humanitaarteaduste instituut</option>--}}
-                                    {{--@endif--}}
+                        <!-- Project end -->
+                        <div class="form-group">
+                            <label for="project_end" class="col-sm-3 control-label">Lõpp</label>
+                            <div class='col-sm-6'>
+                                <div class='input-group date' id='project_end'>
+                                    <input type='text' class="form-control" name="project_end" id="project_end" value="{{ old('project_end') }}"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
 
-                                    {{--@if ( old('institutes')) == 3)--}}
-                                        {{--<option value="3" selected>Haridusteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="3">Haridusteaduste instituut</option>--}}
-                                    {{--@endif--}}
+                        <!-- Institutes -->
+                        <div class="form-group">
+                            <label for="institutes" class="col-sm-3 control-label">Instituut</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="institutes" name="institutes">
+
+                                    @if ( old('institutes')) == 0 )
+                                        <option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
+                                    @else
+                                        <option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
+                                    @endif
 
 
-                                    {{--@if ( old('institutes')) == 4)--}}
-                                        {{--<option value="4" selected>Loodus- ja terviseteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="4">Loodus- ja terviseteaduste instituut</option>--}}
-                                    {{--@endif--}}
+                                    @if ( old('institutes')) == 1)
+                                        <option value="1" selected>Digitehnoloogiate instituut</option>
+                                    @else
+                                        <option value="1">Digitehnoloogiate instituut</option>
+                                    @endif
+
+                                    @if ( old('institutes')) == 2)
+                                        <option value="2" selected>Humanitaarteaduste instituut</option>
+                                    @else
+                                        <option value="2">Humanitaarteaduste instituut</option>
+                                    @endif
 
 
-                                    {{--@if ( old('institutes')) == 5)--}}
-                                        {{--<option value="5" selected>Rakvere kolledž</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="5">Rakvere kolledž</option>--}}
-                                    {{--@endif--}}
+                                    @if ( old('institutes')) == 3)
+                                        <option value="3" selected>Haridusteaduste instituut</option>
+                                    @else
+                                        <option value="3">Haridusteaduste instituut</option>
+                                    @endif
 
 
-                                    {{--@if ( old('institutes')) == 6)--}}
-                                        {{--<option value="6" selected>Haapsalu kolledž</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="6">Haapsalu kolledž</option>--}}
-                                    {{--@endif--}}
+                                    @if ( old('institutes')) == 4)
+                                        <option value="4" selected>Loodus- ja terviseteaduste instituut</option>
+                                    @else
+                                        <option value="4">Loodus- ja terviseteaduste instituut</option>
+                                    @endif
 
 
-                                    {{--@if ( old('institutes')) == 7)--}}
-                                        {{--<option value="7" selected>Ühiskonnateaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="7">Ühiskonnateaduste instituut</option>--}}
-                                    {{--@endif--}}
+                                    @if ( old('institutes')) == 5)
+                                        <option value="5" selected>Rakvere kolledž</option>
+                                    @else
+                                        <option value="5">Rakvere kolledž</option>
+                                    @endif
 
 
-                                {{--</select>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                                    @if ( old('institutes')) == 6)
+                                        <option value="6" selected>Haapsalu kolledž</option>
+                                    @else
+                                        <option value="6">Haapsalu kolledž</option>
+                                    @endif
+
+
+                                    @if ( old('institutes')) == 7)
+                                        <option value="7" selected>Ühiskonnateaduste instituut</option>
+                                    @else
+                                        <option value="7">Ühiskonnateaduste instituut</option>
+                                    @endif
+
+
+                                </select>
+                            </div>
+                        </div>
+
+
 
 
                         <!-- Supervisors -->
                         <div class="form-group">
-                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d) <p>Üks per rida</p></label>
+                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
+
 
                             <div class="col-sm-6">
-                                <textarea name="supervisors" id="supervisors" class="form-control">{{ old('supervisors') }}</textarea>
+                                <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors" multiple>
+                                    @if ($teachers->count())
+
+                                        @foreach($teachers as $teacher)
+                                            <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+                                        @endforeach
+
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Co-supervisors -->
+                        <div class="form-group">
+                            <label for="cosupervisors" class="col-sm-3 control-label">Kaasjuhendajad <p>Üks per rida</p></label>
+
+                            <div class="col-sm-6">
+                                <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ old('cosupervisors') }}</textarea>
                             </div>
                         </div>
 

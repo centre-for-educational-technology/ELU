@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,6 +12,7 @@ use App\Http\Requests\ProjectRequest;
 
 use App\Project;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 use Cohensive\Embed\Facades\Embed;
@@ -52,8 +54,19 @@ class ProjectController extends Controller
     $projects = Project::orderBy('created_at', 'desc')->paginate(10);
 
 
-    return view('project.new')
-        ->with('projects', $projects);
+
+
+    $teachers = User::whereHas('roles', function($q)
+    {
+      $q->where('name', 'oppejoud');
+    })->get();
+
+
+    $author =  Auth::user()->id;
+
+    return view('project.new', compact('teachers', 'author', 'projects'));
+
+
   }
 
   public function store(ProjectRequest $request)
@@ -90,17 +103,17 @@ class ProjectController extends Controller
 //    $project->project_outcomes = $request->project_outcomes;
 //    $project->student_outcomes = $request->student_outcomes;
 //
-//    $project->courses = $request->related_courses;
-//
-//
-//    $project->institute = $request->institutes;
+    $project->courses = $request->related_courses;
 
 
-//    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-//    $project->start = date("Y-m-d", $date_start->getTimestamp());
-//
-//    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-//    $project->end = date("Y-m-d", $date_end->getTimestamp());
+    $project->institute = $request->institutes;
+
+
+    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+    $project->start = date("Y-m-d", $date_start->getTimestamp());
+
+    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+    $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
     $project->supervisor = $request->supervisors;
@@ -171,17 +184,17 @@ class ProjectController extends Controller
 //    $project->project_outcomes = $request->project_outcomes;
 //    $project->student_outcomes = $request->student_outcomes;
 //
-//    $project->courses = $request->related_courses;
-//
-//
-//    $project->institute = $request->institutes;
-//
-//
-//    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-//    $project->start = date("Y-m-d", $date_start->getTimestamp());
-//
-//    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-//    $project->end = date("Y-m-d", $date_end->getTimestamp());
+    $project->courses = $request->related_courses;
+
+
+    $project->institute = $request->institutes;
+
+
+    $date_start = date_create_from_format('m/d/Y', $request->project_start);
+    $project->start = date("Y-m-d", $date_start->getTimestamp());
+
+    $date_end = date_create_from_format('m/d/Y', $request->project_end);
+    $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
     $project->supervisor = $request->supervisors;

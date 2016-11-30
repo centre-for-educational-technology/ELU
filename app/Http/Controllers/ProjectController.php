@@ -38,7 +38,8 @@ class ProjectController extends Controller
   public function index()
   {
 
-    $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->paginate(8);
 
 
     return view('project.all')
@@ -51,7 +52,10 @@ class ProjectController extends Controller
   public function add()
   {
 
-    $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('id', Auth::user()->id);
+    })->get();
 
 
 
@@ -125,29 +129,54 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-    $project->join_link = $request->join_link;
+//    $project->join_link = $request->join_link;
 
 
     $project->publishing_status = $request->publishing_status;
+
+
+    $project->extra_info = $request->extra_info;
+
+
+    $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
+    $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
+
 
 
     $project->save();
 
 
     //Attach users with teacher role
-//    $supervisors = $request->supervisors;
-//    foreach ($supervisors as $supervisor){
+    $supervisors = $request->input('supervisors');
+    foreach ($supervisors as $supervisor){
+
+      $project->users()->attach($supervisor, ['participation_role' => 'author']);
+    }
+
+
+
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+
+
+
+
+
+
+    return \Redirect::to('my-projects')
+        ->with('message', 'Uus projekt on lisatud!')
+        ->with('projects', $projects);
+
+
+//    return view('project.all')
+//        ->with('message', 'Uus projekt on lisatud!')
+//        ->with('projects', $projects);
+
 //
-//    }
-
-    $project->users()->attach($request->supervisors, ['participation_role' => 'author']);
-
-
-
-    return view('project.all')
-        ->with('projects', Project::orderBy('created_at', 'desc')->paginate(10));
-
-
 //    return \Redirect::to('/')
 //        ->with('message', 'Uus projekt on lisatud!')
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
@@ -222,6 +251,16 @@ class ProjectController extends Controller
     $project->join_link = $request->join_link;
 
 
+    $project->publishing_status = $request->publishing_status;
+
+
+    $project->extra_info = $request->extra_info;
+
+
+    $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
+    $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
+
+
 
     $project->save();
 
@@ -229,9 +268,26 @@ class ProjectController extends Controller
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
 
-    return \Redirect::to('projects-all')
+
+    $project->users()->updateExistingPivot($request->supervisors, ['participation_role' => 'author']);
+
+
+
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+
+
+    return \Redirect::to('my-projects')
         ->with('message', 'Projekt '.$project->name.' on muudatud')
-        ->with('projects', Project::orderBy('created_at', 'desc')->get());
+        ->with('projects', $projects);
+
+//    return \Redirect::to('projects-all')
+//        ->with('message', 'Projekt '.$project->name.' on muudatud')
+//        ->with('projects', Project::orderBy('created_at', 'desc')->get());
 
 
 

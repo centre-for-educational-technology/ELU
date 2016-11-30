@@ -216,11 +216,13 @@
 
 
                             <div class="col-sm-6">
-                                <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors" multiple>
+                                <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>
                                     @if ($teachers->count())
 
                                         @foreach($teachers as $teacher)
                                             <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+
+                                            {{--<option value="{{ $teacher->id }}">{{ $teacher->name }}</option>--}}
                                         @endforeach
 
                                     @endif
@@ -270,6 +272,31 @@
                             </div>
                         </div>
 
+
+                        <!-- Project deadline for joining -->
+                        <div class="form-group">
+                            <label for="join_deadline" class="col-sm-3 control-label">Registreerimise tähtaeg</label>
+                            <div class='col-sm-6'>
+                                <div class='input-group date' id='join_deadline'>
+
+                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ old('join_deadline') }}"/>
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Extra info -->
+                        <div class="form-group">
+                            <label for="extra_info" class="col-sm-3 control-label">Tutvustavad materjalid</label>
+
+                            <div class="col-sm-6">
+                                <textarea name="extra_info" id="extra_info" class="form-control">{{ old('extra_info') }}</textarea>
+                            </div>
+                        </div>
+
                         <!-- Status -->
                         <div class="form-group">
                             <label for="publishing_status" class="col-sm-3 control-label">Kas on avaldatud?</label>
@@ -277,16 +304,16 @@
                             <div class="col-sm-6">
                                 <select class="form-control" id="publishing_status" name="publishing_status">
 
-                                    @if ( old('publishing_status')) == 1)
-                                    <option value="1" selected>Avaldatud</option>
-                                    @else
-                                        <option value="1">Avaldatud</option>
-                                    @endif
-
                                     @if ( old('publishing_status')) == 0)
                                     <option value="0" selected>Peidetud</option>
                                     @else
                                         <option value="0">Peidetud</option>
+                                    @endif
+
+                                    @if ( old('publishing_status')) == 1)
+                                    <option value="1" selected>Avaldatud</option>
+                                    @else
+                                        <option value="1">Avaldatud</option>
                                     @endif
 
                                 </select>
@@ -294,14 +321,14 @@
                         </div>
 
 
-                        <!-- Link to join project -->
-                        <div class="form-group">
-                            <label for="join_link" class="col-sm-3 control-label">Projektiga liitumise link <p>Google Form vms viide</p></label>
+                        {{--<!-- Link to join project -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="join_link" class="col-sm-3 control-label">Projektiga liitumise link <p>Google Form vms viide</p></label>--}}
 
-                            <div class="col-sm-6">
-                                <input type="text" name="join_link" id="join_link" class="form-control" value="{{  old('join_link') }}">
-                            </div>
-                        </div>
+                            {{--<div class="col-sm-6">--}}
+                                {{--<input type="text" name="join_link" id="join_link" class="form-control" value="{{  old('join_link') }}">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
 
@@ -323,52 +350,48 @@
             @if (count($projects) > 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Olemasolevad projektid
+                        Minu projektid
                     </div>
 
                     <div class="panel-body">
                         <table class="table table-striped project-table">
                             <thead>
-                                <th>Projekt</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
+                            <th>Projekt</th>
+                            <th>&nbsp;</th>
                             </thead>
                             <tbody>
-                                @foreach ($projects as $project)
-                                    <tr>
-                                        <td class="table-text"><div>{{ $project->name }}</div></td>
+                            @foreach ($projects as $project)
+                                <tr>
+                                    <td class="table-text"><div>{{ $project->name }}</div></td>
 
-                                        <!-- Project Delete Button -->
-                                        <td>
-                                            <a href="{{ url('project/'.$project->id) }}" class="btn btn-warning pull-left" style="margin-right: 3px;"><i class="fa fa-btn fa-pencil"></i>Muuda</a>
+                                    <!-- Project Delete Button -->
+                                    <td>
 
-                                            {{--<form action="{{ url('project/'.$project->id) }}" method="GET">--}}
-                                                {{--{{ csrf_field() }}--}}
-                                                {{--{{ method_field('PATCH') }}--}}
+                                        <form action="{{ url('project/'.$project->id) }}" method="GET">
+                                            {{ csrf_field() }}
+                                            {{--{{ method_field('PATCH') }}--}}
 
-                                                {{--<button type="submit" class="btn btn-warning pull-left">--}}
-                                                    {{----}}
-                                                {{--</button>--}}
-                                            {{--</form>--}}
-                                        </td>
-                                        <td>
-                                            <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-
-                                            </form>
-                                            <button type="submit" id="delete" class="btn btn-danger pull-right">
-                                                <i class="fa fa-btn fa-trash"></i>Kustuta
+                                            <button type="submit" class="btn btn-warning pull-left">
+                                                <i class="fa fa-btn fa-pencil"></i>Muuda
                                             </button>
+                                        </form>
+                                        <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
-                                        </td>
-                                    </tr>
-                                @endforeach
+
+                                        </form>
+                                        <button type="submit" id="delete" class="btn btn-danger pull-right">
+                                            <i class="fa fa-btn fa-trash"></i>Kustuta
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {{ $projects->links() }}
             @endif
         </div>
     </div>

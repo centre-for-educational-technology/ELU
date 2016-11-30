@@ -26,20 +26,23 @@ class ProjectRequest extends Request
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:9000',
-            'integrated_areas' => 'required|max:3000',
+            'integrated_areas' => 'max:3000',
             'embedded' => 'active_url',
 //            'project_outcomes' => 'required|max:3000',
 //            'student_outcomes' => 'required|max:3000',
 //            'related_courses' => 'required|max:3000',
-//            'project_start' => 'required|max:100',
-//            'project_end' => 'required|max:100',
+            'project_start' => 'required|max:100',
+            'project_end' => 'required|max:100',
+            'join_deadline' => 'required|max:100',
             'join_link' => 'active_url',
             'study_term' => 'required',
             'institutes' => 'required',
-            'supervisors' => 'required|max:3000',
+            'supervisors' => 'required',
+            'cosupervisors' => 'max:3000',
             'status' => 'required',
             'publishing_status' => 'required',
             'tags' => 'required|max:3000',
+            'extra_info' => 'max:3000'
         ];
     }
 }

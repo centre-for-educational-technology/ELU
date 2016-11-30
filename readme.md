@@ -9,6 +9,8 @@ Version 0.1.1
 * SSH enabled on server
 
 * Composer
+
+* SimpleSAML set and configured
   
 * Supports databases
   * MySQL (Tested on MySQL 5.5)

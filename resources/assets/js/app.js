@@ -7,6 +7,10 @@ jQuery(document).ready(function($) {
     format: 'L'
   });
 
+  $('#join_deadline').datetimepicker({
+    format: 'L'
+  });
+
   $('#project_start').datetimepicker();
   $('#project_end').datetimepicker({
     useCurrent: false //Important! See issue #1075
@@ -30,7 +34,7 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
-  $("button #delete").on("click", function(){
+  $("button#delete").on("click", function(){
 
     swal({
         title: "Kas olete kindel?",

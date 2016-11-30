@@ -11,7 +11,7 @@ class Project extends Model
 
   public function users()
   {
-    return $this->hasMany('App\User');
+    return $this->belongsToMany('App\User')->withPivot('participation_role');
   }
 
 }

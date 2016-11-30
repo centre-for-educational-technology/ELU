@@ -7,6 +7,10 @@ jQuery(document).ready(function($) {
     format: 'L'
   });
 
+  $('#join_deadline').datetimepicker({
+    format: 'L'
+  });
+
   $('#project_start').datetimepicker();
   $('#project_end').datetimepicker({
     useCurrent: false //Important! See issue #1075
@@ -31,10 +35,11 @@ jQuery(document).ready(function($) {
   }).trigger('change');
 
   $("button#delete").on("click", function(){
-
+ 
     swal({
         title: "Kas olete kindel?",
-        text: "Projekti ei saa taastada!",         type: "warning",
+        text: "Projekti ei saa taastada!",
+        type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Jah, kustutan!",
@@ -48,7 +53,6 @@ jQuery(document).ready(function($) {
   });
 
 
-  $(".js-example-basic-single").select2();
   $(".js-example-basic-multiple").select2();
 
 });

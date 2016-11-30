@@ -14,6 +14,8 @@
 use App\Project;
 use Illuminate\Http\Request;
 use App\Page;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -35,7 +37,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
         return view('welcome', [
-            'projects' => Project::orderBy('created_at', 'desc')->take(5)->get(),
+            'projects' => Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->take(5)->get(),
             'news' => Page::where('permalink', 'LIKE', '%news%')->first(),
             'faq' => Page::where('permalink', 'LIKE', '%faq%')->first(),
             'info' => Page::where('permalink', 'LIKE', '%info%')->first()]);
@@ -80,20 +82,52 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('/project/{id}', function ($id) {
 
-            $project = Project::find($id);
 
-            if($project->embedded != null){
-                preg_match('/src="([^"]+)"/', $project->embedded, $match);
+          $project = Project::find($id);
 
-                $project->embedded = $match[1];
+          if($project->embedded != null){
+              preg_match('/src="([^"]+)"/', $project->embedded, $match);
+
+              $project->embedded = $match[1];
+          }
+
+
+
+          $teachers = User::whereHas('roles', function($q)
+          {
+            $q->where('name', 'oppejoud');
+          })->get();
+
+
+
+          $authors = array();
+
+          foreach ($project->users as $user){
+            if($user->pivot->participation_role == 'author'){
+              array_push($authors, $user->id);
             }
+          }
 
 
 
+          $projects = Project::whereHas('users', function($q)
+          {
+            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+          })->get();
 
-            return view('project.edit')
-                ->with('current_project', $project)
-                ->with('projects', Project::orderBy('created_at', 'desc')->get());
+          $project->start = date("m/d/Y", strtotime($project->start));
+
+          $project->end = date("m/d/Y", strtotime($project->end));
+
+          $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
+
+
+
+          return view('project.edit')
+              ->with('teachers', $teachers)
+              ->with('authors', $authors)
+              ->with('current_project', $project)
+              ->with('projects', $projects);
 
         });
 
@@ -114,7 +148,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::delete('/project/{id}', function ($id) {
             Project::findOrFail($id)->delete();
 
-            return redirect('/')->with('message', 'Projekt on kustutanud!');
+            return redirect('my-projects')->with('message', 'Projekt on kustutanud!');
         });
 
 
@@ -133,6 +167,19 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/admin/edit/{id}/add', 'AdminController@update');
 
         Route::post('/admin/edit/{id}/remove', 'AdminController@remove');
+
+
+        Route::get('/my-projects', function () {
+          $projects = Project::whereHas('users', function($q)
+          {
+            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+          })->orderBy('created_at', 'desc')->paginate(5);
+
+
+
+          return view('user.teacher.my_projects', [
+              'projects' => $projects]);
+        });
 
     });
 

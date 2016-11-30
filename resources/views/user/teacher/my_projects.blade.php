@@ -1,0 +1,82 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+
+
+        <div class="col-sm-offset-2 col-sm-8">
+
+            @if(\Session::has('message'))
+                <div class="alert alert-info">
+                    {{\Session::get('message')}}
+                </div>
+            @endif
+
+            @if (count($projects) > 0)
+
+
+                @if (count($projects) > 0)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Minu projektid
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-striped project-table">
+                                <thead>
+                                <th>Projekt</th>
+                                <th>&nbsp;</th>
+                                </thead>
+                                <tbody>
+                                @foreach ($projects as $project)
+                                    <tr>
+                                        <td class="table-text"><div>{{ $project->name }}</div></td>
+
+                                        <td>
+
+                                            <form action="{{ url('project/'.$project->id) }}" method="GET">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-warning pull-left">
+                                                    <i class="fa fa-btn fa-pencil"></i>Muuda
+                                                </button>
+                                            </form>
+                                            <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+
+
+                                            </form>
+                                            <button type="submit" id="delete" class="btn btn-danger pull-right">
+                                                <i class="fa fa-btn fa-trash"></i>Kustuta
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            {{ $projects->links() }}
+                        </div>
+
+                    </div>
+                @endif
+
+            @else
+
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Projekte ei leidnud</h3>
+                    </div>
+                    <div class="panel-body">
+                        Logi sisse ja lisa projekti!
+                    </div>
+                </div>
+
+
+            @endif
+
+        </div>
+    </div>
+@endsection

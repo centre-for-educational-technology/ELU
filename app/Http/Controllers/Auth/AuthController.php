@@ -78,7 +78,8 @@ class AuthController extends Controller
               'password' => bcrypt($data['password']),
           ]);
 
-          $new_user->roles()->attach(2);
+          //XXX Teacher
+          $new_user->roles()->attach(1);
         }
 
         return $new_user;

@@ -74,13 +74,15 @@ class SimpleSamlController extends Controller
         $user->full_name = $attrs['cn'][0];
         $user->save();
 
-        $course_and_degree = $this->getCourseAndDegree($attrs);
+        if($user->is('student')){
+          $course_and_degree = $this->getCourseAndDegree($attrs);
 
-        $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
+          $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
 
-        //Set user course and degree
-        $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+          //Set user course and degree
+          $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
 
+        }
 
 
         auth()->login($user, true);

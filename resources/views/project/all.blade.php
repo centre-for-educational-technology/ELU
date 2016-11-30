@@ -83,41 +83,53 @@
                                             {{--<p>{{ $student_outcome }}</p>--}}
                                         {{--@endforeach--}}
 
-                                        {{--<h3>Seotud kursused</h3>--}}
-                                        {{--@foreach (explode(PHP_EOL, $project->courses) as $course)--}}
-                                            {{--<p>{{ $course }}</p>--}}
-                                        {{--@endforeach--}}
-                                        {{--<h3>Kestus</h3>--}}
+                                        <h3>Seotud kursused</h3>
+                                        @foreach (explode(PHP_EOL, $project->courses) as $course)
+                                            <p>{{ $course }}</p>
+                                        @endforeach
+                                        <h3>Kestus</h3>
 
 
-                                        {{--<p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>--}}
+                                        <p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>
 
 
-                                        {{--<h3>Instituut</h3>--}}
+                                        <h3>Instituut</h3>
 
-                                        {{--@if ( $project->institute == 0 )--}}
-                                            {{--<p>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>--}}
-                                        {{--@elseif ( $project->institute == 1 )--}}
-                                            {{--<p>Digitehnoloogiate instituut</p>--}}
-                                        {{--@elseif ( $project->institute == 2 )--}}
-                                            {{--<p>Humanitaarteaduste instituut</p>--}}
-                                        {{--@elseif ( $project->institute == 3 )--}}
-                                            {{--<p>Haridusteaduste instituut</p>--}}
-                                        {{--@elseif ( $project->institute == 4 )--}}
-                                            {{--<p>Loodus- ja terviseteaduste instituut</p>--}}
-                                        {{--@elseif ( $project->institute == 5 )--}}
-                                            {{--<p>Rakvere kolledž</p>--}}
-                                        {{--@elseif ( $project->institute == 6 )--}}
-                                            {{--<p>Haapsalu kolledž</p>--}}
-                                        {{--@elseif ( $project->institute == 7 )--}}
-                                            {{--<p>Ühiskonnateaduste instituut</p>--}}
-                                        {{--@endif--}}
+                                        @if ( $project->institute == 0 )
+                                            <p>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>
+                                        @elseif ( $project->institute == 1 )
+                                            <p>Digitehnoloogiate instituut</p>
+                                        @elseif ( $project->institute == 2 )
+                                            <p>Humanitaarteaduste instituut</p>
+                                        @elseif ( $project->institute == 3 )
+                                            <p>Haridusteaduste instituut</p>
+                                        @elseif ( $project->institute == 4 )
+                                            <p>Loodus- ja terviseteaduste instituut</p>
+                                        @elseif ( $project->institute == 5 )
+                                            <p>Rakvere kolledž</p>
+                                        @elseif ( $project->institute == 6 )
+                                            <p>Haapsalu kolledž</p>
+                                        @elseif ( $project->institute == 7 )
+                                            <p>Ühiskonnateaduste instituut</p>
+                                        @endif
+
 
                                         <h3>Juhendaja(d)</h3>
 
                                         <h3 class="tag-label">
-                                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_supervisor)
-                                            <span class="label label-warning">{{ $single_supervisor }}</span>
+                                            @foreach ($project->users as $user)
+                                                @if ( $user->pivot->participation_role == 'author' )
+                                                    <span class="label label-warning">{{ $user->name }}</span>
+                                                @endif
+                                            @endforeach
+                                        </h3>
+
+
+                                        <h3>Kaasjuhendajad</h3>
+
+                                        <h3 class="tag-label">
+                                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
+                                            <span class="label label-warning">{{ $single_cosupervisor }}</span>
 
                                         @endforeach
                                         </h3>
@@ -139,12 +151,19 @@
                                         @endforeach
                                         </h3>
 
+
+                                        <h3>Tutvustavad materjalid</h3>
+                                        <p>{!! $project->extra_info !!}</p>
+
+                                        <h3>Registreerimise tähtaeg</h3>
+                                        <p>{{ Str::limit($project->join_deadline, 10, '') }}</p>
+
+
                                         <h3>Projektiga liitumine</h3>
-                                        @if ($project->join_link != null)
-                                            <a href="{!! $project->join_link !!}" class="btn btn-lg btn-success" role="button"><i class="fa fa-btn fa-rocket"></i>Liitun</a>
-                                        @else
-                                            <p>Varsti tuleb!</p>
-                                        @endif
+                                        <p>Varsti tuleb!</p>
+
+                                        <h3>Projekti meeskond</h3>
+                                        <p>Varsti tuleb!</p>
                                     </div>
                                 </div>
 

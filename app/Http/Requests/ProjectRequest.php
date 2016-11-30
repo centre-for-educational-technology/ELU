@@ -35,9 +35,10 @@ class ProjectRequest extends Request
 //            'project_end' => 'required|max:100',
             'join_link' => 'active_url',
             'study_term' => 'required',
-//            'institutes' => 'required',
+            'institutes' => 'required',
             'supervisors' => 'required|max:3000',
             'status' => 'required',
+            'publishing_status' => 'required',
             'tags' => 'required|max:3000',
         ];
     }

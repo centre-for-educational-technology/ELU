@@ -210,7 +210,6 @@
 
 
 
-
                         <!-- Supervisors -->
                         <div class="form-group">
                             <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
@@ -268,6 +267,29 @@
 
                             <div class="col-sm-6">
                                 <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-group">
+                            <label for="publishing_status" class="col-sm-3 control-label">Kas on avaldatud?</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="publishing_status" name="publishing_status">
+
+                                    @if ( old('publishing_status')) == 1)
+                                    <option value="1" selected>Avaldatud</option>
+                                    @else
+                                        <option value="1">Avaldatud</option>
+                                    @endif
+
+                                    @if ( old('publishing_status')) == 0)
+                                    <option value="0" selected>Peidetud</option>
+                                    @else
+                                        <option value="0">Peidetud</option>
+                                    @endif
+
+                                </select>
                             </div>
                         </div>
 

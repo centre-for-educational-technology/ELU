@@ -30,11 +30,12 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
-  $("button#delete").on("click", function(){
+  $("button #delete").on("click", function(){
 
     swal({
         title: "Kas olete kindel?",
-        text: "Projekti ei saa taastada!",         type: "warning",
+        text: "Projekti ei saa taastada!",
+        type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Jah, kustutan!",
@@ -48,7 +49,6 @@ jQuery(document).ready(function($) {
   });
 
 
-  $(".js-example-basic-single").select2();
   $(".js-example-basic-multiple").select2();
 
 });

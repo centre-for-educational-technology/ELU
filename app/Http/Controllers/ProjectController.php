@@ -116,7 +116,9 @@ class ProjectController extends Controller
     $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
-    $project->supervisor = $request->supervisors;
+    // Co-supervisors saved into supervisor column
+    // Main supervisors linked in pivot table
+    $project->supervisor = $request->cosupervisors;
 
 
     $project->status = $request->status;
@@ -126,8 +128,21 @@ class ProjectController extends Controller
     $project->join_link = $request->join_link;
 
 
+    $project->publishing_status = $request->publishing_status;
+
 
     $project->save();
+
+
+    //Attach users with teacher role
+//    $supervisors = $request->supervisors;
+//    foreach ($supervisors as $supervisor){
+//
+//    }
+
+    $project->users()->attach($request->supervisors, ['participation_role' => 'author']);
+
+
 
     return view('project.all')
         ->with('projects', Project::orderBy('created_at', 'desc')->paginate(10));
@@ -197,7 +212,7 @@ class ProjectController extends Controller
     $project->end = date("Y-m-d", $date_end->getTimestamp());
 
 
-    $project->supervisor = $request->supervisors;
+    $project->supervisor = $request->cosupervisors;
 
 
     $project->status = $request->status;

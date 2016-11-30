@@ -112,7 +112,7 @@ Route::group(['middleware' =>['web']], function () {
 
           $projects = Project::whereHas('users', function($q)
           {
-            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+            $q->where('participation_role','LIKE','%author%');
           })->get();
 
           $project->start = date("m/d/Y", strtotime($project->start));
@@ -172,7 +172,8 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('/my-projects', function () {
           $projects = Project::whereHas('users', function($q)
           {
-            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+//            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+            $q->where('participation_role','LIKE','%author%');
           })->orderBy('created_at', 'desc')->paginate(5);
 
 

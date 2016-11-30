@@ -57,6 +57,11 @@
                             <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
                         @endif
                     @endif
+
+
+                    {{--@if (Auth::user())--}}
+                        {{--<li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>--}}
+                    {{--@endif--}}
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -159,7 +159,7 @@ class ProjectController extends Controller
 
     $projects = Project::whereHas('users', function($q)
     {
-      $q->where('participation_role','LIKE','%author%');
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->orderBy('created_at', 'desc')->paginate(5);
 
 
@@ -277,7 +277,7 @@ class ProjectController extends Controller
 
     $projects = Project::whereHas('users', function($q)
     {
-      $q->where('participation_role','LIKE','%author%');
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->orderBy('created_at', 'desc')->paginate(5);
 
 

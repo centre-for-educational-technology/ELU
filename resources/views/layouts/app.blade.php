@@ -50,8 +50,12 @@
                 <ul class="nav navbar-nav menu">
                     <li><a href="{{ url('/projects-all') }}">Projektide nimekiri</a></li>
                     <li><a href="{{ url('/faq') }}">KKK</a></li>
-                    @if (Auth::user())
-                        <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
+
+                    @if (!Auth::guest())
+
+                        @if (Auth::user()->is('oppejoud'))
+                            <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
+                        @endif
                     @endif
                 </ul>
 

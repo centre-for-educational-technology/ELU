@@ -268,11 +268,17 @@ class ProjectController extends Controller
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
 
+    //Detaching users
+    $project->users()->detach();
 
-    $project->users()->updateExistingPivot($request->supervisors, ['participation_role' => 'author']);
+    //Attach users with teacher role
+    $supervisors = $request->input('supervisors');
+    foreach ($supervisors as $supervisor){
 
 
 
+      $project->users()->attach($supervisor, ['participation_role' => 'author']);
+    }
 
 
     $projects = Project::whereHas('users', function($q)

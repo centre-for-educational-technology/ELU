@@ -100,15 +100,23 @@ Route::group(['middleware' =>['web']], function () {
 
 
 
+          $authors_id = array();
+
           $authors = array();
 
           foreach ($project->users as $user){
             if($user->pivot->participation_role == 'author'){
-              array_push($authors, $user->id);
+              array_push($authors_id, $user->id);
+              array_push($authors, $user);
             }
           }
 
-
+          foreach ($teachers as $key => $teacher){
+            if(in_array($teacher->id, $authors_id)){
+              unset($teachers[$key]);
+            }
+          }
+          
 
           $projects = Project::whereHas('users', function($q)
           {
@@ -120,6 +128,7 @@ Route::group(['middleware' =>['web']], function () {
           $project->end = date("m/d/Y", strtotime($project->end));
 
           $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
+
 
 
 

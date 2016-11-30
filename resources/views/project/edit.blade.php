@@ -222,20 +222,19 @@
                                     @if ($teachers->count())
 
                                         @foreach($teachers as $teacher)
-
-                                            @foreach($authors as $author)
-                                                @if($author == $teacher->id)
-
-                                                    <option value="{{ $teacher->id }}" selected="selected">{{ $teacher->name }}</option>
-
-                                                @else
-                                                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-                                                @endif
-
-                                            @endforeach
+                                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
 
                                         @endforeach
 
+                                    @endif
+
+                                    @if ($authors)
+
+                                        @foreach($authors as $author)
+
+                                                <option value="{{ $author->id }}" selected="selected">{{ $author->name }}</option>
+
+                                        @endforeach
                                     @endif
                                 </select>
                             </div>

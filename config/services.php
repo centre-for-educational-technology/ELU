@@ -36,7 +36,7 @@ return [
     ],
 
     'simplesamlphp' => [
-        'basePath' => '/Applications/MAMP/htdocs/simplesaml/',
+        'basePath' => env('SAML_PATH'),
     ],
 
 ];

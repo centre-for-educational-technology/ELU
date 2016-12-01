@@ -7603,6 +7603,12 @@ body {
   background: linear-gradient(to left, #ECE9E6, #FFFFFF);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+td.table-text.red {
+  color: #b71234;
+}
+td.table-text.green {
+  color: green;
+}
 .jumbotron p {
   font-weight: 300;
 }

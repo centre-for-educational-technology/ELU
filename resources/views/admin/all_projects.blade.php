@@ -18,20 +18,32 @@
                 @if (count($projects) > 0)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Minu projektid
+                            Kõik projektid
                         </div>
 
                         <div class="panel-body">
                             <table class="table table-striped project-table">
                                 <thead>
                                 <th>Projekt</th>
+                                <th>Staatus</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
+
+
+
+
                                     <tr>
                                         <td class="table-text"><div>{{ $project->name }}</div></td>
+
+                                        @if($project->publishing_status == 1)
+                                            <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>
+                                        @else
+                                            <td class="table-text red"><div><i class="fa fa-eye-slash"></i> Peidetud</div></td>
+
+                                        @endif
 
                                         <td>
 
@@ -45,7 +57,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <form class="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                            <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
 

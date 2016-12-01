@@ -377,6 +377,7 @@
                             <thead>
                             <th>Projekt</th>
                             <th>&nbsp;</th>
+                            <th>&nbsp;</th>
                             </thead>
                             <tbody>
                             @foreach ($projects as $project)
@@ -390,11 +391,13 @@
                                             {{ csrf_field() }}
                                             {{--{{ method_field('PATCH') }}--}}
 
-                                            <button type="submit" class="btn btn-warning pull-left">
+                                            <button type="submit" class="btn btn-warning pull-right">
                                                 <i class="fa fa-btn fa-pencil"></i>Muuda
                                             </button>
                                         </form>
-                                        <form id="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                    </td>
+                                    <td>
+                                        <form class="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 

@@ -94,6 +94,7 @@
                                 @if (Auth::user()->is('admin'))
                                     <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
                                     <li><a href="{{ url('admin/edit') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
+                                    <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Kõik projektid</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))

@@ -116,7 +116,7 @@ Route::group(['middleware' =>['web']], function () {
               unset($teachers[$key]);
             }
           }
-          
+
 
           $projects = Project::whereHas('users', function($q)
           {
@@ -155,9 +155,12 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::delete('/project/{id}', function ($id) {
-            Project::findOrFail($id)->delete();
+          $project = Project::findOrFail($id);
 
-            return redirect('my-projects')->with('message', 'Projekt on kustutanud!');
+          $name = $project->name;
+          $project->delete();
+
+          return redirect('my-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
         });
 
 
@@ -188,6 +191,26 @@ Route::group(['middleware' =>['web']], function () {
 
           return view('user.teacher.my_projects', [
               'projects' => $projects]);
+        });
+
+
+        Route::get('admin/all-projects', function () {
+
+
+          $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+
+
+          return view('admin.all_projects', [
+              'projects' => $projects]);
+        });
+
+        Route::delete('admin/all-projects/{id}', function ($id) {
+          $project = Project::findOrFail($id);
+
+          $name = $project->name;
+          $project->delete();
+
+          return redirect('admin/all-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
         });
 
     });

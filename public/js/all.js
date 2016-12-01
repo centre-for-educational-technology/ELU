@@ -34,8 +34,10 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
-  $("button#delete").on("click", function(){
- 
+  $("button#delete").on("click", function(e){
+
+
+
     swal({
         title: "Kas olete kindel?",
         text: "Projekti ei saa taastada!",
@@ -47,7 +49,8 @@ jQuery(document).ready(function($) {
         closeOnConfirm: false
       },
       function(){
-        $("#delete-project").submit();
+        $(e.target).prev('.delete-project').submit();
+
       });
 
   });

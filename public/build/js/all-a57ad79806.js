@@ -34,8 +34,10 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
-  $("button#delete").on("click", function(e){
+  $("button.delete").on("click", function(e){
 
+    console.log(e);
+    console.log($(e.target).closest('.delete-project'));
 
 
     swal({
@@ -46,11 +48,10 @@ jQuery(document).ready(function($) {
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Jah, kustutan!",
         cancelButtonText: "Ei",
-        closeOnConfirm: false
+        closeOnConfirm: true
       },
       function(){
-        $(e.target).prev('.delete-project').submit();
-
+        $(".delete-project").submit();
       });
 
   });
@@ -59,3 +60,4 @@ jQuery(document).ready(function($) {
   $(".js-example-basic-multiple").select2();
 
 });
+//# sourceMappingURL=all.js.map

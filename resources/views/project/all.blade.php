@@ -119,7 +119,11 @@
                                         <h3 class="tag-label">
                                             @foreach ($project->users as $user)
                                                 @if ( $user->pivot->participation_role == 'author' )
-                                                    <span class="label label-warning">{{ $user->name }}</span>
+                                                    @if(isset($user->full_name))
+                                                        <span class="label label-warning">{{ $user->full_name }}</span>
+                                                    @else
+                                                        <span class="label label-warning">{{ $user->name }}</span>
+                                                    @endif
                                                 @endif
                                             @endforeach
                                         </h3>

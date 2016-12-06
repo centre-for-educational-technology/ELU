@@ -167,7 +167,7 @@ class ProjectController extends Controller
 
 
 
-    return \Redirect::to('my-projects')
+    return \Redirect::to('teacher/my-projects')
         ->with('message', 'Uus projekt on lisatud!')
         ->with('projects', $projects);
 
@@ -287,16 +287,13 @@ class ProjectController extends Controller
     })->orderBy('created_at', 'desc')->paginate(5);
 
 
-    return \Redirect::to('my-projects')
+    return \Redirect::to('teacher/my-projects')
         ->with('message', 'Projekt '.$project->name.' on muudatud')
         ->with('projects', $projects);
 
 //    return \Redirect::to('projects-all')
 //        ->with('message', 'Projekt '.$project->name.' on muudatud')
 //        ->with('projects', Project::orderBy('created_at', 'desc')->get());
-
-
-
 
 
   }
@@ -310,5 +307,72 @@ class ProjectController extends Controller
     return view('project.search')
         ->with('name', $name)
         ->with('projects', $projects);
+  }
+
+
+  public function joinProject($id)
+  {
+    $project = Project::find($id);
+
+    //Attach user with member role
+
+    $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+
+
+    return \Redirect::to('student/my-projects')
+        ->with('message', 'Oled projektiga '.$project->name.' liitunud')
+        ->with('projects', $projects);
+
+
+
+  }
+
+
+
+  public function leaveProject($id)
+  {
+    $project = Project::find($id);
+
+    $project->users()->detach(Auth::user()->id);
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+
+
+    return \Redirect::to('student/my-projects')
+        ->with('message', 'Oled projektist '.$project->name.' lahkunud')
+        ->with('projects', $projects);
+
+  }
+
+
+  public function unlinkMember($projectId, $userId)
+  {
+    $project = Project::find($projectId);
+
+    $project->users()->detach($userId);
+
+    $user = User::find($userId);
+
+    if(!empty($user->full_name)){
+      return redirect()->route('project', ['id' => $project->id])
+          ->with('message', 'Oled '.$user->full_name.' projektist '.$project->name.' kustutanud.');
+    }else{
+      return redirect()->route('project', ['id' => $project->id])
+          ->with('message', 'Oled '.$user->name.' projektist '.$project->name.' kustutanud.');
+    }
+
+
+
+
+
   }
 }

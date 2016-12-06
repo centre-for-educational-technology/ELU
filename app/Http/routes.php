@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-
-
-
 Route::group(['middleware' => ['web']], function () {
 
 
@@ -29,9 +26,6 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::auth();
-
-
-
 
 
 
@@ -52,16 +46,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/projects-all', 'ProjectController@index');
 
 
-
-
-
-
 });
-
-
-
-
-
 
 
 
@@ -72,15 +57,17 @@ Route::group(['middleware' =>['web']], function () {
 
 
     Route::group(['middleware' =>['auth']], function () {
-        Route::get('/project', 'ProjectController@add');
+
         Route::get('/home', 'HomeController@index');
 
 
+//      Teacher section
+        Route::get('/project', 'ProjectController@add');
 
         Route::post('/project', 'ProjectController@store');
 
 
-        Route::get('/project/{id}', function ($id) {
+        Route::get('project/{id}', array('as' => 'project', function($id) {
 
 
           $project = Project::find($id);
@@ -130,28 +117,15 @@ Route::group(['middleware' =>['web']], function () {
           $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
 
 
-
-
           return view('project.edit')
               ->with('teachers', $teachers)
               ->with('authors', $authors)
               ->with('current_project', $project)
               ->with('projects', $projects);
 
-        });
+        }));
 
         Route::post('/project/{id}', 'ProjectController@update');
-
-
-//
-//
-//    Route::post('/project/{id}', function ($id) {
-////        Project::findOrFail($id)->put();
-//
-//        return redirect('/')->with('message', 'Projekt on muudatud!');
-//
-//
-//    });
 
 
         Route::delete('/project/{id}', function ($id) {
@@ -160,10 +134,8 @@ Route::group(['middleware' =>['web']], function () {
           $name = $project->name;
           $project->delete();
 
-          return redirect('my-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
+          return redirect('teacher/my-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
         });
-
-
 
 
         Route::get('/pages', 'PageController@index');
@@ -172,16 +144,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/pages', 'PageController@store');
 
 
-
-
-        Route::get('/admin/edit', 'AdminController@index');
-
-        Route::post('/admin/edit/{id}/add', 'AdminController@update');
-
-        Route::post('/admin/edit/{id}/remove', 'AdminController@remove');
-
-
-        Route::get('/my-projects', function () {
+        Route::get('/teacher/my-projects', function () {
           $projects = Project::whereHas('users', function($q)
           {
             $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
@@ -192,6 +155,23 @@ Route::group(['middleware' =>['web']], function () {
           return view('user.teacher.my_projects', [
               'projects' => $projects]);
         });
+
+        Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
+
+
+//      Admin section
+
+
+        Route::get('/admin/edit', 'AdminController@index');
+
+        Route::post('/admin/edit/{id}/add-admin', 'AdminController@addAdmin');
+
+        Route::post('/admin/edit/{id}/remove-admin', 'AdminController@removeAdmin');
+
+
+        Route::post('/admin/edit/{id}/add-teacher', 'AdminController@addTeacher');
+
+        Route::post('/admin/edit/{id}/remove-teacher', 'AdminController@removeTeacher');
 
 
         Route::get('admin/all-projects', function () {
@@ -213,33 +193,30 @@ Route::group(['middleware' =>['web']], function () {
           return redirect('admin/all-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
         });
 
+
+//      Student section
+
+
+        Route::get('/student/my-projects', function () {
+          $projects = Project::whereHas('users', function($q)
+          {
+            $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
+          })->orderBy('created_at', 'desc')->paginate(5);
+
+
+
+          return view('user.student.my_projects', [
+              'projects' => $projects]);
+        });
+
+        Route::post('join/{id}', 'ProjectController@joinProject');
+
+
+        Route::post('leave/{id}', 'ProjectController@leaveProject');
+
+
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    Route::get('/project-new', function () {
-//        return view('project-new', [
-//            'projects' => Project::orderBy('created_at', 'asc')->get()
-//        ]);
-//    });
-
-
-//    Route::post('/project-new', function () {
-//        return redirect('/');
-//
-//    });
 
 
 });

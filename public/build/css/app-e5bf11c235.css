@@ -7621,6 +7621,9 @@ h3:not(.tag-label),
   text-transform: uppercase;
   letter-spacing: -0.1em;
 }
+p.red {
+  color: #b71234;
+}
 .panel.with-nav-tabs .panel-heading {
   padding: 5px 5px 0 5px;
 }

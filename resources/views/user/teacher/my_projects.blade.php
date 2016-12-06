@@ -25,6 +25,7 @@
                             <table class="table table-striped project-table">
                                 <thead>
                                 <th>Projekt</th>
+                                <th>Staatus</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 </thead>
@@ -32,6 +33,13 @@
                                 @foreach ($projects as $project)
                                     <tr>
                                         <td class="table-text"><div>{{ $project->name }}</div></td>
+
+                                            @if($project->publishing_status == 1)
+                                                <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>
+                                            @else
+                                                <td class="table-text red"><div><i class="fa fa-eye-slash"></i> Peidetud</div></td>
+
+                                            @endif
 
                                         <td>
 

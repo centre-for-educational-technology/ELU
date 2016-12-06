@@ -119,7 +119,7 @@
                                         <h3 class="tag-label">
                                             @foreach ($project->users as $user)
                                                 @if ( $user->pivot->participation_role == 'author' )
-                                                    @if(isset($user->full_name))
+                                                    @if(!empty($user->full_name))
                                                         <span class="label label-warning">{{ $user->full_name }}</span>
                                                     @else
                                                         <span class="label label-warning">{{ $user->name }}</span>
@@ -156,18 +156,53 @@
                                         </h3>
 
 
-                                        <h3>Tutvustavad materjalid</h3>
-                                        <p>{!! $project->extra_info !!}</p>
+                                        <h3>Lisainfo</h3>
+                                        @if (!empty($project->extra_info))
+                                            <p>{!! $project->extra_info !!}</p>
+                                        @else
+                                            <p>Praegu pole</p>
+                                        @endif
 
                                         <h3>Registreerimise tähtaeg</h3>
                                         <p>{{ Str::limit($project->join_deadline, 10, '') }}</p>
 
+                                        {{--Check for join deadline--}}
+                                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                                            <p class="red"><i class="fa fa-btn fa-frown-o"></i> Tähtaeg on läbi läinud! </p>
+                                        @else
+                                            <h3>Projektiga liitumine</h3>
+                                            @if ($project->currentUserIs('member'))
+                                                <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                                                    {{ csrf_field() }}
 
-                                        <h3>Projektiga liitumine</h3>
-                                        <p>Varsti tuleb!</p>
+                                                    <button type="submit" class="btn btn-danger btn-lg">
+                                                        <i class="fa fa-btn fa-frown-o"></i>Lahkun projektist
+                                                    </button>
+                                                </form>
+
+                                            @else
+                                                <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+
+                                                    <button type="submit" class="btn btn-success btn-lg">
+                                                        <i class="fa fa-btn fa-rocket"></i>Liitun projektiga
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endif
 
                                         <h3>Projekti meeskond</h3>
-                                        <p>Varsti tuleb!</p>
+                                        <h3 class="tag-label">
+                                            @foreach ($project->users as $user)
+                                                @if ( $user->pivot->participation_role == 'member' )
+                                                    @if(!empty($user->full_name))
+                                                        <span class="label label-success">{{ $user->full_name }}</span>
+                                                    @else
+                                                        <span class="label label-success">{{ $user->name }}</span>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </h3>
                                     </div>
                                 </div>
 

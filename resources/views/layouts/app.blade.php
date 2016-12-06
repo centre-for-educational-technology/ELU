@@ -98,7 +98,11 @@
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <li><a href="{{ url('my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>
+                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>Minu Projektid (õppejõud)</a></li>
+                                @endif
+
+                                @if (Auth::user()->is('oppejoud'))
+                                    <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>
                                 @endif
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
                             </ul>

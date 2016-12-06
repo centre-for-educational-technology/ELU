@@ -66,16 +66,22 @@
                             <div class="col-sm-6">
                                 <select class="form-control" id="study_term" name="study_term">
                                     @if ( old('study_term')) == 0)
-                                    <option value="0" selected>Sügissemester</option>
+                                        <option value="0" selected>Sügissemester</option>
                                     @else
                                         <option value="0">Sügissemester</option>
                                     @endif
 
 
                                     @if ( old('study_term')) == 1)
-                                    <option value="1" selected>Kevadsemester</option>
+                                        <option value="1" selected>Kevadsemester</option>
                                     @else
                                         <option value="1">Kevadsemester</option>
+                                    @endif
+
+                                    @if ( old('study_term')) == 2)
+                                        <option value="2" selected>Mõlemad semestrid</option>
+                                    @else
+                                        <option value="2">Mõlemad semestrid</option>
                                     @endif
 
                                 </select>
@@ -290,7 +296,7 @@
 
                         <!-- Extra info -->
                         <div class="form-group">
-                            <label for="extra_info" class="col-sm-3 control-label">Tutvustavad materjalid</label>
+                            <label for="extra_info" class="col-sm-3 control-label">Lisainfo</label>
 
                             <div class="col-sm-6">
                                 <textarea name="extra_info" id="extra_info" class="form-control">{{ old('extra_info') }}</textarea>

@@ -29,13 +29,19 @@
                             <th>Nimi</th>
                             <th>E-post</th>
                             <th>Roll</th>
-                            <th>&nbsp;</th>
+                            <th>Lisa halduriks</th>
+                            <th>Lisa õppejõuks</th>
 
                             </thead>
                             <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td class="table-text"><div>{{ $user->name }}</div></td>
+                                    @if(!empty($user->full_name))
+                                        <td class="table-text"><div>{{ $user->full_name }}</div></td>
+                                    @else
+                                        <td class="table-text"><div>{{ $user->name }}</div></td>
+                                    @endif
+
                                     <td class="table-text"><div>{{ $user->email }}</div></td>
 
                                     @if ($user->roles != null)
@@ -53,21 +59,51 @@
 
                                         @if ($user->is('admin'))
 
-                                            <form action="{{ url('admin/edit/'.$user->id).'/remove' }}" method="POST">
+                                            <form action="{{ url('admin/edit/'.$user->id).'/remove-admin' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
                                                 <button type="submit" class="btn btn-danger pull-left">
-                                                    <i class="fa fa-btn fa-user"></i>Kustuta admini
+                                                    <i class="fa fa-btn fa-star"></i>Kustuta
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ url('admin/edit/'.$user->id).'/add' }}" method="POST">
+                                            <form action="{{ url('admin/edit/'.$user->id).'/add-admin' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
                                                 <button type="submit" class="btn btn-warning pull-left">
-                                                    <i class="fa fa-btn fa-user"></i>Lisa adminisse
+                                                    <i class="fa fa-btn fa-star"></i>Lisa
+                                                </button>
+                                            </form>
+
+
+                                        @endif
+
+
+
+                                    </td>
+
+                                    <!-- Assign teacher Button -->
+                                    <td>
+
+                                        @if ($user->is('oppejoud'))
+
+                                            <form action="{{ url('admin/edit/'.$user->id).'/remove-teacher' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-danger pull-left">
+                                                    <i class="fa fa-btn fa-university"></i>Kustuta
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ url('admin/edit/'.$user->id).'/add-teacher' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-warning pull-left">
+                                                    <i class="fa fa-btn fa-university"></i>Lisa
                                                 </button>
                                             </form>
 

@@ -4,9 +4,14 @@
     <div class="container">
 
         <div class="col-sm-offset-2 col-sm-8">
+            @if(\Session::has('message'))
+                <div class="alert alert-info">
+                    {{\Session::get('message')}}
+                </div>
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Uus projekt
+                    Muuda projekti
                 </div>
 
                 <div class="panel-body">
@@ -76,6 +81,12 @@
                                         <option value="1" selected>Kevadsemester</option>
                                     @else
                                         <option value="1">Kevadsemester</option>
+                                    @endif
+
+                                    @if ( (!empty($current_project) ?  $current_project->study_term : old('study_term')) == 2)
+                                        <option value="2" selected>Mõlemad semestrid</option>
+                                    @else
+                                        <option value="2">Mõlemad semestrid</option>
                                     @endif
 
                                 </select>
@@ -304,7 +315,7 @@
 
                         <!-- Extra info -->
                         <div class="form-group">
-                            <label for="extra_info" class="col-sm-3 control-label">Tutvustavad materjalid</label>
+                            <label for="extra_info" class="col-sm-3 control-label">Lisainfo</label>
 
                             <div class="col-sm-6">
                                 <textarea name="extra_info" id="extra_info" class="form-control">{{ (empty($current_project) ? old('extra_info') : $current_project->extra_info) }}</textarea>
@@ -366,50 +377,54 @@
             </div>
 
             <!-- Current Projects -->
-            @if (count($projects) > 0)
+            @if (count($current_project->users) > 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Minu projektid
+                        Projekti meeskond
                     </div>
 
                     <div class="panel-body">
                         <table class="table table-striped project-table">
                             <thead>
-                            <th>Projekt</th>
-                            <th>&nbsp;</th>
+                            <th>Kasutaja</th>
+                            <th>Kursus</th>
                             <th>&nbsp;</th>
                             </thead>
                             <tbody>
-                            @foreach ($projects as $project)
+
+                            @foreach ($current_project->users as $user)
                                 <tr>
-                                    <td class="table-text"><div>{{ $project->name }}</div></td>
+                                @if ( $user->pivot->participation_role == 'member' )
+                                    @if(!empty($user->full_name))
+                                        <td class="table-text"><div>{{ $user->full_name }}</div></td>
 
-                                    <!-- Project Delete Button -->
+                                    @else
+                                        <td class="table-text"><div>{{ $user->name }}</div></td>
+                                    @endif
+
                                     <td>
-
-                                        <form action="{{ url('project/'.$project->id) }}" method="GET">
-                                            {{ csrf_field() }}
-                                            {{--{{ method_field('PATCH') }}--}}
-
-                                            <button type="submit" class="btn btn-warning pull-right">
-                                                <i class="fa fa-btn fa-pencil"></i>Muuda
-                                            </button>
-                                        </form>
+                                        @if(!empty($user->courses))
+                                            @foreach($user->courses as $course)
+                                                <span class="label label-success">{{ $course->name }}</span>
+                                            @endforeach
+                                        @endif
                                     </td>
                                     <td>
-                                        <form class="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                        <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
                                             {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
 
 
                                         </form>
-                                        <button type="submit" id="delete" class="btn btn-danger pull-right">
-                                            <i class="fa fa-btn fa-trash"></i>Kustuta
+                                        <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
+                                            <i class="fa fa-btn fa-unlink"></i>Kustuta
                                         </button>
 
                                     </td>
+                                @endif
                                 </tr>
                             @endforeach
+
+
                             </tbody>
                         </table>
                     </div>

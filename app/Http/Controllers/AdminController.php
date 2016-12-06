@@ -18,7 +18,7 @@ class AdminController extends Controller
   }
 
 
-  public function update(Request $request, $id){
+  public function addAdmin(Request $request, $id){
 
 
 
@@ -36,7 +36,7 @@ class AdminController extends Controller
 
 
 
-  public function remove(Request $request, $id){
+  public function removeAdmin(Request $request, $id){
 
 
 
@@ -48,6 +48,42 @@ class AdminController extends Controller
     return \Redirect::to('admin/edit')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
         ->with('message', $user->name.' on ära võetud adminide nimekirjast!');
+
+
+  }
+
+
+
+  public function addTeacher(Request $request, $id){
+
+
+
+    $user = User::find($id);
+
+    $user->roles()->attach(1);
+
+
+
+    return \Redirect::to('admin/edit')
+        ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+        ->with('message', $user->name.' on lisatud õppejõudu nimekirja!');
+
+  }
+
+
+
+  public function removeTeacher(Request $request, $id){
+
+
+
+    $user = User::find($id);
+
+    $user->roles()->detach(1);
+
+
+    return \Redirect::to('admin/edit')
+        ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+        ->with('message', $user->name.' on ära võetud õppejõudu nimekirjast!');
 
 
   }

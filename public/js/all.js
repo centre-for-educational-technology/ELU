@@ -56,6 +56,27 @@ jQuery(document).ready(function($) {
   });
 
 
+  $("button#delete-user-button").on("click", function(e){
+
+
+
+    swal({
+        title: "Kas olete kindel?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Jah, kustutan!",
+        cancelButtonText: "Ei",
+        closeOnConfirm: false
+      },
+      function(){
+        $(e.target).prev('.delete-user').submit();
+
+      });
+
+  });
+
+
   $(".js-example-basic-multiple").select2();
 
 });

@@ -166,29 +166,37 @@
                                         <h3>Registreerimise tähtaeg</h3>
                                         <p>{{ Str::limit($project->join_deadline, 10, '') }}</p>
 
+
+                                        <h3>Projektiga liitumine</h3>
                                         {{--Check for join deadline--}}
                                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
                                             <p class="red"><i class="fa fa-btn fa-frown-o"></i> Tähtaeg on läbi läinud! </p>
                                         @else
-                                            <h3>Projektiga liitumine</h3>
-                                            @if ($project->currentUserIs('member'))
-                                                <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                                    {{ csrf_field() }}
+                                            @if(Auth::check())
 
-                                                    <button type="submit" class="btn btn-danger btn-lg">
-                                                        <i class="fa fa-btn fa-frown-o"></i>Lahkun projektist
-                                                    </button>
-                                                </form>
+                                                @if ($project->currentUserIs('member'))
+                                                    <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                                                        {{ csrf_field() }}
 
+                                                        <button type="submit" class="btn btn-danger btn-lg">
+                                                            <i class="fa fa-btn fa-frown-o"></i>Lahkun projektist
+                                                        </button>
+                                                    </form>
+
+                                                @else
+                                                    <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+
+                                                        <button type="submit" class="btn btn-success btn-lg">
+                                                            <i class="fa fa-btn fa-rocket"></i>Liitun projektiga
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             @else
-                                                <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                                    {{ csrf_field() }}
-
-                                                    <button type="submit" class="btn btn-success btn-lg">
-                                                        <i class="fa fa-btn fa-rocket"></i>Liitun projektiga
-                                                    </button>
-                                                </form>
+                                                <p>Logi sisse ja liitu projektiga</p>
                                             @endif
+
+
                                         @endif
 
                                         <h3>Projekti meeskond</h3>

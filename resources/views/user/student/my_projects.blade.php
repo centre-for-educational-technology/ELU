@@ -43,10 +43,12 @@
                                             {{--<p>{{ $project_outcome }}</p>--}}
                                             {{--@endforeach--}}
 
-                                            <h3>Lõimitud valdkonnad</h3>
-                                            @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
-                                                <p>{{ $integrated_area }}</p>
-                                            @endforeach
+                                            @if(!empty($project->integrated_areas))
+                                                <h3>Lõimitud valdkonnad</h3>
+                                                @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
+                                                    <p>{{ $integrated_area }}</p>
+                                                @endforeach
+                                            @endif
 
                                             <h3>Projekti kestus</h3>
 
@@ -108,14 +110,16 @@
                                             </h3>
 
 
-                                            <h3>Kaasjuhendajad</h3>
+                                            @if(!empty($project->supervisor))
+                                                <h3>Kaasjuhendajad</h3>
 
-                                            <h3 class="tag-label">
-                                                @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                                                    <span class="label label-warning">{{ $single_cosupervisor }}</span>
+                                                <h3 class="tag-label">
+                                                    @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
+                                                        <span class="label label-warning">{{ $single_cosupervisor }}</span>
 
-                                                @endforeach
-                                            </h3>
+                                                    @endforeach
+                                                </h3>
+                                            @endif
 
                                             <h3>Staatus</h3>
 
@@ -135,11 +139,9 @@
                                             </h3>
 
 
-                                            <h3>Lisainfo</h3>
                                             @if (!empty($project->extra_info))
+                                                <h3>Lisainfo</h3>
                                                 <p>{!! $project->extra_info !!}</p>
-                                            @else
-                                                <p>Praegu pole</p>
                                             @endif
 
                                             <h3>Registreerimise tähtaeg</h3>
@@ -168,7 +170,17 @@
                                             @endif
 
                                             <h3>Projekti meeskond</h3>
-                                            <p>Varsti tuleb!</p>
+                                            <h3 class="tag-label">
+                                                @foreach ($project->users as $user)
+                                                    @if ( $user->pivot->participation_role == 'member' )
+                                                        @if(!empty($user->full_name))
+                                                            <span class="label label-success">{{ $user->full_name }}</span>
+                                                        @else
+                                                            <span class="label label-success">{{ $user->name }}</span>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            </h3>
                                         </div>
                                     </div>
 

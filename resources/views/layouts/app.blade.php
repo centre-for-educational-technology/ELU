@@ -54,7 +54,7 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>
+                            <li><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> Lisa</a></li>
                         @endif
                     @endif
 
@@ -94,7 +94,8 @@
                                 @if (Auth::user()->is('admin'))
                                     <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
                                     <li><a href="{{ url('admin/edit') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
-                                    <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Kõik projektid</a></li>
+                                    <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
+                                    <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))
@@ -104,7 +105,9 @@
                                 {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
                                     <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>
-                                @endif
+                                    <li><a href="{{ url('student/project/new') }}"><i class="fa fa-btn fa-space-shuttle"></i>Lisa projektiidee</a></li>
+
+                                    @endif
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
                             </ul>
                         </li>

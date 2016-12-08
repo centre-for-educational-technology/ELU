@@ -7,7 +7,7 @@
         <div class="col-sm-offset-2 col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Uus projekt
+                    Lisa projektiidee
                 </div>
 
                 <div class="panel-body">
@@ -16,7 +16,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('project')}}" method="POST" class="form-horizontal new-project">
+                    <form action="{{ url('student/project/new')}}" method="POST" class="form-horizontal new-project">
                     {{ csrf_field() }}
 
                     <!-- Project Name -->
@@ -168,29 +168,34 @@
                             </div>
                         </div>
 
+                        {{--<!-- Supervisors -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>--}}
 
 
-                        <!-- Supervisors -->
-                        <div class="form-group">
-                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
+                            {{--<div class="col-sm-6">--}}
+                                {{--<select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>--}}
+                                    {{--@if ($teachers->count())--}}
 
-
-                            <div class="col-sm-6">
-                                <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>
-                                    @if ($teachers->count())
-
-                                        @foreach($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+                                        {{--@foreach($teachers as $teacher)--}}
+                                            {{--<option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>--}}
 
                                             {{--<option value="{{ $teacher->id }}">{{ $teacher->name }}</option>--}}
-                                        @endforeach
+                                        {{--@endforeach--}}
 
-                                    @endif
-                                </select>
+                                    {{--@endif--}}
+                                {{--</select>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+                        <!-- Co-supervisors -->
+                        <div class="form-group">
+                            <label for="cosupervisors" class="col-sm-3 control-label">Kaasjuhendajad <p>Üks per rida</p></label>
+
+                            <div class="col-sm-6">
+                                <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ old('cosupervisors') }}</textarea>
                             </div>
                         </div>
-
-
 
                         <!-- Tags -->
                         <div class="form-group">
@@ -213,18 +218,7 @@
 
 
 
-                    {{--<!-- Link to join project -->--}}
-                    {{--<div class="form-group">--}}
-                    {{--<label for="join_link" class="col-sm-3 control-label">Projektiga liitumise link <p>Google Form vms viide</p></label>--}}
-
-                    {{--<div class="col-sm-6">--}}
-                    {{--<input type="text" name="join_link" id="join_link" class="form-control" value="{{  old('join_link') }}">--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
-
-
-
-                    <!-- Add Project Button -->
+                        <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-default">

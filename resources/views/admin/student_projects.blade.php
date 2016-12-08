@@ -18,14 +18,14 @@
                 @if (count($projects) > 0)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Kõik projektid
+                            Projektiideed tudengite poolt
                         </div>
 
                         <div class="panel-body">
                             <table class="table table-striped project-table">
                                 <thead>
                                 <th>Projekt</th>
-                                <th>Staatus</th>
+
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
@@ -35,13 +35,6 @@
 
                                     <tr>
                                         <td class="table-text"><div>{{ $project->name }}</div></td>
-
-                                        @if($project->publishing_status == 1)
-                                            <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>
-                                        @else
-                                            <td class="table-text red"><div><i class="fa fa-eye-slash"></i> Peidetud</div></td>
-
-                                        @endif
 
                                         @if($project->submitted_by_student == 1)
                                             <td class="table-text green"><span class="label label-info">tudengi projektiidee</span></td>
@@ -89,7 +82,7 @@
                         <h3 class="panel-title">Projekte ei leidnud</h3>
                     </div>
                     <div class="panel-body">
-                        Logi sisse ja lisa projekti!
+                        Tudengid pole veel lisanud projekte.
                     </div>
                 </div>
 

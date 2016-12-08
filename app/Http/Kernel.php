@@ -48,5 +48,8 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'admin' => 'App\Http\Middleware\Admin',
+        'student' => 'App\Http\Middleware\Student',
+        'teacher' => 'App\Http\Middleware\Teacher',
     ];
 }

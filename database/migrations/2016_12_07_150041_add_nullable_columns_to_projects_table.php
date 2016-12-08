@@ -25,6 +25,7 @@ class AddNullableColumnsToProjectsTable extends Migration
           $table->string('join_link')->nullable()->change();
           $table->string('integrated_areas')->nullable()->change();
           $table->string('embedded')->nullable()->change();
+          $table->string('publishing_status')->default(false)->change();
 
         });
     }

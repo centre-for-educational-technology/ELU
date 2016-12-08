@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;
 
@@ -155,8 +156,6 @@ class ProjectController extends Controller
 
 
 
-
-
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
@@ -181,12 +180,7 @@ class ProjectController extends Controller
 //        ->with('message', 'Uus projekt on lisatud!')
 //        ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
-
-
-
-
   }
-
 
 
 
@@ -330,7 +324,6 @@ class ProjectController extends Controller
         ->with('projects', $projects);
 
 
-
   }
 
 
@@ -370,9 +363,38 @@ class ProjectController extends Controller
           ->with('message', 'Oled '.$user->name.' projektist '.$project->name.' kustutanud.');
     }
 
+  }
 
 
+  public function storeProjectByStudent(ProjectByStudentRequest $request)
+  {
 
+    $project = new Project;
+    $project->name = $request->name;
+    $project->description = $request->description;
+
+    $project->integrated_areas = $request->integrated_areas;
+
+    $project->study_term = $request->study_term;
+
+    $project->institute = $request->institutes;
+
+    $project->supervisor = $request->cosupervisors;
+
+    $project->tags = $request->tags;
+
+    $project->publishing_status = 0;
+
+    $project->extra_info = $request->extra_info;
+
+    $project->submitted_by_student = true;
+
+    $project->save();
+
+    $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
+
+    return redirect()->route('student/my-projects')
+        ->with('message', 'Sinu projekt '.$project->name.' suunati modereerimisele. Aitäh!');
 
   }
 }

@@ -16,7 +16,7 @@
                     @include('common.errors')
 
                     <!-- New Project Form -->
-                    <form action="{{ url('project')}}" method="POST" class="form-horizontal new-project">
+                    <form action="{{ url('project/new')}}" method="POST" class="form-horizontal new-project">
                         {{ csrf_field() }}
 
                         <!-- Project Name -->

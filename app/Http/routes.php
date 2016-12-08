@@ -58,63 +58,69 @@ Route::group(['middleware' =>['web']], function () {
 
     Route::group(['middleware' =>['auth']], function () {
 
-        Route::get('/home', 'HomeController@index');
+      Route::get('/home', 'HomeController@index');
 
 
-//      Teacher section
-        Route::get('/project', 'ProjectController@add');
+//    Teacher section
+      Route::group(['middleware' =>['teacher']], function () {
 
-        Route::post('/project', 'ProjectController@store');
+        Route::get('/project/new', 'ProjectController@add');
+
+        Route::post('/project/new', 'ProjectController@store');
 
 
-        Route::get('project/{id}', array('as' => 'project', function($id) {
+        Route::get('project/{id}', array('as' => 'project', function ($id) {
 
 
           $project = Project::find($id);
 
-          if($project->embedded != null){
-              preg_match('/src="([^"]+)"/', $project->embedded, $match);
 
-              $project->embedded = $match[1];
+          if ($project->embedded != null) {
+            preg_match('/src="([^"]+)"/', $project->embedded, $match);
+
+            $project->embedded = $match[1];
           }
 
 
-
-          $teachers = User::whereHas('roles', function($q)
-          {
+          $teachers = User::whereHas('roles', function ($q) {
             $q->where('name', 'oppejoud');
           })->get();
-
 
 
           $authors_id = array();
 
           $authors = array();
 
-          foreach ($project->users as $user){
-            if($user->pivot->participation_role == 'author'){
+          foreach ($project->users as $user) {
+            if ($user->pivot->participation_role == 'author') {
               array_push($authors_id, $user->id);
               array_push($authors, $user);
             }
           }
 
-          foreach ($teachers as $key => $teacher){
-            if(in_array($teacher->id, $authors_id)){
+          foreach ($teachers as $key => $teacher) {
+            if (in_array($teacher->id, $authors_id)) {
               unset($teachers[$key]);
             }
           }
 
 
-          $projects = Project::whereHas('users', function($q)
-          {
-            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->get();
 
-          $project->start = date("m/d/Y", strtotime($project->start));
+          if ($project->start) {
+            $project->start = date("m/d/Y", strtotime($project->start));
+          }
 
-          $project->end = date("m/d/Y", strtotime($project->end));
+          if ($project->end) {
+            $project->end = date("m/d/Y", strtotime($project->end));
+          }
 
-          $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
+
+          if ($project->join_deadline) {
+            $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
+          }
 
 
           return view('project.edit')
@@ -134,7 +140,7 @@ Route::group(['middleware' =>['web']], function () {
           $name = $project->name;
           $project->delete();
 
-          return redirect('teacher/my-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
+          return redirect('teacher/my-projects')->with('message', 'Projekt ' . $name . ' on kustutanud!');
         });
 
 
@@ -145,11 +151,9 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('/teacher/my-projects', function () {
-          $projects = Project::whereHas('users', function($q)
-          {
-            $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->orderBy('created_at', 'desc')->paginate(5);
-
 
 
           return view('user.teacher.my_projects', [
@@ -159,8 +163,11 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
 
 
-//      Admin section
+      });
 
+
+//    Admin section
+      Route::group(['middleware' => ['admin']], function () {
 
         Route::get('/admin/edit', 'AdminController@index');
 
@@ -190,24 +197,35 @@ Route::group(['middleware' =>['web']], function () {
           $name = $project->name;
           $project->delete();
 
-          return redirect('admin/all-projects')->with('message', 'Projekt '.$name.' on kustutanud!');
+          return redirect('admin/all-projects')->with('message', 'Projekt ' . $name . ' on kustutanud!');
         });
 
 
-//      Student section
+        Route::get('admin/student-projects', function () {
 
 
-        Route::get('/student/my-projects', function () {
-          $projects = Project::whereHas('users', function($q)
-          {
-            $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
-          })->orderBy('created_at', 'desc')->paginate(5);
+          $projects = Project::where('submitted_by_student', true)->orderBy('created_at', 'desc')->paginate(10);
 
+
+          return view('admin.student_projects', [
+              'projects' => $projects]);
+        });
+
+      });
+
+
+//    Student section
+      Route::group(['middleware' => ['student']], function () {
+
+        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
+          })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
 
 
           return view('user.student.my_projects', [
               'projects' => $projects]);
-        });
+        }));
 
         Route::post('join/{id}', 'ProjectController@joinProject');
 
@@ -215,8 +233,16 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
-    });
+        Route::get('student/project/new', function () {
 
+          return view('user.student.new_project');
+        });
+
+        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
+
+      });
+
+    });
 
 
 });

@@ -130,7 +130,7 @@
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='project_start'>
 
-                                    <input type='text' class="form-control" name="project_start" id="project_start" value="{{ (empty($current_project) ? old('project_start') : $current_project->start) }}"/>
+                                    <input type='text' class="form-control" name="project_start" id="project_start" value="{{ (empty($current_project) ? old('project_start') : empty($current_project->start) ? old('project_start') :$current_project->start) }}"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -145,7 +145,7 @@
                             <label for="project_end" class="col-sm-3 control-label">Lõpp</label>
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='project_end'>
-                                    <input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : $current_project->end) }}"/>
+                                    <input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : empty($current_project->end) ? old('project_end') :$current_project->end) }}"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -304,7 +304,7 @@
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='join_deadline'>
 
-                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty($current_project) ? old('join_deadline') : $current_project->join_deadline) }}"/>
+                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty($current_project) ? old('join_deadline') : empty($current_project->join_deadline) ? old('join_deadline') :$current_project->join_deadline) }}"/>
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>

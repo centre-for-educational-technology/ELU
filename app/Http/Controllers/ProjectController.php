@@ -254,22 +254,23 @@ class ProjectController extends Controller
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
 
-
+    $project->submitted_by_student = false;
 
     $project->save();
 
-//    return view('project')
-//        ->with('projects', Project::orderBy('created_at', 'asc')->get());
+
+    //Detaching teachers
+    $teachers = $project->users()->wherePivot('participation_role', 'author')->get();
+
+    if(count($teachers)){
+      $project->users()->detach($teachers);
+    }
 
 
-    //Detaching users
-    $project->users()->detach();
 
     //Attach users with teacher role
     $supervisors = $request->input('supervisors');
     foreach ($supervisors as $supervisor){
-
-
 
       $project->users()->attach($supervisor, ['participation_role' => 'author']);
     }
@@ -284,10 +285,6 @@ class ProjectController extends Controller
     return \Redirect::to('teacher/my-projects')
         ->with('message', 'Projekt '.$project->name.' on muudatud')
         ->with('projects', $projects);
-
-//    return \Redirect::to('projects-all')
-//        ->with('message', 'Projekt '.$project->name.' on muudatud')
-//        ->with('projects', Project::orderBy('created_at', 'desc')->get());
 
 
   }

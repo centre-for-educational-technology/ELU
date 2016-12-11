@@ -7596,13 +7596,6 @@ button.close {
 .select2-container--classic.select2-container--open .select2-dropdown {
   border-color: #5897fb;
 }
-body {
-  background: #ECE9E6;
-  /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #ECE9E6, #FFFFFF);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
 td.table-text.red {
   color: #b71234;
 }
@@ -7663,6 +7656,9 @@ body {
   border-left-width: 5px;
   border-radius: 3px;
   background-color: #FFFFFF;
+}
+.login .btn-group {
+  margin-bottom: 10px;
 }
 .bs-callout-info {
   border-left-color: #b71234;

@@ -8,7 +8,7 @@
                 <div class="panel-heading">Login TLÜ kontoga</div>
                 <div class="panel-body text-center">
                     <div class="btn-group">
-                        <a class="btn btn-lg btn-success" href="{{ url('/login/tlu') }}"><i class="fa fa-btn fa-university"></i>Logi sisse TLÜ kontoga</a>
+                        <a class="btn btn-lg btn-primary" href="{{ url('/login/tlu') }}"><i class="fa fa-btn fa-university"></i>Logi sisse TLÜ kontoga</a>
 
                     </div>
 
@@ -18,13 +18,13 @@
 
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading">Logi sisse</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
+                            <label class="col-md-4 control-label">E-post</label>
 
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
+                            <label class="col-md-4 control-label">Parool</label>
 
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">
@@ -55,25 +55,27 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember"> Remember Me
+                                        <input type="checkbox" name="remember"> Jäta mind meelde
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group login">
                             <div class="col-md-6 col-md-offset-4">
 
-                                <div class="btn-group">
 
+
+                                <div class="btn-group">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa-sign-in"></i>Logi sisse
                                     </button>
-                                    <a class="btn btn-success" href="{{ url('/register') }}"><i class="fa fa-btn fa-user"></i> Registreeru</a>
-
                                 </div>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                <a class="btn btn-success" href="{{ url('/register') }}"><i class="fa fa-btn fa-user"></i> Registreeru</a>
+
+
+                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Unustasid parooli?</a>
 
 
 

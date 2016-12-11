@@ -1,5 +1,5 @@
 var elixir = require('laravel-elixir');
-// var gulp = require('gulp');
+var gulp = require('gulp');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,12 +12,24 @@ var elixir = require('laravel-elixir');
  |
  */
 
-// gulp.task("copyfiles", function() {
-//     gulp.src("resources/assets/bg/1.jpg")
-//       .pipe(gulp.dest("public/build/bg"));
-// });
+gulp.task("copyfiles", function() {
+    gulp.src("resources/assets/fonts/*")
+      .pipe(gulp.dest("public/fonts"));
+
+
+    gulp.src("resources/assets/css/*")
+      .pipe(gulp.dest("public/css"));
+
+    gulp.src("resources/assets/js/scripts.js")
+      .pipe(gulp.dest("public/js"));
+
+    gulp.src("resources/assets/js/config-design.js")
+      .pipe(gulp.dest("public/js"));
+});
 
 elixir(function(mix) {
+
+
     mix.scripts([
         '../bower/jquery/dist/jquery.min.js',
         '../bower/moment/min/moment.min.js',
@@ -39,4 +51,8 @@ elixir(function(mix) {
 
     mix.less(['app.less'])
       .version('css/app.css');
+
+    // mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/build/fonts/bootstrap');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
+
 });

@@ -9,6 +9,9 @@
             <div class="col-md-8 margt content">
                 <h1>Mul on idee</h1>
 
+                <!-- Display Validation Errors -->
+                @include('common.errors')
+
                 <form action="{{ url('student/project/new')}}" method="POST" class="form-horizontal new-project">
                 {{ csrf_field() }}
 

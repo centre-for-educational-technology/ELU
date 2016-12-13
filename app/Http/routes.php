@@ -142,12 +142,6 @@ Route::group(['middleware' =>['web']], function () {
         });
 
 
-        Route::get('/pages', 'PageController@index');
-
-
-        Route::post('/pages', 'PageController@store');
-
-
         Route::get('/teacher/my-projects', function () {
           $projects = Project::whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
@@ -177,6 +171,11 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/admin/edit/{id}/add-teacher', 'AdminController@addTeacher');
 
         Route::post('/admin/edit/{id}/remove-teacher', 'AdminController@removeTeacher');
+
+
+        Route::get('/pages', 'PageController@index');
+        
+        Route::post('/pages', 'PageController@store');
 
 
         Route::get('admin/all-projects', function () {

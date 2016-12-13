@@ -40,7 +40,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->paginate(8);
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->paginate(5);
 
 
     return view('project.all')

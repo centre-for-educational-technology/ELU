@@ -21,67 +21,59 @@
         <div class="row">
             <div class="col-md-4 margt">
                 <ul class="nav menu02 nav-stacked">
-                    <li role="presentation" class="active"><a data-toggle="tab" href="#menu1">Mis on ELU?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu2">Miks on ELU kõigis ülikooli õppekavades?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu3">Millal saab õppeainet võtta?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu4">Kuidas moodustatakse ELU rühmad?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu5">Missugustele tingimustele peab ELU rühm vastama?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu6">Missugune peab olema projekt?</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#menu7">Kust saan rohkem infot ELU kohta?</a></li>
+                    <li role="presentation" class="active"><a data-toggle="tab" href="#item1">Mis?</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#item2">Milleks?</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#item3">Millal?</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#item4">Kellega?</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#item5">Kuidas?</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#item6">Missugune?</a></li>
                 </ul>
             </div>
             <div class="col-md-8 margt content tab-content">
-                <div id="menu1" class="tab-pane fade in active">
-                    <h2 class="h3 text-uppercase">MIKS ON ELU KÕIGIS ÜLIKOOLI ÕPPEKAVADES?
+                <div id="item1" class="tab-pane fade in active">
+                    <h2 class="h3 text-uppercase">Mis?
                     </h2>
-                    <p>ELU on sellel sügisel alustav uus üleülikooliline õppeaine, mille raames eri valdkondade üliõpilased viivad koostöös ellu erialadevahelisi projekte.
-                    </p>
+                    <p>ELU on rühmatööna teostatud projekt, millel on konkreetselt sõnastatud eesmärk, etteantud tähtajad ja reaalne tulemus. Rühma moodustavad 6-8 üliõpilast vähemalt kolmest erinevast valdkonnast. Õppeaine maht on 6 EAP ja hindamine on arvestuslik.</p>
+                    <p>ELU projekte iseloomustab suur variatiivsus, kuna projekti sisu ja läbiviimise viis on juhendaja ja üliõpilaste otsustada. Küll aga on ainekaardis kokku lepitud kolm kohustuslikku tööd: 1. üliõpilaste koostöös valminud projekti kavand, 2. enese ning rühmakaaslaste panuse hindamine ja 3. projekti tulemuse esitlemine. Ainekaart on ühine kõigile erialadele ja õppeastmetele, kuna projekti rühmad moodustuvad erinevate erialade ja õppeastmete üliõpilastest.</p>
+                    <p>Lisainformatiooni leiab:</p>
+                    <p>Ainekaardist</p>
+                    <p>ELU kontseptsioonist</p>
                 </div>
-                <div id="menu2" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">Miks on ELU kõigis ülikooli õppekavades?</h2>
-                    <p>ELU on kõigile üliõpilastele kohustuslik, kuna tulevases tööelus tuleb tegeleda ideede ja probleemidega, mis ületavad ühe eriala piire. Tuleb kasuks, kui tunnustame ja mõistame teistes valdkondades toimuvat. Samuti tekib tänapäeval just palju uusi erialadevahelisi teadmisi, mille omamine annab konkurentsieelise. Seetõttu soovime kõigile oma üliõpilastele anda uudse koos õppimise ja –tegutsemise kogemuse.</p>
+                <div id="item2" class="tab-pane fade">
+                    <h2 class="h3 text-uppercase">Milleks?</h2>
+                    <p>Projektõpe on oluline, kuna tänapäeval on erinevate eluvaldkondade töökorraldus üha sagedamini projektipõhine: etteantud tähtajaks ja piiratud ressurssidega tuleb saavutada konkreetsed eesmärgid ja leida lahendus mittestandardsele ülesandele, seda üldjuhul meeskonnatöös. </p>
+                    <p>Lisaks tuleb kasuks interdistsiplinaarne lähenemine, kuna tulevases tööelus tuleb paratamatult tegeleda ideede ja probleemidega, mis ületavad ühe eriala piire. ELU projektid annavad võimaluse katsetada oma ideid, harjutada koostöötamist erinevate inimestega ja läbi kogemuse õppida iseenda kohta midagi uut. ELU on Tallinna ülikoolis kohustuslik, et kõik üliõpilased saaksid uudse koosõppimise ja -tegutsemise kogemuse.</p>
                 </div>
-                <div id="menu3" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">MILLAL SAAB ÕPPEAINET VÕTTA?</h2>
-                    <p>ELU aja saab üliõpilane ise valida. See tähendab, et ainesse võib registreeruda endale sobival semestril. Siiski tuleb silmas pidada, et projekti ei tohiks jätta lõputöö kirjutamisega samale ehk õpingute viimasele semestrile.
-                    </p>
-                    <p>Sel sügisel alustavad esimesed 10-15 ELU projekti. Ootame kõiki huvilisi 16. septembril Astra aatriumis toimuvale Ideelaadale, kus saab lisainformatsiooni ja tutvuda sel semestril välja pakutud ideedega.
-                    </p>
+                <div id="item3" class="tab-pane fade">
+                    <h2 class="h3 text-uppercase">Millal?</h2>
+                    <p>ELU teostamise aja saab üliõpilane ise valida, kuigi erinevalt tavalisest õppeainest tuleb projekti ettevalmistamisega alustada juba eelneval semestril, kuna rühm peab koos olema semestri alguseks.</p>
+                    <p>ELU projekt võib kesta 1-2 semestrit, olenevalt ülesande iseloomust. Kõige olulisem on projekti kestus kohe alguses üliõpilaste ja juhendaja vahel kokku leppida. Kui ELU kestab terve õppeaasta vältel, toimub ÕIS-i registreerimine ja tulemuse esitlemine alles teise semestri jooksul.</p>
+                    <p>ELU projekti on soovituslik teha enne viimast ehk lõputöö kirjutamise semestrit.</p>
+                    <p>Vaata lisaks ELU projekti </p>
                 </div>
-                <div id="menu4" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">KUIDAS MOODUSTATAKSE ELU RÜHMAD?</h2>
-                    <p>
-                        Rühmade moodustumine toimub üliõpilastele huvipakkuva ELU idee alusel. See tähendab, et iga üliõpilane saab ise valida, millise projektiga liituda.
-                    </p>
-                    <p>
-                        ELU ideid tutvustatakse Ideelaada üritusel, ELU veebis ja kursusega seotud õppejõudude poolt. Kõige parem on ise Ideelaadale kohale tulla, et võimalike rühma ehk ELU kaaslaste ja juhendajatega tutvuda ning soovi korral ka oma ELU idee välja pakkuda.
-                    </p>
-                    <p>
-                        Need, kes Ideelaadale kohale tulla ei saa, saavad pakutud projektidega tutvuda ELU veebis. Alates 2017. õa kevadsemestrist toimub rühmade kinnitamine samuti ELU veebis, 2016. õa sügissemestril tuleb registreerimiseks pärast Ideelaata vastava juhendajaga ühendust võtta.
-                    </p>
+                <div id="item4" class="tab-pane fade">
+                    <h2 class="h3 text-uppercase">Kellega?</h2>
+                    <p>ELU rühma suurus on 6-8 üliõpilast. Kui ühest teemast huvitatud üliõpilasi on rohkem, saab moodustada alamrühmad. Kuna tegemist on erialadevahelise projektiga, peavad rühmas olema vähemalt kolme erineva eriala üliõpilased.</p>
+                    <p>ELU rühmad moodustatakse huvipakkuva idee alusel. Üliõpilased saavad valida, millise juhendaja algatatud projektiga liituda, või pakkuda välja oma idee. ELU projekti ideid tutvustatakse ideelaadal ja ELU veebis. Ideelaat on rühma moodustamist toetav sündmus, mis hakkab toimuma kaks korda õppeaastas (mais sügissemestriks, detsembris kevadsemestriks). Projektiga liitumine ja ainesse registreerimine toimub ELU veebis (projekti kirjelduse juures).</p>
+                    <p>Igal ELU rühmal on abiks vähemalt üks projekti läbiviimist toetav õppejõud, kas juhendaja, kaasjuhendaja või mentori rollis. Õppejõu roll ELU-s sõltub sellest, kust teostamisele tulev idee pärineb ja missugune on tudengite rühma valmisolek protsessi juhtida. </p>
+                    <p>ELU läbiviimise kirjeldamiseks oleme välja töötanud kaks mudelit: ELU 1.0 ehk projekti juhivad õppejõud ning ELU 2.0, mille puhul projektijuht on üliõpilane. ELU 1.0 puhul on projekti algatajaks üks või mitu õppejõudu, kes pakuvad välja idee, on abiks sobiva rühma moodustamisel ja suunavad üliõpilasi soovitud eesmärgi saavutamisel. Lisaks juhendajale või kaasjuhendajatele saavad ELU rühmad küsida sisendit vajaliku valdkonna spetsialistidelt.</p>
+                    <p>ELU 2.0 mudelis on kogu vastutus projekti planeerimisel, teostamisel ja kaitsmisel üliõpilastel. Projekti hakkab juhtima üliõpilane, kes suure tõenäosusega on ise idee autor. Kui ELU 1.0 puhul on juhendaja rühma liige, siis tudengikeskses mudelis ei kuulu õppejõud ELU meeskonda. Samas on igal ELU 2.0 rühmal mentor-õppejõud, kes annab tagasisidet ja soovitusi. Üliõpilaste vastutusel põhinev mudel annab erakordse võimaluse enda ideed edasi arendada ja toetav meeskond leida. </p>
                 </div>
-                <div id="menu5" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">MISSUGUSTELE TINGIMUSTELE PEAB ELU RÜHM VASTAMA?</h2>
-                    <p>
-                        ELU rühma suurus on 6-8 üliõpilast. Kuna tegemist on erialadevahelise projektiga, moodustavad rühma vähemalt kolme erineva eriala üliõpilased. Näiteks võib ELU projekti rühmas olla kaks kommunikatsiooni, üks rekreatsiooni ja neli psühholoogia tudengit.
-                    </p>
-                    <p>
-                        ELU projektide puhul on sobiva rühma moodustamine väga oluline, mistõttu toimub ELU kaaslaste otsimine reeglina juba üks semester enne projekti teostamist. Kevadel projektiga alustamiseks tuleb huvipakkuvat teemat otsida juba sügissemestril. Seega on soovitav 16. septembri Ideelaadale tulla ka neil, kes plaanivad ELU läbida alles kevadel.
-                    </p>
+                <div id="item5" class="tab-pane fade">
+                    <h2 class="h3 text-uppercase">Kuidas?</h2>
+                    <p>Kõik saab alguse ideest. Idee võib välja pakkuda üliõpilane, õppejõud või partner väljastpoolt ülikooli. Igal ELU projektil peab olema vähemalt üks ülikooli poolne õppejõud.</p>
+                    <p>ELU ettevalmistamisel tuleb idee autoril läbi mõelda, milliste oskuste ja teadmistega rühmakaaslasi tarvis oleks ja kes võiks sobida projekti (kaas)juhendajateks. Samamoodi tuleb jälgida, et idee ei oleks õpiprojektiks liiga mahukas ja mõelda läbi esialgne läbiviimise raamistik. </p>
+                    <p>Järgnevalt tuleb idee ELU veebi sisestada ja seda ideelaadal tutvustada. Ideelaadaga saab alguse rühmade moodustamise etapp. Ideelaat toimub kaks korda õppeaastas, nii et enne uue semestri algust jääks piisavalt aega esimesteks kohtumisteks ja rühmade moodustamiseks. Kohe alguses tuleb kokku leppida, kui kaua projekt kestab.</p>
+                    <p>Kui rühm on paigas, tuleb esialgsest ideest vormida konkreetse eesmärgi, tegevuste, ajakava ja oodatud tulemusega projekt. Projekti teostamine tähendab jagatud ülesannete täitmist ja regulaarseid kohtumisi omavahel ning juhendajaga. Kohtumistel juhendajaga esitlevad üliõpilased projekti hetkeseisu, saavad tagasisidet ja vajadusel olulist sisendit.</p>
+                    <p>Enne semestri lõppu tuleb projekti tulemus vormistada ja seda esitleda. Selleks et üliõpilased ja juhendajad näeksid, missugused on teised ELUd, kuulutame iga semestri alguses välja võimalikud projekti esitlemise ajad. Sellest saab projekti lõpetamise tähtaeg. Lisaks tulemuste esitlemisele annavad kõik hinnangu nii enda kui ka rühmakaaslaste panusele.</p>
                 </div>
-                <div id="menu6" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">MISSUGUNE PEAB OLEMA PROJEKT?</h2>
-                    <p>
-                        ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast. ELU projekti eesmärk, selle saavutamiseks vajalikud tegevused ja ajakava lepitakse kokku projekti kavandis pärast rühma moodustamist. Juhendaja ülesanne on üliõpilasi toetada, hinnata kavandi teostatavust ja anda rühmale tagasisidet.
-                    </p>
-                    <p>
-                        Näide: Kommunikatsiooni, rekreatsiooni ja psühholoogia tudengite rühm võib oma ELU-s uurida, milliseid eksimusi tehti Reidi tee planeerimisel ja projekti avalikustamisel. ELU tulemuseks on analüüs ja projekti käigus saadud teadmised esitatakse ka audiovisuaalselt.
-                    </p>
+                <div id="item6" class="tab-pane fade">
+                    <h2 class="h3 text-uppercase">Missugune?</h2>
+                    <p>Õppeaine raames püüavad üliõpilased pakkuda lahendusi ELU olulistele väljakutsetele, arendada edasi olemasolevaid algatusi või luua midagi täiesti uut. ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast. </p>
+                    <p>ELU projekti eesmärk, selle saavutamiseks vajalikud tegevused ja ajakava lepitakse kokku projekti kavandis pärast rühma moodustamist. Õppeaine kohustuslikud osad on projekti kavand, enese ja rühmakaaslaste panuse hindamine ja tulemuse esitlemine.</p>
+                    <p>Projekti eesmärkide saavutamiseks vajalike kulude katteks on igal ELU rühmal kasutada 100€ eelarve. </p>
                 </div>
-                <div id="menu7" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">KUST SAAN ROHKEM INFOT ELU KOHTA?</h2>
-                    <p>Vaata ainekaarti: OIS.tlu.ee – Õppeained – otsing – Aine nimetus: Erialasid Lõimiv Uuendus</p>
-                </div>
+
             </div>
 
         </div>

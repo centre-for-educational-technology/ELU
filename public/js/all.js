@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {
+
+  // Date picker
   $('#project_start').datetimepicker({
     format: 'L'
   });
@@ -23,6 +25,8 @@ jQuery(document).ready(function($) {
   });
 
 
+
+  // Tags input
   $('input #tags').on('change', function(event) {
     var $element = $(event.target),
       $container = $element.closest('.example');
@@ -34,9 +38,9 @@ jQuery(document).ready(function($) {
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
+
+  // Sweet alert
   $("button#delete").on("click", function(e){
-
-
 
     swal({
         title: "Kas olete kindel?",
@@ -58,8 +62,6 @@ jQuery(document).ready(function($) {
 
   $("button#delete-user-button").on("click", function(e){
 
-
-
     swal({
         title: "Kas olete kindel?",
         type: "warning",
@@ -76,8 +78,35 @@ jQuery(document).ready(function($) {
 
   });
 
-
+  // Select2
   $(".js-example-basic-multiple").select2();
 
+  //Smooth scroll for front page
+  $('body.frontpage a[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+
+
+
+  //Go from front page to certain tab in FAQ page
+  var hash = window.location.hash;
+  if(hash.startsWith('#item')){
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+  }
+
+
+
 });
+
+
+
 //# sourceMappingURL=all.js.map

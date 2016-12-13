@@ -7605,15 +7605,6 @@ td.table-text.green {
 .jumbotron p {
   font-weight: 300;
 }
-h1,
-h2,
-h3:not(.tag-label),
-.navbar-nav.menu {
-  font-style: italic;
-  font-family: "Times New Roman", Times, serif;
-  text-transform: uppercase;
-  letter-spacing: -0.1em;
-}
 p.red {
   color: #b71234;
 }
@@ -7688,6 +7679,17 @@ body {
 }
 .tag-label .label {
   margin-bottom: 10px;
+  margin-right: 5px;
+}
+#about-elu a {
+  cursor: pointer;
+}
+ul.tags li {
+  margin-bottom: 10px;
+}
+table span.label {
+  margin-bottom: 3px;
+  display: block;
 }
 
 /*# sourceMappingURL=app.css.map */

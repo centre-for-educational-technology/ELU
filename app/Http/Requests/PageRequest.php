@@ -25,7 +25,7 @@ class PageRequest extends Request
     {
         return [
             'news' => 'required|max:9000',
-            'faq' => 'required|max:9000',
+//            'faq' => 'required|max:9000',
             'info' => 'required|max:9000',
         ];
     }

@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
+                <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse pull-right">
 
@@ -51,9 +51,13 @@
                             <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> Lisa</a></li>
                         @endif
 
+                        @if (Auth::user()->is('student'))
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>Mul on idee</a></li>
+                        @endif
+
                     @endif
 
-                    <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>Mul on idee</a></li>
+
 
 
 

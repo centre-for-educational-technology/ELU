@@ -12,7 +12,7 @@
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab1info" data-toggle="tab">Esilehe Uudis</a></li>
-                                <li><a href="#tab2info" data-toggle="tab">KKK</a></li>
+                                {{--<li><a href="#tab2info" data-toggle="tab">KKK</a></li>--}}
                                 <li><a href="#tab3info" data-toggle="tab">Üldinfo</a></li>
                                 {{--<li class="dropdown">--}}
                                     {{--<a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>--}}
@@ -33,11 +33,11 @@
                                             <textarea name="news" id="news" class="form-control">{{ (empty($news) ? old('news') : $news) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="tab2info">
-                                        <div class="col-sm-12">
-                                            <textarea name="faq" id="faq" class="form-control">{{ (empty($faq) ? old('faq') : $faq) }}</textarea>
-                                        </div>
-                                    </div>
+                                    {{--<div class="tab-pane fade" id="tab2info">--}}
+                                        {{--<div class="col-sm-12">--}}
+                                            {{--<textarea name="faq" id="faq" class="form-control">{{ (empty($faq) ? old('faq') : $faq) }}</textarea>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="tab-pane fade" id="tab3info">
                                         <div class="col-sm-12">
                                             <textarea name="info" id="info" class="form-control">{{ (empty($info) ? old('info') : $info) }}</textarea>

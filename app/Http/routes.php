@@ -174,7 +174,7 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('/pages', 'PageController@index');
-        
+
         Route::post('/pages', 'PageController@store');
 
 

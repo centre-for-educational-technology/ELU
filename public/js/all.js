@@ -103,6 +103,22 @@ jQuery(document).ready(function($) {
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
   }
 
+  //Search form
+  $('.search-panel .navbar-nav').find('a').click(function(e) {
+    e.preventDefault();
+    var param = $(this).attr("href").replace("#","");
+    var concept = $(this).text();
+    $('.search-panel span#search_concept').text(concept);
+    $('.form-group #search_param').val(param);
+  });
+
+  var selector = '.search-panel .navbar-nav li';
+
+  $(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+  });
+
 
 
 });

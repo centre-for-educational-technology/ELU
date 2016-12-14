@@ -4,26 +4,54 @@
 
 
     <div class="container">
-        <!-- Example row of columns -->
-        {{--<h1>Otsi</h1>--}}
-        {{--<div class="panel mt2em panel-default">--}}
-            {{--<div class="panel-body">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-md-4">--}}
-                        {{--<ul class="nav navbar-nav menu01">--}}
-                            {{--<li class="active"><a href="#">Projekti</a></li>--}}
-                            {{--<li><a href="#">Kaaslast</a></li>--}}
-                            {{--<li><a href="#">Juhendajat</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-8">--}}
-                        {{--<div class="form-group nomargin">--}}
-                            {{--<input type="email" class="form-control" placeholder="Sisesta märksõna">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+
+        {{--Search form--}}
+        <h1>Otsi</h1>
+        <div class="panel mt2em panel-default">
+            <div class="panel-body">
+                <div class="row">
+
+
+                    <form action="{{ url('/project/search') }}" method="GET" class="form-horizontal search-project">
+                        {{ csrf_field() }}
+
+                        <div class="col-md-4">
+
+                            <div class="input-group-btn search-panel">
+                                <ul class="nav navbar-nav menu01" role="menu">
+                                    <li class="active"><a href="#project">Projekti</a></li>
+                                    <li><a href="#member">Kaaslast</a></li>
+                                    <li><a href="#author">Juhendajat</a></li>
+                                    <li><a href="#tag">Märksõna</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="col-xs-10">
+                                <div class="form-group nomargin">
+
+                                    <input type="hidden" name="search_param" value="project" id="search_param">
+                                    <input type="text" class="form-control" name="search" placeholder="Sisesta nimi">
+                                </div>
+                            </div>
+
+                            <div class="form-group search">
+                                <div class="col-xs-2">
+                                    <button class="btn btn-primary" type="submit">Otsi!</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
         @if(\Session::has('message'))
             <div class="alert alert-info">
                 {{\Session::get('message')}}

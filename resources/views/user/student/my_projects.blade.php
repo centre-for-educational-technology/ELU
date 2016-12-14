@@ -4,26 +4,7 @@
 
 
     <div class="container">
-        <!-- Example row of columns -->
-        {{--<h1>Otsi</h1>--}}
-        {{--<div class="panel mt2em panel-default">--}}
-        {{--<div class="panel-body">--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-md-4">--}}
-        {{--<ul class="nav navbar-nav menu01">--}}
-        {{--<li class="active"><a href="#">Projekti</a></li>--}}
-        {{--<li><a href="#">Kaaslast</a></li>--}}
-        {{--<li><a href="#">Juhendajat</a></li>--}}
-        {{--</ul>--}}
-        {{--</div>--}}
-        {{--<div class="col-md-8">--}}
-        {{--<div class="form-group nomargin">--}}
-        {{--<input type="email" class="form-control" placeholder="Sisesta märksõna">--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
+
         @if(\Session::has('message'))
             <div class="alert alert-info">
                 {{\Session::get('message')}}
@@ -208,7 +189,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        
+
 
 
                                         <h3><span class="glyphicon ico-brainstorm"></span>Projekti meeskond</h3>

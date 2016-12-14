@@ -7691,5 +7691,8 @@ table span.label {
   margin-bottom: 3px;
   display: block;
 }
+.form-group.search {
+  margin-bottom: 0px;
+}
 
 /*# sourceMappingURL=app.css.map */

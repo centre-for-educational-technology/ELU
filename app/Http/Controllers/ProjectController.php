@@ -291,12 +291,43 @@ class ProjectController extends Controller
 
 
 
-  public function search()
+  public function search(Request $request)
   {
-    $name = Input::get('search');
-    $projects = Project::where('name', 'LIKE', '%'.$name.'%')->get();
+
+
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+    if($param == 'author'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+
+        $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+
+        $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+
+
+    }elseif ($param == 'tag'){
+      $projects = Project::where('tags', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+    }
+    else{
+      $projects = Project::where('name', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+    }
+
+
     return view('project.search')
         ->with('name', $name)
+        ->with('param', $param)
         ->with('projects', $projects);
   }
 

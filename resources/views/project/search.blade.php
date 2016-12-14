@@ -2,127 +2,310 @@
 
 @section('content')
 
+
     <div class="container">
 
 
+        {{--Search form--}}
+        <h1>Otsi</h1>
+        <div class="panel mt2em panel-default">
+            <div class="panel-body">
+                <div class="row">
 
-        <div class="col-sm-offset-1 col-sm-10">
-            <div class="page-header">
-                <h1>{{ $name }} <small>Otsingu tulemused</small></h1>
-            </div>
+                    <form action="{{ url('/project/search') }}" method="GET" class="form-horizontal search-project">
+                        {{ csrf_field() }}
 
+                        <div class="col-md-4">
 
-            {{--@if(\Session::has('message'))--}}
-                {{--<div class="alert alert-info">--}}
-                    {{--{{\Session::get('message')}}--}}
-                {{--</div>--}}
-            {{--@endif--}}
-
-            @if (count($projects) > 0)
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @foreach ($projects as $index => $project)
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="heading{{ $index }}">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $index }}" aria-expanded="false" aria-controls="collapse{{ $index }}">
-                                        {{ $project->name }}
-                                    </a>
-                                </h4>
+                            <div class="input-group-btn search-panel">
+                                <ul class="nav navbar-nav menu01" role="menu">
+                                    <li class="active"><a href="#project">Projekti</a></li>
+                                    <li><a href="#member">Kaaslast</a></li>
+                                    <li><a href="#author">Juhendajat</a></li>
+                                    <li><a href="#tag">Märksõna</a></li>
+                                </ul>
                             </div>
-                            <div id="collapse{{ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ $index }}">
-                                <div class="panel-body">
-                                    <div class="jumbotron" id="project-view">
-                                        <h1>{{ $project->name }}</h1>
-                                        <p>{{ $project->description }}</p>
-                                        <h3>Projekti väljundid</h3>
-
-                                        {{--Explode by new line--}}
-                                        @foreach (explode(PHP_EOL, $project->project_outcomes) as $project_outcome)
-                                            <p>{{ $project_outcome }}</p>
-                                        @endforeach
+                        </div>
 
 
-                                        <h3>Tudengi õpiväljundid</h3>
-                                        @foreach (explode(PHP_EOL, $project->student_outcomes) as $student_outcome)
-                                            <p>{{ $student_outcome }}</p>
-                                        @endforeach
+                        <div class="col-md-8">
+                            <div class="col-xs-10">
+                                <div class="form-group nomargin">
 
-                                        <h3>Seotud kursused</h3>
-                                        @foreach (explode(PHP_EOL, $project->courses) as $course)
-                                            <p>{{ $course }}</p>
-                                        @endforeach
-                                        <h3>Kestus</h3>
+                                    <input type="hidden" name="search_param" value="project" id="search_param">
+                                    <input type="text" class="form-control" name="search" placeholder="Sisesta nimi">
+                                </div>
+                            </div>
 
-
-                                        <p>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</p>
-
-
-                                        <h3>Instituut</h3>
-
-                                        @if ( $project->institute == 0 )
-                                            <p>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</p>
-                                        @elseif ( $project->institute == 1 )
-                                            <p>Digitehnoloogiate instituut</p>
-                                        @elseif ( $project->institute == 2 )
-                                            <p>Humanitaarteaduste instituut</p>
-                                        @elseif ( $project->institute == 3 )
-                                            <p>Haridusteaduste instituut</p>
-                                        @elseif ( $project->institute == 4 )
-                                            <p>Loodus- ja terviseteaduste instituut</p>
-                                        @elseif ( $project->institute == 5 )
-                                            <p>Rakvere kolledž</p>
-                                        @elseif ( $project->institute == 6 )
-                                            <p>Haapsalu kolledž</p>
-                                        @elseif ( $project->institute == 7 )
-                                            <p>Ühiskonnateaduste instituut</p>
-                                        @endif
-
-                                        <h3>Juhendaja(d)</h3>
-                                        <h3>
-                                            @foreach (explode(PHP_EOL, $project->supervisor) as $single_supervisor)
-                                                <span class="label label-info">{{ $single_supervisor }}</span>
-
-                                            @endforeach
-                                        </h3>
-
-                                        <h3>Staatus</h3>
-
-                                        @if ( $project->status == 0 )
-                                            <p>Lõppenud</p>
-                                        @elseif ( $project->status == 1 )
-                                            <p>Aktiivne</p>
-                                        @endif
-
-                                        <h3>Märksõnad</h3>
-
-                                        <h3>
-                                            @foreach (explode(',', $project->tags) as $tag)
-                                                <span class="label pull-left label-info">{{ $tag }}</span>
-
-                                            @endforeach
-                                        </h3>
-                                    </div>
-
+                            <div class="form-group search">
+                                <div class="col-xs-2">
+                                    <button class="btn btn-primary" type="submit">Otsi!</button>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+
+                    </form>
+
                 </div>
-
-            @else
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Projekte ei leidnud</h3>
-                    </div>
-                    <div class="panel-body">
-                        Logi sisse ja lisa projekti!
-                    </div>
-                </div>
-
-            @endif
-
+            </div>
         </div>
-    </div>
+
+
+
+        @if(\Session::has('message'))
+            <div class="alert alert-info">
+                {{\Session::get('message')}}
+            </div>
+        @endif
+
+
+        @if($param == 'author')
+            <h2>"{{$name}}" juhendajat otsingu tulemused</h2>
+        @elseif($param == 'member')
+            <h2>"{{$name}}" kaaslast otsingu tulemused</h2>
+        @elseif($param == 'tag')
+            <h2>"{{$name}}" märksõna otsingu tulemused</h2>
+        @else
+            <h2>"{{$name}}" projekti otsingu tulemused</h2>
+        @endif
+
+        @if (count($projects) > 0)
+            <div class="row">
+                <div class="col-md-4 margt">
+                    <ul class="nav menu02 menu02b nav-stacked">
+                        @foreach($projects as $index =>$project)
+
+                            @if($index == 0)
+                                <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
+                            @else
+                                <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
+                            @endif
+                        @endforeach
+
+                    </ul>
+
+
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {{ $projects->links() }}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-8 margt content tab-content">
+                    @foreach($projects as $index =>$project)
+
+                        @if($index == 0)
+                            <div id="project{{$index}}" class="tab-pane fade in active">
+                                @else
+                                    <div id="project{{$index}}" class="tab-pane fade">
+                                        @endif
+
+                                        <h2>{{ $project->name }}</h2>
+                                        <p>{!! $project->embedded !!}</p>
+                                        <p><strong>{{ $project->description }}</strong></p>
+                                        @if (!empty($project->extra_info))
+                                            <h3><span class="glyphicon ico-labyrinth"></span>Lisainfo</h3>
+                                            <p>{!! $project->extra_info !!}</p>
+                                        @endif
+
+
+                                        <div class="row mt2em">
+
+                                            <div class="col-md-6">
+
+                                                @if(!empty($project->integrated_areas))
+
+                                                    <h3><span class="glyphicon ico-topics"></span>Lõimitud valdkonnad</h3>
+                                                    <ul class="list-unstyled list01">
+                                                        @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
+                                                            <li>{{ $integrated_area }}</li>
+                                                        @endforeach
+                                                    </ul>
+
+                                                @endif
+
+                                                @if(!empty($project->course))
+                                                    <h3><span class="glyphicon ico-status"></span>Seotud kursused</h3>
+                                                    <ul class="list-unstyled list01">
+                                                        @foreach (explode(PHP_EOL, $project->courses) as $course)
+                                                            <li>{{ $course }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+
+                                                <h3><span class="glyphicon ico-duration"></span>Projekti kestus</h3>
+                                                <ul class="list-unstyled list01">
+                                                    @if ( $project->study_term == 0 )
+                                                        <li>Sügissemester</li>
+                                                    @elseif ( $project->study_term == 1 )
+                                                        <li>Kevadsemester</li>
+                                                    @endif
+                                                    {{--<h3><span class="glyphicon ico-duration"></span>Kestus</h3>--}}
+                                                    <li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>
+                                                </ul>
+
+
+
+                                                <h3><span class="glyphicon ico-status"></span>Staatus</h3>
+                                                <ul class="list-unstyled list01">
+                                                    @if ( $project->status == 0 )
+                                                        <li>Lõppenud</li>
+                                                    @elseif ( $project->status == 1 )
+                                                        <li>Aktiivne</li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+
+
+
+                                            <div class="col-md-6">
+
+
+                                                <h3><span class="glyphicon ico-target"></span>Instituut</h3>
+                                                <ul class="list-unstyled list01">
+                                                    @if ( $project->institute == 0 )
+                                                        <li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>
+                                                    @elseif ( $project->institute == 1 )
+                                                        <li>Digitehnoloogiate instituut</li>
+                                                    @elseif ( $project->institute == 2 )
+                                                        <li>Humanitaarteaduste instituut</li>
+                                                    @elseif ( $project->institute == 3 )
+                                                        <li>Haridusteaduste instituut</li>
+                                                    @elseif ( $project->institute == 4 )
+                                                        <li>Loodus- ja terviseteaduste instituut</li>
+                                                    @elseif ( $project->institute == 5 )
+                                                        <li>Rakvere kolledž</li>
+                                                    @elseif ( $project->institute == 6 )
+                                                        <li>Haapsalu kolledž</li>
+                                                    @elseif ( $project->institute == 7 )
+                                                        <li>Ühiskonnateaduste instituut</li>
+                                                    @endif
+                                                </ul>
+
+
+                                                <h3><span class="glyphicon ico-mentor"></span>Juhendajad</h3>
+                                                <ul class="list-unstyled list01 tags">
+                                                    @foreach ($project->users as $user)
+                                                        @if ( $user->pivot->participation_role == 'author' )
+                                                            @if(!empty($user->full_name))
+                                                                <li><span class="label label-primary">{{ $user->full_name }}</span></li>
+                                                            @else
+                                                                <li><span class="label label-primary">{{ $user->name }}</span></li>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+
+
+
+
+                                                @if(!empty($project->supervisor))
+
+                                                    <h3><span class="glyphicon ico-mentor"></span>Kaasjuhendajad</h3>
+                                                    <ul class="list-unstyled list01 tags">
+                                                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
+                                                            <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
+                                                        @endforeach
+                                                    </ul>
+
+                                                @endif
+
+
+                                                <h3><span class="glyphicon ico-tag"></span>Märksõnad</h3>
+                                                <ul class="list-unstyled list01 tags">
+                                                    @foreach (explode(',', $project->tags) as $tag)
+                                                        <li><span class="label label-primary">{{ $tag }}</span></li>
+
+                                                    @endforeach
+                                                </ul>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <h3><span class="glyphicon ico-inspire"></span>Projektiga liitumine</h3>
+                                        {{--Check for join deadline--}}
+                                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                                            <p class="red"><i class="fa fa-btn fa-frown-o"></i> Tähtaeg on läbi läinud! </p>
+                                        @else
+                                            @if(Auth::check())
+
+                                                @if ($project->currentUserIs('member'))
+                                                    <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+
+                                                        <button type="submit" class="btn btn-danger btn-lg">
+                                                            Lahkun projektist
+                                                        </button>
+                                                    </form>
+
+                                                @else
+                                                    <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                        {{ csrf_field() }}
+
+                                                        <button type="submit" class="btn btn-primary btn-lg">
+                                                            Liitun projektiga
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @else
+                                                <p>Logi sisse ja liitu projektiga</p>
+                                            @endif
+
+
+                                        @endif
+
+
+
+                                        <h3><span class="glyphicon ico-brainstorm"></span>Projekti meeskond</h3>
+                                        <h3 class="tag-label">
+                                            @foreach ($project->users as $user)
+                                                @if ( $user->pivot->participation_role == 'member' )
+                                                    @if(!empty($user->full_name))
+                                                        <span class="label label-primary">{{ $user->full_name }}
+                                                            @if(!empty($user->courses))
+                                                                @foreach($user->courses as $course)
+                                                                    ({{ $course->name }})
+                                                                @endforeach
+                                                            @endif
+                                            </span>
+                                                    @else
+                                                        <span class="label label-success">{{ $user->name }}</span>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </h3>
+
+
+
+                                    </div>
+
+
+
+                                    @endforeach
+
+                            </div>
+                </div>
+
+
+                @else
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Projekte ei leidnud</h3>
+                        </div>
+                        <div class="panel-body">
+                            Logi sisse ja lisa projekti!
+                        </div>
+                    </div>
+
+                @endif
+
+            </div>
+
+
 
 
 

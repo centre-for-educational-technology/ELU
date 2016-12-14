@@ -1,6 +1,6 @@
 # ELU application
 
-Version 0.2.1
+Version 1.0
 
 ## Requirements
 

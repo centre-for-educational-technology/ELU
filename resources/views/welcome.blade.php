@@ -128,24 +128,26 @@
             <div class="col-md-4">
                 <div class="block01 block01b">
                     <div class="pad"></div>
-                    <div class="circular">
-                        <div>
-                            <span class="glyphicon ico-target ico-color01-full"></span>
-                            <h4>Mis?</h4>
+                    <a href="{{ url('/faq') }}">
+                        <div class="circular">
+                            <div>
+                                <span class="glyphicon ico-target ico-color01-full"></span>
+                                <h4>Mis?</h4>
+                            </div>
+                            <div>
+                                <span class="glyphicon ico-labyrinth ico-color02-full"></span>
+                                <h4>Milleks?</h4>
+                            </div>
+                            <div>
+                                <span class="glyphicon ico-calendar ico-color03-full"></span>
+                                <h4>Millal?</h4>
+                            </div>
+                            <div>
+                                <span class="glyphicon ico-brainstorm ico-color02-full"></span>
+                                <h4>Kellega?</h4>
+                            </div>
                         </div>
-                        <div>
-                            <span class="glyphicon ico-labyrinth ico-color02-full"></span>
-                            <h4>Milleks?</h4>
-                        </div>
-                        <div>
-                            <span class="glyphicon ico-calendar ico-color03-full"></span>
-                            <h4>Millal?</h4>
-                        </div>
-                        <div>
-                            <span class="glyphicon ico-brainstorm ico-color02-full"></span>
-                            <h4>Kellega?</h4>
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 <h2>Mis on ELU?</h2>
 
@@ -155,10 +157,12 @@
             </div>
             <div class="col-md-4">
                 <div class="block01">
-                    <div class="pad">
-                        <span class="glyphicon ico-search"></span>
-                        <p><strong>Otsin</strong> projekti, kaaslast või juhendajat</p>
-                    </div>
+                    <a href="{{ url('/projects-all') }}">
+                        <div class="pad">
+                            <span class="glyphicon ico-search"></span>
+                            <p><strong>Otsin</strong> projekti, kaaslast või juhendajat</p>
+                        </div>
+                    </a>
                 </div>
                 <h2>Ideelaat</h2>
                 <p>{!! nl2br($info->body) !!}</p>
@@ -166,10 +170,38 @@
             </div>
             <div class="col-md-4">
                 <div class="block01 block01c">
-                    <div class="pad">
-                        <span class="glyphicon ico-idea"></span>
-                        <p><strong>Mul on idee</strong> pane see kirja</p>
-                    </div>
+                    @if (Auth::guest())
+                        <a href="{{ url('/student/project/new') }}">
+                            <div class="pad">
+                                <span class="glyphicon ico-idea"></span>
+                                <p><strong>Mul on idee</strong> pane see kirja</p>
+                            </div>
+                        </a>
+                    @else
+                        @if (Auth::user()->is('student'))
+                            <a href="{{ url('/student/project/new') }}">
+                                <div class="pad">
+                                    <span class="glyphicon ico-idea"></span>
+                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                </div>
+                            </a>
+                        @elseif(Auth::user()->is('oppejoud'))
+                            <a href="{{ url('/project/new') }}">
+                                <div class="pad">
+                                    <span class="glyphicon ico-idea"></span>
+                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ url('/projects-all') }}">
+                                <div class="pad">
+                                    <span class="glyphicon ico-idea"></span>
+                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                </div>
+                            </a>
+                        @endif
+                    @endif
+
                 </div>
                 <h2>Viimane uudis</h2>
                 <p>{!! nl2br($news->body) !!}</p>

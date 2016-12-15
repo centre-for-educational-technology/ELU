@@ -113,12 +113,15 @@ class ProjectController extends Controller
 
     $project->institute = $request->institutes;
 
+    if($request->project_start){
+      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+      $project->start = date("Y-m-d", $date_start->getTimestamp());
+    }
 
-    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-    $project->start = date("Y-m-d", $date_start->getTimestamp());
-
-    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-    $project->end = date("Y-m-d", $date_end->getTimestamp());
+    if($request->project_end){
+      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+      $project->end = date("Y-m-d", $date_end->getTimestamp());
+    }
 
 
     // Co-supervisors saved into supervisor column
@@ -228,11 +231,15 @@ class ProjectController extends Controller
     $project->institute = $request->institutes;
 
 
-    $date_start = date_create_from_format('m/d/Y', $request->project_start);
-    $project->start = date("Y-m-d", $date_start->getTimestamp());
+    if($request->project_start){
+      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+      $project->start = date("Y-m-d", $date_start->getTimestamp());
+    }
 
-    $date_end = date_create_from_format('m/d/Y', $request->project_end);
-    $project->end = date("Y-m-d", $date_end->getTimestamp());
+    if($request->project_end){
+      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+      $project->end = date("Y-m-d", $date_end->getTimestamp());
+    }
 
 
     $project->supervisor = $request->cosupervisors;

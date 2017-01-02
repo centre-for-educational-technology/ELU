@@ -2,6 +2,8 @@
 
 Version 1.0
 
+Running on Laravel 5.2.45
+
 ## Requirements
 
 * PHP 7.0 and higher

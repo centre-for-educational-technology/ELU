@@ -74,7 +74,17 @@ class SimpleSamlController extends Controller
         $user->full_name = $attrs['cn'][0];
         $user->save();
 
-        if($user->is('student')){
+
+        if(in_array('oppejoud', $attrs['eduPersonAffiliation'])){
+
+          $user->roles()->syncWithoutDetaching([1]);
+
+        }
+
+        if(in_array('student', $attrs['eduPersonAffiliation'])){
+
+          $user->roles()->syncWithoutDetaching([2]);
+
           $course_and_degree = $this->getCourseAndDegree($attrs);
 
           $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
@@ -83,6 +93,7 @@ class SimpleSamlController extends Controller
           $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
 
         }
+
 
 
         auth()->login($user, true);

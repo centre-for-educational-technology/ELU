@@ -7677,9 +7677,8 @@ body {
 .search {
   margin-bottom: 60px;
 }
-.tag-label .label {
-  margin-bottom: 10px;
-  margin-right: 5px;
+h3 .label-primary {
+  display: inline-block;
 }
 #about-elu a {
   cursor: pointer;
@@ -7689,7 +7688,7 @@ ul.tags li {
 }
 table span.label {
   margin-bottom: 3px;
-  display: block;
+  display: inline-block;
 }
 .form-group.search {
   margin-bottom: 0px;

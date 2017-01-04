@@ -221,25 +221,30 @@
                                 <p class="red"><i class="fa fa-btn fa-frown-o"></i> Tähtaeg on läbi läinud! </p>
                             @else
                                 @if(Auth::check())
+                                    @if(Auth::user()->is('student'))
+                                        @if ($project->currentUserIs('member'))
+                                            <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                                                {{ csrf_field() }}
 
-                                    @if ($project->currentUserIs('member'))
-                                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-lg">
+                                                    Lahkun projektist
+                                                </button>
+                                            </form>
 
-                                            <button type="submit" class="btn btn-danger btn-lg">
-                                                Lahkun projektist
-                                            </button>
-                                        </form>
+                                        @else
+                                            <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                {{ csrf_field() }}
 
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    Liitun projektiga
+                                                </button>
+                                            </form>
+                                        @endif
                                     @else
-                                        <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
-
-                                            <button type="submit" class="btn btn-primary btn-lg">
-                                                Liitun projektiga
-                                            </button>
-                                        </form>
+                                        <p>Sul ei ole tudengi rolli</p>
                                     @endif
+
+
                                 @else
                                     <p>Logi sisse ja liitu projektiga</p>
                                 @endif
@@ -262,7 +267,7 @@
                                                 @endif
                                             </span>
                                         @else
-                                            <span class="label label-success">{{ $user->name }}</span>
+                                            <span class="label label-primary">{{ $user->name }}</span>
                                         @endif
                                     @endif
                                 @endforeach

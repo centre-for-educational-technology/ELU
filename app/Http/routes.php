@@ -25,6 +25,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
 
 
+    Route::get('/login/choose', function () {
+
+      return view('auth.login_tlu');
+    });
+
+
     Route::auth();
 
 
@@ -161,16 +167,19 @@ Route::group(['middleware' =>['web']], function () {
 //    Admin section
       Route::group(['middleware' => ['admin']], function () {
 
-        Route::get('/admin/edit', 'AdminController@index');
+        Route::get('/admin/users', 'AdminController@index');
 
-        Route::post('/admin/edit/{id}/add-admin', 'AdminController@addAdmin');
+        Route::post('/admin/users/{id}/add-admin', 'AdminController@addAdmin');
 
-        Route::post('/admin/edit/{id}/remove-admin', 'AdminController@removeAdmin');
+        Route::post('/admin/users/{id}/remove-admin', 'AdminController@removeAdmin');
 
 
-        Route::post('/admin/edit/{id}/add-teacher', 'AdminController@addTeacher');
+        Route::post('/admin/users/{id}/add-teacher', 'AdminController@addTeacher');
 
-        Route::post('/admin/edit/{id}/remove-teacher', 'AdminController@removeTeacher');
+        Route::post('/admin/users/{id}/remove-teacher', 'AdminController@removeTeacher');
+
+
+        Route::post('/admin/users/search', 'AdminController@search');
 
 
         Route::get('/pages', 'PageController@index');

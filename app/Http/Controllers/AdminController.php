@@ -87,4 +87,27 @@ class AdminController extends Controller
 
 
   }
+
+
+  public function search(Request $request)
+  {
+
+    $query = $request->search;
+    $param = $request->search_param;
+
+    if($param == 'email'){
+
+      $users = User::where('email', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5);
+
+    }
+    else{
+      $users = User::where('name', 'LIKE', '%'.$query.'%')->orWhere('full_name', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5);
+    }
+
+
+    return view('admin.edit')
+        ->with('name', $query)
+        ->with('param', $param)
+        ->with('users', $users);
+  }
 }

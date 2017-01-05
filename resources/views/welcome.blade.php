@@ -67,9 +67,9 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
 
-                        <li {{ (Request::is('login') ? 'class=active' : '') }}>
+                        <li {{ (Request::is('login/choose') ? 'class=active' : '') }}>
                             <p class="navbar-btn">
-                                <a href="{{ url('/login') }}" class="btn btn-default">Sisene</a>
+                                <a href="{{ url('/login/choose') }}" class="btn btn-default">Sisene</a>
                             </p>
                         </li>
                         {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
@@ -96,7 +96,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('admin'))
                                     <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
-                                    <li><a href="{{ url('admin/edit') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
+                                    <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
                                 @endif
@@ -279,7 +279,7 @@
     <footer class="main">
         <p>Tallinna Ülikool<br>
             Narva mnt 25, 10120 Tallinn<br>
-            +372 6409101 / <a href="mailto:tlu@tlu.ee">tlu@tlu.ee</a></p>
+            +372 6409101 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
     </footer>
 </div>
 </body>

@@ -229,7 +229,7 @@
                             <h3 class="panel-title">Projekte ei leidnud</h3>
                         </div>
                         <div class="panel-body">
-                            Vali soobiva projekti ja liitu sellega!
+                            Vali sobiv projekt ja liitu sellega!
                         </div>
                     </div>
 

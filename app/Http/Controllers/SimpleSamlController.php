@@ -57,12 +57,14 @@ class SimpleSamlController extends Controller
           $new_user->roles()->attach(2);
 
 
-          $course_and_degree = $this->getCourseAndDegree($attrs);
+          if(!empty($attrs['eduPersonScopedAffiliation'])){
+            $course_and_degree = $this->getCourseAndDegree($attrs);
 
-          $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
+            $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
 
-          //Set user course and degree
-          $new_user->courses()->attach($course->id, ['degree' => $course_and_degree['degree']]);
+            //Set user course and degree
+            $new_user->courses()->attach($course->id, ['degree' => $course_and_degree['degree']]);
+          }
 
         }
 
@@ -85,12 +87,16 @@ class SimpleSamlController extends Controller
 
           $user->roles()->syncWithoutDetaching([2]);
 
-          $course_and_degree = $this->getCourseAndDegree($attrs);
 
-          $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
 
-          //Set user course and degree
-          $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+          if(!empty($attrs['eduPersonScopedAffiliation'])){
+            $course_and_degree = $this->getCourseAndDegree($attrs);
+
+            $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
+
+            //Set user course and degree
+            $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+          }
 
         }
 

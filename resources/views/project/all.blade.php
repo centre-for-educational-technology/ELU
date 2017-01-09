@@ -259,7 +259,12 @@
                                 @foreach ($project->users as $user)
                                     @if ( $user->pivot->participation_role == 'member' )
                                         @if(!empty($user->full_name))
-                                            <span class="label label-primary">{{ $user->full_name }}
+                                            @php
+                                                $parts = explode(" ", $user->full_name);
+                                                $lastname = array_pop($parts);
+                                                $firstname = implode(" ", $parts);
+                                            @endphp
+                                            <span class="label label-primary">{{ $firstname }}
                                                 @if(!empty($user->courses))
                                                     @foreach($user->courses as $course)
                                                         ({{ $course->name }})
@@ -267,7 +272,16 @@
                                                 @endif
                                             </span>
                                         @else
-                                            <span class="label label-primary">{{ $user->name }}</span>
+                                            @php
+                                                $parts = explode(" ", $user->name);
+                                                if (count($parts)>1){
+                                                    $lastname = array_pop($parts);
+                                                    $firstname = implode(" ", $parts);
+                                                }else{
+                                                    $firstname = $user->name;
+                                                }
+                                            @endphp
+                                            <span class="label label-primary">{{ $firstname }}</span>
                                         @endif
                                     @endif
                                 @endforeach

@@ -26,11 +26,16 @@ class AdminController extends Controller
 
     $user->roles()->attach(3);
 
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
 
 
     return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
-        ->with('message', $user->name.' on lisatud adminide nimekirja!');
+        ->with('message', $username.' on lisatud adminide nimekirja!');
 
   }
 
@@ -44,10 +49,16 @@ class AdminController extends Controller
 
     $user->roles()->detach(3);
 
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
+
 
     return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
-        ->with('message', $user->name.' on ära võetud adminide nimekirjast!');
+        ->with('message', $username.' on ära võetud adminide nimekirjast!');
 
 
   }
@@ -63,10 +74,16 @@ class AdminController extends Controller
     $user->roles()->attach(1);
 
 
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
+
 
     return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
-        ->with('message', $user->name.' on lisatud õppejõudu nimekirja!');
+        ->with('message', $username.' on lisatud õppejõudu nimekirja!');
 
   }
 
@@ -75,15 +92,20 @@ class AdminController extends Controller
   public function removeTeacher(Request $request, $id){
 
 
-
     $user = User::find($id);
 
     $user->roles()->detach(1);
 
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
+
 
     return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
-        ->with('message', $user->name.' on ära võetud õppejõudu nimekirjast!');
+        ->with('message', $username.' on ära võetud õppejõudu nimekirjast!');
 
 
   }

@@ -113,7 +113,7 @@
 
                                         @if ($user->is('admin'))
 
-                                            <form action="{{ url('admin/edit/'.$user->id).'/remove-admin' }}" method="POST">
+                                            <form action="{{ url('admin/users/'.$user->id).'/remove-admin' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
@@ -122,7 +122,7 @@
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ url('admin/edit/'.$user->id).'/add-admin' }}" method="POST">
+                                            <form action="{{ url('admin/users/'.$user->id).'/add-admin' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
@@ -143,7 +143,7 @@
 
                                         @if ($user->is('oppejoud'))
 
-                                            <form action="{{ url('admin/edit/'.$user->id).'/remove-teacher' }}" method="POST">
+                                            <form action="{{ url('admin/users/'.$user->id).'/remove-teacher' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
@@ -152,7 +152,7 @@
                                                 </button>
                                             </form>
                                         @else
-                                            <form action="{{ url('admin/edit/'.$user->id).'/add-teacher' }}" method="POST">
+                                            <form action="{{ url('admin/users/'.$user->id).'/add-teacher' }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 

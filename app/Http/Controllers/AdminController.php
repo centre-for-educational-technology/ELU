@@ -28,7 +28,7 @@ class AdminController extends Controller
 
 
 
-    return \Redirect::to('admin/edit')
+    return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
         ->with('message', $user->name.' on lisatud adminide nimekirja!');
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
     $user->roles()->detach(3);
 
 
-    return \Redirect::to('admin/edit')
+    return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
         ->with('message', $user->name.' on ära võetud adminide nimekirjast!');
 
@@ -64,7 +64,7 @@ class AdminController extends Controller
 
 
 
-    return \Redirect::to('admin/edit')
+    return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
         ->with('message', $user->name.' on lisatud õppejõudu nimekirja!');
 
@@ -81,7 +81,7 @@ class AdminController extends Controller
     $user->roles()->detach(1);
 
 
-    return \Redirect::to('admin/edit')
+    return \Redirect::to('admin/users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
         ->with('message', $user->name.' on ära võetud õppejõudu nimekirjast!');
 

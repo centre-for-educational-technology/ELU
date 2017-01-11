@@ -37,7 +37,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
         return view('welcome', [
-            'projects' => Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->take(5)->get(),
             'news' => Page::where('permalink', 'LIKE', '%news%')->first(),
             'faq' => Page::where('permalink', 'LIKE', '%faq%')->first(),
             'info' => Page::where('permalink', 'LIKE', '%info%')->first()]);

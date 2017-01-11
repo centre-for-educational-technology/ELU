@@ -279,7 +279,7 @@
     <footer class="main">
         <p>Tallinna Ülikool<br>
             Narva mnt 25, 10120 Tallinn<br>
-            +372 6409101 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
+            +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
     </footer>
 </div>
 </body>

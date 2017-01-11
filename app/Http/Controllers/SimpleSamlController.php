@@ -49,24 +49,34 @@ class SimpleSamlController extends Controller
         $new_user->save();
 
 
-        if(in_array('oppejoud', $attrs['eduPersonAffiliation'])){
-          $new_user->roles()->attach(1);
-        }
-
-        if(in_array('student', $attrs['eduPersonAffiliation'])){
-          $new_user->roles()->attach(2);
-
-
-          if(!empty($attrs['eduPersonScopedAffiliation'])){
-            $course_and_degree = $this->getCourseAndDegree($attrs);
-
-            $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
-
-            //Set user course and degree
-            $new_user->courses()->attach($course->id, ['degree' => $course_and_degree['degree']]);
+        if(!empty($attrs['eduPersonAffiliation'])){
+          if(in_array('oppejoud', $attrs['eduPersonAffiliation'])){
+            $new_user->roles()->attach(1);
           }
 
+          else if(in_array('student', $attrs['eduPersonAffiliation'])){
+            $new_user->roles()->attach(2);
+
+
+            if(!empty($attrs['eduPersonScopedAffiliation'])){
+              $course_and_degree = $this->getCourseAndDegree($attrs);
+
+
+              if($course_and_degree['course_num'] != false){
+                $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
+
+                //Set user course and degree
+                $new_user->courses()->attach($course->id, ['degree' => $course_and_degree['degree']]);
+              }
+
+            }
+
+          }else{
+            //Staff gets student role
+            $new_user->roles()->attach(2);
+          }
         }
+
 
         auth()->login($new_user, true);
 
@@ -77,35 +87,34 @@ class SimpleSamlController extends Controller
         $user->save();
 
 
-        if(in_array('oppejoud', $attrs['eduPersonAffiliation'])){
+        if(!empty($attrs['eduPersonAffiliation'])){
+          if(in_array('oppejoud', $attrs['eduPersonAffiliation'])){
 
-          $user->roles()->syncWithoutDetaching([1]);
+            $user->roles()->syncWithoutDetaching([1]);
 
-        }
+          }else if(in_array('student', $attrs['eduPersonAffiliation'])){
 
-        if(in_array('student', $attrs['eduPersonAffiliation'])){
-
-          $user->roles()->syncWithoutDetaching([2]);
-
-
-          \Debugbar::info($attrs['eduPersonScopedAffiliation']);
-
-          if(!empty($attrs['eduPersonScopedAffiliation'])){
+            $user->roles()->syncWithoutDetaching([2]);
 
 
+            if(!empty($attrs['eduPersonScopedAffiliation'])){
+              $course_and_degree = $this->getCourseAndDegree($attrs);
 
+              if($course_and_degree['course_num'] != false){
+                $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
 
-            $course_and_degree = $this->getCourseAndDegree($attrs);
+                //Set user course and degree
+                $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+              }
 
-            $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
+            }
 
-            //Set user course and degree
-            $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+          }else{
+            //Staff gets student role
+            $user->roles()->sync([2]);
+
           }
-
         }
-
-
 
         auth()->login($user, true);
 

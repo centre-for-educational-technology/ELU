@@ -88,8 +88,13 @@ class SimpleSamlController extends Controller
           $user->roles()->syncWithoutDetaching([2]);
 
 
+          \Debugbar::info($attrs['eduPersonScopedAffiliation']);
 
           if(!empty($attrs['eduPersonScopedAffiliation'])){
+
+
+
+
             $course_and_degree = $this->getCourseAndDegree($attrs);
 
             $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();

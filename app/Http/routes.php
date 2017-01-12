@@ -178,7 +178,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/admin/users/{id}/remove-teacher', 'AdminController@removeTeacher');
 
 
-        Route::post('/admin/users/search', 'AdminController@search');
+        Route::get('/admin/users/search', 'AdminController@search');
 
 
         Route::get('/pages', 'PageController@index');

@@ -16,7 +16,7 @@
                     <div class="row">
 
 
-                        <form action="{{ url('/admin/users/search') }}" method="POST" class="form-horizontal search-users">
+                        <form action="{{ url('/admin/users/search') }}" method="GET" class="form-horizontal search-users">
                             {{ csrf_field() }}
 
                             <div class="col-md-3">

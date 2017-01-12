@@ -88,7 +88,7 @@
 
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            {{ $projects->links() }}
+                            {!! $projects->render() !!}
                         </ul>
                     </nav>
                 </div>
@@ -142,7 +142,7 @@
                                                         <li>Kevadsemester</li>
                                                     @endif
                                                     {{--<h3><span class="glyphicon ico-duration"></span>Kestus</h3>--}}
-                                                    <li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>
+                                                    {{--<li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>--}}
                                                 </ul>
 
 
@@ -162,26 +162,26 @@
                                             <div class="col-md-6">
 
 
-                                                <h3><span class="glyphicon ico-target"></span>Instituut</h3>
-                                                <ul class="list-unstyled list01">
-                                                    @if ( $project->institute == 0 )
-                                                        <li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>
-                                                    @elseif ( $project->institute == 1 )
-                                                        <li>Digitehnoloogiate instituut</li>
-                                                    @elseif ( $project->institute == 2 )
-                                                        <li>Humanitaarteaduste instituut</li>
-                                                    @elseif ( $project->institute == 3 )
-                                                        <li>Haridusteaduste instituut</li>
-                                                    @elseif ( $project->institute == 4 )
-                                                        <li>Loodus- ja terviseteaduste instituut</li>
-                                                    @elseif ( $project->institute == 5 )
-                                                        <li>Rakvere kolledž</li>
-                                                    @elseif ( $project->institute == 6 )
-                                                        <li>Haapsalu kolledž</li>
-                                                    @elseif ( $project->institute == 7 )
-                                                        <li>Ühiskonnateaduste instituut</li>
-                                                    @endif
-                                                </ul>
+                                                {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}
+                                                {{--<ul class="list-unstyled list01">--}}
+                                                    {{--@if ( $project->institute == 0 )--}}
+                                                        {{--<li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 1 )--}}
+                                                        {{--<li>Digitehnoloogiate instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 2 )--}}
+                                                        {{--<li>Humanitaarteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 3 )--}}
+                                                        {{--<li>Haridusteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 4 )--}}
+                                                        {{--<li>Loodus- ja terviseteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 5 )--}}
+                                                        {{--<li>Rakvere kolledž</li>--}}
+                                                    {{--@elseif ( $project->institute == 6 )--}}
+                                                        {{--<li>Haapsalu kolledž</li>--}}
+                                                    {{--@elseif ( $project->institute == 7 )--}}
+                                                        {{--<li>Ühiskonnateaduste instituut</li>--}}
+                                                    {{--@endif--}}
+                                                {{--</ul>--}}
 
 
                                                 <h3><span class="glyphicon ico-mentor"></span>Juhendajad</h3>

@@ -164,16 +164,13 @@
 
                                         @endif
 
-
-
                                     </td>
-
 
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $users->links() }}
+                        {!! $users->render() !!}
 
                 </div>
             </div>

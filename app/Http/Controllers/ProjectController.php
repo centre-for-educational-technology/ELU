@@ -40,7 +40,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->paginate(5);
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('created_at', 'desc')->paginate(20);
 
 
     return view('project.all')
@@ -312,7 +312,7 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -321,14 +321,14 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'tag'){
-      $projects = Project::where('tags', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+      $projects = Project::where('tags', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
     }
     else{
-      $projects = Project::where('name', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+      $projects = Project::where('name', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
     }
 
 

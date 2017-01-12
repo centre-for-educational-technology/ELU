@@ -119,11 +119,11 @@ class AdminController extends Controller
 
     if($param == 'email'){
 
-      $users = User::where('email', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5);
+      $users = User::where('email', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $query, 'search_param' => $param]);
 
     }
     else{
-      $users = User::where('name', 'LIKE', '%'.$query.'%')->orWhere('full_name', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5);
+      $users = User::where('name', 'LIKE', '%'.$query.'%')->orWhere('full_name', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $query, 'search_param' => $param]);
     }
 
 

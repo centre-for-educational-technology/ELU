@@ -226,7 +226,11 @@
                                     @if ($teachers->count())
 
                                         @foreach($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+                                            @if(!empty($teacher->full_name))
+                                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->full_name }}</option>
+                                            @else
+                                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+                                            @endif
 
                                             {{--<option value="{{ $teacher->id }}">{{ $teacher->name }}</option>--}}
                                         @endforeach

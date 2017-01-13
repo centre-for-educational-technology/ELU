@@ -4,7 +4,52 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-sm-offset-1 col-sm-10">
+
+            {{--Search form--}}
+            <h3>Otsi</h3>
+            <div class="panel mt2em panel-default">
+                <div class="panel-body">
+                    <div class="row">
+
+
+                        <form action="{{ url('/admin/all-projects/search') }}" method="GET" class="form-horizontal search-users">
+                            {{ csrf_field() }}
+
+                            <div class="col-md-4">
+
+                                <div class="input-group-btn search-panel">
+                                    <ul class="nav navbar-nav menu01" role="menu">
+                                        <li class="active"><a href="#project">Projekti</a></li>
+                                        <li><a href="#member">Kaaslast</a></li>
+                                        <li><a href="#author">Juhendajat</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-8">
+                                <div class="col-xs-10">
+                                    <div class="form-group nomargin">
+
+                                        <input type="hidden" name="search_param" value="name" id="search_param">
+                                        <input type="text" class="form-control" name="search" placeholder="Otsingusõna">
+                                    </div>
+                                </div>
+
+                                <div class="form-group search">
+                                    <div class="col-xs-2">
+                                        <button class="btn btn-primary" type="submit">Otsi!</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
 
             @if(\Session::has('message'))
                 <div class="alert alert-info">

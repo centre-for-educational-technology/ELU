@@ -6,7 +6,7 @@
         @include('common.errors')
 
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-sm-offset-1 col-sm-10">
 
 
             {{--Search form--}}
@@ -19,7 +19,7 @@
                         <form action="{{ url('/admin/users/search') }}" method="GET" class="form-horizontal search-users">
                             {{ csrf_field() }}
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
 
                                 <div class="input-group-btn search-panel">
                                     <ul class="nav navbar-nav menu01" role="menu">

@@ -29,6 +29,9 @@ class PageController extends Controller
   }
 
 
+  /**
+   * Store pages info
+   */
   public function store(PageRequest $request)
   {
 

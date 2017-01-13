@@ -18,6 +18,9 @@ class AdminController extends Controller
   }
 
 
+  /**
+   * Add admin role to user
+   */
   public function addAdmin(Request $request, $id){
 
 
@@ -41,8 +44,10 @@ class AdminController extends Controller
 
 
 
+  /**
+   * Remove admin role from user
+   */
   public function removeAdmin(Request $request, $id){
-
 
 
     $user = User::find($id);
@@ -65,6 +70,9 @@ class AdminController extends Controller
 
 
 
+  /**
+   * Add teacher role to user
+   */
   public function addTeacher(Request $request, $id){
 
 
@@ -89,6 +97,9 @@ class AdminController extends Controller
 
 
 
+  /**
+   * Remove teacher role from user
+   */
   public function removeTeacher(Request $request, $id){
 
 
@@ -111,6 +122,11 @@ class AdminController extends Controller
   }
 
 
+  /**
+   * Search users by
+   * name
+   * email
+   */
   public function search(Request $request)
   {
 

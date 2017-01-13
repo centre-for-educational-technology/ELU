@@ -21,20 +21,10 @@ use Cohensive\Embed\Facades\Embed;
 class ProjectController extends Controller
 {
 
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-//  public function __construct()
-//  {
-//    $this->middleware('auth');
-//  }
 
   /**
-   * Show the application dashboard.
+   * List the published projects
    *
-   * @return \Illuminate\Http\Response
    */
   public function index()
   {
@@ -50,6 +40,9 @@ class ProjectController extends Controller
 
 
 
+  /**
+   * Add new project form
+   */
   public function add()
   {
 
@@ -74,6 +67,10 @@ class ProjectController extends Controller
 
   }
 
+
+  /**
+   * Save new project
+   */
   public function store(ProjectRequest $request)
   {
 
@@ -187,6 +184,9 @@ class ProjectController extends Controller
 
 
 
+  /**
+   * Update project info
+   */
   public function update(ProjectRequest $request, $id)
   {
 
@@ -298,10 +298,14 @@ class ProjectController extends Controller
 
 
 
+  /**
+   * Search project by
+   * author
+   * member
+   * title, description, extra info
+   */
   public function search(Request $request)
   {
-
-
 
     $name = $request->search;
     $param = $request->search_param;
@@ -312,7 +316,7 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -321,14 +325,18 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }elseif ($param == 'tag'){
-      $projects = Project::where('tags', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
-    }
-    else{
-      $projects = Project::where('name', 'LIKE', '%'.$name.'%')->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+    }else{
+      $projects = Project::where('publishing_status', 1)
+          ->where(function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+            $query->orWhere('description', 'LIKE', '%'.$name.'%');
+            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+          })->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+
     }
 
 
@@ -339,6 +347,54 @@ class ProjectController extends Controller
   }
 
 
+  /**
+   * This search is used by admins and includes unpublished projects
+   */
+  public function searchAll(Request $request)
+  {
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+    if($param == 'author'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+
+        $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+      })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+
+        $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+      })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }else{
+      $projects = Project::where(function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+            $query->orWhere('description', 'LIKE', '%'.$name.'%');
+            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+          })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+    }
+
+
+
+    return view('admin.all_projects')
+        ->with('name', $name)
+        ->with('param', $param)
+        ->with('projects', $projects);
+  }
+
+
+  /**
+   * Join project team is used by user with student role
+   */
   public function joinProject($id)
   {
     $project = Project::find($id);
@@ -363,6 +419,9 @@ class ProjectController extends Controller
 
 
 
+  /**
+   * Leave project team is used by user with student role
+   */
   public function leaveProject($id)
   {
     $project = Project::find($id);
@@ -382,6 +441,9 @@ class ProjectController extends Controller
   }
 
 
+  /**
+   * Unlink member from project team is used by user with teacher role
+   */
   public function unlinkMember($projectId, $userId)
   {
     $project = Project::find($projectId);
@@ -401,6 +463,10 @@ class ProjectController extends Controller
   }
 
 
+  /**
+   * Store project proposal by student
+   * This goes to moderation
+   */
   public function storeProjectByStudent(ProjectByStudentRequest $request)
   {
 

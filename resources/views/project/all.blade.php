@@ -22,7 +22,6 @@
                                     <li class="active"><a href="#project">Projekti</a></li>
                                     <li><a href="#member">Kaaslast</a></li>
                                     <li><a href="#author">Juhendajat</a></li>
-                                    <li><a href="#tag">Märksõna</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -178,9 +177,9 @@
                                         @foreach ($project->users as $user)
                                             @if ( $user->pivot->participation_role == 'author' )
                                                 @if(!empty($user->full_name))
-                                                    <li><span class="label label-primary">{{ $user->full_name }}</span></li>
+                                                    <li><span class="label label-primary">{{ $user->full_name }} ({{ $user->email }})</span></li>
                                                 @else
-                                                    <li><span class="label label-primary">{{ $user->name }}</span></li>
+                                                    <li><span class="label label-primary">{{ $user->name }} ({{ $user->email }})</span></li>
                                                 @endif
                                             @endif
                                         @endforeach

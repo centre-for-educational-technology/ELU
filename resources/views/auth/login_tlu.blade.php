@@ -8,11 +8,11 @@
                     <div class="panel-heading">Login TLÜ kontoga</div>
                     <div class="panel-body text-center">
                         <div class="btn-group">
-                            <a class="btn btn-lg btn-primary" href="{{ url('/login/tlu') }}"><i class="fa fa-btn fa-university"></i>Logi sisse TLÜ kontoga</a>
+                            <a class="btn btn-lg btn-primary" href="{{ url('/login/tlu') }}"><i class="fa fa-btn fa-university"></i>LOGI SISSE TLU ÕIS-I KONTOGA</a>
 
 
                         </div>
-                        <h5><a href="{{ url('login') }}">Mul ei ole TLÜ kontot</a></h5>
+                        <h5><a href="{{ url('login') }}">Mul ei ole TLU ÕIS-I kontot</a></h5>
 
                     </div>
 

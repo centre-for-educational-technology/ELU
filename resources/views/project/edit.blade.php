@@ -230,23 +230,34 @@
 
                             <div class="col-sm-6">
                                 <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>
-                                    @if ($teachers->count())
-
-                                        @foreach($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-
-                                        @endforeach
-
-                                    @endif
-
                                     @if ($authors)
 
                                         @foreach($authors as $author)
 
+                                            @if(!empty($author->full_name))
+                                                <option value="{{ $author->id }}" selected="selected">{{ $author->full_name }}</option>
+                                            @else
                                                 <option value="{{ $author->id }}" selected="selected">{{ $author->name }}</option>
+                                            @endif
 
                                         @endforeach
                                     @endif
+
+                                    @if ($teachers->count())
+
+                                        @foreach($teachers as $teacher)
+
+                                            @if(!empty($teacher->full_name))
+                                                <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
+                                            @else
+                                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                            @endif
+
+
+                                        @endforeach
+
+                                    @endif
+
                                 </select>
                             </div>
                         </div>

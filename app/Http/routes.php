@@ -185,6 +185,8 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('/pages', 'PageController@store');
 
+        Route::get('admin/all-projects/search', 'ProjectController@searchAll');
+
 
         Route::get('admin/all-projects', function () {
 

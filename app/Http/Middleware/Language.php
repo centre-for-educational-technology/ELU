@@ -23,7 +23,7 @@ class Language
         }
         else {
           //Et by default
-          App::setLocale(Config::get('languages')[0]);
+          App::setLocale('et');
         }
         return $next($request);
     }

@@ -52,18 +52,26 @@ class AdminController extends Controller
 
     $user = User::find($id);
 
-    $user->roles()->detach(3);
+    if($user->email != "glebred@tlu.ee" && $user->email != "tammets@tlu.ee"){
+      $user->roles()->detach(3);
 
-    if($user->full_name){
-      $username = $user->full_name;
-    }else{
-      $username = $user->name;
+      if($user->full_name){
+        $username = $user->full_name;
+      }else{
+        $username = $user->name;
+      }
+
+
+      return \Redirect::to('admin/users')
+          ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+          ->with('message', $username.' on ära võetud adminide nimekirjast!');
+    } else {
+      return \Redirect::to('admin/users')
+          ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+          ->with('message', $user->email.' on ELU arendaja, teda ei saa kustutada adminide nimekirjast!');
     }
 
 
-    return \Redirect::to('admin/users')
-        ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
-        ->with('message', $username.' on ära võetud adminide nimekirjast!');
 
 
   }

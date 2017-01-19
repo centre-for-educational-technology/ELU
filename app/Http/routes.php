@@ -58,6 +58,9 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' =>['web']], function () {
 
 
+    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+
     Route::get('/project/search', 'ProjectController@search');
 
 

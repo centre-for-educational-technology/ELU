@@ -42,6 +42,23 @@
 
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
+
+                    <div class="dropdown pull-left">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ Config::get('languages')[App::getLocale()] }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <li>
+                                        <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+
                     <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">Otsin</a></li>
                     <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">KKK</a></li>
 

@@ -39,19 +39,40 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse pull-right">
 
+
+
+
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
-                    <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">Otsin</a></li>
-                    <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">KKK</a></li>
+
+                    <div class="dropdown pull-left">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ Config::get('languages')[App::getLocale()] }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <li>
+                                        <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+
+
+                    <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">{{trans('front.search')}}</a></li>
+                    <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
 
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> Lisa</a></li>
+                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.lisa')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>Mul on idee</a></li>
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -69,7 +90,7 @@
 
                         <li {{ (Request::is('login/choose') ? 'class=active' : '') }}>
                             <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">Sisene</a>
+                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('front.log_in')}}</a>
                             </p>
                         </li>
                         {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
@@ -149,24 +170,25 @@
                         </div>
                     </a>
                 </div>
-                <h2>Mis on ELU?</h2>
+                <h2>{{trans('front.what_is_elu')}}</h2>
 
-                <p>ELU on projektõppe kursus, milles nii üliõpilased kui ka õppejõud saavad tegeleda just nende ideede ja teemadega, mis neid huvitavad ning valida ise sobilik viis oma idee teostamiseks.</p>
+                <p>{{trans('front.what_is_elu.desc')}}</p>
 
-                <p><a class="btn btn-default" href="#about-elu" role="button">Loe täpsemalt <span class="glyphicon ico-arrow-down" aria-hidden="true"></span></a></p>
+                <p><a class="btn btn-default" href="#about-elu" role="button">{{trans('front.read_more')}} <span class="glyphicon ico-arrow-down" aria-hidden="true"></span></a></p>
             </div>
             <div class="col-md-4">
                 <div class="block01">
                     <a href="{{ url('/projects-all') }}">
                         <div class="pad">
                             <span class="glyphicon ico-search"></span>
-                            <p><strong>Otsin</strong> projekti, kaaslast või juhendajat</p>
+                            <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
                         </div>
                     </a>
                 </div>
-                <h2>Ideelaat</h2>
-                <p>{!! nl2br($info->body) !!}</p>
-                <p><a class="btn btn-default" href="{{ url('/projects-all') }}" role="button">Kõik projektid <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
+                <h2>{{trans('front.idea_fair')}}</h2>
+                {{--<p>{!! nl2br($info->body) !!}</p>--}}
+                <p>{{trans('front.idea_fair.desc')}}</p>
+                <p><a class="btn btn-default" href="{{ url('/projects-all') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
             </div>
             <div class="col-md-4">
                 <div class="block01 block01c">
@@ -174,7 +196,7 @@
                         <a href="{{ url('/student/project/new') }}">
                             <div class="pad">
                                 <span class="glyphicon ico-idea"></span>
-                                <p><strong>Mul on idee</strong> pane see kirja</p>
+                                <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                             </div>
                         </a>
                     @else
@@ -182,29 +204,30 @@
                             <a href="{{ url('/student/project/new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
-                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                                 </div>
                             </a>
                         @elseif(Auth::user()->is('oppejoud'))
                             <a href="{{ url('/project/new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
-                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                                 </div>
                             </a>
                         @else
                             <a href="{{ url('/projects-all') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
-                                    <p><strong>Mul on idee</strong> pane see kirja</p>
+                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                                 </div>
                             </a>
                         @endif
                     @endif
 
                 </div>
-                <h2>Viimane uudis</h2>
-                <p>{!! nl2br($news->body) !!}</p>
+                <h2>{{trans('front.news')}}</h2>
+                {{--<p>{!! nl2br($news->body) !!}</p>--}}
+                <p>{{trans('front.news.desc')}}</p>
             </div>
         </div>
     </div>
@@ -214,43 +237,57 @@
 
 <div class="container" id="about-elu">
     <!-- Example row of columns -->
-    <h2 class="h1">Mis on <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
-    <p class="lead">ELU (Erialasid Lõimiv Uuendus) on Tallinna Ülikooli õppeaine, mille raames eri valdkondade üliõpilased viivad koostöös ühe või kahe semestri jooksul ellu projekte. </p>
+    <h2 class="h1">{{trans('front.what_is_elu')}} <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
+    <p class="lead">
+        {{trans('front.what_is_elu.desc')}}
+    </p>
     <div class="row">
         <div class="col-md-4 margt">
             <span class="glyphicon ico-target ico-color01 ico-xl"></span>
-            <h3><a href="{{ url('faq#item1') }}">Mis?</a></h3>
-            <p>ELU on rühmatööna teostatud projekt, millel on konkreetselt sõnastatud eesmärk, etteantud tähtajad ja reaalne tulemus. Rühma moodustavad 6-8 üliõpilast vähemalt kolmest erinevast valdkonnast. Õppeaine maht on 6 EAP ja hindamine on arvestuslik.</p>
+            <h3><a href="{{ url('faq#item1') }}">{{trans('front.what')}}</a></h3>
+            <p>
+                {{trans('front.what.desc')}}
+            </p>
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-labyrinth ico-color02 ico-xl"></span>
-            <h3><a href="{{ url('faq#item2') }}">Milleks?</a></h3>
-            <p>Projektõpe on oluline, kuna tänapäeval on erinevate eluvaldkondade töökorraldus üha sagedamini projektipõhine: etteantud tähtajaks ja piiratud ressurssidega tuleb saavutada konkreetsed eesmärgid ja leida lahendus mittestandardsele ülesandele, seda üldjuhul meeskonnatöös. </p>
+            <h3><a href="{{ url('faq#item2') }}">{{trans('front.why')}}</a></h3>
+            <p>
+                {{trans('front.why.desc')}}
+            </p>
 
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-calendar ico-color03 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item3') }}">Millal?</a></h3>
-            <p>ELU teostamise aja saab üliõpilane ise valida, kuigi erinevalt tavalisest õppeainest tuleb projekti ettevalmistamisega alustada juba eelneval semestril, kuna rühm peab koos olema semestri alguseks.</p>
+            <h3><a href="{{ url('/faq#item3') }}">{{trans('front.when')}}</a></h3>
+            <p>
+                {{trans('front.when.desc')}}
+            </p>
 
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 margt">
             <span class="glyphicon ico-brainstorm ico-color03 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item4') }}">Kellega?</a></h3>
-            <p>ELU rühma suurus on 6-8 üliõpilast. Kui ühest teemast huvitatud üliõpilasi on rohkem, saab moodustada alamrühmad. Kuna tegemist on erialadevahelise projektiga, peavad rühmas olema vähemalt kolme erineva eriala üliõpilased.</p>
+            <h3><a href="{{ url('/faq#item4') }}">{{trans('front.with_who')}}</a></h3>
+            <p>
+                {{trans('front.with_who.desc')}}
+            </p>
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-inspire ico-color01 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item5') }}">Kuidas?</a></h3>
-            <p>Kõik saab alguse ideest. Idee võib välja pakkuda üliõpilane, õppejõud või partner väljastpoolt ülikooli. Igal ELU projektil peab olema vähemalt üks ülikooli poolne õppejõud.</p>
+            <h3><a href="{{ url('/faq#item5') }}">{{trans('front.how')}}</a></h3>
+            <p>
+                {{trans('front.how.desc')}}
+            </p>
 
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-idea ico-color02 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item6') }}">Missugune?</a></h3>
-            <p>Õppeaine raames püüavad üliõpilased pakkuda lahendusi ELU olulistele väljakutsetele, arendada edasi olemasolevaid algatusi või luua midagi täiesti uut. ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast. </p>
+            <h3><a href="{{ url('/faq#item6') }}">{{trans('front.which')}}</a></h3>
+            <p>
+                {{trans('front.which.desc')}}
+            </p>
         </div>
     </div>
 

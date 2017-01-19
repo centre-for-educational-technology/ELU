@@ -1,7 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gleb
- * Date: 19/01/2017
- * Time: 16:30
- */
+
+return [
+    'search' => 'Otsi',
+    'project' => 'Projekti',
+    'team_member' => 'Kaaslast',
+    'supervisor'=> 'Juhendajat',
+    'enter_name' =>'Sisesta nimi',
+    'join' => 'Projektiga liitumine',
+    'join_button' => 'Liitun projektiga',
+    'team' => 'Projekti meeskond',
+];

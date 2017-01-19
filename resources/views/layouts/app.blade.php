@@ -59,17 +59,17 @@
                         </ul>
                     </div>
 
-                    <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">Otsin</a></li>
-                    <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">KKK</a></li>
+                    <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">{{trans('front.search')}}</a></li>
+                    <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
 
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> Lisa</a></li>
+                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>Mul on idee</a></li>
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -90,7 +90,7 @@
 
                         <li {{ (Request::is('login/choose') ? 'class=active' : '') }} {{ (Request::is('login') ? 'class=active' : '') }}>
                             <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">Sisene</a>
+                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('nav.login')}}</a>
                             </p>
                         </li>
                         {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
@@ -100,15 +100,15 @@
                                 {{ Auth::user()->name }}
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <span class="badge">õppejõud</span>
+                                    <span class="badge">{{trans('nav.teacher')}}</span>
                                 @endif
 
                                 @if (Auth::user()->is('student'))
-                                    <span class="badge">tudeng</span>
+                                    <span class="badge">{{trans('nav.student')}}</span>
                                 @endif
 
                                 @if (Auth::user()->is('admin'))
-                                    <span class="badge">admin</span>
+                                    <span class="badge">{{trans('nav.admin')}}</span>
                                     <span class="caret"></span>
                                 @endif
 
@@ -123,15 +123,15 @@
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>Minu Projektid (õppejõud)</a></li>
+                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
                                 @endif
 
                                 {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
-                                    <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>
+                                    <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                 @endif
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
                             </ul>
                         </li>
                     @endif

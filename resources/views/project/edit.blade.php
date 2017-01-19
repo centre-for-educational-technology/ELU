@@ -11,7 +11,7 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Muuda projekti
+                    {{trans('project.change_project')}}
                 </div>
 
                 <div class="panel-body">
@@ -25,7 +25,7 @@
 
                     <!-- Project Name -->
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label">Nimi</label>
+                            <label for="name" class="col-sm-3 control-label">{{trans('project.add')}}</label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="name" id="name" class="form-control" value="{{ (empty($current_project) ? old('name') : $current_project->name) }}">
@@ -34,7 +34,7 @@
 
                         <!-- Project Embedded media -->
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">Embed-sisu url <p>Nt. https://youtu.be/...</p></label>
+                            <label for="description" class="col-sm-3 control-label">{{trans('project.video_link')}} <p>https://youtu.be/...</p></label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty($current_project) ? old('embedded') : $current_project->embedded) }}">
@@ -44,7 +44,7 @@
 
                         <!-- Project Description -->
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">Kirjeldus</label>
+                            <label for="description" class="col-sm-3 control-label">{{trans('project.description')}}</label>
 
                             <div class="col-sm-6">
 
@@ -54,7 +54,7 @@
 
                         <!-- Integrated areas -->
                         <div class="form-group">
-                            <label for="integrated_areas" class="col-sm-3 control-label">Lõimitud valdkonnad <p>Üks per rida</p></label>
+                            <label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>
 
 
                             <div class="col-sm-6">
@@ -65,28 +65,28 @@
 
                         <!-- Study term -->
                         <div class="form-group">
-                            <label for="study_term" class="col-sm-3 control-label">Projekti kestus</label>
+                            <label for="study_term" class="col-sm-3 control-label">{{trans('project.duration')}}</label>
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="study_term" name="study_term">
 
                                     @if ((!empty($current_project) ?  $current_project->study_term : old('study_term')) == 0)
-                                        <option value="0" selected>Sügissemester</option>
+                                        <option value="0" selected>{{trans('project.autumn_semester')}}</option>
                                     @else
-                                        <option value="0">Sügissemester</option>
+                                        <option value="0">{{trans('project.autumn_semester')}}</option>
                                     @endif
 
 
                                     @if ((!empty($current_project) ?  $current_project->study_term : old('study_term')) == 1)
-                                        <option value="1" selected>Kevadsemester</option>
+                                        <option value="1" selected>{{trans('project.spring_semester')}}</option>
                                     @else
-                                        <option value="1">Kevadsemester</option>
+                                        <option value="1">{{trans('project.spring_semester')}}</option>
                                     @endif
 
                                     @if ( (!empty($current_project) ?  $current_project->study_term : old('study_term')) == 2)
-                                        <option value="2" selected>Mõlemad semestrid</option>
+                                        <option value="2" selected>{{trans('project.both')}}</option>
                                     @else
-                                        <option value="2">Mõlemad semestrid</option>
+                                        <option value="2">{{trans('project.both')}}</option>
                                     @endif
 
                                 </select>
@@ -116,7 +116,7 @@
 
                         <!-- Related Courses -->
                         <div class="form-group">
-                            <label for="related_courses" class="col-sm-3 control-label">Seotud kursused <p>Üks per rida</p></label>
+                            <label for="related_courses" class="col-sm-3 control-label">{{trans('project.related_courses')}} <p>{{trans('project.one_per_line')}}</p></label>
 
                             <div class="col-sm-6">
                                 <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty($current_project) ? old('related_courses') : $current_project->courses) }}</textarea>
@@ -126,7 +126,7 @@
 
                         <!-- Project start -->
                         <div class="form-group">
-                            <label for="project_start" class="col-sm-3 control-label">Algus</label>
+                            <label for="project_start" class="col-sm-3 control-label">{{trans('project.start')}}</label>
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='project_start'>
 
@@ -142,7 +142,7 @@
 
                         <!-- Project end -->
                         <div class="form-group">
-                            <label for="project_end" class="col-sm-3 control-label">Lõpp</label>
+                            <label for="project_end" class="col-sm-3 control-label">{{trans('project.end')}}</label>
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='project_end'>
                                     <input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : empty($current_project->end) ? old('project_end') :$current_project->end) }}"/>
@@ -157,7 +157,7 @@
 
                         <!-- Institutes -->
                         <div class="form-group">
-                            <label for="institutes" class="col-sm-3 control-label">Instituut</label>
+                            <label for="institutes" class="col-sm-3 control-label">{{trans('project.institute')}}</label>
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="institutes" name="institutes">
@@ -225,7 +225,7 @@
 
                         <!-- Supervisors -->
                         <div class="form-group">
-                            <label for="supervisors" class="col-sm-3 control-label">Juhendaja(d)</label>
+                            <label for="supervisors" class="col-sm-3 control-label">{{trans('project.supervisor')}}</label>
 
 
                             <div class="col-sm-6">
@@ -264,7 +264,7 @@
 
                         <!-- Co-supervisors -->
                         <div class="form-group">
-                            <label for="cosupervisors" class="col-sm-3 control-label">Kaasjuhendajad <p>Üks per rida</p></label>
+                            <label for="cosupervisors" class="col-sm-3 control-label">{{trans('project.cosupervisor')}} <p>{{trans('project.one_per_line')}}</p></label>
 
                             <div class="col-sm-6">
                                 <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ (empty($current_project) ? old('cosupervisors') : $current_project->supervisor) }}</textarea>
@@ -277,22 +277,22 @@
 
                         <!-- Status -->
                         <div class="form-group">
-                            <label for="status" class="col-sm-3 control-label">Staatus</label>
+                            <label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="status" name="status">
 
                                     @if ((!empty($current_project) ?  $current_project->status : old('status')) == 1)
-                                        <option value="1" selected>Aktiivne</option>
+                                        <option value="1" selected>{{trans('project.active')}}</option>
                                     @else
-                                        <option value="1">Aktiivne</option>
+                                        <option value="1">{{trans('project.active')}}</option>
                                     @endif
 
 
                                     @if ((!empty($current_project) ?  $current_project->status : old('status')) == 0)
-                                        <option value="0" selected>Lõppenud</option>
+                                        <option value="0" selected>{{trans('project.finished')}}</option>
                                     @else
-                                        <option value="0">Lõppenud</option>
+                                        <option value="0">{{trans('project.finished')}}</option>
                                     @endif
 
                                 </select>
@@ -301,7 +301,7 @@
 
                         <!-- Tags -->
                         <div class="form-group">
-                            <label for="tags" class="col-sm-3 control-label">Märksõnad <p>Eralda komaga</p></label>
+                            <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty($current_project) ? old('tags') : $current_project->tags) }}" data-role="tagsinput" />
@@ -311,7 +311,7 @@
 
                         <!-- Project deadline for joining -->
                         <div class="form-group">
-                            <label for="join_deadline" class="col-sm-3 control-label">Registreerimise tähtaeg</label>
+                            <label for="join_deadline" class="col-sm-3 control-label">{{trans('project.deadline')}}</label>
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='join_deadline'>
 
@@ -326,7 +326,7 @@
 
                         <!-- Extra info -->
                         <div class="form-group">
-                            <label for="extra_info" class="col-sm-3 control-label">Lisainfo</label>
+                            <label for="extra_info" class="col-sm-3 control-label">{{trans('project.extra_info')}}</label>
 
                             <div class="col-sm-6">
                                 <textarea name="extra_info" id="extra_info" class="form-control">{{ (empty($current_project) ? old('extra_info') : $current_project->extra_info) }}</textarea>
@@ -335,23 +335,23 @@
 
                         <!-- Status -->
                         <div class="form-group">
-                            <label for="publishing_status" class="col-sm-3 control-label">Kas on avaldatud?</label>
+                            <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}}</label>
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="publishing_status" name="publishing_status">
 
 
                                     @if ((!empty($current_project) ?  $current_project->publishing_status : old('publishing_status')) == 1)
-                                        <option value="1" selected>Avaldatud</option>
+                                        <option value="1" selected>{{trans('project.published')}}</option>
                                     @else
-                                        <option value="1">Avaldatud</option>
+                                        <option value="1">{{trans('project.published')}}</option>
                                     @endif
 
 
                                     @if ((!empty($current_project) ?  $current_project->publishing_status : old('publishing_status')) == 0)
-                                        <option value="0" selected>Peidetud</option>
+                                        <option value="0" selected>{{trans('project.hidden')}}</option>
                                     @else
-                                        <option value="0">Peidetud</option>
+                                        <option value="0">{{trans('project.hidden')}}</option>
                                     @endif
 
 
@@ -377,7 +377,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-btn fa-pencil"></i>Muudan
+                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.change_button')}}
                                 </button>
                             </div>
                         </div>
@@ -391,7 +391,7 @@
             @if (count($current_project->users) > 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Projekti meeskond
+                        {{trans('search.team')}}
                     </div>
 
                     <div class="panel-body">

@@ -4,7 +4,7 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-sm-offset-1 col-sm-10">
 
             @if(\Session::has('message'))
                 <div class="alert alert-info">
@@ -18,14 +18,14 @@
                 @if (count($projects) > 0)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Minu projektid
+                            {{trans('project.my_projects')}}
                         </div>
 
                         <div class="panel-body">
                             <table class="table table-striped project-table">
                                 <thead>
-                                <th>Projekt</th>
-                                <th>Staatus</th>
+                                <th>{{trans('project.project')}}</th>
+                                <th>{{trans('project.status')}}</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 </thead>
@@ -35,9 +35,9 @@
                                         <td class="table-text"><div>{{ $project->name }}</div></td>
 
                                             @if($project->publishing_status == 1)
-                                                <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>
+                                                <td class="table-text green"><div><i class="fa fa-eye"></i> {{trans('project.published')}}</div></td>
                                             @else
-                                                <td class="table-text red"><div><i class="fa fa-eye-slash"></i> Peidetud</div></td>
+                                                <td class="table-text red"><div><i class="fa fa-eye-slash"></i> {{trans('project.hidden')}}</div></td>
 
                                             @endif
 
@@ -48,7 +48,7 @@
                                                 {{--{{ method_field('PATCH') }}--}}
 
                                                 <button type="submit" class="btn btn-warning pull-right">
-                                                    <i class="fa fa-btn fa-pencil"></i>Muuda
+                                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
                                                 </button>
                                             </form>
                                         </td>
@@ -60,7 +60,7 @@
 
                                             </form>
                                             <button type="submit" id="delete" class="btn btn-danger pull-right">
-                                                <i class="fa fa-btn fa-trash"></i>Kustuta
+                                                <i class="fa fa-btn fa-trash"></i>{{trans('project.delete')}}
                                             </button>
 
                                         </td>

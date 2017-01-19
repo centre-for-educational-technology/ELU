@@ -11,7 +11,7 @@
             </div>
         @endif
 
-        <h2>Minu projektide nimekiri</h2>
+        <h2>{{trans('nav.my_projects_student')}}</h2>
 
         @if (count($projects) > 0)
             <div class="row">
@@ -49,7 +49,7 @@
                                         <p>{!! $project->embedded !!}</p>
                                         <p><strong>{{ $project->description }}</strong></p>
                                         @if (!empty($project->extra_info))
-                                            <h3><span class="glyphicon ico-labyrinth"></span>Lisainfo</h3>
+                                            <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
                                             <p>{!! $project->extra_info !!}</p>
                                         @endif
 
@@ -60,7 +60,7 @@
 
                                                 @if(!empty($project->integrated_areas))
 
-                                                    <h3><span class="glyphicon ico-topics"></span>Lõimitud valdkonnad</h3>
+                                                    <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
                                                     <ul class="list-unstyled list01">
                                                         @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
                                                             <li>{{ $integrated_area }}</li>
@@ -70,7 +70,7 @@
                                                 @endif
 
                                                 @if(!empty($project->course))
-                                                    <h3><span class="glyphicon ico-status"></span>Seotud kursused</h3>
+                                                    <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
                                                     <ul class="list-unstyled list01">
                                                         @foreach (explode(PHP_EOL, $project->courses) as $course)
                                                             <li>{{ $course }}</li>
@@ -78,12 +78,12 @@
                                                     </ul>
                                                 @endif
 
-                                                <h3><span class="glyphicon ico-duration"></span>Projekti kestus</h3>
+                                                <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                                                 <ul class="list-unstyled list01">
                                                     @if ( $project->study_term == 0 )
-                                                        <li>Sügissemester</li>
+                                                        <li>{{trans('project.autumn_semester')}}</li>
                                                     @elseif ( $project->study_term == 1 )
-                                                        <li>Kevadsemester</li>
+                                                        <li>{{trans('project.spring_semester')}}</li>
                                                     @endif
                                                     {{--<h3><span class="glyphicon ico-duration"></span>Kestus</h3>--}}
                                                     <li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>
@@ -91,12 +91,12 @@
 
 
 
-                                                <h3><span class="glyphicon ico-status"></span>Staatus</h3>
+                                                <h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>
                                                 <ul class="list-unstyled list01">
                                                     @if ( $project->status == 0 )
-                                                        <li>Lõppenud</li>
+                                                        <li>{{trans('project.finished')}}</li>
                                                     @elseif ( $project->status == 1 )
-                                                        <li>Aktiivne</li>
+                                                        <li>{{trans('project.active')}}</li>
                                                     @endif
                                                 </ul>
                                             </div>
@@ -106,29 +106,29 @@
                                             <div class="col-md-6">
 
 
-                                                <h3><span class="glyphicon ico-target"></span>Instituut</h3>
-                                                <ul class="list-unstyled list01">
-                                                    @if ( $project->institute == 0 )
-                                                        <li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>
-                                                    @elseif ( $project->institute == 1 )
-                                                        <li>Digitehnoloogiate instituut</li>
-                                                    @elseif ( $project->institute == 2 )
-                                                        <li>Humanitaarteaduste instituut</li>
-                                                    @elseif ( $project->institute == 3 )
-                                                        <li>Haridusteaduste instituut</li>
-                                                    @elseif ( $project->institute == 4 )
-                                                        <li>Loodus- ja terviseteaduste instituut</li>
-                                                    @elseif ( $project->institute == 5 )
-                                                        <li>Rakvere kolledž</li>
-                                                    @elseif ( $project->institute == 6 )
-                                                        <li>Haapsalu kolledž</li>
-                                                    @elseif ( $project->institute == 7 )
-                                                        <li>Ühiskonnateaduste instituut</li>
-                                                    @endif
-                                                </ul>
+                                                {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}
+                                                {{--<ul class="list-unstyled list01">--}}
+                                                    {{--@if ( $project->institute == 0 )--}}
+                                                        {{--<li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 1 )--}}
+                                                        {{--<li>Digitehnoloogiate instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 2 )--}}
+                                                        {{--<li>Humanitaarteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 3 )--}}
+                                                        {{--<li>Haridusteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 4 )--}}
+                                                        {{--<li>Loodus- ja terviseteaduste instituut</li>--}}
+                                                    {{--@elseif ( $project->institute == 5 )--}}
+                                                        {{--<li>Rakvere kolledž</li>--}}
+                                                    {{--@elseif ( $project->institute == 6 )--}}
+                                                        {{--<li>Haapsalu kolledž</li>--}}
+                                                    {{--@elseif ( $project->institute == 7 )--}}
+                                                        {{--<li>Ühiskonnateaduste instituut</li>--}}
+                                                    {{--@endif--}}
+                                                {{--</ul>--}}
 
 
-                                                <h3><span class="glyphicon ico-mentor"></span>Juhendajad</h3>
+                                                <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                                                 <ul class="list-unstyled list01 tags">
                                                     @foreach ($project->users as $user)
                                                         @if ( $user->pivot->participation_role == 'author' )
@@ -146,7 +146,7 @@
 
                                                 @if(!empty($project->supervisor))
 
-                                                    <h3><span class="glyphicon ico-mentor"></span>Kaasjuhendajad</h3>
+                                                    <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                                                     <ul class="list-unstyled list01 tags">
                                                         @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
                                                             <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
@@ -156,7 +156,7 @@
                                                 @endif
 
 
-                                                <h3><span class="glyphicon ico-tag"></span>Märksõnad</h3>
+                                                <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
                                                 <ul class="list-unstyled list01 tags">
                                                     @foreach (explode(',', $project->tags) as $tag)
                                                         <li><span class="label label-primary">{{ $tag }}</span></li>
@@ -170,7 +170,7 @@
                                         </div>
 
 
-                                        <h3><span class="glyphicon ico-inspire"></span>Projektiga liitumine</h3>
+                                        <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                                         @if ($project->currentUserIs('member'))
                                             <form action="{{ url('leave/'.$project->id) }}" method="POST">
                                                 {{ csrf_field() }}
@@ -185,14 +185,14 @@
                                                 {{ csrf_field() }}
 
                                                 <button type="submit" class="btn btn-success btn-lg">
-                                                    <i class="fa fa-btn fa-rocket"></i>Liitun projektiga
+                                                    <i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}
                                                 </button>
                                             </form>
                                         @endif
 
 
 
-                                        <h3><span class="glyphicon ico-brainstorm"></span>Projekti meeskond</h3>
+                                        <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>
                                         <h3 class="tag-label">
                                             @foreach ($project->users as $user)
                                                 @if ( $user->pivot->participation_role == 'member' )

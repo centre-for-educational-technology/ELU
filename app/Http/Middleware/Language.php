@@ -21,8 +21,9 @@ class Language
         if (Session::has('applocale') AND array_key_exists(Session::get('applocale'), Config::get('languages'))) {
           App::setLocale(Session::get('applocale'));
         }
-        else { // This is optional as Laravel will automatically set the fallback language if there is none specified
-          App::setLocale(Config::get('app.fallback_locale'));
+        else {
+          //Et by default
+          App::setLocale(Config::get('languages')[0]);
         }
         return $next($request);
     }

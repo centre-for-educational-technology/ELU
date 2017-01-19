@@ -7693,5 +7693,9 @@ table span.label {
 .form-group.search {
   margin-bottom: 0px;
 }
+.form-group .bootstrap-tagsinput .tag {
+  margin-top: 4px;
+  display: inline-block;
+}
 
 /*# sourceMappingURL=app.css.map */

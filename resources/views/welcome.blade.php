@@ -68,7 +68,7 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.lisa')}}</a></li>
+                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
@@ -90,7 +90,7 @@
 
                         <li {{ (Request::is('login/choose') ? 'class=active' : '') }}>
                             <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('front.log_in')}}</a>
+                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('login.login')}}</a>
                             </p>
                         </li>
                         {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
@@ -123,15 +123,15 @@
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>Minu Projektid (õppejõud)</a></li>
+                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
                                 @endif
 
                                 {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
-                                    <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>
+                                    <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                 @endif
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
                             </ul>
                         </li>
                     @endif
@@ -170,9 +170,9 @@
                         </div>
                     </a>
                 </div>
-                <h2>{{trans('front.what_is_elu')}}</h2>
+                <h2>{{trans('front.what_is')}} ELU?</h2>
 
-                <p>{{trans('front.what_is_elu.desc')}}</p>
+                <p>{{trans('front.what_is.desc')}}</p>
 
                 <p><a class="btn btn-default" href="#about-elu" role="button">{{trans('front.read_more')}} <span class="glyphicon ico-arrow-down" aria-hidden="true"></span></a></p>
             </div>
@@ -237,9 +237,9 @@
 
 <div class="container" id="about-elu">
     <!-- Example row of columns -->
-    <h2 class="h1">{{trans('front.what_is_elu')}} <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
+    <h2 class="h1">{{trans('front.what_is')}} <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
     <p class="lead">
-        {{trans('front.what_is_elu.desc')}}
+        {{trans('front.what_is.desc')}}
     </p>
     <div class="row">
         <div class="col-md-4 margt">

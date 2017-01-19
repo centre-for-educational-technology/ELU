@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-md-8 margt content">
-                <h1>Mul on idee</h1>
+                <h1>{{trans('front.i_have_idea')}}</h1>
 
                 <!-- Display Validation Errors -->
                 @include('common.errors')
@@ -17,7 +17,7 @@
 
                 <!-- Project Name -->
                     <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label">Nimi</label>
+                        <label for="name" class="col-sm-3 control-label">{{trans('project.name')}}</label>
 
                         <div class="col-sm-6">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
@@ -26,7 +26,7 @@
 
                     <!-- Project Description -->
                     <div class="form-group">
-                        <label for="description" class="col-sm-3 control-label">Kirjeldus</label>
+                        <label for="description" class="col-sm-3 control-label">{{trans('project.description')}}</label>
 
                         <div class="col-sm-6">
 
@@ -37,7 +37,7 @@
 
                     <!-- Integrated areas -->
                     <div class="form-group">
-                        <label for="integrated_areas" class="col-sm-3 control-label">Lõimitud valdkonnad <p>Üks per rida</p></label>
+                        <label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>
 
 
                         <div class="col-sm-6">
@@ -48,27 +48,27 @@
 
                     <!-- Study term -->
                     <div class="form-group">
-                        <label for="study_term" class="col-sm-3 control-label">Projekti kestus</label>
+                        <label for="study_term" class="col-sm-3 control-label">{{trans('project.duration')}}</label>
 
                         <div class="col-sm-6">
                             <select class="form-control" id="study_term" name="study_term">
                                 @if ( old('study_term')) == 0)
-                                <option value="0" selected>Sügissemester</option>
+                                <option value="0" selected>{{trans('project.autumn_semester')}}</option>
                                 @else
-                                    <option value="0">Sügissemester</option>
+                                    <option value="0">{{trans('project.autumn_semester')}}</option>
                                 @endif
 
 
                                 @if ( old('study_term')) == 1)
-                                <option value="1" selected>Kevadsemester</option>
+                                <option value="1" selected>{{trans('project.spring_semester')}}</option>
                                 @else
-                                    <option value="1">Kevadsemester</option>
+                                    <option value="1">{{trans('project.spring_semester')}}</option>
                                 @endif
 
                                 @if ( old('study_term')) == 2)
-                                <option value="2" selected>Mõlemad semestrid</option>
+                                <option value="2" selected>{{trans('project.both')}}</option>
                                 @else
-                                    <option value="2">Mõlemad semestrid</option>
+                                    <option value="2">{{trans('project.both')}}</option>
                                 @endif
 
                             </select>
@@ -100,7 +100,7 @@
 
                 <!-- Institutes -->
                     <div class="form-group">
-                        <label for="institutes" class="col-sm-3 control-label">Instituut</label>
+                        <label for="institutes" class="col-sm-3 control-label">{{trans('project.institute')}}</label>
 
                         <div class="col-sm-6">
                             <select class="form-control" id="institutes" name="institutes">
@@ -186,7 +186,7 @@
 
                 <!-- Co-supervisors -->
                     <div class="form-group">
-                        <label for="cosupervisors" class="col-sm-3 control-label">Kaasjuhendajad <p>Üks per rida</p></label>
+                        <label for="cosupervisors" class="col-sm-3 control-label">{{trans('project.cosupervisor')}} <p>{{trans('project.one_per_line')}}</p></label>
 
                         <div class="col-sm-6">
                             <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ old('cosupervisors') }}</textarea>
@@ -195,7 +195,7 @@
 
                     <!-- Tags -->
                     <div class="form-group">
-                        <label for="tags" class="col-sm-3 control-label">Märksõnad <p>Eralda komaga</p></label>
+                        <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
 
                         <div class="col-sm-6">
                             <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />
@@ -205,7 +205,7 @@
 
                     <!-- Extra info -->
                     <div class="form-group">
-                        <label for="extra_info" class="col-sm-3 control-label">Lisainfo</label>
+                        <label for="extra_info" class="col-sm-3 control-label">{{trans('project.extra_info')}}</label>
 
                         <div class="col-sm-6">
                             <textarea name="extra_info" id="extra_info" class="form-control">{{ old('extra_info') }}</textarea>
@@ -218,7 +218,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-plus"></i>Saada
+                                <i class="fa fa-btn fa-plus"></i>{{trans('project.send')}}
                             </button>
                         </div>
                     </div>

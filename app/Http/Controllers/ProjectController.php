@@ -316,7 +316,7 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -325,7 +325,7 @@ class ProjectController extends Controller
       {
 
         $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
-      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }else{
@@ -335,7 +335,7 @@ class ProjectController extends Controller
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');
             $query->orWhere('description', 'LIKE', '%'.$name.'%');
             $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
-          })->orderBy('name', 'asc')->paginate(5)->appends(['search' => $name, 'search_param' => $param]);
+          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
     }
 

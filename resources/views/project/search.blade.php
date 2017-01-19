@@ -7,7 +7,7 @@
 
 
         {{--Search form--}}
-        <h1>Otsi</h1>
+        <h1>{{trans('search.search')}}</h1>
         <div class="panel mt2em panel-default">
             <div class="panel-body">
                 <div class="row">
@@ -19,9 +19,9 @@
 
                             <div class="input-group-btn search-panel">
                                 <ul class="nav navbar-nav menu01" role="menu">
-                                    <li class="active"><a href="#project">Projekti</a></li>
-                                    <li><a href="#member">Kaaslast</a></li>
-                                    <li><a href="#author">Juhendajat</a></li>
+                                    <li class="active"><a href="#project">{{trans('search.project')}}</a></li>
+                                    <li><a href="#member">{{trans('search.team_member')}}</a></li>
+                                    <li><a href="#author">{{trans('search.supervisor')}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -32,13 +32,13 @@
                                 <div class="form-group nomargin">
 
                                     <input type="hidden" name="search_param" value="project" id="search_param">
-                                    <input type="text" class="form-control" name="search" placeholder="Sisesta nimi">
+                                    <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
                                 </div>
                             </div>
 
                             <div class="form-group search">
                                 <div class="col-xs-2">
-                                    <button class="btn btn-primary" type="submit">Otsi!</button>
+                                    <button class="btn btn-primary" type="submit">{{trans('search.search')}}!</button>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                         <p>{!! $project->embedded !!}</p>
                                         <p><strong>{{ $project->description }}</strong></p>
                                         @if (!empty($project->extra_info))
-                                            <h3><span class="glyphicon ico-labyrinth"></span>Lisainfo</h3>
+                                            <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
                                             <p>{!! $project->extra_info !!}</p>
                                         @endif
 
@@ -115,7 +115,7 @@
 
                                                 @if(!empty($project->integrated_areas))
 
-                                                    <h3><span class="glyphicon ico-topics"></span>Lõimitud valdkonnad</h3>
+                                                    <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
                                                     <ul class="list-unstyled list01">
                                                         @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
                                                             <li>{{ $integrated_area }}</li>
@@ -125,7 +125,7 @@
                                                 @endif
 
                                                 @if(!empty($project->course))
-                                                    <h3><span class="glyphicon ico-status"></span>Seotud kursused</h3>
+                                                    <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
                                                     <ul class="list-unstyled list01">
                                                         @foreach (explode(PHP_EOL, $project->courses) as $course)
                                                             <li>{{ $course }}</li>
@@ -133,12 +133,12 @@
                                                     </ul>
                                                 @endif
 
-                                                <h3><span class="glyphicon ico-duration"></span>Projekti kestus</h3>
+                                                <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                                                 <ul class="list-unstyled list01">
                                                     @if ( $project->study_term == 0 )
-                                                        <li>Sügissemester</li>
+                                                        <li>{{trans('project.autumn_semester')}}</li>
                                                     @elseif ( $project->study_term == 1 )
-                                                        <li>Kevadsemester</li>
+                                                        <li>{{trans('project.spring_semester')}}</li>
                                                     @endif
                                                     {{--<h3><span class="glyphicon ico-duration"></span>Kestus</h3>--}}
                                                     {{--<li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>--}}
@@ -146,12 +146,12 @@
 
 
 
-                                                <h3><span class="glyphicon ico-status"></span>Staatus</h3>
+                                                <h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>
                                                 <ul class="list-unstyled list01">
                                                     @if ( $project->status == 0 )
-                                                        <li>Lõppenud</li>
+                                                        <li>{{trans('project.finished')}}</li>
                                                     @elseif ( $project->status == 1 )
-                                                        <li>Aktiivne</li>
+                                                        <li>{{trans('project.active')}}</li>
                                                     @endif
                                                 </ul>
                                             </div>
@@ -183,7 +183,7 @@
                                                 {{--</ul>--}}
 
 
-                                                <h3><span class="glyphicon ico-mentor"></span>Juhendajad</h3>
+                                                <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                                                 <ul class="list-unstyled list01 tags">
                                                     @foreach ($project->users as $user)
                                                         @if ( $user->pivot->participation_role == 'author' )
@@ -201,7 +201,7 @@
 
                                                 @if(!empty($project->supervisor))
 
-                                                    <h3><span class="glyphicon ico-mentor"></span>Kaasjuhendajad</h3>
+                                                    <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                                                     <ul class="list-unstyled list01 tags">
                                                         @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
                                                             <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
@@ -211,7 +211,7 @@
                                                 @endif
 
 
-                                                <h3><span class="glyphicon ico-tag"></span>Märksõnad</h3>
+                                                <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
                                                 <ul class="list-unstyled list01 tags">
                                                     @foreach (explode(',', $project->tags) as $tag)
                                                         <li><span class="label label-primary">{{ $tag }}</span></li>
@@ -225,7 +225,7 @@
                                         </div>
 
 
-                                        <h3><span class="glyphicon ico-inspire"></span>Projektiga liitumine</h3>
+                                        <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                                         {{--Check for join deadline--}}
                                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
                                             <p class="red"><i class="fa fa-btn fa-frown-o"></i> Tähtaeg on läbi läinud! </p>
@@ -247,7 +247,7 @@
                                                             {{ csrf_field() }}
 
                                                             <button type="submit" class="btn btn-primary btn-lg">
-                                                                Liitun projektiga
+                                                                {{trans('search.join_button')}}
                                                             </button>
                                                         </form>
                                                     @endif
@@ -264,7 +264,7 @@
 
 
 
-                                        <h3><span class="glyphicon ico-brainstorm"></span>Projekti meeskond</h3>
+                                        <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>
                                         <h3 class="tag-label">
                                             @foreach ($project->users as $user)
                                                 @if ( $user->pivot->participation_role == 'member' )
@@ -280,7 +280,7 @@
                                                                     ({{ $course->name }})
                                                                 @endforeach
                                                             @endif
-                                            </span>
+                                                        </span>
                                                     @else
                                                         @php
                                                             $parts = explode(" ", $user->name);

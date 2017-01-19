@@ -4,7 +4,7 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-sm-offset-1 col-sm-10">
 
             @if(\Session::has('message'))
                 <div class="alert alert-info">
@@ -24,7 +24,7 @@
                         <div class="panel-body">
                             <table class="table table-striped project-table">
                                 <thead>
-                                <th>Projekt</th>
+                                <th>{{trans('project.project')}}</th>
 
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>

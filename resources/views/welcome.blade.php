@@ -100,15 +100,15 @@
                                 {{ Auth::user()->name }}
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <span class="badge">õppejõud</span>
+                                    <span class="badge">{{trans('nav.teacher')}}</span>
                                 @endif
 
                                 @if (Auth::user()->is('student'))
-                                    <span class="badge">tudeng</span>
+                                    <span class="badge">{{trans('nav.student')}}</span>
                                 @endif
 
                                 @if (Auth::user()->is('admin'))
-                                    <span class="badge">admin</span>
+                                    <span class="badge">{{trans('nav.admin')}}</span>
                                     <span class="caret"></span>
                                 @endif
 

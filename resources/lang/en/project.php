@@ -36,7 +36,9 @@ return [
     'add_button' => 'Add',
     'change_button' => 'Save changes',
     'change_project' => 'Change project',
-    'send' => 'Send'
+    'send' => 'Send',
+    'user' => 'User',
+    'course' => 'Course',
 
 
 ];

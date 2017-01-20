@@ -35,5 +35,7 @@ return [
     'add_button' => 'Lisan',
     'change_button' => 'Muudan',
     'change_project' => 'Muudan projekti',
-    'send' => 'Saada'
+    'send' => 'Saada',
+    'user' => 'Kasutaja',
+    'course' => 'Kursus',
 ];

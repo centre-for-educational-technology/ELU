@@ -397,8 +397,9 @@
                     <div class="panel-body">
                         <table class="table table-striped project-table">
                             <thead>
-                            <th>Kasutaja</th>
-                            <th>Kursus</th>
+                            <th>{{trans('project.user')}}</th>
+                            <th>{{trans('login.email')}}</th>
+                            <th>{{trans('project.course')}}</th>
                             <th>&nbsp;</th>
                             </thead>
                             <tbody>
@@ -412,7 +413,7 @@
                                     @else
                                         <td class="table-text"><div>{{ $user->name }}</div></td>
                                     @endif
-
+                                    <td class="table-text"><div>{{ $user->email }}</div></td>
                                     <td>
                                         @if(!empty($user->courses))
                                             @foreach($user->courses as $course)
@@ -427,7 +428,7 @@
 
                                         </form>
                                         <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
-                                            <i class="fa fa-btn fa-unlink"></i>Kustuta
+                                            <i class="fa fa-btn fa-unlink"></i>{{trans('project.delete')}}
                                         </button>
 
                                     </td>

@@ -111,7 +111,7 @@ class SimpleSamlController extends Controller
 
           }else{
             //Staff gets student role
-            $user->roles()->sync([2]);
+            $user->roles()->syncWithoutDetaching([2]);
 
           }
         }

@@ -7,7 +7,7 @@ return [
     'idea_fair' =>'Idea Fair',
     'idea_fair.desc' => 'An event that takes place twice a year (in May and December) where projects that start the following semester are introduced. You can ask for more information about ideas that you find interesting and meet future members of your team.',
     'news' => 'News',
-    'news.desc' => 'Projects that have been introduced at the Idea Fair can be found on this website. Here you can also register for an ELU project. If you want to join a project, login with your TU account. Registration is open until the beginning of the semester (23 January).',
+    'news.desc' => 'Projects that have been introduced at the Idea Fair can be found on this website. Here you can also register for an ELU project. If you want to join a project, login with your TU account. Registration is open until the beginning of the semester (6 Feb).',
     'read_more' => 'Read more',
     'all_projects' => 'All projects',
     'search' => 'Search',

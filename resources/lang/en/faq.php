@@ -13,7 +13,9 @@ return [
     'what.desc6' => 'Since project teams are formed of students from different study areas and study levels, the course outline is common for all study areas and study levels.',
     'what.desc7' => 'Further information:',
     'what.desc8' => 'Course outline',
-    'what.desc9' => 'ELU conception',
+    'what.desc9' => '',
+    'what.link'=>'https://ois.tlu.ee/portal/page?_pageid=35,454989&_dad=portal&_schema=PORTAL&p_msg=&p_public=1&p_what=1&p_lang=EN&p_open_node2=&p_session_id=53465157&p_id=124822&p_mode=1&p_pageid=OKM_AINE_WEB_OTSING&n_disp_result=1&n_export=0&_init=1&_nextsearch=1&_nextorder=1&_orfn_1=AINER_KOOD&_ordi_1=ASC&_disp_ainer_kood=1&_where_ainer_kood=&_ainer_kood=YID&_disp_ainer_nimetus=1&_where_ainer_nimetus=&_ainer_nimetus=&_disp_ainer_nimetus_en=1&_where_ainer_nimetus_en=&_ainer_nimetus_en=&_disp_ainer_oppejoud=1&_where_ainer_oppejoud=&_ainer_oppejoud=&_where_ainer_opj_keel=&_ainer_opj_keel=&_where_ainer_kursus=&_ainer_kursus=&_where_aine_stryksus_nimetus_koodiga=&_aine_stryksus_nimetus_koodiga=&_where_tud_kava_vers=&_tud_kava_vers=&_disp_aine_opetamine_semester_id=1&_where_aine_opetamine_semester_id=&_aine_opetamine_semester_id=&_disp_ainer_eap=1&_vformaat=VFORMAAT_HTML&n_lov_offset=1&n_row_count=&n_row_pos=',
+    'what.link2' => '',
     'why' => 'Why?',
     'why.desc' => 'Project-based learning is important because in today’s world the work arrangement of different areas of life is more often than not project-based: concrete goals have to be achieved by given deadlines and on limited resources, and solutions have to be sought to non-standard tasks. All of it is often carried out in the form of teamwork.',
     'why.desc2' => 'The ability to solve interdisciplinary problems will be useful in future work life since we inevitably have to handle issues and ideas that reach beyond one single field. ELU projects will enable to carry out your own ideas, practice working together and communicate with different people. Participating in an ELU project is a possibility to develop your leadership and social skills as well as your initiative and to gain basic knowledge of how to plan and carry out projects. ELU is a compulsory subject in Tallinn University so as to provide all the students with an innovative experience of studying and doing activities together and experience the possibility of applying their knowledge when solving issues that are interdisciplinary in nature and are likely to occur in real work life.',
@@ -39,5 +41,6 @@ return [
     'which.desc' => 'ELU course enables students to come forward with solutions to challenges, develop the already existing initiatives further or create something totally new.  The way an ELU project is carried out and its outcome depend on the team and the supervisor.',
     'which.desc2' => 'The goal of an ELU project and activities necessary for reaching the goal and the timeframe are agreed upon in the project draft after the team has been formed. The compulsory parts of the subject are the draft of the project, evaluation of one’s own contribution and of the team members and presentation of the outcome. ',
     'which.desc3' => 'Each ELU team will have a budget of 100€ to cover the costs necessary to achieve the project goals.',
+
 
 ];

@@ -13,6 +13,8 @@ return [
     'what.desc7' => 'Lisainformatsiooni leiab:',
     'what.desc8' => 'Ainekaardist',
     'what.desc9' => 'ELU kontseptsioonist',
+    'what.link' => 'https://ois.tlu.ee/portal/page?_pageid=35,454989&_dad=portal&_schema=PORTAL&p_msg=&p_public=1&p_what=1&p_lang=ET&p_open_node2=&p_session_id=52668090&p_id=124822&p_mode=1&p_pageid=OKM_AINE_WEB_OTSING&n_disp_result=1&n_export=0&_init=1&_nextsearch=1&_nextorder=1&_orfn_1=AINER_KOOD&_ordi_1=ASC&_disp_ainer_kood=1&_where_ainer_kood=&_ainer_kood=&_disp_ainer_nimetus=1&_where_ainer_nimetus=&_ainer_nimetus=erialasid%20l%C3%B5imiv%20uuendus&_disp_ainer_nimetus_en=1&_where_ainer_nimetus_en=&_ainer_nimetus_en=&_disp_ainer_oppejoud=1&_where_ainer_oppejoud=&_ainer_oppejoud=&_where_ainer_opj_keel=&_ainer_opj_keel=&_where_ainer_kursus=&_ainer_kursus=&_where_aine_stryksus_nimetus_koodiga=&_aine_stryksus_nimetus_koodiga=&_where_tud_kava_vers=&_tud_kava_vers=&_disp_aine_opetamine_semester_id=1&_where_aine_opetamine_semester_id=&_aine_opetamine_semester_id=&_disp_ainer_eap=1&_vformaat=VFORMAAT_HTML&n_lov_offset=1&n_row_count=&n_row_pos=',
+    'what.link2' => 'https://drive.google.com/file/d/0B5qLUW_SIC3MNmhwc3NMazVoVEk/view',
     'why' => 'Milleks?',
     'why.desc' => 'Projektõpe on oluline, kuna tänapäeval on erinevate eluvaldkondade töökorraldus üha sagedamini projektipõhine: etteantud tähtajaks ja piiratud ressurssidega tuleb saavutada konkreetsed eesmärgid ning leida lahendusi mittestandardsetele ülesannetele, seda üldjuhul meeskonnatööna.',
 

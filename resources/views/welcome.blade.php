@@ -153,19 +153,19 @@
                         <div class="circular">
                             <div>
                                 <span class="glyphicon ico-target ico-color01-full"></span>
-                                <h4>Mis?</h4>
+                                <h4>{{trans('front.what')}}</h4>
                             </div>
                             <div>
                                 <span class="glyphicon ico-labyrinth ico-color02-full"></span>
-                                <h4>Milleks?</h4>
+                                <h4>{{trans('front.why')}}</h4>
                             </div>
                             <div>
                                 <span class="glyphicon ico-calendar ico-color03-full"></span>
-                                <h4>Millal?</h4>
+                                <h4>{{trans('front.when')}}</h4>
                             </div>
                             <div>
                                 <span class="glyphicon ico-brainstorm ico-color02-full"></span>
-                                <h4>Kellega?</h4>
+                                <h4>{{trans('front.with_who')}}</h4>
                             </div>
                         </div>
                     </a>

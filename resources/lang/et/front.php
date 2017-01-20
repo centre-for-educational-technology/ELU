@@ -7,7 +7,7 @@ return [
     'idea_fair' =>'Ideelaat',
     'idea_fair.desc' => 'Kaks korda aastas (mais ja detsembris) toimuv üritus, kus tutvustatakse järgmisel semestril alustavaid projekte. Ideelaadal saab küsida huvipakkuvate ideede kohta täpsemat infot ja kohtuda tulevaste rühmakaaslastega.',
     'news' => 'Uudised',
-    'news.desc' => 'Ideelaadal tutvustatud projektid leiab siit veebist, kus toimub ka ELU projektidesse registreerimine. Sobiva projektiga liitumiseks logi sisse oma TLÜ kasutajakontoga. Registreerimine on avatud kuni uue semestri alguseni (23.01).',
+    'news.desc' => 'Ideelaadal tutvustatud projektid leiab siit veebist, kus toimub ka ELU projektidesse registreerimine. Sobiva projektiga liitumiseks logi sisse oma TLÜ kasutajakontoga. Registreerimine on avatud kuni uue semestri alguseni (06.02).',
     'read_more' => 'Loe täpsemalt',
     'all_projects' => 'Kõik projektid',
     'search' => 'Otsin',

@@ -348,10 +348,10 @@
         @else
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Projekte ei leidnud</h3>
+                    <h3 class="panel-title">{{trans('project.no_projekt_found')}}</h3>
                 </div>
                 <div class="panel-body">
-                    Logi sisse ja lisa projekti!
+                    {{trans('project.no_projekt_found_desc')}}
                 </div>
             </div>
 

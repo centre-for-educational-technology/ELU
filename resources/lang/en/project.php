@@ -39,6 +39,8 @@ return [
     'send' => 'Send',
     'user' => 'User',
     'course' => 'Course',
+    'no_projekt_found' => 'No projects found',
+    'no_projekt_found_desc' => 'Log in and add a project'
 
 
 ];

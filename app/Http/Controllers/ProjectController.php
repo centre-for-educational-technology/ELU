@@ -34,7 +34,8 @@ class ProjectController extends Controller
 
 
     return view('project.all')
-        ->with('projects', $projects);
+        ->with('projects', $projects)
+        ->with('isTeacher', Auth::user()->is('oppejoud'));
 
   }
 
@@ -343,7 +344,8 @@ class ProjectController extends Controller
     return view('project.search')
         ->with('name', $name)
         ->with('param', $param)
-        ->with('projects', $projects);
+        ->with('projects', $projects)
+        ->with('isTeacher', Auth::user()->is('oppejoud'));
   }
 
 

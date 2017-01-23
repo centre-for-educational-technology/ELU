@@ -116,7 +116,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('admin'))
-                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
+                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
@@ -314,114 +314,10 @@
 </script>
 <div class="container">
     <footer class="main">
-        <p>Tallinna Ülikool<br>
+        <p>{{trans('front.tallinn_university')}}<br>
             Narva mnt 25, 10120 Tallinn<br>
             +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
     </footer>
 </div>
 </body>
 </html>
-
-
-
-{{--First edition--}}
-{{--extends('layouts.app')--}}
-
-{{--@section('content')--}}
-    {{--<div class="container">--}}
-        {{--Search form--}}
-
-        {{--<div class="col-md-12 search">--}}
-
-            {{--<div class="col-md-12">--}}
-            {{--<form action="{{ url('/project/search') }}" method="GET" class="form-horizontal search-project pull-left">--}}
-                {{--{{ csrf_field() }}--}}
-
-                {{--<div class="input-group pull-left col-sm-4">--}}
-                    {{--<input type="text" class="form-control" name="search" placeholder="Projekti nimi...">--}}
-                  {{--<span class="input-group-btn">--}}
-                    {{--<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Otsi!</button>--}}
-                  {{--</span>--}}
-                {{--</div><!-- /input-group -->--}}
-
-            {{--</form>--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-
-        {{--<div class="col-md-12">--}}
-            {{--<div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin"> <h3>Üldinfo</h3> <p>{!! nl2br($info->body) !!}</p> </div>--}}
-
-        {{--</div>--}}
-
-        {{--<div class="col-md-12">--}}
-            {{--<div class="row">--}}
-            {{--<div class="col-md-6">--}}
-
-
-                {{--@if (count($projects) > 0)--}}
-
-                    {{--<div class="panel panel-default">--}}
-                        {{--<!-- Default panel contents -->--}}
-                        {{--<div class="panel-heading"><h3>Uuemad Projektid</h3></div>--}}
-                        {{--<div class="panel-body">--}}
-                            {{--<h4>Siin on viimaste projektide nimekiri</h4>--}}
-                        {{--</div>--}}
-
-                        {{--<table class="table table-striped">--}}
-                            {{--<tbody>--}}
-                            {{--@foreach ($projects as $index => $project)--}}
-                                {{--<tr>--}}
-
-                                    {{--<td>--}}
-
-                                        {{--<h4 class="list-group-item-heading">{{ $project->name }}</h4>--}}
-
-                                        {{--@if ( $project->status == 0 )--}}
-                                            {{--<p class="list-group-item-text">Lõppenud</p>--}}
-                                        {{--@elseif ( $project->status == 1 )--}}
-                                            {{--<p class="list-group-item-text">Aktiivne</p>--}}
-                                        {{--@endif--}}
-
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                            {{--@endforeach--}}
-
-                            {{--<tr>--}}
-                                {{--<td>--}}
-                                    {{--<a href="projects-all" class="btn btn-success pull-right" role="button"><i class="fa fa-btn fa-eye"></i>Näita Rohkem</a>--}}
-
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                            {{--</tbody>--}}
-                        {{--</table>--}}
-                    {{--</div>--}}
-                {{--@else--}}
-                    {{--<div class="panel panel-default">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<h3 class="panel-title">Projekte ei leidnud</h3>--}}
-                        {{--</div>--}}
-                        {{--<div class="panel-body">--}}
-                            {{--Logi sisse ja lisa projekti!--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
-                {{--@endif--}}
-            {{--</div>--}}
-            {{--<div class="col-md-6">--}}
-                {{--<div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin"> <h3>Viimane Uudis</h3> <p>{!! nl2br($news->body) !!}</p> </div>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-6">--}}
-                {{--<div class="panel panel-default">--}}
-                    {{--<div class="panel-heading"><h3>KKK</h3></div>--}}
-
-                    {{--<div class="panel-body">--}}
-                        {{--{!! str_limit(nl2br($faq->body), $limit = 500, $end = '... <a href="faq">Loe edasi</a>')  !!}--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--@endsection--}}

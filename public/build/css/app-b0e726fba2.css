@@ -7597,7 +7597,7 @@ button.close {
   border-color: #5897fb;
 }
 td.table-text.red {
-  color: #b71234;
+  color: #d9534f;
 }
 td.table-text.green {
   color: green;
@@ -7606,7 +7606,7 @@ td.table-text.green {
   font-weight: 300;
 }
 p.red {
-  color: #b71234;
+  color: #d9534f;
 }
 .bootstrap-tagsinput {
   background-color: transparent;
@@ -7656,14 +7656,14 @@ body {
   margin-bottom: 10px;
 }
 .bs-callout-info {
-  border-left-color: #b71234;
+  border-left-color: #d9534f;
 }
 .bs-callout h4 {
   margin-top: 0;
   margin-bottom: 5px;
 }
 .bs-callout-info h4 {
-  color: #b71234;
+  color: #d9534f;
 }
 .latest-projects-list-button {
   height: 55px;
@@ -7672,7 +7672,7 @@ body {
   height: 300px;
 }
 .panel-default > .panel-heading {
-  color: #b71234;
+  color: #d9534f;
 }
 .search {
   margin-bottom: 60px;
@@ -7696,6 +7696,18 @@ table span.label {
 .form-group .bootstrap-tagsinput .tag {
   margin-top: 4px;
   display: inline-block;
+}
+.clickable {
+  cursor: pointer;
+}
+.email-list .panel-heading span {
+  margin-top: -20px;
+  font-size: 15px;
+}
+.panel.email-list {
+  border: 0px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 /*# sourceMappingURL=app.css.map */

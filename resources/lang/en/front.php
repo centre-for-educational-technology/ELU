@@ -27,6 +27,7 @@ return [
     'which.desc' => 'ELU course enables students to come forward with solutions to challenges, develop the already existing initiatives further or create something totally new.  The way an ELU project is carried out and its outcome depend on the team and the supervisor.',
     'project_team' => 'project, team member, supervisor',
     'i_have_idea' => 'I have an idea',
-    'write_down' => 'Write it down'
+    'write_down' => 'Write it down',
+    'tallinn_university' => 'Tallinn University'
 
 ];

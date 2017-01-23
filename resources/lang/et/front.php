@@ -27,7 +27,8 @@ return [
     'which.desc' => 'ELU õppeaines saavad üliõpilased pakkuda lahendusi väljakutsetele, arendada edasi olemasolevaid algatusi või luua midagi täiesti uut. ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast.',
     'project_team' => 'projekti, kaaslast või juhendajat',
     'i_have_idea' => 'Mul on idee',
-    'write_down' => 'pane see kirja'
+    'write_down' => 'pane see kirja',
+    'tallinn_university' => 'Tallinna Ülikool'
 
 
 

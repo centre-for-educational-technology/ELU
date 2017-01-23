@@ -9,4 +9,6 @@ return [
     'join' => 'Join the project',
     'join_button' => 'Join',
     'team' => 'Project team',
+    'team_emails' => 'Team emails',
+    'send_to_all_button' => 'Send email to all'
 ];

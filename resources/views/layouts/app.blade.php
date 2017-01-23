@@ -116,7 +116,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('admin'))
-                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>
+                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
@@ -145,112 +145,6 @@
 
 
 
-
-
-
-
-
-
-
-
-    {{--<nav class="navbar navbar-default">--}}
-        {{--<div class="container">--}}
-            {{--<div class="navbar-header">--}}
-
-                {{--<!-- Collapsed Hamburger -->--}}
-                {{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">--}}
-                    {{--<span class="sr-only">Toggle Navigation</span>--}}
-                    {{--<span class="icon-bar"></span>--}}
-                    {{--<span class="icon-bar"></span>--}}
-                    {{--<span class="icon-bar"></span>--}}
-                {{--</button>--}}
-
-                {{--<!-- Branding Image -->--}}
-                {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
-                    {{--<i class="fa fa-lightbulb-o"></i> ELU Projektid--}}
-                {{--</a>--}}
-            {{--</div>--}}
-
-            {{--<div class="collapse navbar-collapse" id="app-navbar-collapse">--}}
-                {{--<!-- Left Side Of Navbar -->--}}
-                {{--<ul class="nav navbar-nav menu">--}}
-                    {{--<li><a href="{{ url('/projects-all') }}">Projektide nimekiri</a></li>--}}
-                    {{--<li><a href="{{ url('/faq') }}">KKK</a></li>--}}
-
-                    {{--@if (!Auth::guest())--}}
-
-                        {{--@if (Auth::user()->is('oppejoud'))--}}
-                            {{--<li><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> Lisa</a></li>--}}
-                        {{--@endif--}}
-                    {{--@endif--}}
-
-
-                    {{--@if (Auth::user())--}}
-                        {{--<li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>--}}
-                    {{--@endif--}}
-                {{--</ul>--}}
-
-                {{--<!-- Right Side Of Navbar -->--}}
-                {{--<ul class="nav navbar-nav navbar-right">--}}
-                    {{--<!-- Authentication Links -->--}}
-                    {{--@if (Auth::guest())--}}
-                        {{--<li><a href="{{ url('/login') }}">Logi Sisse</a></li>--}}
-                        {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
-                    {{--@else--}}
-                        {{--<li class="dropdown">--}}
-                            {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">--}}
-                                {{--{{ Auth::user()->name }}--}}
-
-                                {{--@if (Auth::user()->is('oppejoud'))--}}
-                                    {{--<span class="badge">õppejõud</span>--}}
-                                {{--@endif--}}
-
-                                {{--@if (Auth::user()->is('student'))--}}
-                                    {{--<span class="badge">tudeng</span>--}}
-                                {{--@endif--}}
-
-                                {{--@if (Auth::user()->is('admin'))--}}
-                                    {{--<span class="badge">admin</span>--}}
-                                    {{--<span class="caret"></span>--}}
-                                {{--@endif--}}
-
-                            {{--</a>--}}
-
-                            {{--<ul class="dropdown-menu" role="menu">--}}
-                                {{--@if (Auth::user()->is('admin'))--}}
-                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
-                                    {{--<li><a href="{{ url('admin/edit') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>--}}
-                                    {{--<li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>--}}
-                                    {{--<li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>--}}
-                                {{--@endif--}}
-
-                                {{--@if (Auth::user()->is('oppejoud'))--}}
-                                    {{--<li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>Minu Projektid (õppejõud)</a></li>--}}
-                                {{--@endif--}}
-
-                                {{--XXX Change to student--}}
-                                {{--@if (Auth::user()->is('student'))--}}
-                                    {{--<li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>Minu Projektid</a></li>--}}
-                                    {{--<li><a href="{{ url('student/project/new') }}"><i class="fa fa-btn fa-space-shuttle"></i>Lisa projektiidee</a></li>--}}
-
-                                    {{--@endif--}}
-                                {{--<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logi Välja</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</li>--}}
-                    {{--@endif--}}
-                {{--</ul>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</nav>--}}
-
-    {{--<form id="custom-search-form" class="form-search form-horizontal pull-right" method="get">--}}
-        {{--<div class="input-append spancustom">--}}
-            {{--<input type="text" class="search-query" name="character" >--}}
-            {{--<button type="submit" class="btn"><i class="icon-search"></i></button>--}}
-        {{--</div>--}}
-    {{--</form>--}}
-
-
     @yield('content')
 
     <!-- JavaScripts -->
@@ -276,7 +170,7 @@
     </script>
 <div class="container">
     <footer class="main">
-        <p>Tallinna Ülikool<br>
+        <p>{{trans('front.tallinn_university')}}<br>
             Narva mnt 25, 10120 Tallinn<br>
             +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
     </footer>

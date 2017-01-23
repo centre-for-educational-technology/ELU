@@ -274,10 +274,13 @@
                                             <span class="label label-primary">{{ $firstname }}
                                                 @if(!empty($user->courses))
                                                     @foreach($user->courses as $course)
-                                                        ({{ $course->name }})
+                                                        / {{ $course->name }}
                                                     @endforeach
                                                 @endif
-                                                {{$isTeacher? '('.$user->email.')' : ''}}
+                                                @if(!empty($isTeacher))
+                                                    {{'('.$user->email.')'}}
+                                                @endif
+
                                             </span>
                                         @else
                                             @php
@@ -289,21 +292,26 @@
                                                     $firstname = $user->name;
                                                 }
                                             @endphp
-                                            <span class="label label-primary">{{ $firstname }} {{$isTeacher? '('.$user->email.')' : ''}}</span>
+                                            @if(!empty($isTeacher))
+                                                <span class="label label-primary">{{ $firstname }} {{ '('.$user->email.')'}}</span>
+                                            @else
+                                                <span class="label label-primary">{{ $firstname }}</span>
+                                            @endif
+
                                         @endif
                                     @endif
                                 @endforeach
                             </h3>
 
 
-                            @if($isTeacher && $members_count>0)
+                            @if(!empty($isTeacher) && $members_count>0)
                                 <div  class="panel email-list panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">{{trans('search.team_emails')}}</h3>
                                         <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="col-xs-9">
+                                        <div class="col-xs-9 mailto-list">
                                         @php
                                             $members_emails = '';
                                         @endphp

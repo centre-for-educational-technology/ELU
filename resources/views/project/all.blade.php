@@ -277,10 +277,7 @@
                                                         / {{ $course->name }}
                                                     @endforeach
                                                 @endif
-                                                @if(!empty($isTeacher))
-                                                    {{'('.$user->email.')'}}
-                                                @endif
-
+                                                {{$isTeacher? '('.$user->email.')' : ''}}
                                             </span>
                                         @else
                                             @php
@@ -292,19 +289,14 @@
                                                     $firstname = $user->name;
                                                 }
                                             @endphp
-                                            @if(!empty($isTeacher))
-                                                <span class="label label-primary">{{ $firstname }} {{ '('.$user->email.')'}}</span>
-                                            @else
-                                                <span class="label label-primary">{{ $firstname }}</span>
-                                            @endif
-
+                                            <span class="label label-primary">{{ $firstname }} {{$isTeacher? '('.$user->email.')' : ''}}</span>
                                         @endif
                                     @endif
                                 @endforeach
                             </h3>
 
 
-                            @if(!empty($isTeacher) && $members_count>0)
+                            @if($isTeacher && $members_count>0)
                                 <div  class="panel email-list panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">{{trans('search.team_emails')}}</h3>

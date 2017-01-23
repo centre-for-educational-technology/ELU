@@ -285,11 +285,11 @@
                                                         <span class="label label-primary">{{ $firstname }}
                                                             @if(!empty($user->courses))
                                                                 @foreach($user->courses as $course)
-                                                                    ({{ $course->name }})
+                                                                    / {{ $course->name }}
                                                                 @endforeach
                                                             @endif
                                                             {{$isTeacher? '('.$user->email.')' : ''}}
-                                            </span>
+                                                        </span>
                                                     @else
                                                         @php
                                                             $parts = explode(" ", $user->name);
@@ -314,7 +314,7 @@
                                                     <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="col-xs-9">
+                                                    <div class="col-xs-9 mailto-list">
                                                         @php
                                                             $members_emails = '';
                                                         @endphp
@@ -361,7 +361,7 @@
                             <h3 class="panel-title">{{trans('project.no_projekt_found')}}</h3>
                         </div>
                         <div class="panel-body">
-                            {{trans('project.no_projekt_found_desc')}}
+                            Logi sisse ja lisa projekti!
                         </div>
                     </div>
 

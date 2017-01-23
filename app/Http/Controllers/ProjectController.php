@@ -38,7 +38,8 @@ class ProjectController extends Controller
           ->with('isTeacher', Auth::user()->is('oppejoud'));
     }else{
       return view('project.all')
-          ->with('projects', $projects);
+          ->with('projects', $projects)
+          ->with('isTeacher', false);
     }
 
 
@@ -346,12 +347,20 @@ class ProjectController extends Controller
 
     }
 
+    if(Auth::user()){
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $projects)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $projects)
+          ->with('isTeacher', false);
+    }
 
-    return view('project.search')
-        ->with('name', $name)
-        ->with('param', $param)
-        ->with('projects', $projects)
-        ->with('isTeacher', Auth::user()->is('oppejoud'));
   }
 
 

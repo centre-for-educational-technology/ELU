@@ -403,10 +403,16 @@
                             <th>&nbsp;</th>
                             </thead>
                             <tbody>
+                            @php
+                                $members_count=0;
+                            @endphp
 
                             @foreach ($current_project->users as $user)
                                 <tr>
                                 @if ( $user->pivot->participation_role == 'member' )
+                                    @php
+                                        $members_count++;
+                                    @endphp
                                     @if(!empty($user->full_name))
                                         <td class="table-text"><div>{{ $user->full_name }}</div></td>
 
@@ -441,6 +447,42 @@
                         </table>
                     </div>
                 </div>
+
+                @if($members_count>0)
+                    <div  class="panel email-list panel-default">
+                        <div class="panel-heading">
+                            <div>{{trans('search.team_emails')}}</div>
+                            <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-xs-9 mailto-list">
+                                @php
+                                    $members_emails = '';
+                                @endphp
+                                @foreach ($current_project->users as $user)
+                                    @if ( $user->pivot->participation_role == 'member' )
+                                        @if ($user != $current_project->users->last())
+                                            {{$user->email}},
+                                        @else
+                                            {{$user->email}}
+                                        @endif
+                                        @php
+                                            $members_emails .=$user->email.',';
+                                        @endphp
+                                    @endif
+                                @endforeach
+
+                            </div>
+                            <div class="col-xs-3">
+
+                                <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                @endif
             @endif
         </div>
     </div>

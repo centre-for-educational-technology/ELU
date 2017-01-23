@@ -314,7 +314,7 @@
                                                     <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="col-xs-10">
+                                                    <div class="col-xs-9">
                                                         @php
                                                             $members_emails = '';
                                                         @endphp
@@ -332,7 +332,7 @@
                                                         @endforeach
 
                                                     </div>
-                                                    <div class="col-xs-2">
+                                                    <div class="col-xs-3">
 
                                                         <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
                                                     </div>

@@ -40,5 +40,6 @@ return [
     'course' => 'Kursus',
     'no_projekt_found' => 'Projekte ei leidnud',
     'no_projekt_found_desc' => 'Logi sisse ja lisa projekt',
-    'language' => 'Keel'
+    'language' => 'Keel',
+    'deadline_over' => 'Projektiga liitumine on lõppenud'
 ];

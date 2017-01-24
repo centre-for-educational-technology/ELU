@@ -41,7 +41,8 @@ return [
     'course' => 'Course',
     'no_projekt_found' => 'No projects found',
     'no_projekt_found_desc' => 'Log in and add a project',
-    'language' => 'Language'
+    'language' => 'Language',
+    'deadline_over' => 'Registration period is over'
 
 
 ];

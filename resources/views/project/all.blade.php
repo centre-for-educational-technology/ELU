@@ -143,6 +143,15 @@
                                             <li>{{trans('project.active')}}</li>
                                         @endif
                                     </ul>
+
+                                    <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
+                                    <ul class="list-unstyled list01">
+                                        @if ( $project->language == 'et' )
+                                            <li>Eesti</li>
+                                        @elseif ( $project->language == 'en' )
+                                            <li>English</li>
+                                        @endif
+                                    </ul>
                                 </div>
 
 
@@ -191,11 +200,11 @@
                                     @if(!empty($project->supervisor))
 
                                         <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
-                                    <ul class="list-unstyled list01 tags">
-                                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                                            <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
-                                        @endforeach
-                                    </ul>
+                                        <ul class="list-unstyled list01 tags">
+                                            @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
+                                                <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
+                                            @endforeach
+                                        </ul>
 
                                     @endif
 
@@ -204,10 +213,8 @@
                                     <ul class="list-unstyled list01 tags">
                                         @foreach (explode(',', $project->tags) as $tag)
                                             <li><span class="label label-primary">{{ $tag }}</span></li>
-
                                         @endforeach
                                     </ul>
-
 
 
                                 </div>

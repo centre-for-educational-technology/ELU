@@ -141,6 +141,8 @@ class ProjectController extends Controller
 //    $project->join_link = $request->join_link;
 
 
+    $project->language = $request->language;
+
     $project->publishing_status = $request->publishing_status;
 
 
@@ -257,8 +259,9 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-    $project->join_link = $request->join_link;
+//    $project->join_link = $request->join_link;
 
+    $project->language = $request->language;
 
     $project->publishing_status = $request->publishing_status;
 

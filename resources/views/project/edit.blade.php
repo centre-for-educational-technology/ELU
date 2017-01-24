@@ -333,6 +333,29 @@
                             </div>
                         </div>
 
+                        <!-- Language-->
+                        <div class="form-group">
+                            <label for="language" class="col-sm-3 control-label">{{trans('project.language')}}</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="language" name="language">
+                                    @if ((!empty($current_project) ?  $current_project->language : old('language')) == 'et')
+                                        <option value="et" selected>Eesti</option>
+                                    @else
+                                        <option value="et">Eesti</option>
+                                    @endif
+
+
+                                    @if ((!empty($current_project) ?  $current_project->language : old('language')) == 'en')
+                                        <option value="en" selected>English</option>
+                                    @else
+                                        <option value="en">English</option>
+                                    @endif
+
+                                </select>
+                            </div>
+                        </div>
+
                         <!-- Status -->
                         <div class="form-group">
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}}</label>

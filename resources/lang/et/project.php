@@ -39,5 +39,6 @@ return [
     'user' => 'Kasutaja',
     'course' => 'Kursus',
     'no_projekt_found' => 'Projekte ei leidnud',
-    'no_projekt_found_desc' => 'Logi sisse ja lisa projekt'
+    'no_projekt_found_desc' => 'Logi sisse ja lisa projekt',
+    'language' => 'Keel'
 ];

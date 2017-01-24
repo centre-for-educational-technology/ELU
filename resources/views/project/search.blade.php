@@ -154,6 +154,16 @@
                                                         <li>{{trans('project.active')}}</li>
                                                     @endif
                                                 </ul>
+
+
+                                                <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
+                                                <ul class="list-unstyled list01">
+                                                    @if ( $project->language == 'et' )
+                                                        <li>Eesti</li>
+                                                    @elseif ( $project->language == 'en' )
+                                                        <li>English</li>
+                                                    @endif
+                                                </ul>
                                             </div>
 
 
@@ -218,7 +228,6 @@
 
                                                     @endforeach
                                                 </ul>
-
 
 
                                             </div>

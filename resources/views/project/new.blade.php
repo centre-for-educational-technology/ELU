@@ -307,6 +307,30 @@
                             </div>
                         </div>
 
+
+                        <!-- Language-->
+                        <div class="form-group">
+                            <label for="language" class="col-sm-3 control-label">{{trans('project.language')}}</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="language" name="language">
+                                    @if ( old('language') == 'et')
+                                    <option value="et" selected>Eesti</option>
+                                    @else
+                                        <option value="en">Eesti</option>
+                                    @endif
+
+
+                                    @if ( old('language') == 'en')
+                                        <option value="et" selected>English</option>
+                                    @else
+                                        <option value="en">English</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+
                         <!-- Status -->
                         <div class="form-group">
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}}</label>

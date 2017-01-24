@@ -40,7 +40,8 @@ return [
     'user' => 'User',
     'course' => 'Course',
     'no_projekt_found' => 'No projects found',
-    'no_projekt_found_desc' => 'Log in and add a project'
+    'no_projekt_found_desc' => 'Log in and add a project',
+    'language' => 'Language'
 
 
 ];

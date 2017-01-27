@@ -56,6 +56,80 @@
                     </p>
                     <p><a href="{{trans('faq.what.link')}}" target="_blank">{{trans('faq.what.desc8')}}</a></p>
                     <p><a href="{{trans('faq.what.link2')}}" target="_blank">{{trans('faq.what.desc9')}}</a></p>
+
+                    <h2>{{trans('faq.what_table_header')}}</h2>
+
+                    <table class="table table-bordered table-striped table-responsive what-table">
+                        <thead>
+                        <tr class="what-table-accent">
+                            <th colspan="2">
+                                {{trans('faq.what_table_before')}}
+                            </th>
+                            <th colspan="2">
+                                {{trans('faq.what_table_during')}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{trans('faq.what_table_until_fair')}}
+                            </th>
+                            <th>
+                                {{trans('faq.what_table_fair')}}
+                            </th>
+                            <th>
+                                {{trans('faq.what_table_sem')}}
+                            </th>
+                            <th>
+                                {{trans('faq.what_table_until_sem')}}
+                            </th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr class="what-table-content">
+                            <td>
+                                <h4 class="what-table-sub-accent">{{trans('faq.what_table_preparation')}}</h4>
+                                <ul>
+                                    <li>{{trans('faq.what_table_preparation.desc')}}</li>
+                                    <li>{{trans('faq.what_table_preparation.desc2')}}</li>
+                                    <li>{{trans('faq.what_table_preparation.desc3')}}</li>
+                                </ul>
+                            </td>
+
+                            <td>
+                                <h4 class="what-table-sub-accent">{{trans('faq.what_table_finding')}}</h4>
+                                <ul>
+                                    <li>{{trans('faq.what_table_finding.desc')}}</li>
+                                    <li>{{trans('faq.what_table_finding.desc2')}}</li>
+                                    <li>{{trans('faq.what_table_finding.desc3')}}</li>
+                                    <b><li>{{trans('faq.what_table_finding.desc4')}}</li></b>
+                                </ul>
+                            </td>
+
+                            <td>
+                                <h4 class="what-table-sub-accent">{{trans('faq.what_table_carrying')}}</h4>
+                                <ul>
+                                    <b><li>{{trans('faq.what_table_carrying.desc')}}</li></b>
+                                    <li>{{trans('faq.what_table_carrying.desc2')}}</li>
+                                    <li>{{trans('faq.what_table_carrying.desc3')}}</li>
+                                    <li>{{trans('faq.what_table_carrying.desc4')}}</li>
+                                    <b><li>{{trans('faq.what_table_carrying.desc5')}}</li></b>
+                                </ul>
+                            </td>
+
+                            <td>
+                                <h4 class="what-table-sub-accent">{{trans('faq.what_table_defining')}}</h4>
+                                <ul>
+                                    <li>{{trans('faq.what_table_defining.desc')}}</li>
+                                    <b><li>{{trans('faq.what_table_defining.desc2')}}</li></b>
+                                    <li>{{trans('faq.what_table_defining.desc3')}}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
                 </div>
                 <div id="item2" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.why')}}</h2>

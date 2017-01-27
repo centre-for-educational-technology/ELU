@@ -42,5 +42,35 @@ return [
     'which.desc2' => 'The goal of an ELU project and activities necessary for reaching the goal and the timeframe are agreed upon in the project draft after the team has been formed. The compulsory parts of the subject are the draft of the project, evaluation of one’s own contribution and of the team members and presentation of the outcome. ',
     'which.desc3' => 'Each ELU team will have a budget of 100€ to cover the costs necessary to achieve the project goals.',
 
+    'what_table_header' => 'The course of an ELU project',
+    'what_table_before' => 'Before the beginning of the semester',
+    'what_table_during' => 'During the semester',
+    'what_table_until_fair' => 'Until the Idea Fair',
+    'what_table_fair' => 'Idea Fair – beginning of the new semester',
+    'what_table_sem' => '1-2 semesters',
+    'what_table_until_sem' => 'Until the end of the semester',
+
+    'what_table_preparation' => 'Preparation of ELU',
+    'what_table_preparation.desc' => 'description of the idea on the webpage elu.tlu.ee ',
+    'what_table_preparation.desc2' => 'preliminary framework for carrying out ELU',
+    'what_table_preparation.desc3' => 'preparation for the Idea Fair',
+
+    'what_table_finding' => 'Finding team members for ELU and forming teams',
+    'what_table_finding.desc' => 'presentation of the idea at the Idea Fair ',
+    'what_table_finding.desc2' => 'joining the project online',
+    'what_table_finding.desc3' => 'first meetings to form (sub)team(s)',
+    'what_table_finding.desc4' => 'agreeing on the duration of the project (time of the assessment)',
+
+    'what_table_carrying' => 'Carrying out an ELU project',
+    'what_table_carrying.desc' => 'creation of the project draft and approval by the supervisor ',
+    'what_table_carrying.desc2' => 'regular meetings',
+    'what_table_carrying.desc3' => 'fulfilling the appointed tasks',
+    'what_table_carrying.desc4' => 'interim summaries',
+    'what_table_carrying.desc5' => 'self-refection',
+
+    'what_table_defining' => 'Defining and presenting the outcome',
+    'what_table_defining.desc' => 'assessing one’s own contribution and that of the teammates',
+    'what_table_defining.desc2' => 'presentation of the outcome',
+    'what_table_defining.desc3' => 'the assessment result will be given at the end of the current semester',
 
 ];

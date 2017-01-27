@@ -41,6 +41,41 @@ return [
     'which' => 'Missugune?',
     'which.desc' => 'ELU õppeaines saavad üliõpilased pakkuda lahendusi väljakutsetele, arendada edasi olemasolevaid algatusi või luua midagi täiesti uut. ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast. ',
     'which.desc2' => 'ELU projekti eesmärk ning selle saavutamiseks vajalikud tegevused ja ajakava lepitakse kokku projekti kavandis pärast rühma moodustumist. Õppeaine kohustuslikud osad on projekti kavand, enese ja rühmakaaslaste panuse hindamine ja tulemuse esitlemine.',
-    'which.desc3' => 'Projekti eesmärkide saavutamiseks vajalike kulude katteks on igal ELU rühmal kasutada 100€ eelarve'
+    'which.desc3' => 'Projekti eesmärkide saavutamiseks vajalike kulude katteks on igal ELU rühmal kasutada 100€ eelarve',
+
+
+    'what_table_header' => 'ELU projekti kulg',
+    'what_table_before' => 'Enne semestri algust',
+    'what_table_during' => 'Semestri jooksul',
+    'what_table_until_fair' => 'Kuni ideelaat',
+    'what_table_fair' => 'Ideelaat - uue semestri algus',
+    'what_table_sem' => '1-2 semestrit, oleneb ELUst',
+    'what_table_until_sem' => 'kuni semestri lõpp',
+
+
+    'what_table_preparation' => 'ELU ettevalmistamine',
+    'what_table_preparation.desc' => 'idee kirjeldus veebi',
+    'what_table_preparation.desc2' => 'esialgne läbiviimise raamistik',
+    'what_table_preparation.desc3' => 'valmistumine ideelaadaks',
+
+    'what_table_finding' => 'ELU kaaslaste leidmine ja rühmade moodustamine',
+    'what_table_finding.desc' => 'idee tutvustamine ideelaadal',
+    'what_table_finding.desc2' => 'projektiga liitumine veebis',
+    'what_table_finding.desc3' => 'esimesed kohtumised (alam)rühma(de) moodustamiseks',
+    'what_table_finding.desc4' => 'kestuse kokkuleppimine (millal saadakse arvestus)',
+
+    'what_table_carrying' => 'ELU projekti teostamine',
+    'what_table_carrying.desc' => 'projekti kavandi koostamine ja heakskiitmine juhendaja poolt',
+    'what_table_carrying.desc2' => 'regulaarsed kohtumised',
+    'what_table_carrying.desc3' => 'jagatud ülesannete täitmine',
+    'what_table_carrying.desc4' => 'vahekokkuvõtted',
+    'what_table_carrying.desc5' => 'enesereflektsioon',
+
+    'what_table_defining' => 'Tulemuste vormistamine ja esitlemine',
+    'what_table_defining.desc' => 'enda ja rühmakaaslaste panuse hindamine',
+    'what_table_defining.desc2' => 'tulemuste esitamine',
+    'what_table_defining.desc3' => 'arvestus pannakse välja käesoleva semestri lõpus',
+
+
 
 ];

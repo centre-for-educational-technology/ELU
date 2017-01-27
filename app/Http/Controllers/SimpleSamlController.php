@@ -78,7 +78,7 @@ class SimpleSamlController extends Controller
         }
 
 
-        auth()->login($new_user, true);
+        auth()->login($new_user);
 
       }else{
 
@@ -116,7 +116,7 @@ class SimpleSamlController extends Controller
           }
         }
 
-        auth()->login($user, true);
+        auth()->login($user);
 
       }
 

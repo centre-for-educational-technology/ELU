@@ -181,7 +181,7 @@
   (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
-    s1.src='https://embed.tawk.to/5887a6e47892882db719ca58/default';
+    s1.src='{{trans('nav.tawk_chat_url')}}';
     s1.charset='UTF-8';
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);

@@ -57,7 +57,7 @@
                     <p><a href="{{trans('faq.what.link')}}" target="_blank">{{trans('faq.what.desc8')}}</a></p>
                     <p><a href="{{trans('faq.what.link2')}}" target="_blank">{{trans('faq.what.desc9')}}</a></p>
 
-                    <h2>{{trans('faq.what_table_header')}}</h2>
+                    <h3>{{trans('faq.what_table_header')}}</h3>
 
                     <table class="table table-bordered table-striped table-responsive what-table">
                         <thead>

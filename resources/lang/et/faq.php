@@ -50,7 +50,7 @@ return [
     'what_table_until_fair' => 'Kuni ideelaat',
     'what_table_fair' => 'Ideelaat - uue semestri algus',
     'what_table_sem' => '1-2 semestrit, oleneb ELUst',
-    'what_table_until_sem' => 'kuni semestri lõpp',
+    'what_table_until_sem' => 'Kuni semestri lõpp',
 
 
     'what_table_preparation' => 'ELU ettevalmistamine',

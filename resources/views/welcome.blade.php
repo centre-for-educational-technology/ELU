@@ -45,11 +45,12 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
 
-                    <div class="dropdown pull-left">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            {{ Config::get('languages')[App::getLocale()] }}
+                    <li class="dropdown" role="presentation">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}
                             <span class="caret"></span>
-                        </button>
+                        </a>
+
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             @foreach (Config::get('languages') as $lang => $language)
                                 @if ($lang != App::getLocale())
@@ -59,7 +60,7 @@
                                 @endif
                             @endforeach
                         </ul>
-                    </div>
+                    </li>
 
 
                     <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">{{trans('front.search')}}</a></li>
@@ -72,7 +73,7 @@
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}"></i>{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif

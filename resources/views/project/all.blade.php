@@ -28,8 +28,8 @@
 
 
                         <div class="col-md-8">
-                            <div class="col-xs-10">
-                                <div class="form-group nomargin">
+                            <div class="col-md-10">
+                                <div class="form-group nomargin search-input">
 
                                     <input type="hidden" name="search_param" value="project" id="search_param">
                                     <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="form-group search">
-                                <div class="col-xs-2">
+                                <div class="col-md-2">
                                     <button class="btn btn-primary" type="submit">{{trans('search.search')}}!</button>
                                 </div>
                             </div>

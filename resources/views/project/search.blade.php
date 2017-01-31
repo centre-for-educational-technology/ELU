@@ -222,7 +222,7 @@
 
 
                                                 <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
-                                                <ul class="list-unstyled list01 tags">
+                                                <ul class="list-unstyled list01 tags keywords">
                                                     @foreach (explode(',', $project->tags) as $tag)
                                                         <li><span class="label label-primary">{{ $tag }}</span></li>
 

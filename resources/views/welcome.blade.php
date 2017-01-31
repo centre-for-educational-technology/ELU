@@ -110,12 +110,22 @@
 
                                 @if (Auth::user()->is('admin'))
                                     <span class="badge">{{trans('nav.admin')}}</span>
-                                    <span class="caret"></span>
                                 @endif
+
+                                @if (Auth::user()->is('superadmin'))
+                                    <span class="badge"><i class="fa fa-user-secret"></i> superadmin</span>
+                                @endif
+
+                                <span class="caret"></span>
 
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                @if (Auth::user()->is('superadmin'))
+                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
+                                    <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
+                                @endif
+
                                 @if (Auth::user()->is('admin'))
                                     {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
@@ -130,7 +140,6 @@
                                 {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
                                     <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
-
                                 @endif
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
                             </ul>

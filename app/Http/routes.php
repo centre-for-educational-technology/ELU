@@ -221,6 +221,13 @@ Route::group(['middleware' =>['web']], function () {
               'projects' => $projects]);
         });
 
+        Route::group(['middleware' => ['superadmin']], function () {
+
+          //Activity log summary
+          Route::get('admin/log', 'AdminController@getActivityLogItems');
+        });
+
+
       });
 
 

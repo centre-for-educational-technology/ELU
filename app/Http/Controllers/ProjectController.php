@@ -325,8 +325,10 @@ class ProjectController extends Controller
 
       $projects = Project::whereHas('users', function($q) use ($name)
       {
-
-        $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%author%');
       })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
@@ -334,8 +336,10 @@ class ProjectController extends Controller
 
       $projects = Project::whereHas('users', function($q) use ($name)
       {
-
-        $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
       })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 

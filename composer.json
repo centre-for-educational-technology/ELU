@@ -10,7 +10,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "cohensive/embed": "5.0.*",
         "doctrine/dbal": "^2.5",
-        "anhskohbo/no-captcha": "^2.2"
+        "anhskohbo/no-captcha": "^2.2",
+        "spatie/laravel-activitylog": "^1.11"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

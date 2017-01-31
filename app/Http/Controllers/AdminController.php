@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
+use Illuminate\Contracts\Pagination\Paginator;
 
 use App\Http\Requests;
 
@@ -52,7 +54,7 @@ class AdminController extends Controller
 
     $user = User::find($id);
 
-    if($user->email != "glebred@tlu.ee" && $user->email != "tammets@tlu.ee"){
+    if(!$user->is('superadmin')){
       $user->roles()->detach(3);
 
       if($user->full_name){
@@ -155,5 +157,25 @@ class AdminController extends Controller
         ->with('name', $query)
         ->with('param', $param)
         ->with('users', $users);
+  }
+
+
+  /**
+   * Get activity log summary
+   * Integrates spatie/blender
+   */
+  public function getActivityLogItems(){
+
+    $logItems = $this->getPaginatedActivityLogItems();
+    return view('admin.activity_log')->with(compact('logItems'));
+
+  }
+
+
+  protected function getPaginatedActivityLogItems(): Paginator
+  {
+    return Activity::with('causer')
+        ->orderBy('created_at', 'DESC')
+        ->paginate(50);
   }
 }

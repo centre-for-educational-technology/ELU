@@ -75,6 +75,9 @@ class SimpleSamlController extends Controller
             //Staff gets student role
             $new_user->roles()->attach(2);
           }
+        }else{
+          //Unknown user gets student role by default
+          $new_user->roles()->attach(2);
         }
 
 
@@ -114,6 +117,9 @@ class SimpleSamlController extends Controller
             $user->roles()->syncWithoutDetaching([2]);
 
           }
+        }else{
+          //Unknown user gets student role by default
+          $user->roles()->attach(2);
         }
 
         auth()->login($user);

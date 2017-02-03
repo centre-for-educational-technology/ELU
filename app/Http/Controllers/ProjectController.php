@@ -33,11 +33,11 @@ class ProjectController extends Controller
     $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
-      return view('project.all')
+      return view('project.search')
           ->with('projects', $projects)
           ->with('isTeacher', Auth::user()->is('oppejoud'));
     }else{
-      return view('project.all')
+      return view('project.search')
           ->with('projects', $projects)
           ->with('isTeacher', false);
     }

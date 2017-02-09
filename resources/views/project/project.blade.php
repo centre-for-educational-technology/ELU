@@ -10,16 +10,22 @@
 
                     <h2>{{ $project->name }}</h2>
 
+
                     <div class="row">
                         <div class="col-xs-7">
                             <div class="form-group nomargin">
-                                <input class="form-control" name="share_url" title="Share link" value="{{url('project/'.$project->id)}}">
+                                <p><input class="form-control" name="share_url" title="Share link" value="{{url('project/'.$project->id)}}"></p>
                             </div>
                         </div>
                     </div>
 
+                    @if (!empty($project->embedded))
+                        <div class="embed-responsive embed-responsive-16by9">
+                        {!! $project->embedded !!}
+                        </div>
+                    @endif
 
-                    <p>{!! $project->embedded !!}</p>
+
                     <p><strong>{{ $project->description }}</strong></p>
                     @if (!empty($project->extra_info))
                         <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>

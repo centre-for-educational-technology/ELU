@@ -17,7 +17,7 @@
                     </a>
 
                     <a class="btn btn-social btn-social-icon btn-twitter"
-                       href="https://twitter.com/intent/tweet?text={{rawurlencode(trans('project.twitter_share_joined_message'))}}%20{{ rawurlencode('"'.str_limit(\Session::get('project')['name'], 25).'"') }}%20{{url('project/'.\Session::get('project')['id'])}}"
+                       href="https://twitter.com/intent/tweet?text={{rawurlencode(trans('project.twitter_share_joined_message'))}}%20{{ rawurlencode('"'.str_limit(\Session::get('project')['name'], 65).'"') }}%20{{url('project/'.\Session::get('project')['id'])}}"
                        hashtags="elu,tlu">
                         <span class="fa fa-twitter"></span>
                     </a>

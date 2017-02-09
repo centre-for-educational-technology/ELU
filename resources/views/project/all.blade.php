@@ -174,7 +174,7 @@
                                     </a>
 
                                     <a class="btn btn-block btn-social btn-twitter"
-                                       href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 25)) }}%20{{url('project/'.$project->id)}}"
+                                       href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"
                                        hashtags="elu,tlu">
                                         <span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}
                                     </a>

@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>ELU - Tere tulemast</title>
 
     <!-- Fonts -->
@@ -24,6 +23,26 @@
     </style>
 </head>
 <body id="app-layout" class="subpage">
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1836274236660424',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 
 
 <div class="jumbotron main">
@@ -43,22 +62,33 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
 
-                    <li class="dropdown" role="presentation">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}
-                            <span class="caret"></span>
-                        </a>
+                    <li>
+                        @if (App::getLocale() == 'en')
+                            <a href="{{ route('lang.switch', 'et') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['et'] }}</a>
+                        @elseif(App::getLocale() == 'et')
+                            <a href="{{ route('lang.switch', 'en') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['en'] }}</a>
+                        @endif
 
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            @foreach (Config::get('languages') as $lang => $language)
-                                @if ($lang != App::getLocale())
-                                    <li>
-                                        <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
                     </li>
+
+                    {{--Dropdown menu with more natural switch of languages--}}
+                    {{--<li class="dropdown" role="presentation">--}}
+                        {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">--}}
+                            {{--<i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}--}}
+                            {{--<span class="caret"></span>--}}
+                        {{--</a>--}}
+
+                        {{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
+                            {{--@foreach (Config::get('languages') as $lang => $language)--}}
+                                {{--@if ($lang != App::getLocale())--}}
+                                    {{--<li>--}}
+                                        {{--<a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>--}}
+                                    {{--</li>--}}
+                                {{--@endif--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
 
                     <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">{{trans('front.search')}}</a></li>
                     <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
@@ -157,7 +187,7 @@
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>--}}
 
     <script src="{{ url(asset('/js/vendor.js')) }}"></script>
-    <script src="{{ url(asset('js/all.js')) }}"></script>
+    <script src="{{ url(elixir('js/all.js')) }}"></script>
 
     <script src="{{ url(asset('js/scripts.js')) }}"></script>
 

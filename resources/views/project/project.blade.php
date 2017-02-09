@@ -1,36 +1,14 @@
-@if (count($projects) > 0)
-    <div class="row">
-        <div class="col-md-4 margt">
-            <ul class="nav menu02 menu02b nav-stacked">
-                @foreach($projects as $index =>$project)
+@extends('layouts.app')
 
-                    @if($index == 0)
-                        <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
-                    @else
-                        <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
-                    @endif
-                @endforeach
+    @section('content')
 
-            </ul>
+        <div class="container">
 
+            <div class="row">
 
+                <div class="col-lg-10 col-lg-offset-1">
 
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    {{ $projects->links() }}
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-8 margt content tab-content">
-            @foreach($projects as $index =>$project)
-
-                @if($index == 0)
-                    <div id="project{{$index}}" class="tab-pane fade in active">
-                @else
-                    <div id="project{{$index}}" class="tab-pane fade">
-                @endif
-
-                    <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    <h2>{{ $project->name }}</h2>
 
                     <div class="row">
                         <div class="col-xs-7">
@@ -39,6 +17,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <p>{!! $project->embedded !!}</p>
                     <p><strong>{{ $project->description }}</strong></p>
@@ -167,9 +146,9 @@
                             </ul>
 
                             <div class="row">
-                                <div class="col-sm-8">
+                                <div class="col-sm-6">
 
-                                    <a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit($project->description, 100) }}" class="btnShare btn btn-block btn-social btn-facebook">
+                                    <a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{str_limit($project->description, 100) }}" class="btnShare btn btn-block btn-social btn-facebook">
                                         <span class="fa fa-facebook"></span> {{trans('project.share_fb')}}
                                     </a>
 
@@ -181,6 +160,8 @@
 
                                 </div>
                             </div>
+
+
                         </div>
 
 
@@ -189,7 +170,7 @@
 
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                     @if(empty($isStudentMyProjectsView))
-                    {{--Check for join deadline--}}
+                        {{--Check for join deadline--}}
                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
                             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
                         @else
@@ -275,7 +256,7 @@
                                             @endforeach
                                         @endif
                                         {{$isTeacher? '('.$user->email.')' : ''}}
-                                </span>
+                                    </span>
                                 @else
                                     @php
                                         $parts = explode(" ", $user->name);
@@ -326,27 +307,12 @@
                         </div>
                     @endif
 
+                </div>
 
+            </div>
 
-
-                    </div>
-            @endforeach
-                    </div>
         </div>
 
 
-@else
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{trans('project.no_projekt_found')}}</h3>
-        </div>
-        <div class="panel-body">
-            {{trans('project.no_projekt_found_desc')}}
-        </div>
-    </div>
-
-    </div>
-@endif
-
-
+@endsection
 

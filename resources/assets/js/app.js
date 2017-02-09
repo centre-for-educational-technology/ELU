@@ -138,6 +138,20 @@ jQuery(document).ready(function($) {
   });
 
 
+  //Facebook sharing button handler, Facebook SDK for JavaScript
+  function postToFeed(title, desc, url, image){
+    var obj = {method: 'feed',link: url, picture:image, name: title,description: desc};
+    function callback(response){}
+    FB.ui(obj, callback);
+  }
+
+
+  $('.btnShare').click(function(){
+    elem = $(this);
+    postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
+
+    return false;
+  });
 
 
 });

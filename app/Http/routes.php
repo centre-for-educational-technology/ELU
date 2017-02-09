@@ -51,17 +51,42 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/projects-all', 'ProjectController@index');
 
 
+    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+
+    Route::get('/project/search', 'ProjectController@search');
+
+
+
+
+
+
+
+
+  Route::get('project/{id}', array('as' => 'project', function ($id) {
+
+
+    $project = Project::find($id);
+
+    if(Auth::user()){
+      return view('project.project')
+          ->with('project', $project)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.project')
+          ->with('project', $project)
+          ->with('isTeacher', false);
+    }
+
+
+  }));
+
+
 });
 
 
 
 Route::group(['middleware' =>['web']], function () {
-
-
-    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
-
-
-    Route::get('/project/search', 'ProjectController@search');
 
 
     Route::group(['middleware' =>['auth']], function () {
@@ -75,7 +100,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/project/new', 'ProjectController@store');
 
 
-        Route::get('project/{id}', array('as' => 'project', function ($id) {
+        Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
 
 
           $project = Project::find($id);

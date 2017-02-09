@@ -43,7 +43,7 @@
 
                                         <td>
 
-                                            <form action="{{ url('project/'.$project->id) }}" method="GET">
+                                            <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
@@ -53,7 +53,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <form class="delete-project" action="{{ url('project/'.$project->id) }}" method="POST">
+                                            <form class="delete-project" action="{{ url('project/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
 

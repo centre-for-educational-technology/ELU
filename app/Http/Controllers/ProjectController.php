@@ -435,8 +435,15 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('student/my-projects')
-        ->with('message', 'Oled projektiga '.$project->name.' liitunud')
-        ->with('projects', $projects);
+        ->with('message', [
+            'text' => trans('project.joined_project_notification').' "'.$project->name.'"',
+            'type' => 'joined'
+        ])
+        ->with('project', [
+            'id' => $project->id,
+            'name' => $project->name,
+            'description' => $project->description,
+        ]);
 
 
   }
@@ -459,8 +466,10 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('student/my-projects')
-        ->with('message', 'Oled projektist '.$project->name.' lahkunud')
-        ->with('projects', $projects);
+        ->with('message', [
+            'text' => trans('project.left_project_notification').' "'.$project->name.'"',
+            'type' => 'left'
+        ]);
 
   }
 
@@ -477,10 +486,10 @@ class ProjectController extends Controller
     $user = User::find($userId);
 
     if(!empty($user->full_name)){
-      return redirect()->route('project', ['id' => $project->id])
+      return redirect()->route('project_edit', ['id' => $project->id])
           ->with('message', 'Oled '.$user->full_name.' projektist '.$project->name.' kustutanud.');
     }else{
-      return redirect()->route('project', ['id' => $project->id])
+      return redirect()->route('project_edit', ['id' => $project->id])
           ->with('message', 'Oled '.$user->name.' projektist '.$project->name.' kustutanud.');
     }
 

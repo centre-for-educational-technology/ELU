@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Role column deleted from User table.');
 
         $this->call('AddSuperAdminRoleSeeder');
-        $this->command->info('Super admins added');
+        $this->command->info('Super admins addedv');
     }
 }

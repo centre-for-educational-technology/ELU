@@ -96,24 +96,24 @@
 
                                         <td>
 
-                                            <form action="{{ url('project/'.$project->id) }}" method="GET">
+                                            <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
                                                 <button type="submit" class="btn btn-warning pull-right">
-                                                    <i class="fa fa-btn fa-pencil"></i>Muuda
+                                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
                                                 </button>
                                             </form>
                                         </td>
                                         <td>
-                                            <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id) }}" method="POST">
+                                            <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
 
 
                                             </form>
                                             <button type="submit" id="delete" class="btn btn-danger pull-right">
-                                                <i class="fa fa-btn fa-trash"></i>Kustuta
+                                                <i class="fa fa-btn fa-trash"></i>{{trans('project.delete')}}
                                             </button>
 
                                         </td>

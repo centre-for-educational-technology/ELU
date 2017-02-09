@@ -43,14 +43,12 @@ elixir(function(mix) {
 
 
 
-    mix.scripts([
-        'app.js']
-    )
+    mix.scripts(['app.js']);
 
-      .version(['js/all.js']);
+    mix.less(['app.less']);
 
-    mix.less(['app.less'])
-      .version('css/app.css');
+
+    mix.version(["css/app.css", "js/all.js"]);
 
     // mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/build/fonts/bootstrap');
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');

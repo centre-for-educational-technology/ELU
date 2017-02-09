@@ -41,5 +41,10 @@ return [
     'no_projekt_found' => 'Projekte ei leidnud',
     'no_projekt_found_desc' => 'Logi sisse ja lisa projekt',
     'language' => 'Keel',
-    'deadline_over' => 'Projektiga liitumine on lõppenud'
+    'deadline_over' => 'Projektiga liitumine on lõppenud',
+    'share_fb' => 'Jaga Facebookis',
+    'share_twitter' => 'Jaga Twitteris',
+    'joined_project_notification' => 'Oled liitunud projektiga',
+    'left_project_notification' => 'Oled lahkunud projektist',
+    'twitter_share_joined_message' => 'Olen liitunud projektiga',
 ];

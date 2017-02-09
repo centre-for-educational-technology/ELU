@@ -42,7 +42,12 @@ return [
     'no_projekt_found' => 'No projects found',
     'no_projekt_found_desc' => 'Log in and add a project',
     'language' => 'Language',
-    'deadline_over' => 'Registration period is over'
+    'deadline_over' => 'Registration period is over',
+    'share_fb' => 'Share on Facebook',
+    'share_twitter' => 'Share on Twitter',
+    'joined_project_notification' => 'You have joined the project',
+    'left_project_notification' => 'You have left the project',
+    'twitter_share_joined_message' => 'I have joined the project',
 
 
 ];

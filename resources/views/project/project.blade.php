@@ -8,7 +8,7 @@
 
                 <div class="col-md-10 margt content col-md-offset-1">
 
-                    <h2>{{ $project->name }}</h2>
+                    <h1>{{ $project->name }}</h1>
 
 
                     <div class="row">

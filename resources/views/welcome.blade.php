@@ -132,7 +132,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
-                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
+                                    <li><a href="{{ url('news-edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
                                 @endif
 
@@ -147,7 +147,6 @@
                                     <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
                                 @endif
 
-                                {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
                                     <li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
                                 @endif

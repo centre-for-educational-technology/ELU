@@ -154,7 +154,7 @@ jQuery(document).ready(function($) {
   });
 
 
-  //TinyMCE
+  //TinyMC
   tinyMCE.baseURL = "js/tinymce";
 
   tinymce.init({

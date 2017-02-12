@@ -216,9 +216,9 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('/admin/users/search', 'AdminController@search');
 
 
-        Route::get('/pages', 'PageController@index');
+        Route::get('/news-edit', 'PageController@index');
 
-        Route::post('/pages', 'PageController@store');
+        Route::post('/news-edit', 'PageController@store');
 
         Route::get('admin/all-projects/search', 'ProjectController@searchAll');
 

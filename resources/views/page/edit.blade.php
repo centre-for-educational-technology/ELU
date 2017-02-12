@@ -5,6 +5,11 @@
         <!-- Display Validation Errors -->
         @include('common.errors')
 
+        @if(\Session::has('message'))
+            <div class="alert alert-info">
+                {{\Session::get('message')}}
+            </div>
+        @endif
 
                 <div class="col-sm-offset-2 col-sm-8">
                     <h3><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</h3>
@@ -24,7 +29,7 @@
                             </ul>
                         </div>
                         <div class="panel-body pages-edit">
-                            <form action="{{ url('/pages')}}" method="POST" class="form-horizontal new-project">
+                            <form action="{{ url('/news-edit')}}" method="POST" class="form-horizontal new-project">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                 <div class="tab-content">

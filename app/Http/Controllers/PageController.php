@@ -46,10 +46,10 @@ class PageController extends Controller
     $info->save();
 
 
-    return view('page.edit')
+    return \Redirect::to('/news-edit')
+        ->with('message', 'Teated on uuendatud!')
         ->with('news', $news)
-        ->with('info', $info)
-        ->with('message', 'Lehed on muudetud!');
+        ->with('info', $info);
 
   }
 }

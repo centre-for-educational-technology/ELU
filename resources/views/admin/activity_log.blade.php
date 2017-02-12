@@ -28,7 +28,11 @@
                                 <td>
                                     {{ trim($logItem->subject_type, "App\\") }}
                                     @if($logItem->subject)
-                                        "{{ $logItem->subject->name }}"
+                                        @if(!empty($logItem->subject->name))
+                                            "{{ $logItem->subject->name }}"
+                                        @else
+                                            "{{ $logItem->subject->title }}"
+                                        @endif
                                     @endif
                                     was
                                     {!! $logItem->description !!}

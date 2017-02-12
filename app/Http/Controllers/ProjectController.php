@@ -527,8 +527,12 @@ class ProjectController extends Controller
 
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
-    return redirect()->route('student/my-projects')
-        ->with('message', 'Sinu projekt '.$project->name.' suunati modereerimisele. Aitäh!');
+
+    return \Redirect::to('student/my-projects')
+        ->with('message', [
+            'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
+            'type' => 'proposal'
+        ]);
 
   }
 }

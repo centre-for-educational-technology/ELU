@@ -25,6 +25,11 @@ gulp.task("copyfiles", function() {
 
     gulp.src("resources/assets/js/config-design.js")
       .pipe(gulp.dest("public/js"));
+
+
+    gulp.src("resources/assets/bower/tinymce/**/*")
+      .pipe(gulp.dest("public/js/tinymce"));
+
 });
 
 elixir(function(mix) {
@@ -39,6 +44,7 @@ elixir(function(mix) {
         'bootstrap-tagsinput.js',
         'bootbox.min.js',
         '../bower/select2/dist/js/select2.full.min.js',
+        '../bower/tinymce/tinymce.js'
     ], 'public/js/vendor.js');
 
 
@@ -50,7 +56,8 @@ elixir(function(mix) {
 
     mix.version(["css/app.css", "js/all.js"]);
 
-    // mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/build/fonts/bootstrap');
+
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
+
 
 });

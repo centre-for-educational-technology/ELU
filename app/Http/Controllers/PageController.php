@@ -17,14 +17,12 @@ class PageController extends Controller
 //    $pages = Page::orderBy('created_at', 'desc')->get();
 
     $news = Page::where('permalink', 'LIKE', '%news%')->first();
-    $faq = Page::where('permalink', 'LIKE', '%faq%')->first();
     $info = Page::where('permalink', 'LIKE', '%info%')->first();
 
 
     return view('page.edit')
-        ->with('news', $news->body)
-        ->with('faq', $faq->body)
-        ->with('info', $info->body);
+        ->with('news', $news)
+        ->with('info', $info);
 
   }
 
@@ -36,31 +34,22 @@ class PageController extends Controller
   {
 
     $news = Page::where('permalink', 'LIKE', '%news%')->first();
-    $faq = Page::where('permalink', 'LIKE', '%faq%')->first();
     $info = Page::where('permalink', 'LIKE', '%info%')->first();
 
-    $news->body = $request->news;
-    $faq->body = $request->faq;
-    $info->body = $request->info;
+    $news->body_et = $request->news_et;
+    $news->body_en = $request->news_en;
 
-
-
+    $info->body_et = $request->info_et;
+    $info->body_en = $request->info_en;
 
     $news->save();
-    $faq->save();
     $info->save();
 
 
-
     return view('page.edit')
-        ->with('news', $news->body)
-        ->with('faq', $faq->body)
-        ->with('info', $info->body)
-        ->with('message', 'Lehed on muudatud!');
-
-
-
-
+        ->with('news', $news)
+        ->with('info', $info)
+        ->with('message', 'Lehed on muudetud!');
 
   }
 }

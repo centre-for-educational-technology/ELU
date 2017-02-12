@@ -7,13 +7,13 @@
 
 
                 <div class="col-sm-offset-2 col-sm-8">
-                    <h3><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</h3>
+                    <h3><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</h3>
                     <div class="panel with-nav-tabs panel-default">
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab1info" data-toggle="tab">Esilehe Uudis</a></li>
                                 {{--<li><a href="#tab2info" data-toggle="tab">KKK</a></li>--}}
-                                <li><a href="#tab3info" data-toggle="tab">Üldinfo</a></li>
+                                <li><a href="#tab3info" data-toggle="tab">Esilehe Üldinfo (Ideelaat)</a></li>
                                 {{--<li class="dropdown">--}}
                                     {{--<a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>--}}
                                     {{--<ul class="dropdown-menu" role="menu">--}}
@@ -30,8 +30,13 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab1info">
                                         <div class="col-sm-12">
-                                            <textarea name="news" id="news" class="form-control">{{ (empty($news) ? old('news') : $news) }}</textarea>
+                                            <h4>Eesti keeles</h4>
+                                            <textarea name="news_et" id="news_et" class="form-control tinymce">{{ (empty($news) ? old('news_et') : $news->body_et) }}</textarea>
+                                            <h4>Inglise keeles</h4>
+                                            <textarea name="news_en" id="news_en" class="form-control tinymce">{{ (empty($news) ? old('news_en') : $news->body_en) }}</textarea>
                                         </div>
+
+
                                     </div>
                                     {{--<div class="tab-pane fade" id="tab2info">--}}
                                         {{--<div class="col-sm-12">--}}
@@ -40,7 +45,10 @@
                                     {{--</div>--}}
                                     <div class="tab-pane fade" id="tab3info">
                                         <div class="col-sm-12">
-                                            <textarea name="info" id="info" class="form-control">{{ (empty($info) ? old('info') : $info) }}</textarea>
+                                            <h4>Eesti keeles</h4>
+                                            <textarea name="info_et" id="info_et" class="form-control tinymce">{{ (empty($info) ? old('info_et') : $info->body_et) }}</textarea>
+                                            <h4>Inglise keeles</h4>
+                                            <textarea name="info_en" id="info_en" class="form-control tinymce">{{ (empty($info) ? old('info_en') : $info->body_en) }}</textarea>
                                         </div>
                                     </div>
                                     {{--<div class="tab-pane fade" id="tab4info">Info 4</div>--}}

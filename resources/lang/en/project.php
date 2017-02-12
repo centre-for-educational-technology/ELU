@@ -48,6 +48,7 @@ return [
     'joined_project_notification' => 'You have joined the project',
     'left_project_notification' => 'You have left the project',
     'twitter_share_joined_message' => 'I have joined the project',
+    'project_sent_to_moderation_notification' => 'Your project proposal ":name" sent for moderation. Thank you!'
 
 
 ];

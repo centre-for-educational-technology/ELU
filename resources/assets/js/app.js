@@ -154,6 +154,24 @@ jQuery(document).ready(function($) {
   });
 
 
+  //TinyMCE
+  tinyMCE.baseURL = "js/tinymce";
+
+  tinymce.init({
+    selector: '.tinymce',
+    mode : "textareas",
+    theme : "modern",
+    plugins: "link",
+    menubar: "insert",
+    toolbar: "link",
+    selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+    menu: {
+      edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+      format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript'},
+    }
+  });
+
+
 });
 
 

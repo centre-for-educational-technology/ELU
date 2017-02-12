@@ -114,11 +114,11 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+                            <li {{ (Request::is('project-new') ? 'class=active' : '') }}><a href="{{ url('/project-new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ (Request::is('student/project-new') ? 'class=active' : '') }}><a href="{{ url('student/project-new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -163,7 +163,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
-                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
+                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
                                 @endif
 

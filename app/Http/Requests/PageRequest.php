@@ -24,9 +24,11 @@ class PageRequest extends Request
     public function rules()
     {
         return [
-            'news' => 'required|max:9000',
+            'news_et' => 'required|max:1000',
+            'news_en' => 'required|max:1000',
 //            'faq' => 'required|max:9000',
-            'info' => 'required|max:9000',
+            'info_et' => 'required|max:1000',
+            'info_en' => 'required|max:1000',
         ];
     }
 }

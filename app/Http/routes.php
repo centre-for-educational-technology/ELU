@@ -38,7 +38,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome', [
             'news' => Page::where('permalink', 'LIKE', '%news%')->first(),
-            'faq' => Page::where('permalink', 'LIKE', '%faq%')->first(),
             'info' => Page::where('permalink', 'LIKE', '%info%')->first()]);
     });
 
@@ -58,28 +57,36 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
+    Route::get('project/{id}', array('as' => 'project', function ($id) {
 
 
+      $project = Project::find($id);
+
+      if(Auth::user()){
+        return view('project.project')
+            ->with('project', $project)
+            ->with('isTeacher', Auth::user()->is('oppejoud'));
+      }else{
+        return view('project.project')
+            ->with('project', $project)
+            ->with('isTeacher', false);
+      }
 
 
-
-  Route::get('project/{id}', array('as' => 'project', function ($id) {
-
-
-    $project = Project::find($id);
-
-    if(Auth::user()){
-      return view('project.project')
-          ->with('project', $project)
-          ->with('isTeacher', Auth::user()->is('oppejoud'));
-    }else{
-      return view('project.project')
-          ->with('project', $project)
-          ->with('isTeacher', false);
-    }
+    }));
 
 
-  }));
+    // ===============================================
+    // 404 ===========================================
+    // ===============================================
+
+//    App::missing(function($exception)
+//    {
+//
+//      // shows an error page (app/views/error.blade.php)
+//      // returns a page not found error
+//      return Response::view('error', array(), 404);
+//    });
 
 
 });
@@ -95,9 +102,9 @@ Route::group(['middleware' =>['web']], function () {
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {
 
-        Route::get('/project/new', 'ProjectController@add');
+        Route::get('project-new', 'ProjectController@add');
 
-        Route::post('/project/new', 'ProjectController@store');
+        Route::post('project-new', 'ProjectController@store');
 
 
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
@@ -275,12 +282,12 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
-        Route::get('student/project/new', function () {
+        Route::get('student/project-new', function () {
 
           return view('user.student.new_project');
         });
 
-        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
+        Route::post('student/project-new', 'ProjectController@storeProjectByStudent');
 
       });
 

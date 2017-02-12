@@ -79,11 +79,11 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+                            <li {{ (Request::is('project-new') ? 'class=active' : '') }}><a href="{{ url('/project-new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ (Request::is('student/project-new') ? 'class=active' : '') }}><a href="{{ url('student/project-new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -132,7 +132,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
-                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
+                                    <li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
                                 @endif
 
@@ -206,14 +206,22 @@
                     </a>
                 </div>
                 <h2>{{trans('front.idea_fair')}}</h2>
-                {{--<p>{!! nl2br($info->body) !!}</p>--}}
-                <p>{{trans('front.idea_fair.desc')}}</p>
+                @if (App::getLocale() == 'et')
+                    @if(!empty($info->body_et))
+                    {!! nl2br($info->body_et) !!}
+                    @endif
+                @elseif(App::getLocale() == 'en')
+                    @if(!empty($info->body_en))
+                    {!! nl2br($info->body_en) !!}
+                    @endif
+                @endif
+                {{--<p>{{trans('front.idea_fair.desc')}}</p>--}}
                 <p><a class="btn btn-default" href="{{ url('/projects-all') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
             </div>
             <div class="col-md-4">
                 <div class="block01 block01c">
                     @if (Auth::guest())
-                        <a href="{{ url('/student/project/new') }}">
+                        <a href="{{ url('/student/project-new') }}">
                             <div class="pad">
                                 <span class="glyphicon ico-idea"></span>
                                 <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
@@ -221,14 +229,14 @@
                         </a>
                     @else
                         @if (Auth::user()->is('student'))
-                            <a href="{{ url('/student/project/new') }}">
+                            <a href="{{ url('/student/project-new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                                 </div>
                             </a>
                         @elseif(Auth::user()->is('oppejoud'))
-                            <a href="{{ url('/project/new') }}">
+                            <a href="{{ url('/project-new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
@@ -246,8 +254,16 @@
 
                 </div>
                 <h2>{{trans('front.news')}}</h2>
-                {{--<p>{!! nl2br($news->body) !!}</p>--}}
-                <p>{{trans('front.news.desc')}}</p>
+                @if (App::getLocale() == 'et')
+                    @if(!empty($news->body_et))
+                    {!! nl2br($news->body_et) !!}
+                    @endif
+                @elseif(App::getLocale() == 'en')
+                    @if(!empty($news->body_en))
+                    {!! nl2br($news->body_en) !!}
+                    @endif
+                @endif
+                {{--<p>{{trans('front.news.desc')}}</p>--}}
             </div>
         </div>
     </div>

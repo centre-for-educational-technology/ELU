@@ -47,4 +47,5 @@ return [
     'joined_project_notification' => 'Oled liitunud projektiga',
     'left_project_notification' => 'Oled lahkunud projektist',
     'twitter_share_joined_message' => 'Olen liitunud projektiga',
+    'project_sent_to_moderation_notification' => 'Sinu projekt ":name" suunati modereerimisele. Aitäh!'
 ];

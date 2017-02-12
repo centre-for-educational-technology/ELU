@@ -27,6 +27,10 @@
                 <div class="alert alert-danger">
                     {{\Session::get('message')['text']}}
                 </div>
+                @elseif(\Session::get('message')['type'] == 'proposal')
+                <div class="alert alert-warning">
+                    {{\Session::get('message')['text']}}
+                </div>
                 @endif
 
 

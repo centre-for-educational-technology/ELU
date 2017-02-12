@@ -12,7 +12,7 @@
                 <!-- Display Validation Errors -->
                 @include('common.errors')
 
-                <form action="{{ url('student/project/new')}}" method="POST" class="form-horizontal new-project">
+                <form action="{{ url('student/project-new')}}" method="POST" class="form-horizontal new-project">
                 {{ csrf_field() }}
 
                 <!-- Project Name -->

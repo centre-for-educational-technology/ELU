@@ -12,7 +12,7 @@
         @endif
 
         <div class="col-sm-offset-2 col-sm-8">
-            <h3><i class="fa fa-btn fa-file-text"></i>FAQ</h3>
+            <h3><i class="fa fa-btn fa-file-text"></i>KKK</h3>
             <h4>Esimene paragrahv läheb esilehele</h4>
             <p>Vajutades "Muudan", salvestatakse andmed kõikidel tabidel</p>
             <div class="panel with-nav-tabs panel-default">

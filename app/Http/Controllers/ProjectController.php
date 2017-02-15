@@ -301,7 +301,7 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('teacher/my-projects')
-        ->with('message', 'Projekt '.$project->name.' on muudatud')
+        ->with('message', 'Projekt '.$project->name.' on muudetud')
         ->with('projects', $projects);
 
 

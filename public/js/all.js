@@ -144,7 +144,7 @@ jQuery(document).ready(function($) {
     function callback(response){}
     FB.ui(obj, callback);
   }
-  
+
   $('.btnShare').click(function(){
     elem = $(this);
     postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));

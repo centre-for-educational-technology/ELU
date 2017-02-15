@@ -30,6 +30,15 @@ gulp.task("copyfiles", function() {
     gulp.src("resources/assets/bower/tinymce/**/*")
       .pipe(gulp.dest("public/js/tinymce"));
 
+
+    //TinyMCE Estonian localisation
+    gulp.src("resources/assets/js/tinymce_lang/langs/**/*")
+      .pipe(gulp.dest("public/js/tinymce/langs"));
+
+    //Favicons
+    gulp.src("resources/assets/favicons/*")
+      .pipe(gulp.dest("public/favicons"));
+
 });
 
 elixir(function(mix) {

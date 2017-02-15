@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ELU - Tere tulemast</title>
 
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicons/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('favicons/favicon-32x32.png')}}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{asset('favicons/favicon-16x16.png')}}" sizes="16x16">
+    <link rel="manifest" href="{{asset('favicons/manifest.json')}}">
+    <link rel="mask-icon" href="{{asset('favicons/safari-pinned-tab.svg')}}" color="#ff4385">
+    <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}">
+    <meta name="msapplication-config" content="{{asset('favicons/browserconfig.xml')}}">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
@@ -114,11 +124,11 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project-new') ? 'class=active' : '') }}><a href="{{ url('/project-new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project-new') ? 'class=active' : '') }}><a href="{{ url('student/project-new') }}">{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -163,12 +173,13 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
-                                    <li><a href="{{ url('news-edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('admin'))
-                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
+
+                                    <li><a href="{{ url('news/edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
+                                    <li><a href="{{ url('faq/edit') }}"><i class="fa fa-btn fa-file-text"></i>Muuda KKK</a></li>
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
@@ -197,36 +208,10 @@
 
 
 
-    @yield('content')
-
-    <!-- JavaScripts -->
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>--}}
-    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>--}}
-
-    <script src="{{ url(asset('/js/vendor.js')) }}"></script>
-    <script src="{{ url(elixir('js/all.js')) }}"></script>
-
-    <script src="{{ url(asset('js/scripts.js')) }}"></script>
+@yield('content')
 
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-87770098-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-<div class="container">
-    <footer class="main">
-        <p>{{trans('front.tallinn_university')}}<br>
-            Narva mnt 25, 10120 Tallinn<br>
-            +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
-    </footer>
-</div>
+@include('layouts.footer')
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

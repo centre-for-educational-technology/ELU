@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class PageRequest extends Request
+class StoreNewsPageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,15 @@ class PageRequest extends Request
      */
     public function rules()
     {
-        return [
-            'news_et' => 'required|max:1000',
-            'news_en' => 'required|max:1000',
-//            'faq' => 'required|max:9000',
-            'info_et' => 'required|max:1000',
-            'info_en' => 'required|max:1000',
-        ];
+      return [
+          'news_et' => 'required|max:1000',
+          'news_en' => 'required|max:1000',
+  //            'faq' => 'required|max:9000',
+          'info_et' => 'required|max:1000',
+          'info_en' => 'required|max:1000',
+
+          'fair_info_et' => 'required|max:1000',
+          'fair_info_en' => 'required|max:1000',
+      ];
     }
 }

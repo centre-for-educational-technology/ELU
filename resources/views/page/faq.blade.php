@@ -33,29 +33,12 @@
                 <div id="item1" class="tab-pane fade in active">
                     <h2 class="h3 text-uppercase">{{trans('faq.what')}}
                     </h2>
-                    <p>
-                        {{trans('faq.what.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc2')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc3')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc4')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc5')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc6')}}
-                    </p>
-                    <p>
-                        {{trans('faq.what.desc7')}}
-                    </p>
-                    <p><a href="{{trans('faq.what.link')}}" target="_blank">{{trans('faq.what.desc8')}}</a></p>
-                    <p><a href="{{trans('faq.what.link2')}}" target="_blank">{{trans('faq.what.desc9')}}</a></p>
+
+                    @if (App::getLocale() == 'et')
+                        {!! $what->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $what->body_en !!}
+                    @endif
 
                     {{--<h3>{{trans('faq.what_table_header')}}</h3>--}}
 
@@ -133,69 +116,43 @@
                 </div>
                 <div id="item2" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.why')}}</h2>
-                    <p>
-                        {{trans('faq.why.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.why.desc2')}}
-                    </p>
+                    @if (App::getLocale() == 'et')
+                        {!! $why->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $why->body_en !!}
+                    @endif
                 </div>
                 <div id="item3" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.when')}}</h2>
-                    <p>
-                        {{trans('faq.when.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.when.desc2')}}
-                    </p>
+                    @if (App::getLocale() == 'et')
+                        {!! $when->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $when->body_en !!}
+                    @endif
                 </div>
                 <div id="item4" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.with_who')}}</h2>
-                    <p>
-                        {{trans('faq.with_who.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.with_who.desc2')}}
-                    </p>
-                    <p>
-                        {{trans('faq.with_who.desc3')}}
-                    </p>
-                    <p>
-                        {{trans('faq.with_who.desc4')}}
-                    </p>
-                    <p>
-                        {{trans('faq.with_who.desc5')}}
-                    </p>
+                    @if (App::getLocale() == 'et')
+                        {!! $with_who->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $with_who->body_en !!}
+                    @endif
                 </div>
                 <div id="item5" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.how')}}</h2>
-                    <p>
-                        {{trans('faq.how.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.how.desc2')}}
-                    </p>
-                    <p>
-                        {{trans('faq.how.desc3')}}
-                    </p>
-                    <p>
-                        {{trans('faq.how.desc4')}}
-                    </p>
-                    <p>
-                        {{trans('faq.how.desc5')}}
-                    </p>
+                    @if (App::getLocale() == 'et')
+                        {!! $how->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $how->body_en !!}
+                    @endif
                 </div>
                 <div id="item6" class="tab-pane fade">
                     <h2 class="h3 text-uppercase">{{trans('faq.which')}}</h2>
-                    <p>
-                        {{trans('faq.which.desc')}}
-                    </p>
-                    <p>
-                        {{trans('faq.which.desc2')}}
-                    </p>
-                    <p>
-                        {{trans('faq.which.desc3')}}
-                    </p>
+                    @if (App::getLocale() == 'et')
+                        {!! $which->body_et !!}
+                    @elseif(App::getLocale() == 'en')
+                        {!! $which->body_en !!}
+                    @endif
                 </div>
 
             </div>

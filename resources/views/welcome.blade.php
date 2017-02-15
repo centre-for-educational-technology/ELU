@@ -7,6 +7,16 @@
 
     <title>ELU - Tere tulemast</title>
 
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicons/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('favicons/favicon-32x32.png')}}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{asset('favicons/favicon-16x16.png')}}" sizes="16x16">
+    <link rel="manifest" href="{{asset('favicons/manifest.json')}}">
+    <link rel="mask-icon" href="{{asset('favicons/safari-pinned-tab.svg')}}" color="#ff4385">
+    <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}">
+    <meta name="msapplication-config" content="{{asset('favicons/browserconfig.xml')}}">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
@@ -79,11 +89,11 @@
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project-new') ? 'class=active' : '') }}><a href="{{ url('/project-new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project-new') ? 'class=active' : '') }}><a href="{{ url('student/project-new') }}">{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -132,12 +142,12 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
-                                    <li><a href="{{ url('news-edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('admin'))
-                                    {{--<li><a href="{{ url('pages') }}"><i class="fa fa-btn fa-file-text"></i>Lehtede Haldus</a></li>--}}
+                                    <li><a href="{{ url('news/edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
+                                    <li><a href="{{ url('faq/edit') }}"><i class="fa fa-btn fa-file-text"></i>Muuda KKK</a></li>
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
@@ -191,7 +201,11 @@
                 </div>
                 <h2>{{trans('front.what_is')}} ELU?</h2>
 
-                <p>{{trans('front.what_is.desc')}}</p>
+                @if (App::getLocale() == 'et')
+                    {!! getFirstParagraph($info->body_et) !!}
+                @elseif(App::getLocale() == 'en')
+                    {!! getFirstParagraph($info->body_en) !!}
+                @endif
 
                 <p><a class="btn btn-default" href="#about-elu" role="button">{{trans('front.read_more')}} <span class="glyphicon ico-arrow-down" aria-hidden="true"></span></a></p>
             </div>
@@ -206,13 +220,9 @@
                 </div>
                 <h2>{{trans('front.idea_fair')}}</h2>
                 @if (App::getLocale() == 'et')
-                    @if(!empty($info->body_et))
-                    {!! nl2br($info->body_et) !!}
-                    @endif
+                    {!! getFirstParagraph($fair_info->body_et) !!}
                 @elseif(App::getLocale() == 'en')
-                    @if(!empty($info->body_en))
-                    {!! nl2br($info->body_en) !!}
-                    @endif
+                    {!! getFirstParagraph($fair_info->body_en) !!}
                 @endif
                 {{--<p>{{trans('front.idea_fair.desc')}}</p>--}}
                 <p><a class="btn btn-default" href="{{ url('/projects-all') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
@@ -220,7 +230,7 @@
             <div class="col-md-4">
                 <div class="block01 block01c">
                     @if (Auth::guest())
-                        <a href="{{ url('/student/project-new') }}">
+                        <a href="{{ url('/student/project/new') }}">
                             <div class="pad">
                                 <span class="glyphicon ico-idea"></span>
                                 <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
@@ -228,14 +238,14 @@
                         </a>
                     @else
                         @if (Auth::user()->is('student'))
-                            <a href="{{ url('/student/project-new') }}">
+                            <a href="{{ url('/student/project/new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
                                 </div>
                             </a>
                         @elseif(Auth::user()->is('oppejoud'))
-                            <a href="{{ url('/project-new') }}">
+                            <a href="{{ url('/project/new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
@@ -255,11 +265,11 @@
                 <h2>{{trans('front.news')}}</h2>
                 @if (App::getLocale() == 'et')
                     @if(!empty($news->body_et))
-                    {!! nl2br($news->body_et) !!}
+                    {!! $news->body_et !!}
                     @endif
                 @elseif(App::getLocale() == 'en')
                     @if(!empty($news->body_en))
-                    {!! nl2br($news->body_en) !!}
+                    {!! $news->body_en !!}
                     @endif
                 @endif
                 {{--<p>{{trans('front.news.desc')}}</p>--}}
@@ -274,30 +284,40 @@
     <!-- Example row of columns -->
     <h2 class="h1">{{trans('front.what_is')}} <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
     <p class="lead">
-        {{trans('front.what_is.desc')}}
+        @if (App::getLocale() == 'et')
+            {!! getFirstParagraph($info->body_et) !!}
+        @elseif(App::getLocale() == 'en')
+            {!! getFirstParagraph($info->body_en) !!}
+        @endif
     </p>
     <div class="row">
         <div class="col-md-4 margt">
             <span class="glyphicon ico-target ico-color01 ico-xl"></span>
             <h3><a href="{{ url('faq#item1') }}">{{trans('front.what')}}</a></h3>
-            <p>
-                {{trans('front.what.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($what->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($what->body_en) !!}
+            @endif
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-labyrinth ico-color02 ico-xl"></span>
             <h3><a href="{{ url('faq#item2') }}">{{trans('front.why')}}</a></h3>
-            <p>
-                {{trans('front.why.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($why->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($why->body_en) !!}
+            @endif
 
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-calendar ico-color03 ico-xl"></span>
             <h3><a href="{{ url('/faq#item3') }}">{{trans('front.when')}}</a></h3>
-            <p>
-                {{trans('front.when.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($when->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($when->body_en) !!}
+            @endif
 
         </div>
     </div>
@@ -305,54 +325,35 @@
         <div class="col-md-4 margt">
             <span class="glyphicon ico-brainstorm ico-color03 ico-xl"></span>
             <h3><a href="{{ url('/faq#item4') }}">{{trans('front.with_who')}}</a></h3>
-            <p>
-                {{trans('front.with_who.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($with_who->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($with_who->body_en) !!}
+            @endif
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-inspire ico-color01 ico-xl"></span>
             <h3><a href="{{ url('/faq#item5') }}">{{trans('front.how')}}</a></h3>
-            <p>
-                {{trans('front.how.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($how->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($how->body_en) !!}
+            @endif
 
         </div>
         <div class="col-md-4 margt">
             <span class="glyphicon ico-idea ico-color02 ico-xl"></span>
             <h3><a href="{{ url('/faq#item6') }}">{{trans('front.which')}}</a></h3>
-            <p>
-                {{trans('front.which.desc')}}
-            </p>
+            @if (App::getLocale() == 'et')
+                {!! getFirstParagraph($which->body_et) !!}
+            @elseif(App::getLocale() == 'en')
+                {!! getFirstParagraph($which->body_en) !!}
+            @endif
         </div>
     </div>
 
 </div>
 
-
-
-
-<script src="{{ url(asset('/js/vendor.js')) }}"></script>
-<script src="{{ url(elixir('js/all.js')) }}"></script>
-
-<script src="{{ url(asset('js/scripts.js')) }}"></script>
-
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-87770098-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-<div class="container">
-    <footer class="main">
-        <p>{{trans('front.tallinn_university')}}<br>
-            Narva mnt 25, 10120 Tallinn<br>
-            +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a></p>
-    </footer>
-</div>
+@include('layouts.footer')
 </body>
 </html>

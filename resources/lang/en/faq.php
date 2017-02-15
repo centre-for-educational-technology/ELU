@@ -22,7 +22,7 @@ return [
     'when' => 'When?',
     'when.desc' => 'Students themselves can choose when to carry out an ELU project. Unlike ordinary subjects, the preparation of the projects must be started during the previous semester, as the team needs to be formed before the beginning of the semester.',
     'when.desc2' => 'An ELU project may last for one or two semesters, depending on its goals and content. The timeframe of carrying out the project is agreed upon among the students and the supervisor(s) during the first meeting. If an ELU project lasts for two semesters, the course will be added to the study plan during the second semester (the credit points will be received at the end of the project). Registration for ELU course can be done only on ELU website and the students do not have to register for the course in ÕIS. It is recommended to take the course before the last semester, i.e. before the semester of writing the final thesis.',
-    'with_who' => 'With who?',
+    'with_who' => 'With Who?',
     'with_who.desc' => 'ELU team consists of 6-8 students. If there are more students interested in one and the same topic, sub-teams will be formed. Since it is an interdisciplinary project, each team should include students from at least three different study areas.',
 
     'with_who.desc2' => 'ELU teams are formed based on an idea of interest. Students can choose which supervisor’s project to join, or they can come forward with their own idea. To add their own idea for a project a form “I have an idea” needs to be filled in on the website and it will be then forwarded to the database of ELU projects for revision. The next step would be to find a teacher-supervisor for the idea.',

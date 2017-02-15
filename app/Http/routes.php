@@ -19,80 +19,6 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::group(['middleware' => ['web']], function () {
-
-
-    Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
-
-
-    Route::get('/login/choose', function () {
-
-      return view('auth.login_tlu');
-    });
-
-
-    Route::auth();
-
-
-
-    Route::get('/', function () {
-        return view('welcome', [
-            'news' => Page::where('permalink', 'LIKE', '%news%')->first(),
-            'info' => Page::where('permalink', 'LIKE', '%info%')->first()]);
-    });
-
-    Route::get('/faq', function () {
-        return view('page.faq', [
-            'faq' => Page::where('permalink', 'LIKE', '%faq%')->first()]);
-    });
-
-
-    Route::get('/projects-all', 'ProjectController@index');
-
-
-    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
-
-
-    Route::get('/project/search', 'ProjectController@search');
-
-
-
-    Route::get('project/{id}', array('as' => 'project', function ($id) {
-
-
-      $project = Project::find($id);
-
-      if(Auth::user()){
-        return view('project.project')
-            ->with('project', $project)
-            ->with('isTeacher', Auth::user()->is('oppejoud'));
-      }else{
-        return view('project.project')
-            ->with('project', $project)
-            ->with('isTeacher', false);
-      }
-
-
-    }));
-
-
-    // ===============================================
-    // 404 ===========================================
-    // ===============================================
-
-//    App::missing(function($exception)
-//    {
-//
-//      // shows an error page (app/views/error.blade.php)
-//      // returns a page not found error
-//      return Response::view('error', array(), 404);
-//    });
-
-
-});
-
-
-
 Route::group(['middleware' =>['web']], function () {
 
 
@@ -102,9 +28,9 @@ Route::group(['middleware' =>['web']], function () {
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {
 
-        Route::get('project-new', 'ProjectController@add');
+        Route::get('project/new', 'ProjectController@add');
 
-        Route::post('project-new', 'ProjectController@store');
+        Route::post('project/new', 'ProjectController@store');
 
 
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
@@ -216,9 +142,13 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('/admin/users/search', 'AdminController@search');
 
 
-        Route::get('/news-edit', 'PageController@index');
+        Route::get('/news/edit', 'PageController@editNews');
 
-        Route::post('/news-edit', 'PageController@store');
+        Route::post('/news/edit', 'PageController@storeNews');
+
+        Route::get('/faq/edit', 'PageController@editFaq');
+
+        Route::post('/faq/edit', 'PageController@storeFaq');
 
         Route::get('admin/all-projects/search', 'ProjectController@searchAll');
 
@@ -282,12 +212,12 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
-        Route::get('student/project-new', function () {
+        Route::get('student/project/new', function () {
 
           return view('user.student.new_project');
         });
 
-        Route::post('student/project-new', 'ProjectController@storeProjectByStudent');
+        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
 
       });
 
@@ -295,3 +225,74 @@ Route::group(['middleware' =>['web']], function () {
 
 
 });
+
+
+
+Route::group(['middleware' => ['web']], function () {
+
+
+  Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+
+
+  Route::get('/login/choose', function () {
+
+    return view('auth.login_tlu');
+  });
+
+
+  Route::auth();
+
+
+
+
+  Route::get('/', 'PageController@index');
+
+
+  Route::get('/faq', 'PageController@indexFaq');
+
+
+
+  Route::get('/projects-all', 'ProjectController@index');
+
+
+  Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+
+  Route::get('/project/search', 'ProjectController@search');
+
+
+
+  Route::get('project/{id}', array('as' => 'project', function ($id) {
+
+
+    $project = Project::find($id);
+
+    if(Auth::user()){
+      return view('project.project')
+          ->with('project', $project)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.project')
+          ->with('project', $project)
+          ->with('isTeacher', false);
+    }
+
+
+  }));
+
+
+  // ===============================================
+  // 404 ===========================================
+  // ===============================================
+
+//    App::missing(function($exception)
+//    {
+//
+//      // shows an error page (app/views/error.blade.php)
+//      // returns a page not found error
+//      return Response::view('error', array(), 404);
+//    });
+
+
+});
+

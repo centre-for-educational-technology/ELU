@@ -144,8 +144,7 @@ jQuery(document).ready(function($) {
     function callback(response){}
     FB.ui(obj, callback);
   }
-
-
+  
   $('.btnShare').click(function(){
     elem = $(this);
     postToFeed(elem.data('title'), elem.data('desc'), elem.prop('href'), elem.data('image'));
@@ -155,20 +154,38 @@ jQuery(document).ready(function($) {
 
 
   //TinyMC
-  tinyMCE.baseURL = "js/tinymce";
+  tinyMCE.baseURL = window.Laravel.base_path+"/js/tinymce";
 
   tinymce.init({
-    selector: '.tinymce',
     mode : "textareas",
     theme : "modern",
+    language: window.Laravel.language,
     plugins: "link",
-    menubar: "insert",
+    menubar: false,
     toolbar: "link",
+    removeformat: [
+      {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
+      {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
+      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
+    ],
     selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-    menu: {
-      edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
-      format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript'},
-    }
+    editor_selector : "mceSimpleLink"
+  });
+
+
+  tinyMCE.init({
+    mode : "textareas",
+    language: window.Laravel.language,
+    plugins: ["link", "lists"],
+    height : "350",
+    removeformat: [
+      {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
+      {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
+      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
+    ],
+    toolbar: "redo undo bold italic numlist bullist link",
+    menubar: "file edit insert view",
+    editor_selector : "mceSimple"
   });
 
 

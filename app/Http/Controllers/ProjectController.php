@@ -301,10 +301,9 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('teacher/my-projects')
-        ->with('message', 'Projekt '.$project->name.' on muudetud')
+        ->with('message', trans('project.project_changed_notification', ['name' => $project->name]))
         ->with('projects', $projects);
-
-
+    
   }
 
 

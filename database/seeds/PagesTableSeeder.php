@@ -81,7 +81,7 @@ class PagesTableSeeder extends Seeder
 
 
       \App\Page::create(array(
-          'title' => 'Idea Fair',
+          'title' => 'Ideelaat',
           'body_et' => "<p>Kaks korda aastas (mais ja detsembris) toimuv üritus, kus tutvustatakse järgmisel semestril alustavaid projekte. Ideelaadal saab küsida huvipakkuvate ideede kohta täpsemat infot ja kohtuda tulevaste rühmakaaslastega.</p>",
           'body_en' => "<p>An event that takes place twice a year (in May and December) where projects that start the following semester are introduced. You can ask for more information about ideas that you find interesting and meet future members of your team.</p>",
           'permalink' => 'fair_info',

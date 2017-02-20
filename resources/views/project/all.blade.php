@@ -156,7 +156,7 @@
                                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                                 <ul class="list-unstyled list01 tags">
                                     @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                                        <li><li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
+                                        <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
                                     @endforeach
                                 </ul>
 

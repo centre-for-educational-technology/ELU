@@ -21,7 +21,7 @@
                                 <div class="input-group-btn search-panel">
                                     <ul class="nav navbar-nav menu01" role="menu">
                                         <li class="active"><a href="#project">Projekti</a></li>
-                                        <li><a href="#member">Kaaslast</a></li>
+                                        <li><a href="#member">Liiget</a></li>
                                         <li><a href="#author">Juhendajat</a></li>
                                     </ul>
                                 </div>

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 use Cohensive\Embed\Facades\Embed;
+use Illuminate\Support\Facades\Response;
 
 class ProjectController extends Controller
 {
@@ -303,22 +304,24 @@ class ProjectController extends Controller
     return \Redirect::to('teacher/my-projects')
         ->with('message', trans('project.project_changed_notification', ['name' => $project->name]))
         ->with('projects', $projects);
-    
+
   }
 
 
-
   /**
-   * Search project by
+   * Search published projects by
    * author
    * member
    * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
    */
-  public function search(Request $request)
-  {
+  private function searchPublishedProjects(Request $request){
 
     $name = $request->search;
     $param = $request->search_param;
+
 
     if($param == 'author'){
 
@@ -353,17 +356,32 @@ class ProjectController extends Controller
 
     }
 
+    return $projects;
+  }
+
+
+
+  /**
+   * Main search of projects
+   */
+  public function search(Request $request)
+  {
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
     if(Auth::user()){
       return view('project.search')
           ->with('name', $name)
           ->with('param', $param)
-          ->with('projects', $projects)
+          ->with('projects', $this->searchPublishedProjects($request))
           ->with('isTeacher', Auth::user()->is('oppejoud'));
     }else{
       return view('project.search')
           ->with('name', $name)
           ->with('param', $param)
-          ->with('projects', $projects)
+          ->with('projects', $this->searchPublishedProjects($request))
           ->with('isTeacher', false);
     }
 
@@ -371,11 +389,16 @@ class ProjectController extends Controller
 
 
   /**
-   * This search is used by admins and includes unpublished projects
+   * Search published and unpublished projects by
+   * author
+   * member
+   * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
    */
-  public function searchAll(Request $request)
+  private function searchAllProjects(Request &$request)
   {
-
     $name = $request->search;
     $param = $request->search_param;
 
@@ -399,19 +422,29 @@ class ProjectController extends Controller
 
     }else{
       $projects = Project::where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
-            $query->orWhere('description', 'LIKE', '%'.$name.'%');
-            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
-          })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+        $query->where('name', 'LIKE', '%'.$name.'%');
+        $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+        $query->orWhere('description', 'LIKE', '%'.$name.'%');
+        $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+      })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
     }
 
 
+    return $projects;
+
+  }
+
+
+  /**
+   * Search the admin listing of projects
+   */
+  public function searchAllProjectsForAdminListing(Request $request)
+  {
 
     return view('admin.all_projects')
-        ->with('name', $name)
-        ->with('param', $param)
-        ->with('projects', $projects);
+        ->with('name', $request->search)
+        ->with('param', $request->search_param)
+        ->with('projects', $this->searchAllProjects($request));
   }
 
 
@@ -533,5 +566,139 @@ class ProjectController extends Controller
             'type' => 'proposal'
         ]);
 
+  }
+
+
+  /**
+   * Admin analytics of projects view
+   */
+  public function indexAnalytics()
+  {
+
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
+
+
+
+
+    return view('admin.analytics')
+        ->with('projects', $projects)
+        ->with('projects_count', count($projects))
+        ->with('users_count', User::count());
+
+  }
+
+
+  /**
+   * Search the admin analytics listing of projects
+   */
+  public function searchProjectsForAnalyticsListing(Request $request)
+  {
+
+    return view('admin.analytics')
+        ->with('name', $request->search)
+        ->with('param', $request->search_param)
+        ->with('projects', $this->searchPublishedProjects($request))
+        ->with('projects_count', Project::where('publishing_status', '=', '1')->count())
+        ->with('users_count', User::count());
+  }
+
+
+  private function getProjectAuthorsNamesAndEmails(Project $project){
+    $authors = array();
+    foreach ($project->users as $user){
+
+      if($user->pivot->participation_role == 'author'){
+        if(!empty($user->full_name)){
+
+          array_push($authors, $user->full_name.' ('.$user->email.')');
+        }else{
+          array_push($authors, $user->name.' ('.$user->email.')');
+        }
+
+      }
+    }
+
+    return $authors;
+  }
+
+
+  private function getProjectCosupervisors(Project $project){
+    $cosupervisors = array();
+    foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor) {
+
+      array_push($cosupervisors, $single_cosupervisor);
+
+    }
+    return $cosupervisors;
+  }
+
+
+  private function getProjectMembersNamesAndEmails(Project $project){
+    $members = array();
+    foreach ($project->users as $user){
+
+      if($user->pivot->participation_role == 'member'){
+        if(!empty($user->full_name)){
+
+          array_push($members, $user->full_name.' ('.$user->email.')');
+        }else{
+          array_push($members, $user->name.' ('.$user->email.')');
+        }
+
+      }
+    }
+
+
+    return $members;
+  }
+
+
+  private static function arrayToImplodeString(array $data){
+
+    return implode(', ', $data);
+  }
+
+
+
+  public function exportAnalyticsToCSV()
+  {
+
+
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=elu.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
+
+
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
+
+    $columns = array(trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+
+
+    $callback = function() use ($projects, $columns)
+    {
+      $handle = fopen('php://output', 'w');
+      fputcsv($handle, $columns);
+
+      foreach($projects as $project) {
+
+        $authors = $this->getProjectAuthorsNamesAndEmails($project);
+        $members = $this->getProjectMembersNamesAndEmails($project);
+        $cosupervisors = $this->getProjectCosupervisors($project);
+
+        fputcsv($handle, array($project->name, self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+      }
+
+
+      fclose($handle);
+    };
+
+
+
+
+    return Response::stream($callback, 200, $headers);
   }
 }

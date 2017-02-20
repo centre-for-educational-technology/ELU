@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Contracts\Pagination\Paginator;
+use App\Project;
 
 use App\Http\Requests;
 
@@ -178,4 +179,5 @@ class AdminController extends Controller
         ->orderBy('created_at', 'DESC')
         ->paginate(50);
   }
+
 }

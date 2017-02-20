@@ -150,8 +150,13 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('/faq/edit', 'PageController@storeFaq');
 
-        Route::get('admin/all-projects/search', 'ProjectController@searchAll');
+        Route::get('admin/all-projects/search', 'ProjectController@searchAllProjectsForAdminListing');
 
+        Route::get('admin/analytics', 'ProjectController@indexAnalytics');
+
+        Route::get('admin/analytics/search', 'ProjectController@searchProjectsForAnalyticsListing');
+
+        Route::get('admin/analytics/download', 'ProjectController@exportAnalyticsToCSV');
 
         Route::get('admin/all-projects', function () {
 

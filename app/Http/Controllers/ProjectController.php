@@ -633,14 +633,22 @@ class ProjectController extends Controller
   }
 
 
-  private function getProjectMembersNamesAndEmails(Project $project){
+  private function getProjectMembersData(Project $project){
     $members = array();
     foreach ($project->users as $user){
 
       if($user->pivot->participation_role == 'member'){
         if(!empty($user->full_name)){
 
-          array_push($members, $user->full_name.' ('.$user->email.')');
+
+          if(!$user->courses->isEmpty()){
+            $course = $user->courses->first();
+            array_push($members, $user->full_name.' / '.$course['name'].' ('.$user->email.')');
+
+          }else{
+
+            array_push($members, $user->full_name.' ('.$user->email.')');
+          }
         }else{
           array_push($members, $user->name.' ('.$user->email.')');
         }
@@ -659,7 +667,9 @@ class ProjectController extends Controller
   }
 
 
-
+  /**
+   * Get project statistics in form of csv file
+   */
   public function exportAnalyticsToCSV()
   {
 
@@ -686,7 +696,7 @@ class ProjectController extends Controller
       foreach($projects as $project) {
 
         $authors = $this->getProjectAuthorsNamesAndEmails($project);
-        $members = $this->getProjectMembersNamesAndEmails($project);
+        $members = $this->getProjectMembersData($project);
         $cosupervisors = $this->getProjectCosupervisors($project);
 
         fputcsv($handle, array($project->name, self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');

@@ -444,7 +444,7 @@
                                     @endif
                                     <td class="table-text"><div>{{ $user->email }}</div></td>
                                     <td>
-                                        @if(!empty($user->courses))
+                                        @if(!$user->courses->isEmpty())
                                             @foreach($user->courses as $course)
                                                 <span class="label label-success">{{ $course->name }}</span>
                                             @endforeach

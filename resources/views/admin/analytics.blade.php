@@ -11,7 +11,7 @@
 
             {{--<div class="row">--}}
                 {{--<div class="col-lg-6 col-sm-6">--}}
-                    {{--<div class="circle-tile ">--}}
+                    {{--<div class="statistics circle-tile ">--}}
                         {{--<div class="circle-tile-heading green"><i class="fa fa-lightbulb-o fa-fw fa-3x"></i></div>--}}
                         {{--<div class="circle-tile-content green">--}}
                             {{--<div class="circle-tile-description text-faded">Avaldatud Projekte</div>--}}
@@ -21,7 +21,7 @@
                 {{--</div>--}}
 
                 {{--<div class="col-lg-6 col-sm-6">--}}
-                    {{--<div class="circle-tile ">--}}
+                    {{--<div class="statistics circle-tile ">--}}
                         {{--<div class="circle-tile-heading orange"><i class="fa fa-users fa-fw fa-3x"></i></div>--}}
                         {{--<div class="circle-tile-content orange">--}}
                             {{--<div class="circle-tile-description text-faded">Kasutajaid</div>--}}
@@ -34,7 +34,7 @@
 
 
             <div class="btn-group">
-                <a class="btn btn-lg btn-success" href="{{ url('/admin/analytics/download') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>
+                <a class="btn btn-lg btn-success" download href="{{ url('/admin/analytics/download') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>
 
             </div>
 

@@ -273,7 +273,7 @@
                                         $firstname = implode(" ", $parts);
                                     @endphp
                                     <span class="label label-primary">{{ $firstname }}
-                                        @if(!empty($user->courses))
+                                        @if(!$user->courses->isEmpty())
                                             @foreach($user->courses as $course)
                                                 / {{ $course->name }}
                                             @endforeach

@@ -673,7 +673,7 @@ class ProjectController extends Controller
     );
 
 
-    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->get();
 
     $columns = array(trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
 

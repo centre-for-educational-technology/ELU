@@ -418,6 +418,7 @@
                     </div>
 
                     <div class="panel-body">
+                        <div class="table-responsive">
                         <table class="table table-striped table-responsive project-table">
                             <thead>
                             <th>{{trans('project.user')}}</th>
@@ -468,6 +469,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
 

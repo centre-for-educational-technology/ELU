@@ -12,6 +12,7 @@
 
                     {!! $logItems->render() !!}
 
+                    <div class="table-responsive">
                     <table class="table table-responsive table-striped">
                         <thead>
                         <tr>
@@ -52,6 +53,7 @@
                     </table>
 
                     {!! $logItems->render() !!}
+                </div>
                 </div>
             </section>
 

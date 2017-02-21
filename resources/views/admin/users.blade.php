@@ -59,10 +59,15 @@
                                     @if ($user->roles != null)
 
                                         <td class="table-text">
-                                            @foreach ($user->roles as $role)
+                                            <ul class="list-unstyled list01 tags">
+                                                @foreach ($user->roles as $role)
 
-                                                <span class="label label-info">{{ $role->name }}</span>
-                                            @endforeach
+                                                    <li><span class="label label-info">{{ $role->name }}</span></li>
+                                                @endforeach
+                                            </ul>
+
+
+
                                         </td>
                                     @endif
 

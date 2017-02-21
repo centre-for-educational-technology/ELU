@@ -12,7 +12,7 @@
 
                     {!! $logItems->render() !!}
 
-                    <table class="table table-striped">
+                    <table class="table table-responsive table-striped">
                         <thead>
                         <tr>
                             <th>Aeg</th>

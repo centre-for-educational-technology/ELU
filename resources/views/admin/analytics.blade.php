@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <table class="table table-striped project-table">
+                            <table class="table table-striped project-table table-responsive">
                                 <thead>
                                     <th>{{trans('project.project')}}</th>
                                     <th>{{trans('project.supervisor')}}</th>

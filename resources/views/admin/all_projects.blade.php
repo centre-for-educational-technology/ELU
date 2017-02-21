@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <table class="table table-striped project-table">
+                            <table class="table table-striped table-responsive project-table">
                                 <thead>
                                 <th>Projekt</th>
                                 <th>Staatus</th>

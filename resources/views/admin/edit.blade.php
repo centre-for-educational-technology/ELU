@@ -78,7 +78,7 @@
 
 
 
-                        <table class="table table-striped">
+                        <table class="table table-responsive table-striped">
                             <thead>
                             <th>Nimi</th>
                             <th>E-post</th>

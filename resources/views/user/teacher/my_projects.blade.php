@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <table class="table table-striped project-table">
+                            <table class="table table-responsive table-striped project-table">
                                 <thead>
                                 <th>{{trans('project.project')}}</th>
                                 <th>{{trans('project.status')}}</th>

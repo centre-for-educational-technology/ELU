@@ -418,7 +418,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <table class="table table-striped project-table">
+                        <table class="table table-striped table-responsive project-table">
                             <thead>
                             <th>{{trans('project.user')}}</th>
                             <th>{{trans('login.email')}}</th>

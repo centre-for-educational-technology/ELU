@@ -6,7 +6,7 @@
 
 
 
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-lg-12 col-lg-offset-0 col-sm-10 col-sm-offset-1">
             <h3><i class="fa fa-dashboard"></i> Statistika</h3>
 
             <div class="row">

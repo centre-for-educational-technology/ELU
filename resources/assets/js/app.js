@@ -189,6 +189,13 @@ jQuery(document).ready(function($) {
   });
 
 
+  if(window.Laravel.language == 'en'){
+    $('.block01.block01b > .pad').css("background", 'url(css/bg05_en.png) no-repeat 50% 50%');
+  }else{
+    $('.block01.block01b > .pad').css("background", 'url(css/bg05.png) no-repeat 50% 50%');
+  }
+
+
 });
 
 

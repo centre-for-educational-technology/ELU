@@ -582,7 +582,7 @@ class ProjectController extends Controller
 
     return view('admin.analytics')
         ->with('projects', $projects)
-        ->with('projects_count', count($projects))
+        ->with('projects_count', Project::where('publishing_status', '=', '1')->count())
         ->with('users_count', User::count());
 
   }

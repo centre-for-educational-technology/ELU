@@ -36,7 +36,7 @@
 
         @endif
 
-        <h2>{{trans('nav.my_projects_student')}}</h2>
+        <h1><i class="fa fa-lightbulb-o"></i> {{trans('nav.my_projects_student')}}</h1>
 
 
         @include('project.all', ['isTeacher' => false, 'isStudentMyProjectsView' => true])

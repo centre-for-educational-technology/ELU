@@ -52,12 +52,10 @@
 
 
                 @if (count($projects) > 0)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Kõik projektid
-                        </div>
 
-                        <div class="panel-body">
+
+                    <h3>Kõik projektid</h3>
+
                             <div class="table-responsive">
                             <table class="table table-striped project-table">
                                 <thead>
@@ -131,9 +129,8 @@
                             </div>
 
                             {{ $projects->links() }}
-                        </div>
 
-                    </div>
+
                 @endif
 
             @else

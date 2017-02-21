@@ -16,12 +16,11 @@
 
 
                 @if (count($projects) > 0)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Projektiideed tudengite poolt
-                        </div>
 
-                        <div class="panel-body">
+                    <h3><i class="fa fa-paper-plane"></i> Projektiideed tudengite poolt</h3>
+
+
+                    <div class="table-responsive">
                             <table class="table table-responsive table-striped project-table">
                                 <thead>
                                 <th>{{trans('project.project')}}</th>
@@ -69,10 +68,10 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{ $projects->links() }}
-                        </div>
-
                     </div>
+                            {{ $projects->links() }}
+
+
                 @endif
 
             @else

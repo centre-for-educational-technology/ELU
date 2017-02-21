@@ -15,7 +15,7 @@ class AdminController extends Controller
   public function index()
   {
 
-    return view('admin.edit')
+    return view('admin.users')
         ->with('users', User::orderBy('created_at', 'desc')->paginate(10));
 
   }
@@ -154,7 +154,7 @@ class AdminController extends Controller
     }
 
 
-    return view('admin.edit')
+    return view('admin.users')
         ->with('name', $query)
         ->with('param', $param)
         ->with('users', $users);

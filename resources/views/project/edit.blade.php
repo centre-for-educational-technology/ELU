@@ -480,25 +480,25 @@
                             <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
                         </div>
                         <div class="panel-body">
-                            <div class="col-xs-9 mailto-list">
+                            <div class="col-xs-8 mailto-list">
                                 @php
                                     $members_emails = '';
                                 @endphp
                                 @foreach ($current_project->users as $user)
                                     @if ( $user->pivot->participation_role == 'member' )
-                                        @if ($user != $current_project->users->last())
-                                            {{$user->email}},
-                                        @else
-                                            {{$user->email}}
-                                        @endif
                                         @php
                                             $members_emails .=$user->email.',';
                                         @endphp
                                     @endif
                                 @endforeach
 
+
+                                <div class="form-group nomargin">
+                                    <input class="form-control" name="share_url" title="Members emails" value="{{$members_emails}}">
+                                </div>
+
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
 
                                 <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
                             </div>

@@ -29,11 +29,10 @@
             @endif
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-btn fa-users"></i>Kasutajad
-                </div>
-                <div class="panel-body">
+
+                    <h3><i class="fa fa-btn fa-users"></i>Kasutajad</h3>
+
+
 
 
                     <div class="table-responsive">
@@ -129,12 +128,10 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    {!! $users->render() !!}
+                        {!! $users->render() !!}
 
                 </div>
-            </div>
-        </div>
+
 
 
 
@@ -194,5 +191,6 @@
         {{--</div>--}}
         {{--@endif--}}
 
+        </div>
     </div>
 @endsection

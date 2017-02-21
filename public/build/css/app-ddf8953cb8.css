@@ -9008,6 +9008,7 @@ ul.tags.keywords li {
 }
 table span.label {
   margin-bottom: 3px;
+  display: inline-block;
 }
 .form-group.search {
   margin-bottom: 0px;

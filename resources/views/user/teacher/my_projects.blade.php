@@ -16,12 +16,12 @@
 
 
                 @if (count($projects) > 0)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            {{trans('project.my_projects')}}
-                        </div>
 
-                        <div class="panel-body">
+
+                            <h3><i class="fa fa-pencil"></i> {{trans('project.my_projects')}}</h3>
+
+
+
                             <div class="table-responsive">
                             <table class="table table-responsive table-striped project-table">
                                 <thead>
@@ -71,9 +71,8 @@
                             </table>
                             </div>
                             {{ $projects->links() }}
-                        </div>
 
-                    </div>
+
                 @endif
 
             @else

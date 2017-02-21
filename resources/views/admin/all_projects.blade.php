@@ -19,12 +19,11 @@
 
 
                 @if (count($projects) > 0)
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Kõik projektid
-                        </div>
 
-                        <div class="panel-body">
+                    <h3><i class="fa fa-heartbeat"></i> Kõik projektid</h3>
+
+
+
                             <div class="table-responsive">
                             <table class="table table-striped table-responsive project-table">
                                 <thead>
@@ -82,9 +81,9 @@
                             </table>
                             </div>
                             {{ $projects->links() }}
-                        </div>
 
-                    </div>
+
+
                 @endif
 
             @else

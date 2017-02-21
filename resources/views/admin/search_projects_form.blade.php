@@ -1,4 +1,4 @@
-<h1>{{trans('search.search')}}</h1>
+<h3>{{trans('search.search')}}</h3>
 <div class="panel mt2em panel-default">
     <div class="panel-body">
         <div class="row">

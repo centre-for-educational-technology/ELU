@@ -87,6 +87,12 @@
                                     <li>English</li>
                                 @endif
                             </ul>
+
+
+                            @if (!empty($project->group_link))
+                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
+                                <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
+                            @endif
                         </div>
 
 

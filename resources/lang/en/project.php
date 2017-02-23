@@ -49,7 +49,10 @@ return [
     'left_project_notification' => 'You have left the project',
     'twitter_share_joined_message' => 'I have joined the project',
     'project_sent_to_moderation_notification' => 'Your project proposal ":name" sent for moderation. Thank you!',
-    'project_changed_notification' => 'Your project ":name" has been changed!'
+    'project_changed_notification' => 'Your project ":name" has been changed!',
+    'students_attached_notification' => 'Students attached to project: ',
+    'mendeley_group_link' => 'Mendeley group link',
+    'group_link_visit' => 'Open'
 
 
 ];

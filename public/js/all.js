@@ -81,6 +81,42 @@ jQuery(document).ready(function($) {
   // Select2
   $(".js-example-basic-multiple").select2();
 
+
+
+  // Select2 Ajax - attaching users to project team manually
+  $(".js-users-data-ajax").select2({
+    placeholder: "Nimi või e-posti aadress",
+    language: { inputTooShort: function () { return 'Kolm või rohkem tähte'; } },
+    allowClear: true,
+    ajax: {
+      url: window.Laravel.search_user_api_url,
+      dataType: 'json',
+      delay: 250,
+      method: 'POST',
+      data: function (params) {
+        return {
+          q: params.term, // search term
+          project_id: $('.js-users-data-ajax').attr("project-id"),
+          page: params.page,
+          _token: window.Laravel.csrf_token
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: $.map(data, function (item) {
+            return {
+              text: (item.full_name ? item.full_name : item.name) + ' ('+item.email+')',
+              id: item.id
+            }
+          })
+        };
+      },
+      cache: false
+    },
+    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    minimumInputLength: 3
+  });
+
   //Smooth scroll for front page
   $('body.frontpage a[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -189,6 +225,7 @@ jQuery(document).ready(function($) {
   });
 
 
+  //Front page logo translation
   if(window.Laravel.language == 'en'){
     $('.block01.block01b > .pad').css("background", 'url(css/bg05_en.png) no-repeat 50% 50%');
   }else{

@@ -355,21 +355,21 @@
                         </div>
 
 
-                        {{--<!-- Link to join project -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="join_link" class="col-sm-3 control-label">Projektiga liitumise link <p>Google Form vms viide</p></label>--}}
+                        <!-- Mendeley group link -->
+                        <div class="form-group">
+                            <label for="group_link" class="col-sm-3 control-label">{{trans('project.mendeley_group_link')}}</label>
 
-                            {{--<div class="col-sm-6">--}}
-                                {{--<input type="text" name="join_link" id="join_link" class="form-control" value="{{  old('join_link') }}">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                            <div class="col-sm-6">
+                                <input type="text" name="group_link" id="group_link" class="form-control" value="{{  old('group_link') }}">
+                            </div>
+                        </div>
 
 
 
                             <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-plus"></i>{{trans('project.add_button')}}
                                 </button>
                             </div>

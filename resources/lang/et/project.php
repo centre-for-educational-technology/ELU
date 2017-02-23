@@ -48,5 +48,8 @@ return [
     'left_project_notification' => 'Oled lahkunud projektist',
     'twitter_share_joined_message' => 'Olen liitunud projektiga',
     'project_sent_to_moderation_notification' => 'Sinu projekt ":name" suunati modereerimisele. Aitäh!',
-    'project_changed_notification' => 'Projekt ":name" on muudetud'
+    'project_changed_notification' => 'Projekt ":name" on muudetud',
+    'students_attached_notification' => 'Projektile lisatud tudengid: ',
+    'mendeley_group_link' => 'Mendeley grupi link',
+    'group_link_visit' => 'Ava'
 ];

@@ -158,6 +158,13 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('admin/analytics/download', 'ProjectController@exportAnalyticsToCSV');
 
+//        Attach user to project api for ajax
+        Route::post('api/search/user', 'ProjectController@searchUser');
+
+
+        Route::post('project/{id}/attach-users', 'ProjectController@attachUsersToProject');
+
+
         Route::get('admin/all-projects', function () {
 
 

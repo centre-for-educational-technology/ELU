@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Input;
 use Cohensive\Embed\Facades\Embed;
 use Illuminate\Support\Facades\Response;
 
+
+
 class ProjectController extends Controller
 {
 
@@ -139,7 +141,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-//    $project->join_link = $request->join_link;
+    $project->group_link = $request->group_link;
 
 
     $project->language = $request->language;
@@ -260,7 +262,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-//    $project->join_link = $request->join_link;
+    $project->group_link = $request->group_link;
 
     $project->language = $request->language;
 
@@ -406,8 +408,10 @@ class ProjectController extends Controller
 
       $projects = Project::whereHas('users', function($q) use ($name)
       {
-
-        $q->where('participation_role','LIKE','%author%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%author%');
       })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
 
 
@@ -415,8 +419,10 @@ class ProjectController extends Controller
 
       $projects = Project::whereHas('users', function($q) use ($name)
       {
-
-        $q->where('participation_role','LIKE','%member%')->where('name', 'LIKE', '%'.$name.'%')->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
       })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
 
 
@@ -460,24 +466,52 @@ class ProjectController extends Controller
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
 
-    $projects = Project::whereHas('users', function($q)
-    {
-      $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
-    })->orderBy('created_at', 'desc')->paginate(5);
-
-
     return \Redirect::to('student/my-projects')
         ->with('message', [
             'text' => trans('project.joined_project_notification').' "'.$project->name.'"',
             'type' => 'joined'
-        ])
-        ->with('project', [
-            'id' => $project->id,
-            'name' => $project->name,
-            'description' => $project->description,
         ]);
 
+  }
 
+  private static function getUserName(User $user){
+
+    if(!empty($user->full_name)){
+      return $user->full_name;
+    }else{
+      return $user->name;
+    }
+  }
+
+
+  /**
+   * Attach user to project manually (used by admin)
+   */
+  public function attachUsersToProject($id, Request $request)
+  {
+
+    $project = Project::find($id);
+    $names = '';
+
+    //Attach users with teacher role
+    $users = $request->input('attached-users');
+    foreach ($users as $user) {
+
+
+      if ($user === end($users)){
+        $names .= self::getUserName(User::find($user));
+      }else{
+        //Attach user with member role
+        $names .= self::getUserName(User::find($user)) . ', ';
+      }
+
+      $project->users()->attach($user, ['participation_role' => 'member']);
+    }
+
+
+
+    return \Redirect::to('project/'.$project->id.'/edit')
+        ->with('message', trans('project.students_attached_notification').$names);
   }
 
 
@@ -710,5 +744,48 @@ class ProjectController extends Controller
 
 
     return Response::stream($callback, 200, $headers);
+  }
+
+
+  /**
+   * Search user api
+   */
+  public function searchUser(Request $request){
+
+    $user = $request->q;
+
+    $project_id = $request->project_id;
+
+
+    //Get users that are not members of this project
+    $users = User::where(function ($query) use ($user, $project_id) {
+      $query->where('name', 'LIKE', '%'.$user.'%')
+          ->whereNotIn('id', function ($query) use ($project_id)
+          {
+            $query->select('user_id')
+                ->from('project_user')
+                ->where('project_id', '=', $project_id);
+          });
+    })->orWhere(function($query) use ($user, $project_id) {
+      $query->where('full_name', 'LIKE', '%'.$user.'%')
+          ->whereNotIn('id', function ($query) use ($project_id)
+          {
+            $query->select('user_id')
+                ->from('project_user')
+                ->where('project_id', '=', $project_id);
+          });
+    })->orWhere(function($query) use ($user, $project_id) {
+      $query->where('email', 'LIKE', '%'.$user.'%')
+          ->whereNotIn('id', function ($query) use ($project_id)
+          {
+            $query->select('user_id')
+                ->from('project_user')
+                ->where('project_id', '=', $project_id);
+          });
+    })->get();
+
+
+    return Response::json($users);
+
   }
 }

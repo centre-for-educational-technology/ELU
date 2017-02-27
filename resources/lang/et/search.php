@@ -10,5 +10,8 @@ return [
     'join_button' => 'Liitun projektiga',
     'team' => 'Projekti meeskond',
     'team_emails' => 'Meeskonna e-posti aadressid',
-    'send_to_all_button' => 'Saada kiri'
+    'send_to_all_button' => 'Saada kiri',
+    'open_projects' => 'Avaldatud projektid',
+    'ongoing_projects' => 'Käimasolevad projektid',
+    'finished_projects' => 'Lõppenud projektid'
 ];

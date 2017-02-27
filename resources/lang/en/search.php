@@ -10,5 +10,8 @@ return [
     'join_button' => 'Join',
     'team' => 'Project team',
     'team_emails' => 'Team emails',
-    'send_to_all_button' => 'Send email to all'
+    'send_to_all_button' => 'Send email to all',
+    'open_projects' => 'Open projects',
+    'ongoing_projects' => 'Ongoing projects',
+    'finished_projects' => 'Finished projects'
 ];

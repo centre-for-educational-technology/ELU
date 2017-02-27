@@ -150,11 +150,11 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('/faq/edit', 'PageController@storeFaq');
 
-        Route::get('admin/all-projects/search', 'ProjectController@searchAllProjectsForAdminListing');
+        Route::get('admin/all-projects/search', 'ProjectController@getAllProjectsSearch');
 
         Route::get('admin/analytics', 'ProjectController@indexAnalytics');
 
-        Route::get('admin/analytics/search', 'ProjectController@searchProjectsForAnalyticsListing');
+        Route::get('admin/analytics/search', 'ProjectController@getAdminAnalyticsListing');
 
         Route::get('admin/analytics/download', 'ProjectController@exportAnalyticsToCSV');
 
@@ -264,13 +264,21 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
-  Route::get('/projects-all', 'ProjectController@index');
+  Route::get('/projects/open', 'ProjectController@indexOpenProjects');
+
+  Route::get('/projects/ongoing', 'ProjectController@indexOngoingProjects');
+
+  Route::get('/projects/finished', 'ProjectController@indexFinishedProjects');
 
 
   Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
 
 
-  Route::get('/project/search', 'ProjectController@search');
+  Route::get('/projects/open/search', 'ProjectController@getOpenProjectsSearch');
+
+  Route::get('/projects/ongoing/search', 'ProjectController@getOngoingProjectsSearch');
+
+  Route::get('/projects/finished/search', 'ProjectController@getFinishedProjectsSearch');
 
 
 

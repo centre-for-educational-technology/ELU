@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 
 use Cohensive\Embed\Facades\Embed;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 
 
@@ -29,11 +30,11 @@ class ProjectController extends Controller
    * List the published projects
    *
    */
-  public function index()
+  public function indexOpenProjects()
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -49,6 +50,55 @@ class ProjectController extends Controller
 
   }
 
+
+  /**
+   * List ongoing projects
+   *
+   */
+  public function indexOngoingProjects()
+  {
+
+
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+
+    if(Auth::user()){
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', false);
+    }
+
+
+
+  }
+
+
+  /**
+   * List finished projects
+   *
+   */
+  public function indexFinishedProjects()
+  {
+
+
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20);
+
+    if(Auth::user()){
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', false);
+    }
+
+
+
+  }
 
 
   /**
@@ -362,11 +412,169 @@ class ProjectController extends Controller
   }
 
 
+  /**
+   * Search open projects by
+   * author
+   * member
+   * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
+   */
+  private function searchOpenProjects(Request $request){
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
+    if($param == 'author'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%author%');
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }else{
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))
+          ->where(function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+            $query->orWhere('description', 'LIKE', '%'.$name.'%');
+            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+    }
+
+    return $projects;
+  }
+
+
 
   /**
-   * Main search of projects
+   * Search ongoing projects by
+   * author
+   * member
+   * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
    */
-  public function search(Request $request)
+  private function searchOngoingProjects(Request $request){
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
+    if($param == 'author'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%author%');
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }else{
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+          ->where(function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+            $query->orWhere('description', 'LIKE', '%'.$name.'%');
+            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+    }
+
+    return $projects;
+  }
+
+
+
+  /**
+   * Search finished projects by
+   * author
+   * member
+   * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
+   */
+  private function searchFinishedProjects(Request $request){
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
+    if($param == 'author'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%author%');
+      })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = Project::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
+      })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }else{
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+          ->where(function ($query) use ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+            $query->orWhere('description', 'LIKE', '%'.$name.'%');
+            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+    }
+
+    return $projects;
+  }
+
+
+
+  /**
+   * Get open projects search
+   */
+  public function getOpenProjectsSearch(Request $request)
   {
 
     $name = $request->search;
@@ -377,13 +585,70 @@ class ProjectController extends Controller
       return view('project.search')
           ->with('name', $name)
           ->with('param', $param)
-          ->with('projects', $this->searchPublishedProjects($request))
+          ->with('projects', $this->searchOpenProjects($request))
           ->with('isTeacher', Auth::user()->is('oppejoud'));
+
     }else{
       return view('project.search')
           ->with('name', $name)
           ->with('param', $param)
-          ->with('projects', $this->searchPublishedProjects($request))
+          ->with('projects', $this->searchOpenProjects($request))
+          ->with('isTeacher', false);
+    }
+
+  }
+
+
+  /**
+   * Get ongoing projects search
+   */
+  public function getOngoingProjectsSearch(Request $request)
+  {
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
+    if(Auth::user()){
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $this->searchOngoingProjects($request))
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+
+    }else{
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $this->searchOngoingProjects($request))
+          ->with('isTeacher', false);
+    }
+
+  }
+
+
+  /**
+   * Get finished projects search
+   */
+  public function getFinishedProjectsSearch(Request $request)
+  {
+
+    $name = $request->search;
+    $param = $request->search_param;
+
+
+    if(Auth::user()){
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $this->searchFinishedProjects($request))
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+
+    }else{
+      return view('project.search')
+          ->with('name', $name)
+          ->with('param', $param)
+          ->with('projects', $this->searchFinishedProjects($request))
           ->with('isTeacher', false);
     }
 
@@ -444,7 +709,7 @@ class ProjectController extends Controller
   /**
    * Search the admin listing of projects
    */
-  public function searchAllProjectsForAdminListing(Request $request)
+  public function getAllProjectsSearch(Request $request)
   {
 
     return view('admin.all_projects')
@@ -625,7 +890,7 @@ class ProjectController extends Controller
   /**
    * Search the admin analytics listing of projects
    */
-  public function searchProjectsForAnalyticsListing(Request $request)
+  public function getAdminAnalyticsListing(Request $request)
   {
 
     return view('admin.analytics')

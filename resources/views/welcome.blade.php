@@ -83,17 +83,17 @@
                     {{--</li>--}}
 
 
-                    <li {{ (Request::is('projects-all') ? 'class=active' : '') }}><a href="{{ url('/projects-all') }}">{{trans('front.search')}}</a></li>
-                    <li {{ (Request::is('faq') ? 'class=active' : '') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
+                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
+                    <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
 
                     @if (!Auth::guest())
 
                         @if (Auth::user()->is('oppejoud'))
-                            <li {{ (Request::is('project/new') ? 'class=active' : '') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+                            <li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
                         @endif
 
                         @if (Auth::user()->is('student'))
-                            <li {{ (Request::is('student/project/new') ? 'class=active' : '') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
+                            <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
                     @endif
@@ -109,7 +109,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
 
-                        <li {{ (Request::is('login/choose') ? 'class=active' : '') }}>
+                        <li {{ setActive('login') }}>
                             <p class="navbar-btn">
                                 <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('login.login')}}</a>
                             </p>
@@ -212,7 +212,7 @@
             </div>
             <div class="col-md-4">
                 <div class="block01">
-                    <a href="{{ url('/projects-all') }}">
+                    <a href="{{ url('/projects/open') }}">
                         <div class="pad">
                             <span class="glyphicon ico-search"></span>
                             <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
@@ -226,7 +226,7 @@
                     {!! getFirstParagraph($fair_info->body_en) !!}
                 @endif
                 {{--<p>{{trans('front.idea_fair.desc')}}</p>--}}
-                <p><a class="btn btn-default" href="{{ url('/projects-all') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
+                <p><a class="btn btn-default" href="{{ url('/projects/open') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
             </div>
             <div class="col-md-4">
                 <div class="block01 block01c">
@@ -253,7 +253,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="{{ url('/projects-all') }}">
+                            <a href="{{ url('/project/open') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>

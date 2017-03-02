@@ -26,7 +26,7 @@
                     @endif
 
 
-                    <p><strong>{{ $project->description }}</strong></p>
+                    <p>{!! $project->description !!}</p>
                     @if (!empty($project->extra_info))
                         <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
                         <p>{!! $project->extra_info !!}</p>

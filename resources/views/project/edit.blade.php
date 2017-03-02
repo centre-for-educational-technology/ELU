@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-lg-12">
             @if(\Session::has('message'))
                 <div class="alert alert-info">
                     {{\Session::get('message')}}
@@ -11,7 +11,7 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{trans('project.change_project')}}
+                    <h3 class="panel-title"><i class="fa fa-plus"></i> {{trans('project.add')}}</h3>
                 </div>
 
                 <div class="panel-body">
@@ -48,7 +48,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control">{{ (empty($current_project) ? old('description') : $current_project->description) }}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple">{{ (empty($current_project) ? old('description') : $current_project->description) }}</textarea>
                             </div>
                         </div>
 

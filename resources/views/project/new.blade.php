@@ -4,10 +4,10 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{trans('project.add')}}
+                    <h3 class="panel-title"><i class="fa fa-plus"></i> {{trans('project.add')}}</h3>
                 </div>
 
                 <div class="panel-body">
@@ -43,7 +43,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control">{{  old('description') }}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple">{{  old('description') }}</textarea>
                             </div>
                         </div>
 

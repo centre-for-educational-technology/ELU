@@ -34,7 +34,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -435,7 +435,7 @@ class ProjectController extends Controller
           $subq->where('name', 'LIKE', '%'.$name.'%')
               ->orWhere('full_name', 'LIKE', '%'.$name.'%');
         })->where('participation_role','LIKE','%author%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -446,11 +446,11 @@ class ProjectController extends Controller
           $subq->where('name', 'LIKE', '%'.$name.'%')
               ->orWhere('full_name', 'LIKE', '%'.$name.'%');
         })->where('participation_role','LIKE','%member%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>', Carbon::today()->format('Y-m-d'))
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');

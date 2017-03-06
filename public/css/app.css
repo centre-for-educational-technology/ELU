@@ -8928,6 +8928,7 @@ p.red {
 .bootstrap-tagsinput {
   background-color: transparent;
   line-height: inherit;
+  box-shadow: none;
 }
 .panel.with-nav-tabs .panel-heading {
   padding: 5px 5px 0 5px;
@@ -9137,6 +9138,14 @@ a:hover {
 }
 .statistics .text-faded {
   color: rgba(255, 255, 255, 0.7);
+}
+.featured-image-preview {
+  width: 200px;
+  height: auto;
+}
+span.select2-container--default .select2-selection--multiple {
+  border: 1px solid #ccc;
+  background-color: transparent;
 }
 @media (max-width: 992px) {
   .nomargin.search-input {

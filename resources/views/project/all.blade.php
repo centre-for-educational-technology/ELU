@@ -40,22 +40,31 @@
                         </div>
                     </div>
 
+                    @if (!empty($project->featured_image))
+                        <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
+                    @endif
+
                     @if (!empty($project->embedded))
                         <div class="embed-responsive embed-responsive-16by9">
                             {!! $project->embedded !!}
                         </div>
                     @endif
+
+
                     <p>{!! $project->description !!}</p>
-                    @if (!empty($project->extra_info))
-                        <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                        <p>{!! $project->extra_info !!}</p>
-                    @endif
+
 
 
                     <div class="row mt2em">
 
                         <div class="col-md-6">
 
+                            @if(!empty($project->meeting_info))
+                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.meeting_info')}}</h3>
+                                <p>{{$project->meeting_info}}</p>
+                            @endif
+
+                            {{--XXX to be removed--}}
                             @if(!empty($project->integrated_areas))
 
                                 <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
@@ -67,7 +76,8 @@
 
                             @endif
 
-                            @if(!empty($project->course))
+                            {{--XXX to be removed--}}
+                            @if(!empty($project->courses))
                                 <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
                                 <ul class="list-unstyled list01">
                                     @foreach (explode(PHP_EOL, $project->courses) as $course)
@@ -76,15 +86,30 @@
                                 </ul>
                             @endif
 
+
+                            @if(count($project->getCourses)>0)
+                                <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
+                                <ul class="list-unstyled list01 tags">
+                                    @foreach ($project->getCourses as $course)
+                                        <li><span class="label label-primary">{{ $course->name }}</span></li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+
+
                             <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                             <ul class="list-unstyled list01">
                                 @if ( $project->study_term == 0 )
                                     <li>{{trans('project.autumn_semester')}}</li>
                                 @elseif ( $project->study_term == 1 )
                                     <li>{{trans('project.spring_semester')}}</li>
+                                @elseif ( $project->study_term == 2 )
+                                    <li>{{trans('project.both')}}</li>
                                 @endif
-                                {{--<h3><span class="glyphicon ico-duration"></span>Kestus</h3>--}}
-                                {{--<li>{{ Str::limit($project->start, 10, '') }} – {{ Str::limit($project->end, 10, '') }}</li>--}}
+
+                                <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
+
                             </ul>
 
 
@@ -106,6 +131,11 @@
                                     <li>English</li>
                                 @endif
                             </ul>
+
+                            @if (!empty($project->extra_info))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
+                                <p>{!! $project->extra_info !!}</p>
+                            @endif
 
 
                             @if (!empty($project->group_link))

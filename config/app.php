@@ -167,6 +167,7 @@ return [
         Cohensive\Embed\EmbedServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Str'       => Illuminate\Support\Str::class,
         'Embed'     => Cohensive\Embed\Facades\Embed::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

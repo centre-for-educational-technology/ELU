@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,11 @@ use Illuminate\Support\Facades\Input;
 use Cohensive\Embed\Facades\Embed;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+
 
 
 
@@ -115,15 +121,19 @@ class ProjectController extends Controller
 
 
 
-    $teachers = User::whereHas('roles', function($q)
+    $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
     {
       $q->where('name', 'oppejoud');
     })->get();
 
 
+
+    $courses = Course::select('id','name')->get();
+
+
     $author =  Auth::user()->id;
 
-    return view('project.new', compact('teachers', 'author', 'projects'));
+    return view('project.new', compact('teachers', 'author', 'projects', 'courses'));
 
 
   }
@@ -146,7 +156,7 @@ class ProjectController extends Controller
       $embed = Embed::make($request->embedded)->parseUrl();
 
       if ($embed) {
-        // Set width of the embed.
+        // Set width of the embed
         $embed->setAttribute(['width' => 600]);
 
       }
@@ -158,34 +168,40 @@ class ProjectController extends Controller
     }
 
 
-    $project->integrated_areas = $request->integrated_areas;
+//    $project->integrated_areas = $request->integrated_areas;
 
-    $project->study_term = $request->study_term;
+
+      $project->meeting_info = $request->meeting_info;
+
+      $project->study_term = $request->study_term;
+
+      $project->study_year = $request->study_year;
 
 
 //    $project->project_outcomes = $request->project_outcomes;
 //    $project->student_outcomes = $request->student_outcomes;
 //
-    $project->courses = $request->related_courses;
 
 
-    $project->institute = $request->institutes;
+//    $project->courses = $request->related_courses;
 
-    if($request->project_start){
-      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-      $project->start = date("Y-m-d", $date_start->getTimestamp());
-    }
 
-    if($request->project_end){
-      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-      $project->end = date("Y-m-d", $date_end->getTimestamp());
-    }
+//    $project->institute = $request->institutes;
+
+//    if($request->project_start){
+//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//      $project->start = date("Y-m-d", $date_start->getTimestamp());
+//    }
+//
+//    if($request->project_end){
+//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//      $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    }
 
 
     // Co-supervisors saved into supervisor column
     // Main supervisors linked in pivot table
     $project->supervisor = $request->cosupervisors;
-
 
     $project->status = $request->status;
 
@@ -206,8 +222,22 @@ class ProjectController extends Controller
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
 
 
+    //Need that to get id
+    $project->save();
+
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
 
     $project->save();
+
+
+    //Attach study areas
+    $study_areas = $request->input('study_areas');
+    foreach ($study_areas as $study_area){
+
+      $project->getCourses()->attach($study_area);
+    }
 
 
     //Attach users with teacher role
@@ -226,22 +256,11 @@ class ProjectController extends Controller
 
 
 
-
-
-
     return \Redirect::to('teacher/my-projects')
         ->with('message', 'Uus projekt on lisatud!')
         ->with('projects', $projects);
 
 
-//    return view('project.all')
-//        ->with('message', 'Uus projekt on lisatud!')
-//        ->with('projects', $projects);
-
-//
-//    return \Redirect::to('/')
-//        ->with('message', 'Uus projekt on lisatud!')
-//        ->with('projects', Project::orderBy('created_at', 'asc')->get());
 
   }
 
@@ -253,8 +272,6 @@ class ProjectController extends Controller
   public function update(ProjectRequest $request, $id)
   {
 
-
-
     \Debugbar::info($id);
 
     $project = Project::find($id);
@@ -262,14 +279,12 @@ class ProjectController extends Controller
     $project->description = $request->description;
 
 
-
-
     if($request->embedded != null){
 
       $embed = Embed::make($request->embedded)->parseUrl();
 
       if ($embed) {
-        // Set width of the embed.
+        // Set width of the embed
         $embed->setAttribute(['width' => 600]);
 
       }
@@ -280,33 +295,47 @@ class ProjectController extends Controller
 
     }
 
+    //XXX to be removed
     $project->integrated_areas = $request->integrated_areas;
 
+
+
+    $project->meeting_info = $request->meeting_info;
+
+    //Attach study areas
+    $study_areas = $request->input('study_areas');
+    $project->getCourses()->sync($study_areas);
+
+
     $project->study_term = $request->study_term;
+
+    $project->study_year = $request->study_year;
+
 
 
 //    $project->project_outcomes = $request->project_outcomes;
 //    $project->student_outcomes = $request->student_outcomes;
 //
+
+    //XXX to be removed
     $project->courses = $request->related_courses;
 
 
-    $project->institute = $request->institutes;
-
-
-    if($request->project_start){
-      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-      $project->start = date("Y-m-d", $date_start->getTimestamp());
-    }
-
-    if($request->project_end){
-      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-      $project->end = date("Y-m-d", $date_end->getTimestamp());
-    }
+//    $project->institute = $request->institutes;
+//
+//
+//    if($request->project_start){
+//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//      $project->start = date("Y-m-d", $date_start->getTimestamp());
+//    }
+//
+//    if($request->project_end){
+//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//      $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    }
 
 
     $project->supervisor = $request->cosupervisors;
-
 
     $project->status = $request->status;
 
@@ -327,7 +356,18 @@ class ProjectController extends Controller
 
     $project->submitted_by_student = false;
 
+
+
+    if($request->featured_image != null){
+      if($project->featured_image !=null){
+
+        File::delete(public_path('storage/projects_featured_images/') .$project->featured_image);
+      }
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+
     $project->save();
+
 
 
     //Detaching teachers
@@ -838,17 +878,27 @@ class ProjectController extends Controller
     $project->name = $request->name;
     $project->description = $request->description;
 
-    $project->integrated_areas = $request->integrated_areas;
+//    $project->integrated_areas = $request->integrated_areas;
+
+    //Attach study areas
+    $study_areas = $request->input('study_areas');
+    foreach ($study_areas as $study_area){
+
+      $project->getCourses()->attach($study_area);
+    }
+
 
     $project->study_term = $request->study_term;
 
-    $project->institute = $request->institutes;
+//    $project->institute = $request->institutes;
 
     $project->supervisor = $request->cosupervisors;
 
     $project->tags = $request->tags;
 
     $project->publishing_status = 0;
+
+    $project->study_year = $request->study_year;
 
     $project->extra_info = $request->extra_info;
 
@@ -1052,5 +1102,32 @@ class ProjectController extends Controller
 
     return Response::json($users);
 
+  }
+
+
+  /**
+   * Upload project featured image
+   */
+  private function uploadFeaturedImage(&$request, $id){
+
+    $featured_image = $request->file('featured_image');
+
+    $destinationPath = 'storage/projects_featured_images/';
+    $extension = $featured_image->getClientOriginalExtension();
+
+
+
+    $fileName = uniqid('img_'.$id.'_').'.'.$extension;
+
+    $img = Image::make($featured_image);
+    // resize the image to a width of 700 and constrain aspect ratio (auto height)
+    $img->resize(700, null, function ($constraint) {
+      $constraint->aspectRatio();
+    });
+
+    $img->save($destinationPath.$fileName);
+
+
+    return($fileName);
   }
 }

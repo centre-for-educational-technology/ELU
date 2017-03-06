@@ -20,7 +20,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id) }}" method="POST" class="form-horizontal new-project">
+                    <form action="{{ url('/project/'.$current_project->id) }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <!-- Project Name -->
@@ -34,13 +34,30 @@
 
                         <!-- Project Embedded media -->
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">{{trans('project.video_link')}} <p>https://youtu.be/...</p></label>
+                            <label for="embedded" class="col-sm-3 control-label">{{trans('project.video_link')}} <p>https://youtu.be/...</p></label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty($current_project) ? old('embedded') : $current_project->embedded) }}">
                             </div>
                         </div>
 
+                        <!-- Project Featured image -->
+                        <div class="form-group">
+
+                            <label for="featured_image" class="col-sm-3 control-label">{{trans('project.featured_image')}} <p>{{trans('project.portrait_orientation')}}</p></label>
+
+
+
+                            <div class="col-sm-6">
+                                @if ((!empty($current_project->featured_image)))
+                                    <p><img src="{{url('storage/projects_featured_images/'.$current_project->featured_image)}}" class="img-thumbnail featured-image-preview"></p>
+                                @endif
+
+
+
+                                <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
+                            </div>
+                        </div>
 
                         <!-- Project Description -->
                         <div class="form-group">
@@ -52,7 +69,48 @@
                             </div>
                         </div>
 
+                        <!-- Project meeting info -->
+                        <div class="form-group">
+                            <label for="meeting_info" class="col-sm-3 control-label">{{trans('project.meeting_info')}}</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="meeting_info" id="meeting_info" class="form-control" value="{{  (empty($current_project) ? old('meeting_info') : $current_project->meeting_info) }}">
+                            </div>
+                        </div>
+
+
+                        <!-- Study area -->
+                        <div class="form-group">
+                            <label for="study_areas" class="col-sm-3 control-label">{{trans('project.study_area')}}</label>
+
+
+                            <div class="col-sm-6">
+                                <select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>
+
+                                    @if ($linked_courses)
+
+                                        @foreach($linked_courses as $linked_course)
+
+                                                <option value="{{ $linked_course->id }}" selected="selected">{{ $linked_course->name }}</option>
+
+                                        @endforeach
+                                    @endif
+
+
+                                    @if ($courses->count())
+
+                                        @foreach($courses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                        @endforeach
+
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+
                         <!-- Integrated areas -->
+                        <!-- XXX to be removed -->
                         <div class="form-group">
                             <label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>
 
@@ -94,7 +152,39 @@
                         </div>
 
 
-                        {{--<!-- Project Outcomes -->--}}
+                        <!-- Study year -->
+                        <div class="form-group">
+                            <label for="study_year" class="col-sm-3 control-label">{{trans('project.study_year')}}</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="study_year" name="study_year">
+
+
+
+                                    @if( old('study_year') == Carbon\Carbon::now()->year || $current_project->study_year == Carbon\Carbon::now()->year)
+                                        <option value="{{Carbon\Carbon::now()->year}}" selected>{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
+                                        <option value="{{Carbon\Carbon::now()->year-1}}">{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
+                                    @elseif(old('study_year') == Carbon\Carbon::now()->year-1 || $current_project->study_year == Carbon\Carbon::now()->year-1)
+                                        <option value="{{Carbon\Carbon::now()->year-1}}" selected>{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
+                                        <option value="{{Carbon\Carbon::now()->year}}">{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
+                                    @else
+                                        @if(Carbon\Carbon::now()->month >= 6)
+                                            <option value="{{Carbon\Carbon::now()->year}}" selected>{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
+                                            <option value="{{Carbon\Carbon::now()->year-1}}">{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
+                                        @else
+                                            <option value="{{Carbon\Carbon::now()->year-1}}" selected>{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
+                                            <option value="{{Carbon\Carbon::now()->year}}">{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
+
+                                        @endif
+                                    @endif
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                    {{--<!-- Project Outcomes -->--}}
                         {{--<div class="form-group">--}}
                             {{--<label for="project_outcomes" class="col-sm-3 control-label">Projekti väljundid <p>Üks per rida</p></label>--}}
 
@@ -124,102 +214,102 @@
                         </div>
 
 
-                        <!-- Project start -->
-                        <div class="form-group">
-                            <label for="project_start" class="col-sm-3 control-label">{{trans('project.start')}}</label>
-                            <div class='col-sm-6'>
-                                <div class='input-group date' id='project_start'>
+                        {{--<!-- Project start -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="project_start" class="col-sm-3 control-label">{{trans('project.start')}}</label>--}}
+                            {{--<div class='col-sm-6'>--}}
+                                {{--<div class='input-group date' id='project_start'>--}}
 
-                                    <input type='text' class="form-control" name="project_start" id="project_start" value="{{ (empty($current_project) ? old('project_start') : empty($current_project->start) ? old('project_start') :$current_project->start) }}"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                    {{--<input type='text' class="form-control" name="project_start" id="project_start" value="{{ (empty($current_project) ? old('project_start') : empty($current_project->start) ? old('project_start') :$current_project->start) }}"/>--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
+                                    {{--</span>--}}
 
-                                </div>
-                            </div>
-                        </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
-                        <!-- Project end -->
-                        <div class="form-group">
-                            <label for="project_end" class="col-sm-3 control-label">{{trans('project.end')}}</label>
-                            <div class='col-sm-6'>
-                                <div class='input-group date' id='project_end'>
-                                    <input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : empty($current_project->end) ? old('project_end') :$current_project->end) }}"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<!-- Project end -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="project_end" class="col-sm-3 control-label">{{trans('project.end')}}</label>--}}
+                            {{--<div class='col-sm-6'>--}}
+                                {{--<div class='input-group date' id='project_end'>--}}
+                                    {{--<input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : empty($current_project->end) ? old('project_end') :$current_project->end) }}"/>--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
 
                         <!-- Institutes -->
-                        <div class="form-group">
-                            <label for="institutes" class="col-sm-3 control-label">{{trans('project.institute')}}</label>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="institutes" class="col-sm-3 control-label">{{trans('project.institute')}}</label>--}}
 
-                            <div class="col-sm-6">
-                                <select class="form-control" id="institutes" name="institutes">
+                            {{--<div class="col-sm-6">--}}
+                                {{--<select class="form-control" id="institutes" name="institutes">--}}
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 0 )
-                                        <option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
-                                    @else
-                                        <option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>
-                                    @endif
-
-
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 1)
-                                        <option value="1" selected>Digitehnoloogiate instituut</option>
-                                    @else
-                                        <option value="1">Digitehnoloogiate instituut</option>
-                                    @endif
-
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 2)
-                                        <option value="2" selected>Humanitaarteaduste instituut</option>
-                                    @else
-                                        <option value="2">Humanitaarteaduste instituut</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 0 )--}}
+                                        {{--<option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
+                                    {{--@endif--}}
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 3)
-                                        <option value="3" selected>Haridusteaduste instituut</option>
-                                    @else
-                                        <option value="3">Haridusteaduste instituut</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 1)--}}
+                                        {{--<option value="1" selected>Digitehnoloogiate instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="1">Digitehnoloogiate instituut</option>--}}
+                                    {{--@endif--}}
+
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 2)--}}
+                                        {{--<option value="2" selected>Humanitaarteaduste instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="2">Humanitaarteaduste instituut</option>--}}
+                                    {{--@endif--}}
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 4)
-                                        <option value="4" selected>Loodus- ja terviseteaduste instituut</option>
-                                    @else
-                                        <option value="4">Loodus- ja terviseteaduste instituut</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 3)--}}
+                                        {{--<option value="3" selected>Haridusteaduste instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="3">Haridusteaduste instituut</option>--}}
+                                    {{--@endif--}}
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 5)
-                                        <option value="5" selected>Rakvere kolledž</option>
-                                    @else
-                                        <option value="5">Rakvere kolledž</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 4)--}}
+                                        {{--<option value="4" selected>Loodus- ja terviseteaduste instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="4">Loodus- ja terviseteaduste instituut</option>--}}
+                                    {{--@endif--}}
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 6)
-                                        <option value="6" selected>Haapsalu kolledž</option>
-                                    @else
-                                        <option value="6">Haapsalu kolledž</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 5)--}}
+                                        {{--<option value="5" selected>Rakvere kolledž</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="5">Rakvere kolledž</option>--}}
+                                    {{--@endif--}}
 
 
-                                    @if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 7)
-                                        <option value="7" selected>Ühiskonnateaduste instituut</option>
-                                    @else
-                                        <option value="7">Ühiskonnateaduste instituut</option>
-                                    @endif
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 6)--}}
+                                        {{--<option value="6" selected>Haapsalu kolledž</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="6">Haapsalu kolledž</option>--}}
+                                    {{--@endif--}}
 
 
-                                </select>
-                            </div>
-                        </div>
+                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 7)--}}
+                                        {{--<option value="7" selected>Ühiskonnateaduste instituut</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="7">Ühiskonnateaduste instituut</option>--}}
+                                    {{--@endif--}}
+
+
+                                {{--</select>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
 
@@ -230,7 +320,7 @@
 
                             <div class="col-sm-6">
                                 <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>
-                                    @if ($authors)
+                                    @if ($authors->count())
 
                                         @foreach($authors as $author)
 
@@ -386,7 +476,7 @@
 
 
 
-                        <!-- Link to join project -->
+                        <!-- Mendeley group link -->
                         <div class="form-group">
                             <label for="group_link" class="col-sm-3 control-label">{{trans('project.mendeley_group_link')}}</label>
 
@@ -543,12 +633,6 @@
                                     </button>
                                 </div>
                             </div>
-
-
-
-
-
-
 
 
                         </form>

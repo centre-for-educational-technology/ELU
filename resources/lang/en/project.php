@@ -52,7 +52,12 @@ return [
     'project_changed_notification' => 'Your project ":name" has been changed!',
     'students_attached_notification' => 'Students attached to project: ',
     'mendeley_group_link' => 'Mendeley group link',
-    'group_link_visit' => 'Open'
+    'group_link_visit' => 'Open',
+    'featured_image' => 'Featured Image',
+    'portrait_orientation' => 'Portrait orientation is recommended',
+    'study_area' => 'Study area(s)',
+    'study_year' => 'Study year',
+    'meeting_info' => 'First meeting'
 
 
 ];

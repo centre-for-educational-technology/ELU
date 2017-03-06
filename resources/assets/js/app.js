@@ -220,7 +220,7 @@ jQuery(document).ready(function($) {
       {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
     ],
     toolbar: "redo undo bold italic numlist bullist link",
-    menubar: "file edit insert view",
+    menubar: false,
     editor_selector : "mceSimple"
   });
 

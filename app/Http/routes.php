@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Page;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Course;
 
 
 
@@ -36,62 +37,56 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
 
 
-          $project = Project::find($id);
+          $current_project = Project::find($id);
 
 
-          if ($project->embedded != null) {
-            preg_match('/src="([^"]+)"/', $project->embedded, $match);
+          if ($current_project->embedded != null) {
+            preg_match('/src="([^"]+)"/', $current_project->embedded, $match);
 
-            $project->embedded = $match[1];
+            $current_project->embedded = $match[1];
           }
 
 
-          $teachers = User::whereHas('roles', function ($q) {
+          //Supervisors field
+          $teachers = User::select('id','name', 'full_name')->whereHas('roles', function ($q) {
             $q->where('name', 'oppejoud');
           })->get();
 
+          $authors = $current_project->users()->select('id','name', 'full_name')->wherePivot('participation_role', 'author')->get();
 
-          $authors_id = array();
+          $teachers = $teachers->diff($authors);
 
-          $authors = array();
 
-          foreach ($project->users as $user) {
-            if ($user->pivot->participation_role == 'author') {
-              array_push($authors_id, $user->id);
-              array_push($authors, $user);
-            }
-          }
 
-          foreach ($teachers as $key => $teacher) {
-            if (in_array($teacher->id, $authors_id)) {
-              unset($teachers[$key]);
-            }
-          }
+          //Study areas field
+          $courses = Course::select('id','name')->get();
+
+          $linked_courses = $current_project->getCourses()->select('id','name')->get();
+
+          $courses = $courses->diff($linked_courses);
+
+
 
 
           $projects = Project::whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->get();
 
-          if ($project->start) {
-            $project->start = date("m/d/Y", strtotime($project->start));
+//          if ($project->start) {
+//            $project->start = date("m/d/Y", strtotime($project->start));
+//          }
+//
+//          if ($project->end) {
+//            $project->end = date("m/d/Y", strtotime($project->end));
+//          }
+
+
+          if ($current_project->join_deadline) {
+            $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
           }
 
-          if ($project->end) {
-            $project->end = date("m/d/Y", strtotime($project->end));
-          }
+          return view('project.edit', compact('teachers', 'authors', 'current_project', 'courses', 'projects', 'linked_courses'));
 
-
-          if ($project->join_deadline) {
-            $project->join_deadline = date("m/d/Y", strtotime($project->join_deadline));
-          }
-
-
-          return view('project.edit')
-              ->with('teachers', $teachers)
-              ->with('authors', $authors)
-              ->with('current_project', $project)
-              ->with('projects', $projects);
 
         }));
 
@@ -225,8 +220,9 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('student/project/new', function () {
+          $courses = Course::select('id','name')->get();
 
-          return view('user.student.new_project');
+          return view('user.student.new_project')->with('courses', $courses);
         });
 
         Route::post('student/project/new', 'ProjectController@storeProjectByStudent');

@@ -51,5 +51,10 @@ return [
     'project_changed_notification' => 'Projekt ":name" on muudetud',
     'students_attached_notification' => 'Projektile lisatud tudengid: ',
     'mendeley_group_link' => 'Mendeley grupi link',
-    'group_link_visit' => 'Ava'
+    'group_link_visit' => 'Ava',
+    'featured_image' => 'Pisipilt',
+    'portrait_orientation' => 'Portree orientatsioon on soovituslik',
+    'study_area' => 'Eriala(d)',
+    'study_year' => 'Õppeaasta',
+    'meeting_info' => 'Esimene kohtumine'
 ];

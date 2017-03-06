@@ -18,6 +18,13 @@ class Project extends Model
   }
 
 
+  //XXX change method name to courses when courses column is deleted from Projects table
+  public function getCourses()
+  {
+    return $this->belongsToMany('App\Course');
+  }
+
+
   public function currentUserIs($participation_role)
   {
     foreach ($this->users()->get() as $user)

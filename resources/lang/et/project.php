@@ -5,7 +5,7 @@ return [
     'project' => 'Projekt',
     'edit' => 'Muuda',
     'delete' => 'Kustuta',
-    'my_projects' => 'Minu projektid',
+    'my_projects' => 'Minu projekt',
     'add' => 'Lisa projekti',
     'name' => 'Nimi',
     'video_link' => 'Tutvustav video link (YouTube)',
@@ -56,5 +56,10 @@ return [
     'portrait_orientation' => 'Portree orientatsioon on soovituslik',
     'study_area' => 'Eriala(d)',
     'study_year' => 'Õppeaasta',
-    'meeting_info' => 'Esimene kohtumine'
+    'meeting_info' => 'Esimene kohtumine',
+    'leave_project_button' => 'Lahkun projektist',
+    'no_student_role_notification' => 'Sul ei ole tudengi rolli',
+    'log_in_and_join_notification' => 'Logi sisse ja liitu projektiga',
+    'already_joined_this_notification' => 'Oled juba liitunud selle projektiga',
+    'already_in_team_notification' => 'Oled juba projekti ":name" meeskonnas'
 ];

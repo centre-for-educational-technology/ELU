@@ -76,11 +76,7 @@
                                             <ul class="list-unstyled list01 tags">
                                             @foreach ($project->users as $user)
                                                 @if ( $user->pivot->participation_role == 'author' )
-                                                    @if(!empty($user->full_name))
-                                                            <li><span class="label label-primary">{{ $user->full_name }} ({{ $user->email }})</span></li>
-                                                    @else
-                                                            <li><span class="label label-primary">{{ $user->name }} ({{ $user->email }})</span></li>
-                                                    @endif
+                                                    <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
                                                 @endif
                                             @endforeach
                                             </ul>
@@ -105,11 +101,7 @@
                                             <ul class="list-unstyled list01 tags">
                                                 @foreach ($project->users as $user)
                                                     @if ( $user->pivot->participation_role == 'member' )
-                                                        @if(!empty($user->full_name))
-                                                            <li><span class="label label-primary">{{ $user->full_name }} ({{ $user->email }})</span></li>
-                                                        @else
-                                                            <li><span class="label label-primary">{{ $user->name }} ({{ $user->email }})</span></li>
-                                                        @endif
+                                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
                                                         @php
                                                             $members_count++;
                                                         @endphp

@@ -10,7 +10,7 @@ return [
     'news.desc' => 'All projects can be found on this website, where you can also register for an ELU project. If you want to join a project, log in with your TU account. Registration is open until the 6th of February. NB! Students themselves don’t have to register this subject in ÕIS.',
     'read_more' => 'Read more',
     'all_projects' => 'All projects',
-    'search' => 'Search',
+    'search' => 'Projects',
     'faq' => 'FAQ',
     'elu' => 'ELU is a subject offered at Tallinn University where students from different study areas carry out collaborative projects. These projects last for one or two semesters.',
     'what' => 'What?',

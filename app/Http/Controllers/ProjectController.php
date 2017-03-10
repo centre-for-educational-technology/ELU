@@ -771,11 +771,12 @@ class ProjectController extends Controller
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
 
-    return \Redirect::to('student/my-projects')
+    return \Redirect::to('project/'.$project->id)
         ->with('message', [
             'text' => trans('project.joined_project_notification').' "'.$project->name.'"',
             'type' => 'joined'
-        ]);
+        ])
+        ->with('project', $project);
 
   }
 
@@ -880,14 +881,6 @@ class ProjectController extends Controller
 
 //    $project->integrated_areas = $request->integrated_areas;
 
-    //Attach study areas
-    $study_areas = $request->input('study_areas');
-    foreach ($study_areas as $study_area){
-
-      $project->getCourses()->attach($study_area);
-    }
-
-
     $project->study_term = $request->study_term;
 
 //    $project->institute = $request->institutes;
@@ -906,10 +899,17 @@ class ProjectController extends Controller
 
     $project->save();
 
+    //Attach study areas
+    $study_areas = $request->input('study_areas');
+    foreach ($study_areas as $study_area){
+
+      $project->getCourses()->attach($study_area);
+    }
+
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
 
-    return \Redirect::to('student/my-projects')
+    return \Redirect::to('projects/open')
         ->with('message', [
             'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
             'type' => 'proposal'

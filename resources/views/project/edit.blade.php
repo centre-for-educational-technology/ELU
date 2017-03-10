@@ -324,11 +324,7 @@
 
                                         @foreach($authors as $author)
 
-                                            @if(!empty($author->full_name))
-                                                <option value="{{ $author->id }}" selected="selected">{{ $author->full_name }}</option>
-                                            @else
-                                                <option value="{{ $author->id }}" selected="selected">{{ $author->name }}</option>
-                                            @endif
+                                            <option value="{{ $author->id }}" selected="selected">{{ getUserName($author) }}</option>
 
                                         @endforeach
                                     @endif
@@ -337,11 +333,7 @@
 
                                         @foreach($teachers as $teacher)
 
-                                            @if(!empty($teacher->full_name))
-                                                <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
-                                            @else
-                                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-                                            @endif
+                                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
 
 
                                         @endforeach
@@ -504,65 +496,60 @@
             <!-- Current Projects -->
             @if (count($current_project->users) > 0)
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {{trans('search.team')}}
-                    </div>
+                        <div class="panel-heading">
+                            {{trans('search.team')}}
+                        </div>
 
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                        <table class="table table-striped table-responsive project-table">
-                            <thead>
-                            <th>{{trans('project.user')}}</th>
-                            <th>{{trans('login.email')}}</th>
-                            <th>{{trans('project.course')}}</th>
-                            <th>&nbsp;</th>
-                            </thead>
-                            <tbody>
-                            @php
-                                $members_count=0;
-                            @endphp
-
-                            @foreach ($current_project->users as $user)
-                                <tr>
-                                @if ( $user->pivot->participation_role == 'member' )
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-responsive project-table">
+                                    <thead>
+                                    <th>{{trans('project.user')}}</th>
+                                    <th>{{trans('login.email')}}</th>
+                                    <th>{{trans('project.course')}}</th>
+                                    <th>&nbsp;</th>
+                                    </thead>
+                                    <tbody>
                                     @php
-                                        $members_count++;
+                                        $members_count=0;
                                     @endphp
-                                    @if(!empty($user->full_name))
-                                        <td class="table-text"><div>{{ $user->full_name }}</div></td>
 
-                                    @else
-                                        <td class="table-text"><div>{{ $user->name }}</div></td>
-                                    @endif
-                                    <td class="table-text"><div>{{ $user->email }}</div></td>
-                                    <td>
-                                        @if(!$user->courses->isEmpty())
-                                            @foreach($user->courses as $course)
-                                                <span class="label label-success">{{ $course->name }}</span>
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
-                                            {{ csrf_field() }}
-
-
-                                        </form>
-                                        <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
-                                            <i class="fa fa-btn fa-unlink"></i>{{trans('project.delete')}}
-                                        </button>
-
-                                    </td>
-                                @endif
-                                </tr>
-                            @endforeach
+                                    @foreach ($current_project->users as $user)
+                                        <tr>
+                                            @if ( $user->pivot->participation_role == 'member' )
+                                                @php
+                                                    $members_count++;
+                                                @endphp
+                                                <td class="table-text"><div>{{ getUserName($user) }}</div></td>
+                                                <td class="table-text"><div>{{ $user->email }}</div></td>
+                                                <td>
+                                                    @if(!$user->courses->isEmpty())
+                                                        @foreach($user->courses as $course)
+                                                            <span class="label label-success">{{ $course->name }}</span>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
+                                                        {{ csrf_field() }}
 
 
-                            </tbody>
-                        </table>
+                                                    </form>
+                                                    <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
+                                                        <i class="fa fa-btn fa-unlink"></i>{{trans('project.delete')}}
+                                                    </button>
+
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 @if($members_count>0)
                     <div  class="panel email-list panel-default">
@@ -598,6 +585,59 @@
 
                         </div>
                     </div>
+
+
+
+
+                    {{--Making groups from project team--}}
+                    {{--<div class="panel panel-default">--}}
+                        {{--<div class="panel-heading">--}}
+                            {{--Project groups--}}
+                        {{--</div>--}}
+
+                        {{--<div class="panel-body">--}}
+                            {{--<h3>Add group</h3>--}}
+                            {{--<form action="{{ url('project/'.$current_project->id.'/attach-users') }}" method="POST" class="form-horizontal new-project ">--}}
+                                {{--{{ csrf_field() }}--}}
+
+
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="group-name" class="col-sm-3 control-label">New group name</label>--}}
+
+                                    {{--<div class="col-sm-6">--}}
+                                        {{--<input type="text" name="group-name" id="group-name" class="form-control">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
+
+
+                                {{--<div class="form-group">--}}
+                                    {{--<div class="col-sm-offset-3 col-sm-6">--}}
+                                        {{--<button type="submit" class="btn btn-default">--}}
+                                            {{--<i class="fa fa-btn fa-users"></i>{{trans('project.add_button')}}--}}
+                                        {{--</button>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
+
+                            {{--</form>--}}
+
+                            {{--<h3>Assign users to groups</h3>--}}
+
+                            {{--<div class="col-sm-6">--}}
+                                {{--<h4>Team members</h4>--}}
+                                {{--<ul class="list-group" id="foo">--}}
+                                {{--@foreach ($current_project->users as $user)--}}
+                                    {{--@if ( $user->pivot->participation_role == 'member' )--}}
+                                        {{--<li class="list-group-item">{{getUserName($user)}}</li>--}}
+                                    {{--@endif--}}
+                                {{--@endforeach--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                            {{----}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+
                 @endif
             @endif
 

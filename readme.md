@@ -38,6 +38,7 @@ Run `php artisan migrate` to create database tables
 Run `php artisan db:seed` to populate pages content
 
 ### 4. Make sure `.htaccess` file in `public` directory and server config files are configured correctly
+Don't forget about `Options -Indexes` to avoid access for files listing
 
 ## Post-installation procedures
 

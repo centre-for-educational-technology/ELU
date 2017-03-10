@@ -48,11 +48,7 @@
                             <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    @if(!empty($user->full_name))
-                                        <td class="table-text"><div>{{ $user->full_name }}</div></td>
-                                    @else
-                                        <td class="table-text"><div>{{ $user->name }}</div></td>
-                                    @endif
+                                    <td class="table-text"><div>{{ getUserName($user) }}</div></td>
 
                                     <td class="table-text"><div>{{ $user->email }}</div></td>
 

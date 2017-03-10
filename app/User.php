@@ -34,7 +34,22 @@ class User extends Authenticatable
   }
 
   public function projects(){
-    return $this->hasMany('App\Project');
+    return $this->belongsToMany('App\Project')->withPivot('participation_role');
+  }
+
+
+  public function isMemberOfProject(){
+    foreach ($this->projects()->get() as $project){
+      if($project->pivot->participation_role == 'member'){
+        if($project->submitted_by_student == false){
+          return array('name' => $project->name,
+              'id'=>$project->id);
+        }
+
+      }
+
+    }
+    return false;
   }
 
 

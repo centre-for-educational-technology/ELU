@@ -4,7 +4,32 @@
 
         <div class="container">
 
+            @if(\Session::has('message'))
+
+                @if(\Session::get('message')['type'] == 'joined')
+                    <div class="alert alert-info">
+                        {{\Session::get('message')['text']}}
+
+
+                        <a href="{{url('project/'.\Session::get('project')['id'])}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{\Session::get('project')['name']}}" data-desc="{{ str_limit(\Session::get('project')['description'], 150) }}" class="btnShare btn btn-social btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+
+                        <a class="btn btn-social btn-social-icon btn-twitter"
+                           href="https://twitter.com/intent/tweet?text={{rawurlencode(trans('project.twitter_share_joined_message'))}}%20{{ rawurlencode('"'.str_limit(\Session::get('project')['name'], 65).'"') }}%20{{url('project/'.\Session::get('project')['id'])}}"
+                           hashtags="elu,tlu">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+
+                    </div>
+
+                @endif
+
+
+            @endif
+
             <div class="row">
+
 
                 <div class="col-md-10 margt content col-md-offset-1">
 
@@ -155,11 +180,7 @@
                             <ul class="list-unstyled list01 tags">
                                 @foreach ($project->users as $user)
                                     @if ( $user->pivot->participation_role == 'author' )
-                                        @if(!empty($user->full_name))
-                                            <li><span class="label label-primary">{{ $user->full_name }} ({{ $user->email }})</span></li>
-                                        @else
-                                            <li><span class="label label-primary">{{ $user->name }} ({{ $user->email }})</span></li>
-                                        @endif
+                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -210,65 +231,50 @@
 
 
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
-                    @if(empty($isStudentMyProjectsView))
-                        {{--Check for join deadline--}}
-                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
-                            <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
-                        @else
-                            @if(Auth::check())
-                                @if(Auth::user()->is('student'))
-                                    @if ($project->currentUserIs('member'))
-                                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
 
-                                            <button type="submit" class="btn btn-danger btn-lg">
-                                                Lahkun projektist
-                                            </button>
-                                        </form>
+                    {{--Check for join deadline--}}
+                    @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                        <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
+                    @else
+                        @if(Auth::check())
+                            @if(Auth::user()->is('student'))
+                                @if ($project->currentUserIs('member'))
+                                    {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                        {{--{{ csrf_field() }}--}}
 
-                                    @else
-                                        <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
+                                        {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                            {{--{{trans('project.leave_project_button')}}--}}
+                                        {{--</button>--}}
+                                    {{--</form>--}}
+                                    <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
-                                            <button type="submit" class="btn btn-primary btn-lg">
-                                                {{trans('search.join_button')}}
-                                            </button>
-                                        </form>
-                                    @endif
+                                @elseif(Auth::user()->isMemberOfProject())
+
+                                    <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfSomeProject()])}}</p>
+
                                 @else
-                                    <p>Sul ei ole tudengi rolli</p>
+                                    {{Auth::user()->isMemberOfProject()}}
+                                    <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                        {{ csrf_field() }}
+
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            {{trans('search.join_button')}}
+                                        </button>
+                                    </form>
                                 @endif
-
-
                             @else
-                                <p>Logi sisse ja liitu projektiga</p>
+                                <p>{{trans('project.no_student_role_notification')}}</p>
                             @endif
 
 
-                        @endif
-
-                    @else
-
-                        @if ($project->currentUserIs('member'))
-                            <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                {{ csrf_field() }}
-
-                                <button type="submit" class="btn btn-danger btn-lg">
-                                    <i class="fa fa-btn fa-frown-o"></i>Lahkun projektist
-                                </button>
-                            </form>
-
                         @else
-                            <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                {{ csrf_field() }}
-
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}
-                                </button>
-                            </form>
+                            <p>{{trans('project.log_in_and_join_notification')}}</p>
                         @endif
+
 
                     @endif
+
+
 
 
 

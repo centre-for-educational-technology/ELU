@@ -24,3 +24,19 @@ function isPath($path)
 {
   return \Request::is($path . '*') ? true :  false;
 }
+
+
+/**
+ * Get user full name or just name
+ * Used in blade templates
+ * @param \App\User $user
+ * @return mixed
+ */
+function getUserName(\App\User $user)
+{
+  if(!empty($user->full_name)){
+    return $user->full_name;
+  }else{
+    return $user->name;
+  }
+}

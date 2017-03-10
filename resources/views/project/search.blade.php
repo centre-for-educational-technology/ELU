@@ -5,6 +5,18 @@
 
     <div class="container">
 
+        @if(\Session::has('message'))
+
+            @if(\Session::get('message')['type'] == 'proposal')
+                <div class="alert alert-warning">
+                    {{\Session::get('message')['text']}}
+                </div>
+            @endif
+
+
+        @endif
+
+
         <h1>{{trans('search.search')}}</h1>
         <ul class="nav nav-tabs">
             <li role="presentation" {{ setActive('projects/open') }}><a href="{{url('projects/open')}}">{{trans('search.open_projects')}}</a></li>
@@ -21,12 +33,6 @@
             @include('layouts.search_projects_form', ['url_data' => '/projects/open/search'])
         @endif
 
-
-        @if(\Session::has('message'))
-            <div class="alert alert-info">
-                {{\Session::get('message')}}
-            </div>
-        @endif
 
         @if(!empty($param))
             @if($param == 'author')

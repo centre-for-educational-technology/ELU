@@ -10,7 +10,7 @@ return [
     'news.desc' => 'ELU projektidega saab tutvuda siin veebilehel, kus toimub ka ainesse registreerimine. Üliõpilased ELU ainesse ÕISis registreerima ei pea. Sobiva projektiga liitumiseks logi sisse oma TLÜ kasutajakontoga. Registreerimine on avatud kuni 6. veebruarini.',
     'read_more' => 'Loe täpsemalt',
     'all_projects' => 'Kõik projektid',
-    'search' => 'Otsin',
+    'search' => 'Projektid',
     'faq' => 'KKK',
     'elu' => 'ELU (Erialasid Lõimiv Uuendus) on Tallinna Ülikooli õppeaine, mille raames eri valdkondade üliõpilased viivad koostöös ühe või kahe semestri jooksul ellu projekte.',
     'what' => 'Mis?',

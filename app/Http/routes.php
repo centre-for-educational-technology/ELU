@@ -203,20 +203,20 @@ Route::group(['middleware' =>['web']], function () {
 //    Student section
       Route::group(['middleware' => ['student']], function () {
 
-        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
-          $projects = Project::whereHas('users', function ($q) {
-            $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
-          })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
-
-
-          return view('user.student.my_projects', [
-              'projects' => $projects]);
-        }));
+//        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
+//          $projects = Project::whereHas('users', function ($q) {
+//            $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
+//          })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+//
+//
+//          return view('user.student.my_projects', [
+//              'projects' => $projects]);
+//        }));
 
         Route::post('join/{id}', 'ProjectController@joinProject');
 
 
-        Route::post('leave/{id}', 'ProjectController@leaveProject');
+//        Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
         Route::get('student/project/new', function () {

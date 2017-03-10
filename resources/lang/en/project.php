@@ -6,7 +6,7 @@ return [
     'project' => 'Project',
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'my_projects' => 'My projects',
+    'my_projects' => 'My project',
     'add' => 'Add project',
     'name' => 'Project name',
     'video_link' => 'Video link (YouTube)',
@@ -57,7 +57,11 @@ return [
     'portrait_orientation' => 'Portrait orientation is recommended',
     'study_area' => 'Study area(s)',
     'study_year' => 'Study year',
-    'meeting_info' => 'First meeting'
-
+    'meeting_info' => 'First meeting',
+    'leave_project_button' => 'Leave project',
+    'no_student_role_notification' => 'You do not have a student role',
+    'log_in_and_join_notification' => 'Log in and join a project',
+    'already_joined_this_notification' => 'You have already joined this project',
+    'already_in_team_notification' => 'You are already in ":name" project team'
 
 ];

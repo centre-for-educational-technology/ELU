@@ -177,11 +177,7 @@
                             <ul class="list-unstyled list01 tags">
                                 @foreach ($project->users as $user)
                                     @if ( $user->pivot->participation_role == 'author' )
-                                        @if(!empty($user->full_name))
-                                            <li><span class="label label-primary">{{ $user->full_name }} ({{ $user->email }})</span></li>
-                                        @else
-                                            <li><span class="label label-primary">{{ $user->name }} ({{ $user->email }})</span></li>
-                                        @endif
+                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
                                     @endif
                                 @endforeach
                             </ul>
@@ -238,15 +234,21 @@
                             @if(Auth::check())
                                 @if(Auth::user()->is('student'))
                                     @if ($project->currentUserIs('member'))
-                                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
+                                        {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                            {{--{{ csrf_field() }}--}}
 
-                                            <button type="submit" class="btn btn-danger btn-lg">
-                                                Lahkun projektist
-                                            </button>
-                                        </form>
+                                            {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                               {{--{{trans('project.leave_project_button')}}--}}
+                                            {{--</button>--}}
+                                        {{--</form>--}}
+                                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
+
+                                    @elseif(Auth::user()->isMemberOfProject())
+
+                                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                                     @else
+
                                         <form action="{{ url('join/'.$project->id) }}" method="POST">
                                             {{ csrf_field() }}
 
@@ -256,12 +258,12 @@
                                         </form>
                                     @endif
                                 @else
-                                    <p>Sul ei ole tudengi rolli</p>
+                                    <p>{{trans('project.no_student_role_notification')}}</p>
                                 @endif
 
 
                             @else
-                                <p>Logi sisse ja liitu projektiga</p>
+                                <p>{{trans('project.log_in_and_join_notification')}}</p>
                             @endif
 
 
@@ -269,24 +271,26 @@
 
                     @else
 
-                        @if ($project->currentUserIs('member'))
-                            <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                                {{ csrf_field() }}
+                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
-                                <button type="submit" class="btn btn-danger btn-lg">
-                                    <i class="fa fa-btn fa-frown-o"></i>Lahkun projektist
-                                </button>
-                            </form>
+                        {{--@if ($project->currentUserIs('member'))--}}
+                            {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
 
-                        @else
-                            <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                {{ csrf_field() }}
+                                {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                    {{--<i class="fa fa-btn fa-frown-o"></i>{{trans('project.leave_project_button')}}--}}
+                                {{--</button>--}}
+                            {{--</form>--}}
 
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}
-                                </button>
-                            </form>
-                        @endif
+                        {{--@else--}}
+                            {{--<form action="{{ url('join/'.$project->id) }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
+
+                                {{--<button type="submit" class="btn btn-success btn-lg">--}}
+                                    {{--<i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}--}}
+                                {{--</button>--}}
+                            {{--</form>--}}
+                        {{--@endif--}}
 
                     @endif
 

@@ -233,6 +233,39 @@ jQuery(document).ready(function($) {
   }
 
 
+  //Select project share url on click on input
+  $("input[name='share_url']").on("click", function () {
+    $(this).select();
+  });
+
+
+
+  Sortable.create(foo, {
+    group: 'foo',
+    animation: 100
+  });
+
+  Sortable.create(bar, {
+    group: {
+      name: 'bar',
+      put: 'qux',
+      pull: function (to, from) {
+        return from.el.children.length > 2 || 'clone';
+      }
+    },
+    animation: 100
+  });
+
+  Sortable.create(qux, {
+    group: {
+      name: 'qux',
+      put: function (to) {
+        return to.el.children.length < 4;
+      }
+    },
+    animation: 100
+  });
+
 });
 
 

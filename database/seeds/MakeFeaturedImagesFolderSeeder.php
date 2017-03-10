@@ -12,6 +12,6 @@ class MakeFeaturedImagesFolderSeeder extends Seeder
      */
     public function run()
     {
-      File::makeDirectory(public_path('storage/projects_featured_images'), 0777, true);
+      File::makeDirectory(public_path('storage/projects_featured_images'), 0755, true);
     }
 }

@@ -61,5 +61,12 @@ return [
     'no_student_role_notification' => 'Sul ei ole tudengi rolli',
     'log_in_and_join_notification' => 'Logi sisse ja liitu projektiga',
     'already_joined_this_notification' => 'Oled juba liitunud selle projektiga',
-    'already_in_team_notification' => 'Oled juba projekti ":name" meeskonnas'
+    'already_in_team_notification' => 'Oled juba projekti ":name" meeskonnas',
+    'group_created_notification' => 'Grupp ":name" on lisatud',
+    'not_in_group' => 'Kasutajad mis ei kuulu rühmade',
+    'assign_to_groups' => 'Jaga liikmed rühmadesse',
+    'add_group' => 'Lisa rühm',
+    'new_group_name' => 'Rühma nimi',
+    'project_groups' => 'Projekti rühmad'
+
 ];

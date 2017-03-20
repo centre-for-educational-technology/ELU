@@ -1,5 +1,12 @@
 jQuery(document).ready(function($) {
 
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   // Date picker
   $('#project_start').datetimepicker({
     format: 'L'
@@ -97,8 +104,7 @@ jQuery(document).ready(function($) {
         return {
           q: params.term, // search term
           project_id: $('.js-users-data-ajax').attr("project-id"),
-          page: params.page,
-          _token: window.Laravel.csrf_token
+          page: params.page
         };
       },
       processResults: function (data) {
@@ -240,34 +246,133 @@ jQuery(document).ready(function($) {
 
 
 
-  Sortable.create(foo, {
-    group: 'foo',
-    animation: 100
-  });
 
-  Sortable.create(bar, {
-    group: {
-      name: 'bar',
-      put: 'qux',
-      pull: function (to, from) {
-        return from.el.children.length > 2 || 'clone';
-      }
-    },
-    animation: 100
-  });
+  //Drag and drop project group members functionality
+    Sortable.create(project_all_members, {
+      group: { name: "project-all-members", pull: true, put:true },
+      animation: 150,
+      handle: '.drag-handle'
+    });
 
-  Sortable.create(qux, {
-    group: {
-      name: 'qux',
-      put: function (to) {
-        return to.el.children.length < 4;
+  var el = $('.project-group');
+  $(el).each(function (i,e) {
+    var sortable = Sortable.create(e, {
+      group: {
+        name: el.attr('group-id'),
+        pull: true,
+        put: function (to) {
+          return to.el.children.length < 4;
+        }
+      },
+      animation: 150,
+      handle: '.drag-handle',
+      onAdd: function (evt) {
+
+        var itemEl = evt.item;  // dragged HTMLElement
+        var from = evt.from;
+
+        console.log($(itemEl).attr('user-id'));
+
+        $.ajax({
+          url: window.Laravel.add_user_to_group_api_url,
+          dataType: 'json',
+          delay: 250,
+          method: 'POST',
+          cache: false,
+          data: {
+
+              to: $(itemEl).parent().attr('group-id'),
+              from: $(from).attr('group-id'),
+              user: $(itemEl).attr('user-id')
+
+          }
+        }).done(function( msg ) {
+          console.log(msg);
+        });
+
       }
-    },
-    animation: 100
-  });
+
+    });
+  })
+
 
 });
 
+/*
+  Sending DELETE request without a form
+  Example:
+  <a href="posts/2" data-method="delete" data-token="{{csrf_token()}}">
+ */
 
+(function() {
+
+  var laravel = {
+    initialize: function() {
+      this.methodLinks = $('a[data-method]');
+      this.token = $('a[data-token]');
+      this.registerEvents();
+    },
+
+    registerEvents: function() {
+      this.methodLinks.on('click', this.handleMethod);
+    },
+
+    handleMethod: function(e) {
+      var link = $(this);
+      var httpMethod = link.data('method').toUpperCase();
+      var form;
+
+      // If the data-method attribute is not PUT or DELETE,
+      // then we don't know what to do. Just ignore.
+      if ( $.inArray(httpMethod, ['PUT', 'DELETE']) === - 1 ) {
+        return;
+      }
+
+      // Allow user to optionally provide data-confirm="Are you sure?"
+      if ( link.data('confirm') ) {
+        if ( ! laravel.verifyConfirm(link) ) {
+          return false;
+        }
+      }
+
+      form = laravel.createForm(link);
+      form.submit();
+
+      e.preventDefault();
+    },
+
+    verifyConfirm: function(link) {
+      return confirm(link.data('confirm'));
+    },
+
+    createForm: function(link) {
+      var form =
+        $('<form>', {
+          'method': 'POST',
+          'action': link.attr('href')
+        });
+
+      var token =
+        $('<input>', {
+          'type': 'hidden',
+          'name': '_token',
+          'value': link.data('token')
+        });
+
+      var hiddenInput =
+        $('<input>', {
+          'name': '_method',
+          'type': 'hidden',
+          'value': link.data('method')
+        });
+
+      return form.append(token, hiddenInput)
+        .appendTo('body');
+    }
+  };
+
+  laravel.initialize();
+
+})();
 
 //# sourceMappingURL=all.js.map

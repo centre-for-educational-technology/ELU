@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use App\Group;
 
 
 
@@ -821,6 +822,41 @@ class ProjectController extends Controller
   }
 
 
+  /**
+   * Creates new project group
+   * @param Request $request
+   * @return mixed
+   */
+  public function addNewProjectGroup($id, Request $request)
+  {
+
+    $project = Project::find($id);
+
+    $group = new Group;
+    $group->name = $request->name;
+    $group->project_id = $project->id;
+
+    $group->save();
+
+
+
+
+
+    return \Redirect::to('project/'.$project->id.'/edit')
+        ->with('message', trans('project.group_created_notification', ['name' => $group->name]));
+  }
+
+
+  public function deleteProjectGroup($project_id, $group_id)
+  {
+    $group = Group::findOrFail($group_id);
+
+    $name = $group->name;
+    $group->delete();
+
+    return redirect('project/'.$project_id.'/edit')->with('message', 'Grupp ' . $name . ' on kustutanud!');
+  }
+
 
   /**
    * Leave project team is used by user with student role
@@ -1102,6 +1138,37 @@ class ProjectController extends Controller
 
     return Response::json($users);
 
+  }
+
+
+  /**
+   * Add user to group api
+   */
+  public function addUserToGroup(Request $request){
+
+    $user_id = $request->user;
+
+    $from_group = null;
+
+    if($request->from != 'project_all_members'){
+      $from_group = Group::find($request->from);
+    }
+
+
+
+    $to_group = Group::find($request->to);
+
+
+
+    if($from_group){
+      \Debugbar::info($request->user);
+      $from_group->users()->detach($user_id);
+    }
+
+
+    $to_group->users()->syncWithoutDetaching([$user_id]);
+
+    return Response::json('Groups saved');
   }
 
 

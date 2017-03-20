@@ -25,7 +25,7 @@ return [
     'how.desc' => 'Kõik saab alguse ideest. Idee võib välja pakkuda üliõpilane, õppejõud või partner väljaspoolt ülikooli. Igal ELU projektil peab olema vähemalt üks ülikoolipoolne õppejõud.',
     'which' => 'Missugune?',
     'which.desc' => 'ELU õppeaines saavad üliõpilased pakkuda lahendusi väljakutsetele, arendada edasi olemasolevaid algatusi või luua midagi täiesti uut. ELU läbiviimise viis ning tulemus sõltuvad rühmast ja juhendajast.',
-    'project_team' => 'projekti, kaaslast või juhendajat',
+    'project_team' => 'projekti, kaaslased või juhendajad',
     'i_have_idea' => 'Mul on idee',
     'write_down' => 'pane see kirja',
     'tallinn_university' => 'Tallinna Ülikool'

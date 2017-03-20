@@ -40,3 +40,17 @@ function getUserName(\App\User $user)
     return $user->name;
   }
 }
+
+/**
+ * Get the group user belongs to
+ * @param \App\User $user
+ * @return bool|mixed
+ */
+function userBelongsToGroup(\App\User $user)
+{
+  if(count($user->groups) > 0){
+    return $user->groups;
+  }else{
+    return false;
+  }
+}

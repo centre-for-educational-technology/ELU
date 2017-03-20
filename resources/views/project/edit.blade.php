@@ -590,53 +590,73 @@
 
 
                     {{--Making groups from project team--}}
-                    {{--<div class="panel panel-default">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--Project groups--}}
-                        {{--</div>--}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{trans('project.project_groups')}}
+                        </div>
 
-                        {{--<div class="panel-body">--}}
-                            {{--<h3>Add group</h3>--}}
-                            {{--<form action="{{ url('project/'.$current_project->id.'/attach-users') }}" method="POST" class="form-horizontal new-project ">--}}
-                                {{--{{ csrf_field() }}--}}
-
-
-                                {{--<div class="form-group">--}}
-                                    {{--<label for="group-name" class="col-sm-3 control-label">New group name</label>--}}
-
-                                    {{--<div class="col-sm-6">--}}
-                                        {{--<input type="text" name="group-name" id="group-name" class="form-control">--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
+                        <div class="panel-body project-groups">
+                            <h3>{{trans('project.add_group')}}</h3>
+                            <form action="{{ url('project/'.$current_project->id.'/add-group') }}" method="POST" class="form-horizontal new-project ">
+                                {{ csrf_field() }}
 
 
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-3 control-label">{{trans('project.new_group_name')}}</label>
 
-                                {{--<div class="form-group">--}}
-                                    {{--<div class="col-sm-offset-3 col-sm-6">--}}
-                                        {{--<button type="submit" class="btn btn-default">--}}
-                                            {{--<i class="fa fa-btn fa-users"></i>{{trans('project.add_button')}}--}}
-                                        {{--</button>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
+                                    <div class="col-sm-6">
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                </div>
 
 
-                            {{--</form>--}}
 
-                            {{--<h3>Assign users to groups</h3>--}}
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-6">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fa fa-btn fa-users"></i>{{trans('project.add_button')}}
+                                        </button>
+                                    </div>
+                                </div>
 
-                            {{--<div class="col-sm-6">--}}
-                                {{--<h4>Team members</h4>--}}
-                                {{--<ul class="list-group" id="foo">--}}
-                                {{--@foreach ($current_project->users as $user)--}}
-                                    {{--@if ( $user->pivot->participation_role == 'member' )--}}
-                                        {{--<li class="list-group-item">{{getUserName($user)}}</li>--}}
-                                    {{--@endif--}}
-                                {{--@endforeach--}}
-                                {{--</ul>--}}
-                            {{--</div>--}}
-                            {{----}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+
+                            </form>
+
+                            <h3>{{trans('project.assign_to_groups')}}</h3>
+
+                            <div class="col-sm-6">
+                                <div class="well">
+                                    <h4>{{trans('project.not_in_group')}}</h4>
+                                    <ul class="list-group" group-id="project_all_members" id="project_all_members">
+                                    @foreach ($current_project->users as $user)
+                                        @if ( $user->pivot->participation_role == 'member' )
+                                            @if(userBelongsToGroup($user) == false)
+                                                <li class="list-group-item" user-id="{{$user->id}}"><span class="drag-handle">☰</span> {{getUserName($user)}}</li>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            @if (count($current_project->groups) > 0)
+                                @foreach ($current_project->groups as $group)
+                                    <div class="col-sm-6">
+                                        <div class="well">
+                                            <h4>{{$group->name}} <a href="group/delete/{{$group->id}}" data-method="delete" data-token="{{csrf_token()}}"> <i class="fa fa-trash"></i></a></h4>
+                                            <ul class="list-group project-group" group-id="{{$group->id}}">
+                                                @foreach($group->users as $user)
+                                                    <li class="list-group-item" user-id="{{$user->id}}"><span class="drag-handle">☰</span> {{getUserName($user)}}</li>
+                                                @endforeach
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+
+                        </div>
+                    </div>
 
                 @endif
             @endif

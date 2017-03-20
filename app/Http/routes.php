@@ -17,6 +17,7 @@ use App\Page;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Course;
+use App\Group;
 
 
 
@@ -116,6 +117,15 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
 
 
+        Route::post('project/{id}/add-group', 'ProjectController@addNewProjectGroup');
+
+
+        Route::post('api/group/add-user', 'ProjectController@addUserToGroup');
+
+
+        Route::delete('project/{project}/group/delete/{group}', 'ProjectController@deleteProjectGroup');
+
+
       });
 
 
@@ -155,7 +165,6 @@ Route::group(['middleware' =>['web']], function () {
 
 //        Attach user to project api for ajax
         Route::post('api/search/user', 'ProjectController@searchUser');
-
 
         Route::post('project/{id}/attach-users', 'ProjectController@attachUsersToProject');
 

@@ -62,6 +62,13 @@ return [
     'no_student_role_notification' => 'You do not have a student role',
     'log_in_and_join_notification' => 'Log in and join a project',
     'already_joined_this_notification' => 'You have already joined this project',
-    'already_in_team_notification' => 'You are already in ":name" project team'
+    'already_in_team_notification' => 'You are already in ":name" project team',
+    'group_created_notification' => 'You have added a new group ":name"',
+    'not_in_group' => 'Team members not belonging to group',
+    'assign_to_groups' => 'Assign users to groups',
+    'add_group' => 'Add group',
+    'new_group_name' => 'Group name',
+    'project_groups' => 'Project groups'
+
 
 ];

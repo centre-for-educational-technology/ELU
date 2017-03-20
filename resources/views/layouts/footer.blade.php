@@ -9,7 +9,7 @@
       'language' => App::getLocale(),
       'base_path' => url('/'),
       'search_user_api_url' => url('api/search/user/'),
-      'csrf_token' => csrf_token(),
+      'add_user_to_group_api_url' => url('api/group/add-user/')
   ]); ?>
 </script>
 

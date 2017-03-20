@@ -18,6 +18,12 @@ class Project extends Model
   }
 
 
+  public function groups()
+  {
+    return $this->hasMany('App\Group');
+  }
+
+
   //XXX change method name to courses when courses column is deleted from Projects table
   public function getCourses()
   {

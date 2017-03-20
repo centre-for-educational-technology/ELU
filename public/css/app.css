@@ -9147,6 +9147,17 @@ span.select2-container--default .select2-selection--multiple {
   border: 1px solid #ccc;
   background-color: transparent;
 }
+.project-groups ul {
+  min-height: 100px;
+}
+.drag-handle {
+  margin-right: 10px;
+  font: bold 20px Sans-Serif;
+  color: #5F9EDF;
+  display: inline-block;
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
 @media (max-width: 992px) {
   .nomargin.search-input {
     margin-top: 10px !important;

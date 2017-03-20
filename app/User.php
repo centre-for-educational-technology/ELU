@@ -37,6 +37,10 @@ class User extends Authenticatable
     return $this->belongsToMany('App\Project')->withPivot('participation_role');
   }
 
+  public function groups(){
+    return $this->belongsToMany('App\Group');
+  }
+
 
   public function isMemberOfProject(){
     foreach ($this->projects()->get() as $project){

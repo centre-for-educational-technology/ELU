@@ -245,57 +245,60 @@ jQuery(document).ready(function($) {
   });
 
 
-
-
-  //Drag and drop project group members functionality
+  if($("#project_all_members").length) {
+    //Drag and drop project group members functionality
     Sortable.create(project_all_members, {
       group: { name: "project-all-members", pull: true, put:true },
       animation: 150,
       handle: '.drag-handle'
     });
 
-  var el = $('.project-group');
-  $(el).each(function (i,e) {
-    var sortable = Sortable.create(e, {
-      group: {
-        name: el.attr('group-id'),
-        pull: true,
-        put: function (to) {
-          return to.el.children.length < 4;
-        }
-      },
-      animation: 150,
-      handle: '.drag-handle',
-      onAdd: function (evt) {
+    var el = $('.project-group');
+    $(el).each(function (i,e) {
+      var sortable = Sortable.create(e, {
+        group: {
+          name: el.attr('group-id'),
+          pull: true,
+          put: function (to) {
+            return to.el.children.length < 4;
+          }
+        },
+        animation: 150,
+        handle: '.drag-handle',
+        onAdd: function (evt) {
 
-        var itemEl = evt.item;  // dragged HTMLElement
-        var from = evt.from;
+          var itemEl = evt.item;  // dragged HTMLElement
+          var from = evt.from;
 
 
-        $.ajax({
-          url: window.Laravel.add_user_to_group_api_url,
-          dataType: 'json',
-          delay: 250,
-          method: 'POST',
-          cache: false,
-          data: {
+          $.ajax({
+            url: window.Laravel.add_user_to_group_api_url,
+            dataType: 'json',
+            delay: 250,
+            method: 'POST',
+            cache: false,
+            data: {
 
               to: $(itemEl).parent().attr('group-id'),
               from: $(from).attr('group-id'),
               user: $(itemEl).attr('user-id')
 
-          }
-        }).done(function( msg ) {
-          console.log(msg);
-        });
+            }
+          }).done(function( msg ) {
+            console.log(msg);
+          });
 
-      }
+        }
 
-    });
-  })
+      });
+    })
+  }
+
+
 
 
 });
+
 
 /*
   Sending DELETE request without a form

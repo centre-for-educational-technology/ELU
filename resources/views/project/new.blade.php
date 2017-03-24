@@ -54,7 +54,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{{  old('description') }}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple">{!! old('description') !!}</textarea>
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
                             <label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="status" name="status">
+                                <select class="form-control" disabled id="status" name="status">
 
                                     @if ( old('status')) == 1)
                                     <option value="1" selected>{{trans('project.active')}}</option>

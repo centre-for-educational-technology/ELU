@@ -54,7 +54,8 @@ elixir(function(mix) {
         'bootbox.min.js',
         '../bower/select2/dist/js/select2.full.min.js',
         '../bower/tinymce/tinymce.js',
-        '../bower/Sortable/Sortable.js'
+        '../bower/Sortable/Sortable.js',
+        '../bower/fancybox/dist/jquery.fancybox.js'
     ], 'public/js/vendor.js');
 
 

@@ -30,7 +30,11 @@
                     <div id="project{{$index}}" class="tab-pane fade">
                 @endif
 
-                    <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    @if($project->status == 1)
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    @else
+                            <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name }} <i class="fa fa-external-link title-link"></i> <span class="see-results">{{trans('project.see_results')}}</span></h2></a>
+                    @endif
 
                     <div class="row">
                         <div class="col-xs-7">
@@ -59,31 +63,34 @@
 
                         <div class="col-md-6">
 
-                            @if(!empty($project->meeting_info))
-                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.meeting_info')}}</h3>
-                                <p>{{$project->meeting_info}}</p>
-                            @endif
+                            @if($project->status == 1)
+                                @if(!empty($project->meeting_info))
+                                    <h3><span class="glyphicon ico-calendar"></span>{{trans('project.meeting_info')}}</h3>
+                                    <p>{{$project->meeting_info}}</p>
+                                @endif
 
-                            {{--XXX to be removed--}}
-                            @if(!empty($project->integrated_areas))
+                                {{--XXX to be removed--}}
+                                @if(!empty($project->integrated_areas))
 
-                                <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
-                                <ul class="list-unstyled list01">
-                                    @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
-                                        <li>{{ $integrated_area }}</li>
-                                    @endforeach
-                                </ul>
+                                    <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
+                                    <ul class="list-unstyled list01">
+                                        @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
+                                            <li>{{ $integrated_area }}</li>
+                                        @endforeach
+                                    </ul>
 
-                            @endif
+                                @endif
 
-                            {{--XXX to be removed--}}
-                            @if(!empty($project->courses))
-                                <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
-                                <ul class="list-unstyled list01">
-                                    @foreach (explode(PHP_EOL, $project->courses) as $course)
-                                        <li>{{ $course }}</li>
-                                    @endforeach
-                                </ul>
+                                {{--XXX to be removed--}}
+                                @if(!empty($project->courses))
+                                    <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
+                                    <ul class="list-unstyled list01">
+                                        @foreach (explode(PHP_EOL, $project->courses) as $course)
+                                            <li>{{ $course }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
                             @endif
 
 
@@ -115,15 +122,16 @@
                             </ul>
 
 
-
-                            <h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>
-                            <ul class="list-unstyled list01">
-                                @if ( $project->status == 0 )
-                                    <li>{{trans('project.finished')}}</li>
-                                @elseif ( $project->status == 1 )
-                                    <li>{{trans('project.active')}}</li>
-                                @endif
-                            </ul>
+                            @if($project->status == 1)
+                                <h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>
+                                <ul class="list-unstyled list01">
+                                    @if ( $project->status == 0 )
+                                        <li>{{trans('project.finished')}}</li>
+                                    @elseif ( $project->status == 1 )
+                                        <li>{{trans('project.active')}}</li>
+                                    @endif
+                                </ul>
+                            @endif
 
                             <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
                             <ul class="list-unstyled list01">
@@ -224,76 +232,77 @@
 
                     </div>
 
+                    @if($project->status == 1)
+                        <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
+                        @if(empty($isStudentMyProjectsView))
+                        {{--Check for join deadline--}}
+                            @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                                <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
+                            @else
+                                @if(Auth::check())
+                                    @if(Auth::user()->is('student'))
+                                        @if ($project->currentUserIs('member'))
+                                            {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                                {{--{{ csrf_field() }}--}}
 
-                    <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
-                    @if(empty($isStudentMyProjectsView))
-                    {{--Check for join deadline--}}
-                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
-                            <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
-                        @else
-                            @if(Auth::check())
-                                @if(Auth::user()->is('student'))
-                                    @if ($project->currentUserIs('member'))
-                                        {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
-                                            {{--{{ csrf_field() }}--}}
+                                                {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                                   {{--{{trans('project.leave_project_button')}}--}}
+                                                {{--</button>--}}
+                                            {{--</form>--}}
+                                            <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
-                                            {{--<button type="submit" class="btn btn-danger btn-lg">--}}
-                                               {{--{{trans('project.leave_project_button')}}--}}
-                                            {{--</button>--}}
-                                        {{--</form>--}}
-                                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
+                                        @elseif(Auth::user()->isMemberOfProject())
 
-                                    @elseif(Auth::user()->isMemberOfProject())
+                                            <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
-                                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
+                                        @else
 
+                                            <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                {{ csrf_field() }}
+
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    {{trans('search.join_button')}}
+                                                </button>
+                                            </form>
+                                        @endif
                                     @else
-
-                                        <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
-
-                                            <button type="submit" class="btn btn-primary btn-lg">
-                                                {{trans('search.join_button')}}
-                                            </button>
-                                        </form>
+                                        <p>{{trans('project.no_student_role_notification')}}</p>
                                     @endif
+
+
                                 @else
-                                    <p>{{trans('project.no_student_role_notification')}}</p>
+                                    <p>{{trans('project.log_in_and_join_notification')}}</p>
                                 @endif
 
 
-                            @else
-                                <p>{{trans('project.log_in_and_join_notification')}}</p>
                             @endif
 
+                        @else
+
+                            <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
+
+                            {{--@if ($project->currentUserIs('member'))--}}
+                                {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                    {{--{{ csrf_field() }}--}}
+
+                                    {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                        {{--<i class="fa fa-btn fa-frown-o"></i>{{trans('project.leave_project_button')}}--}}
+                                    {{--</button>--}}
+                                {{--</form>--}}
+
+                            {{--@else--}}
+                                {{--<form action="{{ url('join/'.$project->id) }}" method="POST">--}}
+                                    {{--{{ csrf_field() }}--}}
+
+                                    {{--<button type="submit" class="btn btn-success btn-lg">--}}
+                                        {{--<i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}--}}
+                                    {{--</button>--}}
+                                {{--</form>--}}
+                            {{--@endif--}}
 
                         @endif
 
-                    @else
-
-                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
-
-                        {{--@if ($project->currentUserIs('member'))--}}
-                            {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
-                                {{--{{ csrf_field() }}--}}
-
-                                {{--<button type="submit" class="btn btn-danger btn-lg">--}}
-                                    {{--<i class="fa fa-btn fa-frown-o"></i>{{trans('project.leave_project_button')}}--}}
-                                {{--</button>--}}
-                            {{--</form>--}}
-
-                        {{--@else--}}
-                            {{--<form action="{{ url('join/'.$project->id) }}" method="POST">--}}
-                                {{--{{ csrf_field() }}--}}
-
-                                {{--<button type="submit" class="btn btn-success btn-lg">--}}
-                                    {{--<i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}--}}
-                                {{--</button>--}}
-                            {{--</form>--}}
-                        {{--@endif--}}
-
                     @endif
-
 
 
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

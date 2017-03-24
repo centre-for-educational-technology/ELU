@@ -42,6 +42,52 @@ function getUserName(\App\User $user)
 }
 
 /**
+ * Get user full name and course or just name
+ * @param \App\User $user
+ * @return mixed|string
+ */
+function getUserNameAndCourse(\App\User $user)
+{
+  if(!empty($user->full_name)){
+    if(count($user->courses) >0){
+      return $user->full_name.' / '.$user->courses->first()['name'];
+    }else{
+      return $user->full_name;
+    }
+
+  }else{
+    return $user->name;
+  }
+}
+
+
+function getUserStrippedNameAndCourse(\App\User $user)
+{
+  if(!empty($user->full_name)){
+    $parts = explode(" ", $user->full_name);
+    $lastname = array_pop($parts);
+    $firstname = implode(" ", $parts);
+    if(count($user->courses) >0){
+
+      return $firstname.' / '.$user->courses->first()['name'];
+    }else{
+      return $firstname;
+    }
+
+  }else{
+    $parts = explode(" ", $user->name);
+    if (count($parts)>1){
+      $lastname = array_pop($parts);
+      $firstname = implode(" ", $parts);
+    }else{
+      $firstname = $user->name;
+    }
+
+    return $firstname;
+  }
+}
+
+/**
  * Get the group user belongs to
  * @param \App\User $user
  * @return bool|mixed

@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Group;
 
+use App\Http\Requests\FinishedProjectRequest;
+
 
 
 
@@ -1173,6 +1175,91 @@ class ProjectController extends Controller
 
 
   /**
+   * Finish project button handler
+   */
+  public function finishProject($id)
+  {
+
+
+    $project = Project::find($id);
+    $project->status = 0;
+
+    $project->save();
+
+    return view('project.finish')
+        ->with('current_project', $project);
+
+  }
+
+
+  public function saveFinishedProject(FinishedProjectRequest $request, $id){
+
+    $project = Project::find($id);
+    $project->summary = $request->summary;
+    $project->description = $request->description;
+
+    $project->save();
+
+    if(count($project->groups)>0){
+      foreach ($project->groups as $group){
+
+
+
+        //Embedded link
+        $embedded = null;
+        if($request->input('group_embedded.'.$group->id) != null){
+
+          $embed = Embed::make($request->input('group_embedded.'.$group->id))->parseUrl();
+
+          if ($embed) {
+            // Set width of the embed
+            $embed->setAttribute(['width' => 600]);
+
+          }
+
+          $embed_html = $embed->getHtml();
+
+          $embedded = $embed_html;
+
+        }
+
+        //Delete previous images
+        if(!empty(json_decode($group->summary, true)['images'])){
+          foreach (json_decode($group->summary, true)['images'] as $image){
+
+            File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+          }
+        }
+
+
+
+        $group_summary = array(
+            'summary' => $request->input('group_summary.'.$group->id),
+            'images' => ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null,
+            'embedded' => $embedded
+        );
+
+
+
+
+        $group->summary = json_encode($group_summary);
+
+        $group->save();
+
+      }
+    }
+
+    return \Redirect::to('project/'.$project->id)
+        ->with('message', [
+            'text' => trans('project.finished_and_saved_notification', ['name' => $project->name]),
+            'type' => 'finished'
+        ])
+        ->with('project', $project);
+
+  }
+
+
+  /**
    * Upload project featured image
    */
   private function uploadFeaturedImage(&$request, $id){
@@ -1196,5 +1283,53 @@ class ProjectController extends Controller
 
 
     return($fileName);
+  }
+
+
+
+  /**
+   * Upload group gallery multiple images
+   */
+  private function uploadGroupGalleryImages(&$request, $id){
+
+    if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_groups_images/'.$id), 0755, true);
+    }
+
+
+    $destinationPath = 'storage/projects_groups_images/'.$id.'/';
+
+    $images = $request->file('group_images.'.$id);
+
+    $saved_images = [];
+
+    foreach ($images as $image){
+
+
+      $extension = $image->getClientOriginalExtension();
+
+      $fileName = uniqid('img_'.$id.'_').'.'.$extension;
+
+      $img = Image::make($image);
+      // resize the image to a width of 700 and constrain aspect ratio (auto height)
+      $img->resize(700, null, function ($constraint) {
+        $constraint->aspectRatio();
+      });
+
+      $img->save($destinationPath.$fileName);
+
+
+      array_push($saved_images, $fileName);
+
+    }
+
+
+    return($saved_images);
+
+
+
+
+
   }
 }

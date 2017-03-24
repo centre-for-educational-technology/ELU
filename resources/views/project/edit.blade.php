@@ -11,7 +11,7 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> {{trans('project.add')}}</h3>
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
                 </div>
 
                 <div class="panel-body">
@@ -25,7 +25,7 @@
 
                     <!-- Project Name -->
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label">{{trans('project.add')}}</label>
+                            <label for="name" class="col-sm-3 control-label">{{trans('project.name')}}</label>
 
                             <div class="col-sm-6">
                                 <input type="text" name="name" id="name" class="form-control" value="{{ (empty($current_project) ? old('name') : $current_project->name) }}">
@@ -65,7 +65,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{{ (empty($current_project) ? old('description') : $current_project->description) }}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty($current_project) ? old('description') : $current_project->description) !!}</textarea>
                             </div>
                         </div>
 
@@ -362,7 +362,7 @@
                             <label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="status" name="status">
+                                <select class="form-control" {{Auth::user()->is('admin')? '':'disabled'}} id="status" name="status">
 
                                     @if ((!empty($current_project) ?  $current_project->status : old('status')) == 1)
                                         <option value="1" selected>{{trans('project.active')}}</option>
@@ -698,6 +698,16 @@
                         </form>
 
 
+                    </div>
+                </div>
+
+            @endif
+
+
+            @if($members_count>0)
+                <div class="col-lg-12 text-center">
+                    <div class="btn-group">
+                        <a class="btn btn-lg btn-primary" href="{{ url('project/'.$current_project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
                     </div>
                 </div>
 

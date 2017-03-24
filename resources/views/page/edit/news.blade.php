@@ -40,18 +40,18 @@
                                     <div class="tab-pane fade in active" id="tab1info">
                                         <div class="col-sm-12">
                                             <h4>Eesti keeles</h4>
-                                            <textarea name="info_et" id="info_et" class="form-control mceSimpleLink">{{ (empty($info) ? old('info_et') : $info->body_et) }}</textarea>
+                                            <textarea name="info_et" id="info_et" class="form-control mceSimpleLink">{!!(empty($info) ? old('info_et') : $info->body_et) !!}</textarea>
                                             <h4>Inglise keeles</h4>
-                                            <textarea name="info_en" id="info_en" class="form-control mceSimpleLink">{{ (empty($info) ? old('info_en') : $info->body_en) }}</textarea>
+                                            <textarea name="info_en" id="info_en" class="form-control mceSimpleLink">{!! (empty($info) ? old('info_en') : $info->body_en) !!}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="tab2info">
                                         <div class="col-sm-12">
                                             <h4>Eesti keeles</h4>
-                                            <textarea name="fair_info_et" id="fair_info_et" class="form-control mceSimpleLink">{{ (empty($fair_info) ? old('fair_info_et') : $fair_info->body_et) }}</textarea>
+                                            <textarea name="fair_info_et" id="fair_info_et" class="form-control mceSimpleLink">{!! (empty($fair_info) ? old('fair_info_et') : $fair_info->body_et) !!}</textarea>
                                             <h4>Inglise keeles</h4>
-                                            <textarea name="fair_info_en" id="fair_info_en" class="form-control mceSimpleLink">{{ (empty($fair_info) ? old('fair_info_en') : $fair_info->body_en) }}</textarea>
+                                            <textarea name="fair_info_en" id="fair_info_en" class="form-control mceSimpleLink">{!! (empty($fair_info) ? old('fair_info_en') : $fair_info->body_en) !!}</textarea>
                                         </div>
                                     </div>
 
@@ -59,9 +59,9 @@
                                     <div class="tab-pane fade" id="tab3info">
                                         <div class="col-sm-12">
                                             <h4>Eesti keeles</h4>
-                                            <textarea name="news_et" id="news_et" class="form-control mceSimpleLink">{{ (empty($news) ? old('news_et') : $news->body_et) }}</textarea>
+                                            <textarea name="news_et" id="news_et" class="form-control mceSimpleLink">{!! (empty($news) ? old('news_et') : $news->body_et) !!}</textarea>
                                             <h4>Inglise keeles</h4>
-                                            <textarea name="news_en" id="news_en" class="form-control mceSimpleLink">{{ (empty($news) ? old('news_en') : $news->body_en) }}</textarea>
+                                            <textarea name="news_en" id="news_en" class="form-control mceSimpleLink">{!! (empty($news) ? old('news_en') : $news->body_en) !!}</textarea>
                                         </div>
 
 

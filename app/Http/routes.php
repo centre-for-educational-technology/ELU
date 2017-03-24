@@ -126,6 +126,12 @@ Route::group(['middleware' =>['web']], function () {
         Route::delete('project/{project}/group/delete/{group}', 'ProjectController@deleteProjectGroup');
 
 
+        Route::get('project/{id}/finish', 'ProjectController@finishProject');
+
+
+        Route::post('project/{id}/finish', 'ProjectController@saveFinishedProject');
+
+
       });
 
 

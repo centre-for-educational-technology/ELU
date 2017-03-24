@@ -9,7 +9,7 @@ return [
     'my_projects' => 'My project',
     'add' => 'Add project',
     'name' => 'Project name',
-    'video_link' => 'Video link (YouTube)',
+    'video_link' => 'Video link (YouTube, Vimeo, etc.)',
     'description' => 'Description',
     'integrated_study_areas' => 'Integrated study areas',
     'one_per_line' => 'one per line',
@@ -68,7 +68,18 @@ return [
     'assign_to_groups' => 'Assign users to groups',
     'add_group' => 'Add group',
     'new_group_name' => 'Group name',
-    'project_groups' => 'Project groups'
+    'project_groups' => 'Project groups',
+    'finish_project_button' => 'Finish project',
+    'summary' => 'General impression',
+    'summary_title' => 'Summary',
+    'group_images' => 'Group gallery',
+    'group_members' => 'Group members',
+    'impressions' => 'Impressions',
+    'save_button' => 'Save and finish',
+    'finished_and_saved_notification' => 'Project ":name" is finished and results are saved',
+    'can_upload_multiple' => 'You can choose multiple images',
+    'group_video_link' => 'Group video link (YouTube, Vimeo, etc.)',
+    'see_results' => 'See results',
 
 
 ];

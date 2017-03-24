@@ -8,7 +8,7 @@ return [
     'my_projects' => 'Minu projekt',
     'add' => 'Lisa projekti',
     'name' => 'Nimi',
-    'video_link' => 'Tutvustav video link (YouTube)',
+    'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'description' => 'Kirjeldus',
     'integrated_study_areas' => 'Lõimitud valdkonnad',
     'one_per_line' => 'üks per rida',
@@ -67,6 +67,17 @@ return [
     'assign_to_groups' => 'Jaga liikmed rühmadesse',
     'add_group' => 'Lisa rühm',
     'new_group_name' => 'Rühma nimi',
-    'project_groups' => 'Projekti rühmad'
+    'project_groups' => 'Projekti rühmad',
+    'finish_project_button' => 'Lõpeta projekt',
+    'summary' => 'Üldine elamus',
+    'summary_title' => 'Kokkuvõtted',
+    'group_images' => 'Rühma galerii',
+    'group_members' => 'Rühma liikmed',
+    'impressions' => 'Jäädvustus',
+    'save_button' => 'Salvesta ja lõpeta',
+    'finished_and_saved_notification' => 'Projekt ":name" on lõppenud ja tulemused on salvestatud',
+    'can_upload_multiple' => 'Saab lisada mitu pilte korraga',
+    'group_video_link' => 'Rühma video link (YouTube, Vimeo, etc.)',
+    'see_results' => 'Näita tulemusi',
 
 ];

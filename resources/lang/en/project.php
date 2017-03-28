@@ -80,6 +80,12 @@ return [
     'can_upload_multiple' => 'You can choose multiple images',
     'group_video_link' => 'Group video link (YouTube, Vimeo, etc.)',
     'see_results' => 'See results',
+    'are_you_sure_notification' => 'Are you sure?',
+    'cannot_restore_notification' => 'You will not be able to restore it',
+    'yes_delete' => 'Yes, delete!',
+    'no' => 'No',
+    'yes' => 'Yes',
+    'finish_project_notification' => 'Please add project members to team/teams'
 
 
 ];

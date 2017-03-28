@@ -79,5 +79,11 @@ return [
     'can_upload_multiple' => 'Saab lisada mitu pilte korraga',
     'group_video_link' => 'Rühma video link (YouTube, Vimeo, etc.)',
     'see_results' => 'Näita tulemusi',
+    'are_you_sure_notification' => 'Kas olete kindel?',
+    'cannot_restore_notification' => 'Projekti ei saa taastada',
+    'yes_delete' => 'Jah, kustutan!',
+    'no' => 'Ei',
+    'yes' => 'Jah',
+    'finish_project_notification' => 'Palun lisage projekti liikmed rühma või rühmi'
 
 ];

@@ -50,13 +50,13 @@ jQuery(document).ready(function($) {
   $("button#delete").on("click", function(e){
 
     swal({
-        title: "Kas olete kindel?",
-        text: "Projekti ei saa taastada!",
+        title: window.Laravel.are_you_sure_notification,
+        text: window.Laravel.cannot_restore_notification,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Jah, kustutan!",
-        cancelButtonText: "Ei",
+        confirmButtonText: window.Laravel.yes_delete,
+        cancelButtonText: window.Laravel.no,
         closeOnConfirm: false
       },
       function(){
@@ -70,18 +70,34 @@ jQuery(document).ready(function($) {
   $("button#delete-user-button").on("click", function(e){
 
     swal({
-        title: "Kas olete kindel?",
+        title: window.Laravel.are_you_sure_notification,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Jah, kustutan!",
-        cancelButtonText: "Ei",
+        confirmButtonText: window.Laravel.yes_delete,
+        cancelButtonText: window.Laravel.no,
         closeOnConfirm: false
       },
       function(){
         $(e.target).prev('.delete-user').submit();
 
       });
+
+  });
+
+
+  $("a#groups-finish-button").on("click", function(e){
+    if(!$("a#groups-finish-button").hasClass('not-empty')){
+      e.preventDefault();
+
+      swal({
+        title: window.Laravel.finish_project_notification,
+        type: "info",
+        confirmButtonText: window.Laravel.yes,
+        closeOnConfirm: false
+      });
+    }
+
 
   });
 
@@ -286,6 +302,11 @@ jQuery(document).ready(function($) {
             }
           }).done(function( msg ) {
             console.log(msg);
+            if($('a#groups-finish-button').length){
+              $('a#groups-finish-button').addClass('not-empty');
+            }
+
+
           });
 
         }

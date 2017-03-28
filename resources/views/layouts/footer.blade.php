@@ -9,7 +9,13 @@
       'language' => App::getLocale(),
       'base_path' => url('/'),
       'search_user_api_url' => url('api/search/user/'),
-      'add_user_to_group_api_url' => url('api/group/add-user/')
+      'add_user_to_group_api_url' => url('api/group/add-user/'),
+      'are_you_sure_notification' => trans('project.are_you_sure_notification'),
+      'cannot_restore_notification' => trans('project.cannot_restore_notification'),
+      'yes_delete' => trans('project.yes_delete'),
+      'no' => trans('project.no'),
+      'yes' => trans('project.yes'),
+      'finish_project_notification' => trans('project.finish_project_notification')
   ]); ?>
 </script>
 

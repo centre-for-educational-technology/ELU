@@ -705,12 +705,23 @@
 
 
             @if($members_count>0)
-                <div class="col-lg-12 text-center">
-                    <div class="btn-group">
-                        <a class="btn btn-lg btn-primary" href="{{ url('project/'.$current_project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
-                    </div>
-                </div>
+                    @if (projectHasGroupsWithMembers($current_project))
 
+                    <div class="col-lg-12 text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-lg btn-primary not-empty" id="groups-finish-button" href="{{ url('project/'.$current_project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                        </div>
+                    </div>
+
+                    @else
+                    <div class="col-lg-12 text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-lg btn-primary" id="groups-finish-button" href="{{ url('project/'.$current_project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                        </div>
+                    </div>
+
+
+                    @endif
             @endif
         </div>
     </div>

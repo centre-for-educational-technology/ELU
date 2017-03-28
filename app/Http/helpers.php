@@ -100,3 +100,19 @@ function userBelongsToGroup(\App\User $user)
     return false;
   }
 }
+
+/**
+ * Return true if project has groups with at least one member
+ * @param \App\Project $project
+ * @return bool
+ */
+function projectHasGroupsWithMembers(\App\Project $project){
+  if(count($project->groups) > 0){
+    foreach ($project->groups as $group){
+      if(count($group->users) > 0){
+        return true;
+      }
+    }
+  }
+  return false;
+}

@@ -60,7 +60,36 @@ function getUserNameAndCourse(\App\User $user)
   }
 }
 
+/**
+ * Get user course if available
+ * @param \App\User $user
+ * @return string
+ */
+function getUserCourse(\App\User $user)
+{
+  if(!empty($user->full_name)){
+    if(count($user->courses) >0){
+      return $user->courses->first()['name'];
+    }
 
+  }
+  return '';
+}
+
+
+function isTLUUser(\App\User $user) {
+  $needle = 'tlu.ee';
+
+  // search forward starting from end minus needle length characters
+  return $needle === "" || (($temp = strlen($user->email) - strlen($needle)) >= 0 && strpos($user->email, $needle, $temp) !== false);
+}
+
+
+/**
+ * Get user first name and course if available
+ * @param \App\User $user
+ * @return mixed|string
+ */
 function getUserStrippedNameAndCourse(\App\User $user)
 {
   if(!empty($user->full_name)){
@@ -115,4 +144,29 @@ function projectHasGroupsWithMembers(\App\Project $project){
     }
   }
   return false;
+}
+
+
+/**
+ * Return projects this teacher is author of
+ * @param \App\User $user
+ * @return array
+ */
+function getTeacherProjects(\App\User $user){
+
+  $projects = array();
+
+  if($user->is('oppejoud')){
+
+    if(count($user->projects)>0){
+      foreach ($user->projects as $project){
+        if($project->pivot->participation_role == 'author' ){
+          array_push($projects, $project);
+        }
+      }
+    }
+
+  }
+  return $projects;
+
 }

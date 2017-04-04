@@ -26,6 +26,14 @@ Route::group(['middleware' =>['web']], function () {
 
     Route::group(['middleware' =>['auth']], function () {
 
+      Route::get('profile', 'UserController@index');
+
+      Route::post('profile/update-password', 'UserController@updatePassword');
+
+      Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
+
+
+
 
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {

@@ -14,10 +14,6 @@
 
             @if (count($projects) > 0)
 
-
-                @if (count($projects) > 0)
-
-
                             <h3><i class="fa fa-pencil"></i> {{trans('project.my_projects')}}</h3>
 
 
@@ -71,9 +67,6 @@
                             </table>
                             </div>
                             {{ $projects->links() }}
-
-
-                @endif
 
             @else
 

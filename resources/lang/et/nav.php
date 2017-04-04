@@ -3,7 +3,8 @@ return [
 
     'student' => 'tudeng',
     'admin' => 'admin',
-    'teacher' => 'õppejõud',
+    'oppejoud' => 'õppejõud',
+    'superadmin' => 'superadmin',
     'my_projects_student' => 'Minu projekt',
     'my_projects_teacher' => 'Minu projektid (õppejõud)',
     'login' => 'Logi sisse',

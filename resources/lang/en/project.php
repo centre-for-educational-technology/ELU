@@ -6,7 +6,7 @@ return [
     'project' => 'Project',
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'my_projects' => 'My project',
+    'my_projects' => 'My projects',
     'add' => 'Add project',
     'name' => 'Project name',
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',

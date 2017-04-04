@@ -4,7 +4,8 @@ return [
 
     'student' => 'student',
     'admin' => 'admin',
-    'teacher' => 'teacher',
+    'oppejoud' => 'teacher',
+    'superadmin' => 'superadmin',
     'my_projects_student' => 'My project',
     'my_projects_teacher' => 'My projects (teacher)',
     'login' => 'Log in',

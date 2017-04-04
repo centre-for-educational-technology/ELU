@@ -5,8 +5,8 @@ return [
     'project' => 'Projekt',
     'edit' => 'Muuda',
     'delete' => 'Kustuta',
-    'my_projects' => 'Minu projekt',
-    'add' => 'Lisa projekti',
+    'my_projects' => 'Minu projektid',
+    'add' => 'Lisa projekt',
     'name' => 'Nimi',
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'description' => 'Kirjeldus',
@@ -84,6 +84,6 @@ return [
     'yes_delete' => 'Jah, kustutan!',
     'no' => 'Ei',
     'yes' => 'Jah',
-    'finish_project_notification' => 'Palun lisage projekti liikmed rühma või rühmi'
+    'finish_project_notification' => 'Palun lisa projekti liikmed rühma või rühmi',
 
 ];

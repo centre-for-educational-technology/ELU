@@ -121,7 +121,7 @@
                                 {{ Auth::user()->name }}
 
                                 @if (Auth::user()->is('oppejoud'))
-                                    <span class="badge">{{trans('nav.teacher')}}</span>
+                                    <span class="badge">{{trans('nav.oppejoud')}}</span>
                                 @endif
 
                                 @if (Auth::user()->is('student'))
@@ -133,7 +133,7 @@
                                 @endif
 
                                 @if (Auth::user()->is('superadmin'))
-                                    <span class="badge"><i class="fa fa-user-secret"></i> superadmin</span>
+                                    <span class="badge"><i class="fa fa-user-secret"></i> {{trans('nav.superadmin')}}</span>
                                 @endif
 
                                 <span class="caret"></span>
@@ -224,7 +224,7 @@
                     <a href="{{ url('/projects/open') }}">
                         <div class="pad">
                             <span class="glyphicon ico-search"></span>
-                            <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
+                            <p><strong>{{trans('search.search')}}</strong> {{trans('front.project_team')}}</p>
                         </div>
                     </a>
                 </div>

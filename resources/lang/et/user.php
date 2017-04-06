@@ -13,5 +13,7 @@ return [
     'contact_email' => 'E-posti aadress',
     'confirm_contact_email' => 'Kinnita aadress',
     'contact_email_heading' => 'E-posti aadress teiega kontakteerumiseks',
-    'contact_email_changed' => 'E-posti aadress on muudetud'
+    'contact_email_changed' => 'E-posti aadress on muudetud',
+    'copy_tlu_address_button' => 'Kopeeri minu TLÜ aadressi',
+    'add_contact_email_notification' => 'Lisa e-posti aadress teiega kontakteerumiseks'
 ];

@@ -11,4 +11,5 @@ return [
     'login' => 'Log in',
     'logout' => 'Log out',
     'tawk_chat_url' => 'https://embed.tawk.to/5887a6e47892882db719ca58/default',
+    'profile' => 'My profile'
 ];

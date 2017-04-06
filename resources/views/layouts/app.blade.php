@@ -203,6 +203,7 @@
 
                                     @endif
                                 @endif
+                                <li><a href="{{ url('profile') }}"><i class="fa fa-btn fa-user"></i>{{trans('nav.profile')}}</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
                             </ul>
                         </li>
@@ -215,7 +216,21 @@
     </nav>
 </div>
 
+@if (!Auth::guest())
+    @if((Auth::user()->is('student')))
+        @if(isTLUUser(Auth::user()))
+            @if(empty(Auth::user()->contact_email))
+                <div class="container">
+                    <div class="alert alert-danger">
+                        {{trans('user.add_contact_email_notification')}} <a href="{{url('profile#contact-email-form')}}"><i class="fa fa-user"></i></a>
+                    </div>
+                </div>
+            @endif
 
+        @endif
+
+    @endif
+@endif
 
 @yield('content')
 

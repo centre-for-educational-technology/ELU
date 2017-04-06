@@ -14,5 +14,8 @@ return [
     'contact_email' => 'Contact email',
     'confirm_contact_email' => 'Confirm contact email',
     'contact_email_heading' => 'Add or change contact email',
-    'contact_email_changed' => 'Contact email changed'
+    'contact_email_changed' => 'Contact email changed',
+    'copy_tlu_address_button' => 'Copy my TLU address',
+    'add_contact_email_notification' => 'Add contact email'
+
 ];

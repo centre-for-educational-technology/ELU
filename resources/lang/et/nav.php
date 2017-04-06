@@ -10,4 +10,6 @@ return [
     'login' => 'Logi sisse',
     'logout' => 'Logi välja',
     'tawk_chat_url' => 'https://embed.tawk.to/5887a6e47892882db719ca58/1b7ftp6pd',
+    'profile' => 'Minu profiil',
+
 ];

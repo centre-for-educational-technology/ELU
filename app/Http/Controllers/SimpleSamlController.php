@@ -126,6 +126,13 @@ class SimpleSamlController extends Controller
 
       }
 
+      if($user->is('student')){
+        if(empty($user->contact_email)){
+          return redirect('/profile#contact-email-form');
+        }
+
+      }
+
 
     }
 

@@ -52,6 +52,9 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'institution' => 'required|min:3',
+            'other-institution' => 'min:3',
+            'course' => 'min:3',
             'g-recaptcha-response' => 'required|captcha'
         ]);
     }
@@ -65,20 +68,30 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         if(User::all()->count()==0){
+          //First admin user
           $new_user = User::create([
               'name' => $data['name'],
               'email' => $data['email'],
               'password' => bcrypt($data['password']),
+              'institution' => null,
+              'course' => null,
           ]);
-          //Admin
           $new_user->roles()->attach(3);
         }else{
+          //All other users
+          $institution = $data['institution'];
+          if($data['institution'] == trans('auth.other')){
+            $institution = $data['other-institution'];
+          }
           $new_user = User::create([
               'name' => $data['name'],
               'email' => $data['email'],
               'password' => bcrypt($data['password']),
+              'institution' => $institution,
+              'course' => $data['course'],
           ]);
 
+          //Student by default
           $new_user->roles()->attach(2);
         }
 

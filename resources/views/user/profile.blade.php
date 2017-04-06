@@ -17,7 +17,7 @@
         @endif
     </div>
 
-    <div class="row login_box">
+    <div class="row profile-box">
 
 
         <div class="col-md-12 col-xs-12" align="center">
@@ -28,11 +28,21 @@
             {{--</div>--}}
             <div class="outter"><img src="{{ $user->gravatar }}?s=200" class="image-circle"/></div>
 
-            <h1>{{$user->name}}</h1>
+            <h1>{{getUserName($user)}}</h1>
 
             @if($user->is('student'))
-                @if(count($user->courses)>0)
-                    <h3>{{getUserCourse($user)}}</h3>
+
+
+                @if(isTLUUser($user))
+                    @if(count($user->courses)>0)
+                        <h3>{{getUserCourse($user)}}</h3>
+                    @endif
+                    <h4>{{trans('front.tallinn_university')}}</h4>
+
+
+                @else
+                    <h3>{{$user->course}}</h3>
+                    <h4>{{$user->institution}}</h4>
                 @endif
             @endif
 
@@ -45,7 +55,7 @@
 
         @if($user->is('oppejoud'))
 
-            <div class="col-md-12 profile-project teacher line" align="center">
+            <div class="col-md-12 col-xs-12 profile-project teacher line" align="center">
 
 
                 <h3><a href="{{url('teacher/my-projects')}}">{{trans('project.my_projects')}}</a></h3>
@@ -67,7 +77,7 @@
 
             @if($user->isMemberOfProject())
                 <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}">
-                    <div class="col-md-12 profile-project line" align="center">
+                    <div class="col-md-12 col-xs-12 profile-project line" align="center">
 
                         <h3>
                             {{trans('user.in_team', ['name' => Auth::user()->isMemberOfProject()['name']])}}  <i class="fa fa-external-link"></i>
@@ -78,31 +88,42 @@
                 </a>
 
             @else
+                <a href="{{url('projects/open')}}">
+                    <div class="col-md-12 col-xs-12 profile-project line" align="center">
+                        <h3>
 
-                <div class="col-md-6 col-xs-6 profile-project line" align="center">
-                    <h3>
+                            {{trans('user.not_in_team')}}
 
-                        {{trans('user.not_in_team')}}
-
-                    </h3>
-                </div>
+                        </h3>
+                    </div>
+                </a>
             @endif
 
 
 
             @if(isTLUUser($user))
 
-                <div class="col-md-12 col-xs-12 login_control">
+                <div class="col-md-12 col-xs-12 profile-control" id="contact-email-form">
                     <h3>{{trans('user.contact_email_heading')}}</h3>
-                    <form action="{{ url('/profile/update-contact-email') }}" method="POST" class="form-horizontal new-project">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button class="btn btn-sm btn-info" id="filler">
+                                <i class="fa fa-btn fa-copy"></i>{{trans('user.copy_tlu_address_button')}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <form action="{{ url('/profile/update-contact-email') }}" method="POST" class="form-horizontal contact-email">
                         {{ csrf_field() }}
+
 
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">{{trans('user.contact_email')}}</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ !empty($user->contact_email) ? $user->contact_email : old('email') }}">
+                                <input type="hidden" class="form-control" name="tlu_email" id="tlu_email" value="{{ $user->email }}">
+                                <input type="email" class="form-control contact-email" name="email" value="{{ !empty($user->contact_email) ? $user->contact_email : old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -116,7 +137,7 @@
                         <div class="form-group{{ $errors->has('email_confirmation') ? ' has-error' : '' }}">
                             <label for="email_confirmation" class="col-md-4 control-label">{{trans('user.confirm_contact_email')}}</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email_confirmation" value="{{ !empty($user->contact_email) ? $user->contact_email : old('email') }}">
+                                <input type="email" class="form-control contact-email" name="email_confirmation" value="{{ !empty($user->contact_email) ? $user->contact_email : old('email') }}">
 
                                 @if ($errors->has('email_confirmation'))
                                     <span class="help-block">
@@ -148,7 +169,7 @@
         @if(!isTLUUser($user))
 
 
-            <div class="col-md-12 col-xs-12 login_control">
+            <div class="col-md-12 col-xs-12 profile-control">
                 <h3>{{trans('user.change_password')}}</h3>
                 <form action="{{ url('/profile/update-password') }}" method="POST" class="form-horizontal new-project">
                     {{ csrf_field() }}

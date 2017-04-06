@@ -15,7 +15,8 @@
       'yes_delete' => trans('project.yes_delete'),
       'no' => trans('project.no'),
       'yes' => trans('project.yes'),
-      'finish_project_notification' => trans('project.finish_project_notification')
+      'finish_project_notification' => trans('project.finish_project_notification'),
+      'other_institution' => trans('auth.other')
   ]); ?>
 </script>
 

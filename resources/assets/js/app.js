@@ -316,22 +316,29 @@ jQuery(document).ready(function($) {
   }
 
 
+  //Copy user main TLU email into contact email fields, used on profile page
+  $("#filler").click(fillValues);
+
+
+  function fillValues() {
+    var value = $("#tlu_email").val();
+    var fields= $(".contact-email");
+    fields.each(function (i) {
+      $(this).val(value);
+    });
+  }
 
 
 
-  var $btnSets = $('#responsive'),
-    $btnLinks = $btnSets.find('a');
-
-  $btnLinks.click(function(e) {
-    e.preventDefault();
-    $(this).siblings('a.active').removeClass("active");
-    $(this).addClass("active");
-    var index = $(this).index();
-    $("div.user-menu>div.user-menu-content").removeClass("active");
-    $("div.user-menu>div.user-menu-content").eq(index).addClass("active");
+  //Add custom institution field in user registration form
+  $('#institution').on('change',function(){
+    if( $(this).val() === window.Laravel.other_institution){
+      $("#other-institution").show()
+    }
+    else{
+      $("#other-institution").hide()
+    }
   });
-
-
 
 
 });

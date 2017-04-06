@@ -105,7 +105,7 @@
                 <ul class="list-unstyled list01 tags">
                     @foreach ($project->users as $user)
                         @if ( $user->pivot->participation_role == 'author' )
-                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
+                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
                         @endif
                     @endforeach
                 </ul>

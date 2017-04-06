@@ -175,7 +175,7 @@
                 <ul class="list-unstyled list01 tags">
                     @foreach ($project->users as $user)
                         @if ( $user->pivot->participation_role == 'author' )
-                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ $user->email }})</span></li>
+                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
                         @endif
                     @endforeach
                 </ul>
@@ -296,7 +296,7 @@
                                     / {{ $course->name }}
                                 @endforeach
                             @endif
-                            {{$isTeacher? '('.$user->email.')' : ''}}
+                            {{$isTeacher? '('.getUserEmail($user).')' : ''}}
                                     </span>
                     @else
                         @php
@@ -308,7 +308,7 @@
                                 $firstname = $user->name;
                             }
                         @endphp
-                        <span class="label label-primary">{{ $firstname }} {{$isTeacher? '('.$user->email.')' : ''}}</span>
+                        <span class="label label-primary">{{ $firstname }} {{$isTeacher? '('.getUserEmail($user).')' : ''}}</span>
                     @endif
                 @endif
             @endforeach
@@ -329,7 +329,7 @@
                         @foreach ($project->users as $user)
                             @if ( $user->pivot->participation_role == 'member' )
                                 @php
-                                    $members_emails .=$user->email.',';
+                                    $members_emails .=getUserEmail($user).',';
                                 @endphp
                             @endif
                         @endforeach

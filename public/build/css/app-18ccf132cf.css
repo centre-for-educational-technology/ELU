@@ -9759,7 +9759,7 @@ span.select2-container--default .select2-selection--multiple {
 .see-results {
   font-size: 40%;
 }
-.login_box {
+.profile-box {
   background: #ff8033;
   /* Old browsers */
   background: linear-gradient(to right, #ff4385 0%, #ff8033 100%);
@@ -9770,7 +9770,7 @@ span.select2-container--default .select2-selection--multiple {
   box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.54);
 }
 @media (max-width: 767px) {
-  .login_box {
+  .profile-box {
     background: #ff8033;
     /* Old browsers */
     background: linear-gradient(to right, #ff4385 0%, #ff8033 100%);
@@ -9803,7 +9803,7 @@ span.select2-container--default .select2-selection--multiple {
   background-color: rgba(0, 11, 43, 0.36);
   height: 80px;
 }
-.login_control {
+.profile-control {
   background-color: #FFF;
   padding: 10px;
   padding-top: 30px;
@@ -9819,6 +9819,9 @@ span.select2-container--default .select2-selection--multiple {
 }
 .line {
   border-bottom: 2px solid #ff8033;
+}
+form.contact-email {
+  margin-top: 11px;
 }
 @media (max-width: 992px) {
   .nomargin.search-input {

@@ -50,7 +50,7 @@
                                 <tr>
                                     <td class="table-text"><div>{{ getUserName($user) }}</div></td>
 
-                                    <td class="table-text"><div>{{ $user->email }}</div></td>
+                                    <td class="table-text"><div>{{ getUserEmail($user) }}</div></td>
 
                                     @if ($user->roles != null)
 

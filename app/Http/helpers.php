@@ -170,3 +170,13 @@ function getTeacherProjects(\App\User $user){
   return $projects;
 
 }
+
+
+/**
+ * Get user email or contact email if available
+ * @param \App\User $user
+ * @return mixed
+ */
+function getUserEmail(\App\User $user){
+  return $user->contact_email ? $user->contact_email : $user->email;
+}

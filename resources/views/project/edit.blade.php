@@ -521,7 +521,7 @@
                                                     $members_count++;
                                                 @endphp
                                                 <td class="table-text"><div>{{ getUserName($user) }}</div></td>
-                                                <td class="table-text"><div>{{ $user->email }}</div></td>
+                                                <td class="table-text"><div>{{ getUserEmail($user) }}</div></td>
                                                 <td>
                                                     @if(!$user->courses->isEmpty())
                                                         @foreach($user->courses as $course)
@@ -565,7 +565,7 @@
                                 @foreach ($current_project->users as $user)
                                     @if ( $user->pivot->participation_role == 'member' )
                                         @php
-                                            $members_emails .=$user->email.',';
+                                            $members_emails .=getUserEmail($user).',';
                                         @endphp
                                     @endif
                                 @endforeach

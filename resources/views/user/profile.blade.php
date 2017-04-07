@@ -26,7 +26,7 @@
                     {{--{{Carbon\Carbon::now()->format('d.n.Y')}}--}}
                 {{--</h3>--}}
             {{--</div>--}}
-            <div class="outter"><img src="{{ $user->gravatar }}?s=200" class="image-circle"/></div>
+            <div class="outter"><img src="{{ $user->gravatar }}?s=120&d=mm" class="image-circle"/></div>
 
             <h1>{{getUserName($user)}}</h1>
 

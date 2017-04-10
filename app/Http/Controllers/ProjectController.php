@@ -856,7 +856,7 @@ class ProjectController extends Controller
     $name = $group->name;
     $group->delete();
 
-    return redirect('project/'.$project_id.'/edit')->with('message', 'Grupp ' . $name . ' on kustutanud!');
+    return redirect('project/'.$project_id.'/edit')->with('message', trans('project.group_deleted_notification', ['name' => $group->name]));
   }
 
 

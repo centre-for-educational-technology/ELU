@@ -331,6 +331,7 @@
                                     @endif
 
                                 </select>
+                                <input type="hidden" name="status" value="1" />
                             </div>
                         </div>
 

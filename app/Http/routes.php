@@ -108,7 +108,7 @@ Route::group(['middleware' =>['web']], function () {
           $name = $project->name;
           $project->delete();
 
-          return redirect('teacher/my-projects')->with('message', 'Projekt ' . $name . ' on kustutanud!');
+          return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
 
@@ -199,7 +199,7 @@ Route::group(['middleware' =>['web']], function () {
           $name = $project->name;
           $project->delete();
 
-          return redirect('admin/all-projects')->with('message', 'Projekt ' . $name . ' on kustutanud!');
+          return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
 

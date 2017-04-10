@@ -378,6 +378,9 @@
                                     @endif
 
                                 </select>
+                                @if(!Auth::user()->is('admin'))
+                                    <input type="hidden" name="status" value="1" />
+                                @endif
                             </div>
                         </div>
 

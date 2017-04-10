@@ -116,6 +116,29 @@ function getUserStrippedNameAndCourse(\App\User $user)
   }
 }
 
+
+function getUserFirstName(\App\User $user)
+{
+  if(!empty($user->full_name)){
+    $parts = explode(" ", $user->full_name);
+    $lastname = array_pop($parts);
+    $firstname = implode(" ", $parts);
+
+    return $firstname;
+
+  }else{
+    $parts = explode(" ", $user->name);
+    if (count($parts)>1){
+      $lastname = array_pop($parts);
+      $firstname = implode(" ", $parts);
+    }else{
+      $firstname = $user->name;
+    }
+
+    return $firstname;
+  }
+}
+
 /**
  * Get the group user belongs to
  * @param \App\User $user
@@ -179,4 +202,16 @@ function getTeacherProjects(\App\User $user){
  */
 function getUserEmail(\App\User $user){
   return $user->contact_email ? $user->contact_email : $user->email;
+}
+
+
+function getProjectSemester(\App\Project $project){
+  if ( $project->study_term == 0 ){
+    return trans('project.autumn_semester');
+  }else if($project->study_term == 1){
+    return trans('project.spring_semester');
+  }else{
+    return trans('project.both');
+  }
+
 }

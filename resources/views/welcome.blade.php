@@ -225,7 +225,7 @@
                     <a href="{{ url('/projects/open') }}">
                         <div class="pad">
                             <span class="glyphicon ico-search"></span>
-                            <p><strong>{{trans('search.search')}}</strong> {{trans('front.project_team')}}</p>
+                            <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
                         </div>
                     </a>
                 </div>

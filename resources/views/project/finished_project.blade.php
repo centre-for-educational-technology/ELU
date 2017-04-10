@@ -19,14 +19,6 @@
         <h1>{{ $project->name }}</h1>
 
 
-        <div class="row">
-            <div class="col-xs-7">
-                <div class="form-group nomargin">
-                    <p><input class="form-control" name="share_url" title="Share link" value="{{url('project/'.$project->id)}}"></p>
-                </div>
-            </div>
-        </div>
-
         @if (!empty($project->featured_image))
             <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
         @endif
@@ -38,7 +30,11 @@
         @endif
 
 
-        <p>{!! $project->description !!}</p>
+        <p>{!! $project->summary !!}</p>
+
+
+
+
 
 
 
@@ -46,77 +42,22 @@
 
             <div class="col-md-6">
 
-
-                @if(count($project->getCourses)>0)
-                    <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
-                    <ul class="list-unstyled list01 tags">
-                        @foreach ($project->getCourses as $course)
-                            <li><span class="label label-primary">{{ $course->name }}</span></li>
-                        @endforeach
-                    </ul>
-                @endif
-
-                <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
-                <ul class="list-unstyled list01">
-                    @if ( $project->study_term == 0 )
-                        <li>{{trans('project.autumn_semester')}}</li>
-                    @elseif ( $project->study_term == 1 )
-                        <li>{{trans('project.spring_semester')}}</li>
-                    @elseif ( $project->study_term == 2 )
-                        <li>{{trans('project.both')}}</li>
-                    @endif
-
-                    @if(!empty($project->study_year))
-                        <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
-                    @endif
-
-                </ul>
-
-
-                <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
-                <ul class="list-unstyled list01">
-                    @if ( $project->language == 'et' )
-                        <li>Eesti</li>
-                    @elseif ( $project->language == 'en' )
-                        <li>English</li>
-                    @endif
-                </ul>
-
-
-                @if (!empty($project->extra_info))
-                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                    <p>{!! $project->extra_info !!}</p>
-                @endif
-
-
-                @if (!empty($project->group_link))
-                    <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
-                    <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
-                @endif
-            </div>
-
-
-
-            <div class="col-md-6">
-
-
-
                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
-                <ul class="list-unstyled list01 tags">
-                    @foreach ($project->users as $user)
-                        @if ( $user->pivot->participation_role == 'author' )
-                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
-                        @endif
-                    @endforeach
-                </ul>
 
+                <ul class="list-unstyled list01 tags keywords">
+                @foreach ($project->users as $user)
+                    @if ( $user->pivot->participation_role == 'author' )
+                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
+                    @endif
+                @endforeach
+                </ul>
 
 
 
                 @if(!empty($project->supervisor))
 
                     <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
-                    <ul class="list-unstyled list01 tags">
+                    <ul class="list-unstyled list01 tags keywords">
                         @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
                             <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
                         @endforeach
@@ -125,12 +66,44 @@
                 @endif
 
 
-                <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
-                <ul class="list-unstyled list01 tags keywords">
-                    @foreach (explode(',', $project->tags) as $tag)
-                        <li><span class="label label-primary">{{ $tag }}</span></li>
-                    @endforeach
-                </ul>
+                @if(count($project->getCourses)>0)
+                    <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
+
+                    <ul class="list-unstyled list01 tags keywords">
+                        @foreach ($project->getCourses as $course)
+                            <li><span class="label label-primary">{{ $course->name }}</span></li>
+                        @endforeach
+                    </ul>
+
+                @endif
+
+                <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
+
+                @if(!empty($project->study_year))
+                    <p>{{$project->study_year}}/{{$project->study_year+1}} ({{getProjectSemester($project)}})</p>
+                @endif
+
+
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+                @if (!empty($project->group_link))
+                    <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
+                    <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
+                @endif
+
+                @if (!empty($project->extra_info))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
+                    <p>{!! $project->extra_info !!}</p>
+                @endif
+
+
+
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -155,8 +128,6 @@
         </div>
 
 
-        <h2>{{trans('project.summary_title')}}</h2>
-        <p>{!! $project->summary !!}</p>
 
 
         <h3>{{trans('project.project_groups')}}</h3>
@@ -184,18 +155,24 @@
                                     <div class="col-sm-12">
                                     <h3>{{trans('project.group_members')}}</h3>
 
-                                    <ul class="list-group" group-id="{{$group->id}}">
-                                        @foreach($group->users as $user)
-                                            <li class="list-group-item" user-id="{{$user->id}}">{{getUserStrippedNameAndCourse($user)}}</li>
-                                        @endforeach
-                                    </ul>
+
+                                    @foreach($group->users as $user)
+                                        <span class="label label-primary">{{getUserFirstName($user)}}</span>
+
+                                    @endforeach
+
 
                                     @php
                                         $summary = json_decode($group->summary, true);
                                     @endphp
 
-                                    <!-- Group summary -->
-                                    {!! $summary['summary'] !!}
+                                    <!-- Group impressions -->
+                                    <h3>{{trans('project.group_impressions')}}</h3>
+                                    {!! $summary['impressions'] !!}
+
+                                    <!-- Group experience -->
+                                    <h3>{{trans('project.group_experience')}}</h3>
+                                    {!! $summary['experience'] !!}
 
                                     <!-- Group Embedded media -->
 

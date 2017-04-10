@@ -48,9 +48,13 @@
 
 
 
-        @include('project.all')
 
 
+        @if(isPath('projects/finished'))
+            @include('project.finished_all')
+        @else
+            @include('project.all')
+        @endif
 
 
     </div>

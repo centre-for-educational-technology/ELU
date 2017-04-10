@@ -1196,7 +1196,6 @@ class ProjectController extends Controller
 
     $project = Project::find($id);
     $project->summary = $request->summary;
-    $project->description = $request->description;
 
     $project->save();
 
@@ -1224,18 +1223,31 @@ class ProjectController extends Controller
         }
 
         //Delete previous images
-        if(!empty(json_decode($group->summary, true)['images'])){
-          foreach (json_decode($group->summary, true)['images'] as $image){
+//        if(!empty(json_decode($group->summary, true)['images'])){
+//          foreach (json_decode($group->summary, true)['images'] as $image){
+//
+//            File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+//          }
+//        }
 
-            File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+
+        if(!empty(json_decode($group->summary, true)['images'])){
+          $images = json_decode($group->summary, true)['images'];
+          $new_images = ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null;
+          if($new_images){
+            $images = array_merge($images, $new_images);
           }
+
+        }else{
+          $images = ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null;
         }
 
 
 
         $group_summary = array(
-            'summary' => $request->input('group_summary.'.$group->id),
-            'images' => ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null,
+            'experience' => $request->input('group_experience.'.$group->id),
+            'impressions' => $request->input('group_impressions.'.$group->id),
+            'images' => $images,
             'embedded' => $embedded
         );
 

@@ -24,27 +24,19 @@
                     <form action="{{ url('/project/'.$current_project->id.'/finish') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                        <!-- Project Description -->
+                        <!-- Project Summary -->
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">{{trans('project.description')}}</label>
+                            <label for="summary" class="col-sm-3 control-label">{{trans('project.finished_desc')}}</label>
+
 
                             <div class="col-sm-7">
+                                <p>{{trans('project.finished_desc_desc')}}</p>
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{{ (empty($current_project) ? old('description') : $current_project->description) }}</textarea>
+                                <textarea name="summary" id="summary" class="form-control mceSimple">{!! (empty($current_project) ? old('summary') : $current_project->summary) !!}</textarea>
                             </div>
                         </div>
 
 
-
-                        <!-- Project summary -->
-                        <div class="form-group">
-                            <label for="summary" class="col-sm-3 control-label">{{trans('project.summary')}}</label>
-
-                            <div class="col-sm-7">
-
-                                <textarea name="summary" id="summary" class="form-control mceSimple">{{ (empty($current_project) ? old('summary') : $current_project->summary) }}</textarea>
-                            </div>
-                        </div>
 
 
 
@@ -78,21 +70,14 @@
                                                         @endforeach
                                                         </ul>
 
-                                                        <!-- Group summary -->
-                                                        <div class="form-group">
-                                                            <label for="group_summary" class="col-sm-3 control-label">{{trans('project.impressions')}}</label>
-
-                                                            <div class="col-sm-8">
-
-                                                                <textarea name="group_summary[{{$group->id}}]" id="group_summary[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->summary) ? old('group_summary.'.$group->id) : json_decode($group->summary, true)['summary']) !!}</textarea>
-                                                            </div>
-                                                        </div>
+                                                        <h3>{{trans('project.impressions')}}</h3>
 
                                                         <!-- Group Embedded media -->
                                                         <div class="form-group">
                                                             <label for="group_embedded[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_video_link')}} <p>https://youtu.be/...</p></label>
 
                                                             <div class="col-sm-8">
+                                                                <p>{{trans('project.group_video_link_desc')}}</p>
                                                                 @if(!empty(json_decode($group->summary, true)['embedded']))
                                                                     @php
                                                                         preg_match('/src="([^"]+)"/', (json_decode($group->summary, true)['embedded']), $match);
@@ -119,6 +104,7 @@
 
 
                                                             <div class="col-sm-8">
+                                                                <p>{{trans('project.group_images_desc')}}</p>
 
                                                                 @if ((!empty(json_decode($group->summary, true)['images'])))
                                                                     @foreach(json_decode($group->summary, true)['images'] as $image)
@@ -141,6 +127,33 @@
 
                                                             </div>
 
+                                                        </div>
+
+                                                        <!-- Project impressions -->
+                                                        <div class="form-group">
+                                                            <label for="group_impressions[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_impressions')}}</label>
+
+                                                            <div class="col-sm-8">
+                                                                <p>{{trans('project.group_impressions_desc')}}</p>
+
+                                                                <textarea name="group_impressions[{{$group->id}}]" id="group_impressions[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->summary) ? old('group_impressions.'.$group->id) : json_decode($group->summary, true)['impressions']) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Group summary -->
+                                                        <div class="form-group">
+                                                            <label for="group_experience[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_experience')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <p>{{trans('project.group_experience_desc')}} </p>
+                                                                <p>{{trans('project.group_experience_desc2')}} </p>
+                                                                <p>{{trans('project.group_experience_desc3')}} </p>
+                                                                <p>{{trans('project.group_experience_desc4')}} </p>
+
+
+                                                                <textarea name="group_experience[{{$group->id}}]" id="group_experience[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->summary) ? old('group_experience.'.$group->id) : json_decode($group->summary, true)['experience']) !!}</textarea>
+                                                            </div>
                                                         </div>
 
 

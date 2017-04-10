@@ -25,7 +25,7 @@ return [
     'how.desc' => 'Everything starts with an idea. Ideas can be proposed by the students, members of the teaching staff or by a partner from outside the university. Each ELU project needs to include at least one member of the university teaching staff.',
     'which' => 'Which?',
     'which.desc' => 'ELU course enables students to come forward with solutions to challenges, develop the already existing initiatives further or create something totally new.  The way an ELU project is carried out and its outcome depend on the team and the supervisor.',
-    'project_team' => 'project, team members, supervisors',
+    'project_team' => 'team members and supervisors',
     'i_have_idea' => 'I have an idea',
     'write_down' => 'Write it down',
     'tallinn_university' => 'Tallinn University'

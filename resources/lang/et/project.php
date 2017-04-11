@@ -96,8 +96,8 @@ return [
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk? ',
     'group_experience' => 'ELUkogemus',
     'group_experience_desc' => 'Milliseid teiste erialade teadmisi ELU projektis osaledes omandasite?',
-    'group_experience_desc2' => ' Milliseid erialteadmisi saite ELU projektis osaledes rakendada?',
-    'group_experience_desc3' => ' Mida uut õppisite enda kohta?',
-    'group_experience_desc4' => 'Milliseid ELU projektist saadud kogemused võivad tulevikus kasuks tulla?',
+    'group_experience_desc2' => 'Milliseid erialateadmisi saite ELU projektis osaledes rakendada?',
+    'group_experience_desc3' => 'Mida uut õppisite enda kohta?',
+    'group_experience_desc4' => 'Millised ELU projektist saadud kogemused võivad tulevikus kasuks tulla?',
 
 ];

@@ -274,7 +274,10 @@ jQuery(document).ready(function($) {
       var sortable = Sortable.create(e, {
         group: {
           name: el.attr('group-id'),
-          pull: true
+          pull: true,
+          put: function () {
+            return true;
+          }
         },
         animation: 150,
         handle: '.drag-handle',

@@ -121,16 +121,6 @@
 
 
 
-                            <h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>
-                            <ul class="list-unstyled list01">
-                                @if ( $project->status == 0 )
-                                    <li>{{trans('project.finished')}}</li>
-                                @elseif ( $project->status == 1 )
-                                    <li>{{trans('project.active')}}</li>
-                                @endif
-                            </ul>
-
-
                             <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
                             <ul class="list-unstyled list01">
                                 @if ( $project->language == 'et' )

@@ -16,7 +16,8 @@
       'no' => trans('project.no'),
       'yes' => trans('project.yes'),
       'finish_project_notification' => trans('project.finish_project_notification'),
-      'other_institution' => trans('auth.other')
+      'other_institution' => trans('auth.other'),
+      'csfr_token' => csrf_token()
   ]); ?>
 </script>
 

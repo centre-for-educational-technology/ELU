@@ -140,6 +140,15 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('project/{id}/finish', 'ProjectController@saveFinishedProject');
 
 
+        Route::post('project/{id}/finish/uploadFiles', 'ProjectController@attachGroupGalleryImages');
+
+        Route::post('project/{id}/finish/deleteFile', 'ProjectController@deleteFile');
+
+
+        Route::get('api/group-images', ['as' => 'api/group-images', 'uses' => 'ProjectController@getGroupImages']);
+
+
+
       });
 
 

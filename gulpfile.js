@@ -55,7 +55,8 @@ elixir(function(mix) {
         '../bower/select2/dist/js/select2.full.min.js',
         '../bower/tinymce/tinymce.js',
         '../bower/Sortable/Sortable.js',
-        '../bower/fancybox/dist/jquery.fancybox.js'
+        '../bower/fancybox/dist/jquery.fancybox.js',
+        '../bower/dropzone/dist/dropzone.js'
     ], 'public/js/vendor.js');
 
 

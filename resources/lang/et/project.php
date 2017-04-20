@@ -90,7 +90,7 @@ return [
     'impressions' => 'ELUjäädvustus',
     'group_images' => 'Lae üles pilte',
     'group_images_desc' => 'Kui soovid laadida üles rohkem kui ühe pildi, siis hoia all ctrl/command ning vali ühest kaustast kõik pildid, mida soovid üles laadida',
-    'finished_desc' => 'ELUidee',
+    'finished_desc' => 'Esialgne idee ja eesmärk',
     'group_impressions' => 'ELUelamus',
     'group_impressions_desc' => 'Milline seik/olukord jäi kõige eredamalt ELU projektis osaledes meelde?',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk? ',
@@ -99,5 +99,17 @@ return [
     'group_experience_desc2' => 'Milliseid erialateadmisi saite ELU projektis osaledes rakendada?',
     'group_experience_desc3' => 'Mida uut õppisite enda kohta?',
     'group_experience_desc4' => 'Millised ELU projektist saadud kogemused võivad tulevikus kasuks tulla?',
+
+
+    'group_results' => 'Saavutatud tulemus',
+    'group_activities' => 'Edasised tegevused',
+    'group_reflection' => 'Projekti mured/rõõmud',
+    'group_partners' => 'Projekti partnerid',
+    'students_opinion' => 'Üliõpilaste seisukoht projekti tulemusest',
+    'supervisor_opinion' => 'Juhendaja järeldus projekti tulemusest',
+    'group_materials_types' => 'Valminud materjalid',
+    'group_materials_links' => 'Viited valminud materjalidele'
+
+
 
 ];

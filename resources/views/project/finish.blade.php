@@ -72,27 +72,76 @@
 
                                                         <h3>{{trans('project.impressions')}}</h3>
 
-                                                        <!-- Group Embedded media -->
+
+
+
+                                                        <!-- Group results -->
                                                         <div class="form-group">
-                                                            <label for="group_embedded[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_video_link')}} <p>https://youtu.be/...</p></label>
+                                                            <label for="group_results[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_results')}}</label>
 
                                                             <div class="col-sm-8">
-                                                                <p>{{trans('project.group_video_link_desc')}}</p>
-                                                                @if(!empty(json_decode($group->summary, true)['embedded']))
-                                                                    @php
-                                                                        preg_match('/src="([^"]+)"/', (json_decode($group->summary, true)['embedded']), $match);
 
-                                                                        $embedded = $match[1];
-
-                                                                    @endphp
-                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!! $embedded !!}">
-                                                                @else
-                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id)!!}">
-
-                                                                @endif
+                                                                <textarea name="group_results[{{$group->id}}]" id="group_results[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->results) ? old('group_results.'.$group->id) : $group->results) !!}</textarea>
                                                             </div>
                                                         </div>
 
+
+                                                        <!-- Group activities -->
+                                                        <div class="form-group">
+                                                            <label for="group_activities[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_activities')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <textarea name="group_activities[{{$group->id}}]" id="group_activities[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->activities) ? old('group_activities.'.$group->id) : $group->activities) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group reflection -->
+                                                        <div class="form-group">
+                                                            <label for="group_reflection[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_reflection')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <textarea name="group_reflection[{{$group->id}}]" id="group_reflection[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->reflection) ? old('group_reflection.'.$group->id) : $group->reflection) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group partners -->
+                                                        <div class="form-group">
+                                                            <label for="group_partners[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_partners')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_partners[{{$group->id}}]" id="group_partners[{{$group->id}}]" class="form-control" value="{{  (empty($group->partners)? old('group_partners.'.$group->id) :  $group->partners) }}">
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group students opinion -->
+                                                        <div class="form-group">
+                                                            <label for="group_students_opinion[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.students_opinion')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_students_opinion[{{$group->id}}]" id="group_students_opinion[{{$group->id}}]" class="form-control" value="{{ (empty($group->students_opinion)? old('group_students_opinion.'.$group->id) : $group->students_opinion) }}">
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group supervisor opinion -->
+                                                        <div class="form-group">
+                                                            <label for="group_supervisor_opinion[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.supervisor_opinion')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_supervisor_opinion[{{$group->id}}]" id="group_supervisor_opinion[{{$group->id}}]" class="form-control" value="{{ (empty($group->supervisor_opinion)? old('group_supervisor_opinion.'.$group->id) : $group->supervisor_opinion) }}">
+
+                                                            </div>
+                                                        </div>
 
 
                                                         <!--Group images -->
@@ -101,60 +150,84 @@
                                                             <label for="group_images[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_images')}}<p>{{trans('project.can_upload_multiple')}}</p></label>
 
 
-
-
                                                             <div class="col-sm-8">
                                                                 <p>{{trans('project.group_images_desc')}}</p>
 
-                                                                @if ((!empty(json_decode($group->summary, true)['images'])))
-                                                                    @foreach(json_decode($group->summary, true)['images'] as $image)
+                                                                <div class="dropzone" id="groupImagesUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}"></div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!-- Group Embedded media -->
+                                                        <div class="form-group">
+                                                            <label for="group_embedded[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_video_link')}} <p>https://youtu.be/...</p></label>
+
+                                                            <div class="col-sm-8">
+                                                                <p>{{trans('project.group_video_link_desc')}}</p>
+                                                                @if(!empty($group->embedded))
+                                                                    @php
+                                                                        preg_match('/src="([^"]+)"/', $group->embedded, $match);
+
+                                                                        $embedded = $match[1];
+
+                                                                    @endphp
+                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!! $embedded !!}">
+                                                                @else
+                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id) !!}">
+
+                                                                @endif
+                                                            </div>
+                                                        </div>
 
 
 
-                                                                        <div class="col-sm-6">
+                                                        <!-- Group materials types -->
+                                                        <div class="form-group">
+                                                            <label for="group_materials_types[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_types')}} <p>{{trans('project.separated_with_commas')}}</p></label>
 
-                                                                            <p class="thumbnail"><img src="{{url('storage/projects_groups_images/'.$group->id.'/'.$image)}}" class="featured-image-preview"></p>
+                                                            <div class="col-sm-6">
+                                                                <h3><input type="text" name="group_materials_types[{{$group->id}}]" id="group_materials_types[{{$group->id}}]" class="form-control" value="{{ (empty($group->materials_types)? old('group_materials_types.'.$group->id) : $group->materials_types) }}" data-role="tagsinput" /></h3>
+                                                            </div>
+                                                        </div>
 
-                                                                        </div>
+
+                                                        <!-- Group materials links -->
+                                                        <div class="form-group">
+                                                            <label for="group_materials_links[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_links')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+
+                                                            <button class="btn btn-default btn-sm" id="add_links_field_button">Add More Fields</button>
+                                                            <div class="col-sm-6">
+
+                                                                @if(!empty($group->materials_links))
+
+                                                                    @foreach((json_decode($group->materials_links, true)) as $key=>$link)
+                                                                        <div id="group_links{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
+
 
                                                                     @endforeach
 
+                                                                @elseif(!empty(old('group_materials_links.'.$group->id)))
+
+
+                                                                    @foreach(old('group_materials_links.'.$group->id) as $key=>$link)
+                                                                        <div id="group_links{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
+
+
+                                                                    @endforeach
+
+                                                                @else
+
+                                                                    {{--<input type="url" name="group_materials_links[{{$group->id}}]" id="group_materials_links[{{$group->id}}]" class="form-control" value="{{ (empty($group->materials_links)? old('group_materials_tags.'.$group->id) : $group->materials_links) }}" />--}}
+
+                                                                    <div id="group_links1"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links"/></div>
+
+
                                                                 @endif
-
-
-
-                                                                <input type="file" multiple name="group_images[{{$group->id}}][]" class="form-control">
-
                                                             </div>
 
                                                         </div>
 
-                                                        <!-- Project impressions -->
-                                                        <div class="form-group">
-                                                            <label for="group_impressions[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_impressions')}}</label>
-
-                                                            <div class="col-sm-8">
-                                                                <p>{{trans('project.group_impressions_desc')}}</p>
-
-                                                                <textarea name="group_impressions[{{$group->id}}]" id="group_impressions[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->summary) ? old('group_impressions.'.$group->id) : json_decode($group->summary, true)['impressions']) !!}</textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Group summary -->
-                                                        <div class="form-group">
-                                                            <label for="group_experience[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_experience')}}</label>
-
-                                                            <div class="col-sm-8">
-
-                                                                <p>{{trans('project.group_experience_desc')}} </p>
-                                                                <p>{{trans('project.group_experience_desc2')}} </p>
-                                                                <p>{{trans('project.group_experience_desc3')}} </p>
-                                                                <p>{{trans('project.group_experience_desc4')}} </p>
-
-
-                                                                <textarea name="group_experience[{{$group->id}}]" id="group_experience[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->summary) ? old('group_experience.'.$group->id) : json_decode($group->summary, true)['experience']) !!}</textarea>
-                                                            </div>
-                                                        </div>
 
 
                                                     </div>

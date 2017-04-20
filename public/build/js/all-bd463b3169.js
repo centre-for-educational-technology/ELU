@@ -341,7 +341,104 @@ jQuery(document).ready(function($) {
   });
 
 
+
+
+
+
+  // Add new group links input field
+  $('#add_links_field_button').click(function(e){
+    e.preventDefault();
+    var $div = $('div[id^="group_links"]:last-child');
+    console.log($div);
+    var num = parseInt( $div.prop("id").match(/\d+/g), 10 );
+    $('#group_links'+num).clone().prop('id', 'group_links'+(num+1)).insertAfter("#group_links"+num).find(":text").val("");
+  });
+
+
+
 });
+
+Dropzone.autoDiscover = false;
+
+var dropzones = $(".dropzone");
+dropzones.each(function (i) {
+  //Group images upload
+  var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
+  console.log(group_id);
+
+  var project_id = $('#groupImagesUpload').attr("project-id");
+  var dropzone_name = '#groupImagesUpload'+group_id;
+
+   var myDropzone = new Dropzone(dropzone_name, {
+    url: window.Laravel.base_path+"/project/"+project_id+"/finish/uploadFiles",
+    params: {
+      _token: window.Laravel.csfr_token,
+      group_id: group_id
+    },
+    parallelUploads: 20,
+    paramName: "file",
+    maxFilesize: 2, // MB
+
+
+    addRemoveLinks: true,
+    init:function() {
+
+      // Add server images
+      var myDropzone = this;
+
+      $.get(window.Laravel.base_path+"/api/group-images?groupid="+group_id, function(data) {
+
+
+        $.each(data.images, function (key, value) {
+
+          var file = {name: value.name, size: value.size};
+          myDropzone.options.addedfile.call(myDropzone, file);
+          myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path+"/storage/projects_groups_images/"+group_id+"/"+value.name);
+          myDropzone.emit("complete", file);
+
+        });
+      });
+
+      this.on("removedfile", function(file) {
+
+        var btndelete = file.previewElement.querySelector("[data-dz-remove]");
+        if(btndelete.hasAttribute("id")) {
+          var filename = btndelete.getAttribute("id").split('-').pop();
+        }
+
+        $.ajax({
+          url: window.Laravel.base_path+"/project/"+project_id+"/finish/deleteFile",
+          dataType: 'json',
+          delay: 250,
+          method: 'POST',
+          cache: false,
+          data: {
+
+            name: filename,
+            group_id: group_id
+
+          }
+        }).done(function( msg ) {
+          console.log(msg);
+
+        });
+
+      } );
+    },
+    success: function(file, serverResponse) {
+      var fileuploded = file.previewElement.querySelector("[data-dz-name]");
+      fileuploded.innerHTML = serverResponse.newfilename;
+      var btndelete = file.previewElement.querySelector("[data-dz-remove]");
+      btndelete.setAttribute("id", 'delete-media-name-'+serverResponse.newfilename);
+    }
+  });
+});
+
+
+
+
+
+
 
 
 /*

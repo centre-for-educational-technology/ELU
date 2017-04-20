@@ -27,10 +27,15 @@ class FinishedProjectRequest extends Request
 
         $rules = [
             'summary' => 'required|max:9000',
-            'group_impressions.*' => 'required|max:2000',
-            'group_experience.*' => 'required|max:2000',
+            'group_results.*' => 'required|max:2000',
+            'group_activities.*' => 'required|max:2000',
+            'group_partners.*' => 'max:2000',
+            'group_students_opinion.*' => 'required|max:2000',
+            'group_supervisor_opinion.*' => 'required|max:2000',
             'group_embedded.*' =>'active_url',
-            'group_images.*.*' => 'image|max:2048'
+            'group_materials_types.*' => 'max:2000',
+            'group_materials_links.*.*' => 'active_url',
+
 
         ];
 

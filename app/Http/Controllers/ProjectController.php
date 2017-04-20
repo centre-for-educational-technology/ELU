@@ -25,6 +25,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Group;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests\FinishedProjectRequest;
 
@@ -1191,6 +1192,125 @@ class ProjectController extends Controller
 
   }
 
+  public function attachGroupGalleryImages(Request $request) {
+
+    $group = Group::find($request->group_id);
+
+    $input = Input::all();
+
+    $rules = array(
+        'file' => 'image|max:3000',
+    );
+
+    $validation = Validator::make($input, $rules);
+
+    if ($validation->fails()) {
+      return Response::make($validation->errors->first(), 400);
+    }
+
+
+
+    if(!empty(json_decode($group->images, true))){
+      $images = json_decode($group->images, true);
+      $new_image = $this->uploadGroupGalleryImage(Input::file('file'), $group->id);
+      if($new_image){
+        array_push($images, $new_image);
+      }
+
+    }else{
+      $images = array($this->uploadGroupGalleryImage(Input::file('file'), $group->id));
+      $new_image = $images;
+    }
+
+
+
+
+    $group->images = json_encode($images);
+
+    $group->save();
+
+
+
+//
+//    $destinationPath = 'storage/projects_groups_images'; // upload path
+//    $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
+//    $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+//    $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+
+    if ($images) {
+      return Response::json(['newfilename' => $new_image]);
+
+    } else {
+      return Response::json('error', 400);
+    }
+  }
+
+
+  public function deleteFile(Request $request){
+
+
+
+    $image = $request->name;
+
+    $group = Group::find($request->group_id);
+
+
+
+    $images = json_decode($group->images, true);
+
+    if(($key = array_search($image, $images)) !== false) {
+      unset($images[$key]);
+    }
+
+
+    $group->images = json_encode($images);
+
+    $group->save();
+
+
+
+    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+
+    return Response::json([$image, $images]);
+
+
+
+
+  }
+
+
+  /**
+   * Get images related to group api
+   */
+  public function getGroupImages(Request $request){
+
+
+
+    $group = Group::find($request->query('groupid'));
+
+
+    $imageAnswer = [];
+
+    if(!empty(json_decode($group->images, true))){
+      foreach (json_decode($group->images, true) as $image){
+
+        $imageAnswer[] = [
+            'name' => $image,
+            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)
+        ];
+      }
+    }
+
+
+
+
+
+    return response()->json([
+        'images' => $imageAnswer
+    ]);
+  }
+
+
 
   public function saveFinishedProject(FinishedProjectRequest $request, $id){
 
@@ -1222,39 +1342,18 @@ class ProjectController extends Controller
 
         }
 
-        //Delete previous images
-//        if(!empty(json_decode($group->summary, true)['images'])){
-//          foreach (json_decode($group->summary, true)['images'] as $image){
-//
-//            File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
-//          }
-//        }
+
+        $group->results = $request->input('group_results.'.$group->id);
+        $group->activities = $request->input('group_activities.'.$group->id);
+        $group->reflection = $request->input('group_activities.'.$group->id);
+        $group->partners = $request->input('group_partners.'.$group->id);
+        $group->students_opinion = $request->input('group_students_opinion.'.$group->id);
+        $group->supervisor_opinion = $request->input('group_supervisor_opinion.'.$group->id);
+        $group->embedded = $embedded;
+        $group->materials_types = $request->input('group_materials_types.'.$group->id);
+        $group->materials_links = json_encode($request->input('group_materials_links.'.$group->id));
 
 
-        if(!empty(json_decode($group->summary, true)['images'])){
-          $images = json_decode($group->summary, true)['images'];
-          $new_images = ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null;
-          if($new_images){
-            $images = array_merge($images, $new_images);
-          }
-
-        }else{
-          $images = ($request->file('group_images.'.$group->id)[0] != null)? $this->uploadGroupGalleryImages($request, $group->id) : null;
-        }
-
-
-
-        $group_summary = array(
-            'experience' => $request->input('group_experience.'.$group->id),
-            'impressions' => $request->input('group_impressions.'.$group->id),
-            'images' => $images,
-            'embedded' => $embedded
-        );
-
-
-
-
-        $group->summary = json_encode($group_summary);
 
         $group->save();
 
@@ -1302,7 +1401,7 @@ class ProjectController extends Controller
   /**
    * Upload group gallery multiple images
    */
-  private function uploadGroupGalleryImages(&$request, $id){
+  private function uploadGroupGalleryImage($image, $id){
 
     if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
       // path does not exist
@@ -1312,32 +1411,29 @@ class ProjectController extends Controller
 
     $destinationPath = 'storage/projects_groups_images/'.$id.'/';
 
-    $images = $request->file('group_images.'.$id);
-
-    $saved_images = [];
-
-    foreach ($images as $image){
 
 
-      $extension = $image->getClientOriginalExtension();
+    $extension = $image->getClientOriginalExtension();
 
-      $fileName = uniqid('img_'.$id.'_').'.'.$extension;
+    $fileName = uniqid('img_'.$id.'_').'.'.$extension;
 
-      $img = Image::make($image);
-      // resize the image to a width of 700 and constrain aspect ratio (auto height)
-      $img->resize(700, null, function ($constraint) {
-        $constraint->aspectRatio();
-      });
+    $img = Image::make($image);
+    // resize the image to a width of 700 and constrain aspect ratio (auto height)
+    $img->resize(700, null, function ($constraint) {
+      $constraint->aspectRatio();
+    });
 
-      $img->save($destinationPath.$fileName);
+    $saved = $img->save($destinationPath.$fileName);
 
 
-      array_push($saved_images, $fileName);
-
+    if($saved){
+      return($fileName);
+    }else{
+      return false;
     }
 
 
-    return($saved_images);
+
 
 
 

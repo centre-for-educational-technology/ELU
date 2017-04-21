@@ -70,7 +70,7 @@
                                                         @endforeach
                                                         </ul>
 
-                                                        <h3>{{trans('project.impressions')}}</h3>
+                                                        <h3>{{trans('project.group_results_heading')}}</h3>
 
 
 

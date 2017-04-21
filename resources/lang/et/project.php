@@ -87,13 +87,14 @@ return [
     'remove_file' => 'Kustuta',
     'add_field' => 'Lisa väli',
 
-
+  
     'group_video_link' => 'Lae üles videosid (YouTube, Vimeo, etc.)',
     'group_video_link_desc' => 'Kui soovid laadida üles rohkem kui ühe video, siis tee youtube’s playlist ning lisa lõppenud projekti vormile playlisti link',
     'group_images' => 'Lae üles pilte',
     'group_images_desc' => 'Kui soovid laadida üles rohkem kui ühe pildi, siis hoia all ctrl/command ning vali ühest kaustast kõik pildid, mida soovid üles laadida',
     'finished_desc' => 'Esialgne idee ja eesmärk',
-    'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk? ',
+    'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk?',
+    'group_results_heading' => 'Rühma tulemused',
 
     'group_results' => 'Saavutatud tulemus',
     'group_activities' => 'Edasised tegevused',

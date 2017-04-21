@@ -87,7 +87,10 @@ return [
     'yes_delete' => 'Yes, delete!',
     'no' => 'No',
     'yes' => 'Yes',
-    'finish_project_notification' => 'Please add project members to team/teams'
+    'finish_project_notification' => 'Please add project members to team/teams',
+    'drop_files_upload' => 'Drop images here for upload',
+    'remove_file' => 'Remove',
+    'add_field' => 'Add field',
 
 
 ];

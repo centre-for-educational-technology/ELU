@@ -17,7 +17,8 @@
       'yes' => trans('project.yes'),
       'finish_project_notification' => trans('project.finish_project_notification'),
       'other_institution' => trans('auth.other'),
-      'csfr_token' => csrf_token()
+      'csfr_token' => csrf_token(),
+      'remove_file_button' => trans('project.remove_file')
   ]); ?>
 </script>
 

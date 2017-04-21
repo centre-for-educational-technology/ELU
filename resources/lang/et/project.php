@@ -83,23 +83,17 @@ return [
     'no' => 'Ei',
     'yes' => 'Jah',
     'finish_project_notification' => 'Palun lisa projekti liikmed rühma või rühmi',
+    'drop_files_upload' => 'Lohista pildid siia',
+    'remove_file' => 'Kustuta',
+    'add_field' => 'Lisa väli',
 
 
     'group_video_link' => 'Lae üles videosid (YouTube, Vimeo, etc.)',
     'group_video_link_desc' => 'Kui soovid laadida üles rohkem kui ühe video, siis tee youtube’s playlist ning lisa lõppenud projekti vormile playlisti link',
-    'impressions' => 'ELUjäädvustus',
     'group_images' => 'Lae üles pilte',
     'group_images_desc' => 'Kui soovid laadida üles rohkem kui ühe pildi, siis hoia all ctrl/command ning vali ühest kaustast kõik pildid, mida soovid üles laadida',
     'finished_desc' => 'Esialgne idee ja eesmärk',
-    'group_impressions' => 'ELUelamus',
-    'group_impressions_desc' => 'Milline seik/olukord jäi kõige eredamalt ELU projektis osaledes meelde?',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk? ',
-    'group_experience' => 'ELUkogemus',
-    'group_experience_desc' => 'Milliseid teiste erialade teadmisi ELU projektis osaledes omandasite?',
-    'group_experience_desc2' => 'Milliseid erialateadmisi saite ELU projektis osaledes rakendada?',
-    'group_experience_desc3' => 'Mida uut õppisite enda kohta?',
-    'group_experience_desc4' => 'Millised ELU projektist saadud kogemused võivad tulevikus kasuks tulla?',
-
 
     'group_results' => 'Saavutatud tulemus',
     'group_activities' => 'Edasised tegevused',

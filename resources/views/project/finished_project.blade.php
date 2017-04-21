@@ -162,41 +162,84 @@
                                     @endforeach
 
 
-                                    @php
-                                        $summary = json_decode($group->summary, true);
-                                    @endphp
+                                    <!-- Group results -->
+                                    <h3>{{trans('project.group_results')}}</h3>
+                                    {!! $group->results !!}
 
-                                    <!-- Group impressions -->
-                                    <h3>{{trans('project.group_impressions')}}</h3>
-                                    {!! $summary['impressions'] !!}
+                                    <!-- Group activities -->
+                                    <h3>{{trans('project.group_activities')}}</h3>
+                                    {!! $group->activities !!}
 
-                                    <!-- Group experience -->
-                                    <h3>{{trans('project.group_experience')}}</h3>
-                                    {!! $summary['experience'] !!}
+
+                                    <!-- Group reflection -->
+                                    <h3>{{trans('project.group_reflection')}}</h3>
+                                    {!! $group->reflection !!}
+
+
+                                    <!-- Group partners -->
+                                    <h3>{{trans('project.group_partners')}}</h3>
+                                    {{ $group->partners }}
+
+
+                                    <!-- Group students opinion -->
+                                    <h3>{{trans('project.students_opinion')}}</h3>
+                                    {{ $group->students_opinion }}
+
+
+                                    <!-- Group supervisor opinion -->
+                                    <h3>{{trans('project.supervisor_opinion')}}</h3>
+                                    {{ $group->supervisor_opinion }}
 
                                     <!-- Group Embedded media -->
 
-                                    @if(!empty($summary['embedded']))
+                                    @if(!empty($group->embedded))
+                                        <div class="row">
 
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            {!! $summary['embedded'] !!}
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                {!! $group->embedded !!}
+                                            </div>
                                         </div>
                                     @endif
 
                                     </div>
 
 
+                                    @php
+                                        $images= json_decode($group->images, true);
+                                    @endphp
+
                                     <!--Group images -->
-                                    @if(!empty($summary['images']))
-                                        @foreach($summary['images'] as $image)
-                                            <div class="col-sm-6">
-                                                <p class="thumbnail"><a data-fancybox="gallery" href="{{url('storage/projects_groups_images/'.$group->id.'/'.$image)}}"><img src="{{url('storage/projects_groups_images/'.$group->id.'/'.$image)}}"></a></p>
+                                    @if(!empty($images))
+                                        <div class="row">
+                                            @foreach($images as $image)
+                                                <div class="col-sm-6">
+                                                    <p class="thumbnail"><a data-fancybox="gallery" href="{{url('storage/projects_groups_images/'.$group->id.'/'.$image)}}"><img src="{{url('storage/projects_groups_images/'.$group->id.'/'.$image)}}"></a></p>
 
-                                            </div>
+                                                </div>
 
-                                        @endforeach
+                                            @endforeach
+                                        </div>
 
                                     @endif
+
+
+                                    <!-- Group materials types  -->
+                                    <h3>{{trans('project.group_materials_types')}}</h3>
+
+                                    @foreach (explode(',', $group->materials_types) as $material)
+                                        <span class="label label-primary">{{$material}}</span>
+                                    @endforeach
+
+
+                                    <!-- Group materials links  -->
+                                    <h3>{{trans('project.group_materials_links')}}</h3>
+
+                                    @foreach (json_decode($group->materials_links, true) as $link)
+                                        <ul class="group-materials-links">
+                                            <li><a href="{{$link}}">{{$link}}</a></li>
+                                        </ul>
+                                    @endforeach
+
 
 
 

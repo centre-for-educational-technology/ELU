@@ -1345,7 +1345,7 @@ class ProjectController extends Controller
 
         $group->results = $request->input('group_results.'.$group->id);
         $group->activities = $request->input('group_activities.'.$group->id);
-        $group->reflection = $request->input('group_activities.'.$group->id);
+        $group->reflection = $request->input('group_reflection.'.$group->id);
         $group->partners = $request->input('group_partners.'.$group->id);
         $group->students_opinion = $request->input('group_students_opinion.'.$group->id);
         $group->supervisor_opinion = $request->input('group_supervisor_opinion.'.$group->id);

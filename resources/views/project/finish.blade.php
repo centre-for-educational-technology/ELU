@@ -153,7 +153,10 @@
                                                             <div class="col-sm-8">
                                                                 <p>{{trans('project.group_images_desc')}}</p>
 
-                                                                <div class="dropzone" id="groupImagesUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}"></div>
+                                                                <div class="dropzone" id="groupImagesUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}">
+                                                                    <div class="dz-message" data-dz-message><span>{{trans('project.drop_files_upload')}}</span></div>
+
+                                                                </div>
 
                                                             </div>
 
@@ -196,7 +199,11 @@
                                                         <div class="form-group">
                                                             <label for="group_materials_links[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_links')}} <p>{{trans('project.separated_with_commas')}}</p></label>
 
-                                                            <button class="btn btn-default btn-sm" id="add_links_field_button">Add More Fields</button>
+
+
+                                                            <button type="button" class="btn btn-default btn-sm add_links_field_button" aria-label="Left Align">
+                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{trans('project.add_field')}}
+                                                            </button>
                                                             <div class="col-sm-6">
 
                                                                 @if(!empty($group->materials_links))

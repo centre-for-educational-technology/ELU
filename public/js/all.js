@@ -342,14 +342,11 @@ jQuery(document).ready(function($) {
 
 
 
-
-
-
   // Add new group links input field
-  $('#add_links_field_button').click(function(e){
+  $('.add_links_field_button').click(function(e){
     e.preventDefault();
     var $div = $('div[id^="group_links"]:last-child');
-    console.log($div);
+
     var num = parseInt( $div.prop("id").match(/\d+/g), 10 );
     $('#group_links'+num).clone().prop('id', 'group_links'+(num+1)).insertAfter("#group_links"+num).find(":text").val("");
   });
@@ -359,12 +356,12 @@ jQuery(document).ready(function($) {
 });
 
 Dropzone.autoDiscover = false;
+Dropzone.prototype.defaultOptions.dictRemoveFile = window.Laravel.remove_file_button;
 
 var dropzones = $(".dropzone");
 dropzones.each(function (i) {
   //Group images upload
   var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
-  console.log(group_id);
 
   var project_id = $('#groupImagesUpload').attr("project-id");
   var dropzone_name = '#groupImagesUpload'+group_id;
@@ -395,6 +392,8 @@ dropzones.each(function (i) {
           myDropzone.options.addedfile.call(myDropzone, file);
           myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path+"/storage/projects_groups_images/"+group_id+"/"+value.name);
           myDropzone.emit("complete", file);
+          var btndelete = file.previewElement.querySelector("[data-dz-remove]");
+          btndelete.setAttribute("id", 'delete-media-name-'+value.name);
 
         });
       });

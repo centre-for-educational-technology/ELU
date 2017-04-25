@@ -94,7 +94,7 @@ return [
     'group_images_desc' => 'Kui soovid laadida üles rohkem kui ühe pildi, siis hoia all ctrl/command ning vali ühest kaustast kõik pildid, mida soovid üles laadida',
     'finished_desc' => 'Esialgne idee ja eesmärk',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk?',
-    'group_results_heading' => 'Rühma kokkuvõted',
+    'group_results_heading' => 'Rühma kokkuvõte',
 
     'group_results' => 'Saavutatud tulemus',
     'group_activities' => 'Edasised tegevused',

@@ -201,15 +201,16 @@
 
 
 
-                                                            <button type="button" class="btn btn-default btn-sm add_links_field_button" aria-label="Left Align">
+                                                            <button type="button" class="btn btn-default btn-sm add_links_field_button" group-id="{{$group->id}}" aria-label="Left Align">
                                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{trans('project.add_field')}}
                                                             </button>
+
                                                             <div class="col-sm-6">
 
                                                                 @if(!empty($group->materials_links))
 
                                                                     @foreach((json_decode($group->materials_links, true)) as $key=>$link)
-                                                                        <div id="group_links{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
+                                                                        <div class="links" id="group_links_{{$group->id}}_{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
 
 
                                                                     @endforeach
@@ -218,7 +219,7 @@
 
 
                                                                     @foreach(old('group_materials_links.'.$group->id) as $key=>$link)
-                                                                        <div id="group_links{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
+                                                                        <div id="group_links_{{$group->id}}_{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
 
 
                                                                     @endforeach
@@ -227,7 +228,7 @@
 
                                                                     {{--<input type="url" name="group_materials_links[{{$group->id}}]" id="group_materials_links[{{$group->id}}]" class="form-control" value="{{ (empty($group->materials_links)? old('group_materials_tags.'.$group->id) : $group->materials_links) }}" />--}}
 
-                                                                    <div id="group_links1"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links"/></div>
+                                                                    <div id="group_links_{{$group->id}}_1"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links"/></div>
 
 
                                                                 @endif

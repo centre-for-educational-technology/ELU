@@ -1351,7 +1351,14 @@ class ProjectController extends Controller
         $group->supervisor_opinion = $request->input('group_supervisor_opinion.'.$group->id);
         $group->embedded = $embedded;
         $group->materials_types = $request->input('group_materials_types.'.$group->id);
-        $group->materials_links = json_encode($request->input('group_materials_links.'.$group->id));
+        $links = $request->input('group_materials_links.'.$group->id);
+        foreach ($links as $key => $link){
+          if(empty($link)){
+
+            unset($links[$key]);
+          }
+        }
+        $group->materials_links = json_encode($links);
 
 
 

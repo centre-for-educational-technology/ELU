@@ -66,6 +66,20 @@
                 @endif
 
 
+                @if(!empty($project->study_year))
+                    <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
+                    <p>{{$project->study_year}}/{{$project->study_year+1}} ({{getProjectSemester($project)}})</p>
+                @endif
+
+
+            </div>
+
+
+
+            <div class="col-md-6">
+
+
+
                 @if(count($project->getCourses)>0)
                     <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
 
@@ -77,31 +91,11 @@
 
                 @endif
 
-                <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
-
-                @if(!empty($project->study_year))
-                    <p>{{$project->study_year}}/{{$project->study_year+1}} ({{getProjectSemester($project)}})</p>
-                @endif
-
-
-
-
-            </div>
-
-
-
-            <div class="col-md-6">
 
                 @if (!empty($project->group_link))
                     <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
                     <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
                 @endif
-
-                @if (!empty($project->extra_info))
-                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                    <p>{!! $project->extra_info !!}</p>
-                @endif
-
 
 
 
@@ -234,10 +228,12 @@
                                     <!-- Group materials links  -->
                                     <h3>{{trans('project.group_materials_links')}}</h3>
 
-                                    @foreach (json_decode($group->materials_links, true) as $link)
-                                        <ul class="group-materials-links">
-                                            <li><a href="{{$link}}">{{$link}}</a></li>
-                                        </ul>
+                                    @foreach (json_decode($group->materials_links, true) as $key=>$link)
+
+                                            <ul class="group-materials-links">
+                                                <li><a href="{{$link}}">{{$link}}</a></li>
+                                            </ul>
+
                                     @endforeach
 
 

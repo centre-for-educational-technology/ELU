@@ -342,14 +342,22 @@ jQuery(document).ready(function($) {
 
 
 
-  // Add new group links input field
-  $('.add_links_field_button').click(function(e){
-    e.preventDefault();
-    var $div = $('div[id^="group_links"]:last-child');
 
-    var num = parseInt( $div.prop("id").match(/\d+/g), 10 );
-    $('#group_links'+num).clone().prop('id', 'group_links'+(num+1)).insertAfter("#group_links"+num).find(":text").val("");
+  // Add new group links input field
+  var add_links_field_buttons = $(".add_links_field_button");
+
+  add_links_field_buttons.each(function (i, obj) {
+    var group_id = $(obj).attr("group-id");
+    $(obj).click(function(e){
+      e.preventDefault();
+      var $div = $(this).closest( ".form-group").find('.links:last-child');
+      var num = $div.prop("id");
+      num = parseInt(num.split("_").pop());
+      $('#group_links_'+group_id+'_'+num).clone().prop('id', 'group_links_'+group_id+'_'+(num+1)).insertAfter("#group_links_"+group_id+'_'+num).find(":text").val("");
+    });
   });
+
+
 
 
 

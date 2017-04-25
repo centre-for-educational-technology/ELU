@@ -197,7 +197,7 @@
 
                                                         <!-- Group materials links -->
                                                         <div class="form-group">
-                                                            <label for="group_materials_links[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_links')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+                                                            <label for="group_materials_links[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_links')}}</label>
 
 
 

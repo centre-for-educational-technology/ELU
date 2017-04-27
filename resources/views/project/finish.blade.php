@@ -184,62 +184,46 @@
                                                         </div>
 
 
+                                                        <h3>{{trans('project.group_materials_heading')}}</h3>
 
-                                                        <!-- Group materials types -->
-                                                        <div class="form-group">
-                                                            <label for="group_materials_types[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_types')}} <p>{{trans('project.separated_with_commas')}}</p></label>
-
-                                                            <div class="col-sm-6">
-                                                                <h3><input type="text" name="group_materials_types[{{$group->id}}]" id="group_materials_types[{{$group->id}}]" class="form-control" value="{{ (empty($group->materials_types)? old('group_materials_types.'.$group->id) : $group->materials_types) }}" data-role="tagsinput" /></h3>
-                                                            </div>
-                                                        </div>
+                                                        <button type="button" class="btn btn-default btn-sm add_links_field_button" group-id="{{$group->id}}" aria-label="Left Align">
+                                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{trans('project.add_field')}}
+                                                        </button>
 
 
-                                                        <!-- Group materials links -->
-                                                        <div class="form-group">
-                                                            <label for="group_materials_links[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials_links')}}</label>
+                                                        <div class="group-materials">
+                                                        <div id="group-materials_{{$group->id}}_1">
+                                                            <!-- Group material name -->
+                                                            <div class="form-group">
+                                                                <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
 
-
-
-                                                            <button type="button" class="btn btn-default btn-sm add_links_field_button" group-id="{{$group->id}}" aria-label="Left Align">
-                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{trans('project.add_field')}}
-                                                            </button>
-
-                                                            <div class="col-sm-6">
-
-                                                                @if(!empty($group->materials_links))
-
-                                                                    @foreach((json_decode($group->materials_links, true)) as $key=>$link)
-                                                                        <div class="links" id="group_links_{{$group->id}}_{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
-
-
-                                                                    @endforeach
-
-                                                                @elseif(!empty(old('group_materials_links.'.$group->id)))
-
-
-                                                                    @foreach(old('group_materials_links.'.$group->id) as $key=>$link)
-                                                                        <div id="group_links_{{$group->id}}_{{++$key}}"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links" value="{{ $link }}"/></div>
-
-
-                                                                    @endforeach
-
-                                                                @else
-
-                                                                    {{--<input type="url" name="group_materials_links[{{$group->id}}]" id="group_materials_links[{{$group->id}}]" class="form-control" value="{{ (empty($group->materials_links)? old('group_materials_tags.'.$group->id) : $group->materials_links) }}" />--}}
-
-                                                                    <div id="group_links_{{$group->id}}_1"><input type="text" name="group_materials_links[{{$group->id}}][]" id="group_materials_links[{{$group->id}}][]" class="form-control group-links"/></div>
-
-
-                                                                @endif
+                                                                <div class="col-sm-6">
+                                                                    <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>
+                                                                </div>
                                                             </div>
 
+                                                            <!-- Group material link -->
+                                                            <div class="form-group">
+                                                                <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
+
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" name="group_material_link[{{$group->id}}][]" class="form-control group-links"/>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!-- Group material tags -->
+                                                            <div class="form-group">
+                                                                <label for="group_material_tags[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+
+                                                                <div class="col-sm-6">
+                                                                    <h3><input type="text" name="group_material_tags[{{$group->id}}][]" class="form-control" value="" data-role="tagsinput" /></h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
-
+                                                        </div>
 
                                                     </div>
-
 
                                                 @endforeach
                                             </div>

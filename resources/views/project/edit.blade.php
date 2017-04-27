@@ -496,6 +496,47 @@
                 </div>
             </div>
 
+            @if(Auth::user()->is('admin'))
+
+                {{--Add students to project--}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Lisa tudengid käsitsi
+                    </div>
+
+                    <div class="panel-body">
+                        <form action="{{ url('project/'.$current_project->id.'/attach-users') }}" method="POST" class="form-horizontal new-project ">
+                            {{ csrf_field() }}
+
+                            <div class="form-group">
+                                <label for="attached-users" class="col-sm-3 control-label">Tudengite nimed või e-posti aadressid</label>
+
+
+                                <div class="col-sm-6">
+                                    <select class="js-users-data-ajax multiple form-control" id="attached-users" project-id="{{$current_project->id}}" name="attached-users[]" multiple>
+                                        <option value="Otsi tudengi"></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fa fa-btn fa-user"></i>{{trans('project.add_button')}}
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+            @endif
+
             <!-- Current Projects -->
             @if (count($current_project->users) > 0)
                 <div class="panel panel-default">
@@ -664,47 +705,6 @@
                 @endif
             @endif
 
-
-            @if(Auth::user()->is('admin'))
-
-            {{--Add students to project--}}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Lisa tudengid käsitsi
-                    </div>
-
-                    <div class="panel-body">
-                        <form action="{{ url('project/'.$current_project->id.'/attach-users') }}" method="POST" class="form-horizontal new-project ">
-                        {{ csrf_field() }}
-
-                            <div class="form-group">
-                                <label for="attached-users" class="col-sm-3 control-label">Tudengite nimed või e-posti aadressid</label>
-
-
-                                <div class="col-sm-6">
-                                    <select class="js-users-data-ajax multiple form-control" id="attached-users" project-id="{{$current_project->id}}" name="attached-users[]" multiple>
-                                        <option value="Otsi tudengi"></option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-6">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fa fa-btn fa-user"></i>{{trans('project.add_button')}}
-                                    </button>
-                                </div>
-                            </div>
-
-
-                        </form>
-
-
-                    </div>
-                </div>
-
-            @endif
 
 
             @if($members_count>0)

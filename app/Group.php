@@ -15,4 +15,9 @@ class Group extends Model
   {
     return $this->belongsToMany('App\User');
   }
+
+  public function materials()
+  {
+    return $this->hasMany('App\GroupMaterial');
+  }
 }

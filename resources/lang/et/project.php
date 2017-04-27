@@ -102,8 +102,8 @@ return [
     'group_partners' => 'Projekti partnerid',
     'students_opinion' => 'Üliõpilaste seisukoht projekti tulemusest',
     'supervisor_opinion' => 'Juhendaja järeldus projekti tulemusest',
-    'group_materials_types' => 'Valminud materjalid',
-    'group_materials_links' => 'Viited valminud materjalidele'
+    'group_materials_heading' => 'Valminud materjalid',
+    'group_material_link' => 'Viide',
 
 
 

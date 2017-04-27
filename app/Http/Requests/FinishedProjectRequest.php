@@ -33,8 +33,10 @@ class FinishedProjectRequest extends Request
             'group_students_opinion.*' => 'required|max:2000',
             'group_supervisor_opinion.*' => 'required|max:2000',
             'group_embedded.*' =>'active_url',
-            'group_materials_types.*' => 'max:2000',
-            'group_materials_links.*.*' => 'active_url',
+
+            'group_material_tags.*.*' => 'max:2000',
+            'group_material_link.*.*' => 'active_url',
+            'group_material_name.*.*' =>  'max:100'
 
 
         ];

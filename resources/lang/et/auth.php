@@ -24,7 +24,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'register' => 'Registreeru',
-    'name' => 'Nimi',
+    'name' => 'Ees- ja perekonnanimi',
     'password' => 'Parool',
     'confirm_password' => 'Kinnita parool',
     'email' => 'E-posti aadress',

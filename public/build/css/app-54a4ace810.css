@@ -9932,11 +9932,6 @@ table span.label {
   margin-top: -20px;
   font-size: 15px;
 }
-.panel.email-list {
-  border: 0px;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-}
 .mailto-list {
   font-size: 80%;
 }

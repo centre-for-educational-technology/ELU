@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\GroupMaterial;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -1350,19 +1351,30 @@ class ProjectController extends Controller
         $group->students_opinion = $request->input('group_students_opinion.'.$group->id);
         $group->supervisor_opinion = $request->input('group_supervisor_opinion.'.$group->id);
         $group->embedded = $embedded;
-        $group->materials_types = $request->input('group_materials_types.'.$group->id);
-        $links = $request->input('group_materials_links.'.$group->id);
-        foreach ($links as $key => $link){
-          if(empty($link)){
-
-            unset($links[$key]);
-          }
-        }
-        $group->materials_links = json_encode($links);
-
 
 
         $group->save();
+
+        $materials_names = $request->input('group_material_name.'.$group->id);
+        $materials_links = $request->input('group_material_link.'.$group->id);
+        $materials_tags = $request->input('group_material_tags.'.$group->id);
+
+
+        if(!empty($materials_names)){
+
+          foreach ($materials_names as $key => $material_name){
+            $group_material = new GroupMaterial;
+            $group_material->name = $materials_names[$key];
+            $group_material->link = $materials_links[$key];
+            $group_material->tags = $materials_tags[$key];
+
+            $group_material->save();
+          }
+
+        }
+        
+
+
 
       }
     }

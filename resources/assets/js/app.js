@@ -350,10 +350,15 @@ jQuery(document).ready(function($) {
     var group_id = $(obj).attr("group-id");
     $(obj).click(function(e){
       e.preventDefault();
-      var $div = $(this).closest( ".form-group").find('.links:last-child');
+      var $div = $(this).closest( ".group-materials").children().last();
+      console.log($(this).closest( "div.group-materials").length);
+      console.log($div.length);
       var num = $div.prop("id");
       num = parseInt(num.split("_").pop());
-      $('#group_links_'+group_id+'_'+num).clone().prop('id', 'group_links_'+group_id+'_'+(num+1)).insertAfter("#group_links_"+group_id+'_'+num).find(":text").val("");
+
+
+      //$('#group_materials__'+group_id+'_'+num).clone().prop('id', 'group_materials_'+group_id+'_'+(num+1)).insertAfter("#group_materials_"+group_id+'_'+num);
+
     });
   });
 

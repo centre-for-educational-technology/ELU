@@ -551,7 +551,9 @@
                                     <th>{{trans('project.user')}}</th>
                                     <th>{{trans('login.email')}}</th>
                                     <th>{{trans('project.course')}}</th>
-                                    <th>&nbsp;</th>
+                                    @if(!Auth::user()->is('project_moderator'))
+                                        <th>&nbsp;</th>
+                                    @endif
                                     </thead>
                                     <tbody>
                                     @php
@@ -573,17 +575,19 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
-                                                        {{ csrf_field() }}
+                                                @if(!Auth::user()->is('project_moderator'))
+                                                    <td>
+                                                        <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
+                                                            {{ csrf_field() }}
 
 
-                                                    </form>
-                                                    <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
-                                                        <i class="fa fa-btn fa-unlink"></i>{{trans('project.delete')}}
-                                                    </button>
+                                                        </form>
+                                                        <button type="submit" id="delete-user-button" class="btn btn-danger pull-right">
+                                                            <i class="fa fa-btn fa-unlink"></i>{{trans('project.delete')}}
+                                                        </button>
 
-                                                </td>
+                                                    </td>
+                                                @endif
                                             @endif
                                         </tr>
                                     @endforeach
@@ -596,40 +600,42 @@
                     </div>
 
                 @if($members_count>0)
-                    <div  class="panel email-list panel-default">
-                        <div class="panel-heading">
-                            <div>{{trans('search.team_emails')}}</div>
-                            <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="col-xs-8 mailto-list">
-                                @php
-                                    $members_emails = '';
-                                @endphp
-                                @foreach ($current_project->users as $user)
-                                    @if ( $user->pivot->participation_role == 'member' )
-                                        @php
-                                            $members_emails .=getUserEmail($user).',';
-                                        @endphp
-                                    @endif
-                                @endforeach
+                    @if(!Auth::user()->is('project_moderator'))
+                        <div  class="panel email-list panel-default">
+                            <div class="panel-heading">
+                                <div>{{trans('search.team_emails')}}</div>
+                                <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-xs-8 mailto-list">
+                                    @php
+                                        $members_emails = '';
+                                    @endphp
+                                    @foreach ($current_project->users as $user)
+                                        @if ( $user->pivot->participation_role == 'member' )
+                                            @php
+                                                $members_emails .=getUserEmail($user).',';
+                                            @endphp
+                                        @endif
+                                    @endforeach
 
 
-                                <div class="form-group nomargin">
-                                    <input class="form-control" name="share_url" title="Members emails" value="{{$members_emails}}">
+                                    <div class="form-group nomargin">
+                                        <input class="form-control" name="share_url" title="Members emails" value="{{$members_emails}}">
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-4">
+
+                                    <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
                                 </div>
 
+
+
                             </div>
-                            <div class="col-xs-4">
-
-                                <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
-                            </div>
-
-
-
                         </div>
-                    </div>
 
+                    @endif
 
 
 
@@ -686,7 +692,7 @@
                                 @foreach ($current_project->groups as $group)
                                     <div class="col-sm-6">
                                         <div class="well">
-                                            <h4>{{$group->name}} <a href="group/delete/{{$group->id}}" data-method="delete" data-token="{{csrf_token()}}"> <i class="fa fa-trash"></i></a></h4>
+                                            <h4>{{$group->name}} <a href="{{url('/project/'.$current_project->id.'/group/delete/'.$group->id)}}" data-method="delete" data-token="{{csrf_token()}}"> <i class="fa fa-trash"></i></a></h4>
                                             <ul class="list-group project-group" group-id="{{$group->id}}">
                                                 @foreach($group->users as $user)
                                                     <li class="list-group-item" user-id="{{$user->id}}"><span class="drag-handle">☰</span> {{getUserName($user)}}</li>

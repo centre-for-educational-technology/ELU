@@ -30,5 +30,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AddSuperAdminRoleSeeder');
         $this->command->info('Super admins added');
+
+        $this->call('AddProjectModeratorRoleSeeder');
+        $this->command->info('Project moderator role added');
     }
 }

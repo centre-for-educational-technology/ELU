@@ -11,6 +11,8 @@ class AddProjectModeratorRoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+      DB::table('roles')->insert(
+          array('id' => 5, 'name' => 'project_moderator')
+      );
     }
 }

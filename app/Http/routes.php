@@ -43,6 +43,35 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('project/new', 'ProjectController@store');
 
 
+        Route::delete('/project/{id}', function ($id) {
+          $project = Project::findOrFail($id);
+
+          $name = $project->name;
+          $project->delete();
+
+          return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
+        });
+
+
+        Route::get('/teacher/my-projects', function () {
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->orderBy('created_at', 'desc')->paginate(5);
+
+
+          return view('user.teacher.my_projects', [
+              'projects' => $projects]);
+        });
+
+        Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
+
+
+      });
+
+
+      //Teacher can do all these as well
+      Route::group(['middleware' =>['project_moderator']], function ($id) {
+
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
 
 
@@ -102,36 +131,13 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/project/{id}', 'ProjectController@update');
 
 
-        Route::delete('/project/{id}', function ($id) {
-          $project = Project::findOrFail($id);
-
-          $name = $project->name;
-          $project->delete();
-
-          return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
-        });
-
-
-        Route::get('/teacher/my-projects', function () {
-          $projects = Project::whereHas('users', function ($q) {
-            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
-          })->orderBy('created_at', 'desc')->paginate(5);
-
-
-          return view('user.teacher.my_projects', [
-              'projects' => $projects]);
-        });
-
-        Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
-
-
         Route::post('project/{id}/add-group', 'ProjectController@addNewProjectGroup');
 
 
         Route::post('api/group/add-user', 'ProjectController@addUserToGroup');
 
 
-        Route::delete('project/{project}/group/delete/{group}', 'ProjectController@deleteProjectGroup');
+        Route::delete('project/{id}/group/delete/{group_id}', 'ProjectController@deleteProjectGroup');
 
 
         Route::get('project/{id}/finish', 'ProjectController@finishProject');
@@ -145,11 +151,11 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('project/{id}/finish/deleteFile', 'ProjectController@deleteFile');
 
 
-        Route::get('api/group-images', ['as' => 'api/group-images', 'uses' => 'ProjectController@getGroupImages']);
-
-
+        Route::get('project/{id}/api/group-images', 'ProjectController@getGroupImages');
 
       });
+
+
 
 
 //    Admin section
@@ -165,6 +171,10 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/admin/users/{id}/add-teacher', 'AdminController@addTeacher');
 
         Route::post('/admin/users/{id}/remove-teacher', 'AdminController@removeTeacher');
+
+        Route::post('/admin/users/{id}/add-project-moderator', 'AdminController@addProjectModerator');
+
+        Route::post('/admin/users/{id}/remove-project-moderator', 'AdminController@removeProjectModerator');
 
 
         Route::get('/admin/users/search', 'AdminController@search');

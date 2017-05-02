@@ -134,6 +134,58 @@ class AdminController extends Controller
 
 
   /**
+   * Add project moderator role to user
+   */
+  public function addProjectModerator(Request $request, $id){
+
+
+
+    $user = User::find($id);
+
+    $user->roles()->attach(5);
+
+
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
+
+
+    return \Redirect::to('admin/users')
+        ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+        ->with('message', $username.' on lisatud projektihaldurite nimekirja!');
+
+  }
+
+
+
+  /**
+   * Remove teacher role from user
+   */
+  public function removeProjectModerator(Request $request, $id){
+
+
+    $user = User::find($id);
+
+    $user->roles()->detach(5);
+
+    if($user->full_name){
+      $username = $user->full_name;
+    }else{
+      $username = $user->name;
+    }
+
+
+    return \Redirect::to('admin/users')
+        ->with('users', User::orderBy('created_at', 'desc')->paginate(10))
+        ->with('message', $username.' on ära võetud projektihaldurite nimekirjast!');
+
+
+  }
+
+
+  /**
    * Search users by
    * name
    * email

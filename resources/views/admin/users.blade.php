@@ -43,6 +43,7 @@
                             <th>Roll</th>
                             <th>Lisa halduriks</th>
                             <th>Lisa õppejõuks</th>
+                            <th>Lisa projektihalduriks</th>
 
                             </thead>
                             <tbody>
@@ -58,7 +59,7 @@
                                             <ul class="list-unstyled list01 tags">
                                                 @foreach ($user->roles as $role)
 
-                                                    <li><span class="label label-info">{{ $role->name }}</span></li>
+                                                    <li><span class="label label-info">{{ trans('nav.'.$role->name) }}</span></li>
                                                 @endforeach
                                             </ul>
 
@@ -76,7 +77,7 @@
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-danger pull-left">
+                                                <button type="submit" class="btn btn-danger pull-left btn-sm">
                                                     <i class="fa fa-btn fa-star"></i>Kustuta
                                                 </button>
                                             </form>
@@ -85,7 +86,7 @@
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-warning pull-left">
+                                                <button type="submit" class="btn btn-warning pull-left btn-sm">
                                                     <i class="fa fa-btn fa-star"></i>Lisa
                                                 </button>
                                             </form>
@@ -106,7 +107,7 @@
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-danger pull-left">
+                                                <button type="submit" class="btn btn-danger pull-left btn-sm">
                                                     <i class="fa fa-btn fa-university"></i>Kustuta
                                                 </button>
                                             </form>
@@ -115,8 +116,36 @@
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-warning pull-left">
+                                                <button type="submit" class="btn btn-warning pull-left btn-sm">
                                                     <i class="fa fa-btn fa-university"></i>Lisa
+                                                </button>
+                                            </form>
+
+
+                                        @endif
+
+                                    </td>
+
+                                    <!-- Assign project moderator Button -->
+                                    <td>
+
+                                        @if ($user->is('project_moderator'))
+
+                                            <form action="{{ url('admin/users/'.$user->id).'/remove-project-moderator' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-danger pull-left btn-sm">
+                                                    <i class="fa fa-btn fa-university"></i>Kustuta
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ url('admin/users/'.$user->id).'/add-project-moderator' }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{--{{ method_field('PATCH') }}--}}
+
+                                                <button type="submit" class="btn btn-warning pull-left btn-sm">
+                                                    <i class="fa fa-btn fa-star-o"></i>Lisa
                                                 </button>
                                             </form>
 

@@ -398,7 +398,7 @@ class ProjectController extends Controller
     })->orderBy('created_at', 'desc')->paginate(5);
 
 
-    return \Redirect::to('teacher/my-projects')
+    return \Redirect::to('project/'.$project->id)
         ->with('message', trans('project.project_changed_notification', ['name' => $project->name]))
         ->with('projects', $projects);
 
@@ -1360,19 +1360,31 @@ class ProjectController extends Controller
         $materials_tags = $request->input('group_material_tags.'.$group->id);
 
 
+        //Delete existing records to override them
+        if(count($group->materials)>0){
+
+          foreach ($group->materials as $material){
+            $material->delete();
+          }
+        }
+
         if(!empty($materials_names)){
 
           foreach ($materials_names as $key => $material_name){
-            $group_material = new GroupMaterial;
-            $group_material->name = $materials_names[$key];
-            $group_material->link = $materials_links[$key];
-            $group_material->tags = $materials_tags[$key];
 
-            $group_material->save();
-          }
+              $group_material = new GroupMaterial;
+              $group_material->name = $materials_names[$key];
+              $group_material->link = $materials_links[$key];
+              $group_material->tags = $materials_tags[$key];
+              $group_material->group_id = $group->id;
+
+              $group_material->save();
+            }
+
+
 
         }
-        
+
 
 
 

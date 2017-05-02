@@ -194,6 +194,53 @@ function getTeacherProjects(\App\User $user){
 
 }
 
+/**
+ * Check if this user is a member of that project
+ * @param $user_id
+ * @param $project_id
+ * @return bool
+ */
+function isMemberOfProject($user_id, $project_id)
+{
+
+  $user = \App\User::find($user_id);
+  $project = \App\Project::find($project_id);
+
+  if(count($user->projects)>0){
+    foreach ($user->projects as $user_project){
+      if($user_project->id == $project->id){
+        return true;
+      }
+    }
+  }
+  return false;
+
+
+}
+
+
+function getGroupUsersCourses(\App\Group $group){
+
+  $courses = array();
+
+  if(count($group->users)>0){
+    foreach ($group->users as $user){
+      $user_course =  getUserCourse($user);
+      if($user_course != ''){
+        array_push($courses, getUserCourse($user));
+      }
+
+
+    }
+
+    return array_count_values($courses);
+  }
+
+  return false;
+
+}
+
+
 
 /**
  * Get user email or contact email if available

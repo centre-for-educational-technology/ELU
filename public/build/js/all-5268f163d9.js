@@ -262,6 +262,13 @@ jQuery(document).ready(function($) {
 
 
   if($("#project_all_members").length) {
+
+    //Project id used by ProjectModerator middleware
+    var url = window.location.pathname;
+    var segments = url.split( '/' );
+    var project_id =  segments[segments.length-2];
+
+
     //Drag and drop project group members functionality
     Sortable.create(project_all_members, {
       group: { name: "project-all-members", pull: true, put:true },
@@ -295,6 +302,7 @@ jQuery(document).ready(function($) {
             cache: false,
             data: {
 
+              id: project_id,
               to: $(itemEl).parent().attr('group-id'),
               from: $(from).attr('group-id'),
               user: $(itemEl).attr('user-id')
@@ -350,18 +358,63 @@ jQuery(document).ready(function($) {
     var group_id = $(obj).attr("group-id");
     $(obj).click(function(e){
       e.preventDefault();
-      var $div = $(this).closest( ".group-materials").children().last();
-      console.log($(this).closest( "div.group-materials").length);
-      console.log($div.length);
+      var $div = $(this).next( ".group-materials").children().last();
+
       var num = $div.prop("id");
+
       num = parseInt(num.split("_").pop());
 
 
-      //$('#group_materials__'+group_id+'_'+num).clone().prop('id', 'group_materials_'+group_id+'_'+(num+1)).insertAfter("#group_materials_"+group_id+'_'+num);
+      console.log(num);
+      var clone = $($div).clone();
+      clone.prop('id', 'group_materials_'+group_id+'_'+(num+1));
+      clone.find("input").val("");
+      clone.insertAfter($div);
+
+      var tagsinput = clone.find('.tags');
+      clone.find('.bootstrap-tagsinput').remove();
+
+      $(tagsinput).attr('name', 'group_material_tags['+group_id+'][]');
+      $(tagsinput).addClass('form-control tags');
+      tagsinput.tagsinput();
+      tagsinput.tagsinput('removeAll');
+
+
+
+
+
+    });
+
+  });
+
+
+
+
+  // Remove group links input field
+  var remove_links_field_button = $(".remove_links_field_button");
+
+  remove_links_field_button.each(function (i, obj) {
+    var group_id = $(obj).attr("group-id");
+    $(obj).click(function(e){
+      e.preventDefault();
+      var $div = $(this).next( "div");
+
+      var num = $div.prop("id");
+
+      num = parseInt(num.split("_").pop());
+
+      if(num>0){
+        $div.remove();
+        this.remove();
+      }
+
+
+
+
+
 
     });
   });
-
 
 
 
@@ -376,12 +429,13 @@ dropzones.each(function (i) {
   //Group images upload
   var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 
-  var project_id = $('#groupImagesUpload').attr("project-id");
+  var project_id = $('#groupImagesUpload'+group_id).attr("project-id");
   var dropzone_name = '#groupImagesUpload'+group_id;
 
    var myDropzone = new Dropzone(dropzone_name, {
     url: window.Laravel.base_path+"/project/"+project_id+"/finish/uploadFiles",
     params: {
+      id: project_id,
       _token: window.Laravel.csfr_token,
       group_id: group_id
     },
@@ -391,12 +445,15 @@ dropzones.each(function (i) {
 
 
     addRemoveLinks: true,
+
     init:function() {
+
 
       // Add server images
       var myDropzone = this;
+      
 
-      $.get(window.Laravel.base_path+"/api/group-images?groupid="+group_id, function(data) {
+      $.get(window.Laravel.base_path+"/project/"+project_id+"/api/group-images?groupid="+group_id, function(data) {
 
 
         $.each(data.images, function (key, value) {
@@ -426,6 +483,7 @@ dropzones.each(function (i) {
           cache: false,
           data: {
 
+            id: project_id,
             name: filename,
             group_id: group_id
 

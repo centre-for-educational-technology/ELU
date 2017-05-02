@@ -169,6 +169,10 @@
                                     <span class="badge"><i class="fa fa-user-secret"></i> {{trans('nav.superadmin')}}</span>
                                 @endif
 
+                                @if (Auth::user()->is('project_moderator'))
+                                    <span class="badge"><i class="fa fa-star-o"></i> {{trans('nav.project_moderator')}}</span>
+                                @endif
+
                                 <span class="caret"></span>
 
                             </a>

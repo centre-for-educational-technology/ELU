@@ -26,9 +26,21 @@
 <div class="row">
 
 
-    <div class="col-md-10 margt content col-md-offset-1">
+    <p class="col-md-10 margt content col-md-offset-1">
 
         <h1>{{ $project->name }}</h1>
+        @if(Auth::user()->is('project_moderator'))
+            <p>
+                <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
+                    {{ csrf_field() }}
+
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
+                    </button>
+                </form>
+            </p>
+
+        @endif
 
 
         <div class="row">

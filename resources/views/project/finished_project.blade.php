@@ -17,6 +17,17 @@
     <div class="col-md-10 margt content col-md-offset-1">
 
         <h1>{{ $project->name }}</h1>
+        @if(Auth::user()->is('project_moderator'))
+            <p>
+                <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
+                    {{ csrf_field() }}
+
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
+                    </button>
+                </form>
+            </p>
+        @endif
 
 
         @if (!empty($project->featured_image))
@@ -150,10 +161,19 @@
                                     <h3>{{trans('project.group_members')}}</h3>
 
 
-                                    @foreach($group->users as $user)
-                                        <span class="label label-primary">{{getUserFirstName($user)}}</span>
+                                    <p>
+                                        @foreach($group->users as $user)
+                                            <span class="label label-primary">{{getUserFirstName($user)}}</span>
 
-                                    @endforeach
+                                        @endforeach
+                                    </p>
+                                    <p>
+                                        @foreach(getGroupUsersCourses($group) as $key => $course)
+
+                                            <span class="label label-primary">{{$key}} ({{$course}})</span>
+
+                                        @endforeach
+                                    </p>
 
 
                                     <!-- Group results -->
@@ -217,26 +237,28 @@
                                     @endif
 
 
-                                    <!-- Group materials types  -->
-                                    <h3>{{trans('project.group_materials_types')}}</h3>
+                                    <!-- Group materials  -->
+                                    <h3>{{trans('project.group_materials_heading')}}</h3>
 
-                                    @foreach (explode(',', $group->materials_types) as $material)
-                                        <span class="label label-primary">{{$material}}</span>
-                                    @endforeach
+                                    @if(count($group->materials)>0)
+                                        <ul class="group-materials-links">
+                                        @foreach ( $group->materials as $key => $material)
+                                                <li>
 
+                                                    <a href="{{$material->link}}" target="_blank">{{$material->name}} <i class="fa phpdebugbar-fa-external-link"></i></a>
 
-                                    <!-- Group materials links  -->
-                                    <h3>{{trans('project.group_materials_links')}}</h3>
+                                                    <p>
+                                                    @foreach (explode(',', $material->tags) as $tag)
+                                                       <span class="label label-primary">{{ $tag }}</span>
+                                                    @endforeach
+                                                    </p>
 
-                                    @foreach (json_decode($group->materials_links, true) as $key=>$link)
+                                                </li>
 
-                                            <ul class="group-materials-links">
-                                                <li><a href="{{$link}}">{{$link}}</a></li>
-                                            </ul>
+                                        @endforeach
 
-                                    @endforeach
-
-
+                                        </ul>
+                                    @endif
 
 
                                 </div>

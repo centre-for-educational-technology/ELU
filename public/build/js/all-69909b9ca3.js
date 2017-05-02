@@ -451,7 +451,7 @@ dropzones.each(function (i) {
 
       // Add server images
       var myDropzone = this;
-      
+
 
       $.get(window.Laravel.base_path+"/project/"+project_id+"/api/group-images?groupid="+group_id, function(data) {
 

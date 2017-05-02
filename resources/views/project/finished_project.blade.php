@@ -161,48 +161,66 @@
                                     <h3>{{trans('project.group_members')}}</h3>
 
 
-                                    <p>
+                                    <ul class="tags keywords">
                                         @foreach($group->users as $user)
-                                            <span class="label label-primary">{{getUserFirstName($user)}}</span>
+                                            <li><span class="label label-primary">{{getUserFirstName($user)}}</span></li>
 
                                         @endforeach
-                                    </p>
-                                    <p>
+                                    </ul>
+                                    <ul class="tags keywords">
                                         @foreach(getGroupUsersCourses($group) as $key => $course)
 
-                                            <span class="label label-primary">{{$key}} ({{$course}})</span>
+                                            <li><span class="label label-orange">{{$key}} ({{$course}})</span></li>
 
                                         @endforeach
-                                    </p>
-
+                                    </ul>
 
                                     <!-- Group results -->
-                                    <h3>{{trans('project.group_results')}}</h3>
-                                    {!! $group->results !!}
+                                    @if(!empty($group->results))
+                                        <h3>{{trans('project.group_results')}}</h3>
+                                        {!! $group->results !!}
+                                    @endif
+
+
 
                                     <!-- Group activities -->
-                                    <h3>{{trans('project.group_activities')}}</h3>
-                                    {!! $group->activities !!}
+                                    @if(!empty($group->activities))
+                                        <h3>{{trans('project.group_activities')}}</h3>
+                                        {!! $group->activities !!}
+                                    @endif
+
 
 
                                     <!-- Group reflection -->
-                                    <h3>{{trans('project.group_reflection')}}</h3>
-                                    {!! $group->reflection !!}
+                                    @if(!empty($group->reflection))
+                                        <h3>{{trans('project.group_reflection')}}</h3>
+                                        {!! $group->reflection !!}
+                                    @endif
+
 
 
                                     <!-- Group partners -->
-                                    <h3>{{trans('project.group_partners')}}</h3>
-                                    {{ $group->partners }}
+                                    @if(!empty($group->partners))
+                                        <h3>{{trans('project.group_partners')}}</h3>
+                                        {{ $group->partners }}
+                                    @endif
+
 
 
                                     <!-- Group students opinion -->
-                                    <h3>{{trans('project.students_opinion')}}</h3>
-                                    {{ $group->students_opinion }}
+                                    @if(!empty($group->students_opinion))
+                                        <h3>{{trans('project.students_opinion')}}</h3>
+                                        {{ $group->students_opinion }}
+                                    @endif
+
 
 
                                     <!-- Group supervisor opinion -->
-                                    <h3>{{trans('project.supervisor_opinion')}}</h3>
-                                    {{ $group->supervisor_opinion }}
+                                    @if(!empty($group->supervisor_opinion))
+                                        <h3>{{trans('project.supervisor_opinion')}}</h3>
+                                        {{ $group->supervisor_opinion }}
+                                    @endif
+
 
                                     <!-- Group Embedded media -->
 
@@ -238,9 +256,8 @@
 
 
                                     <!-- Group materials  -->
-                                    <h3>{{trans('project.group_materials_heading')}}</h3>
-
                                     @if(count($group->materials)>0)
+                                        <h3>{{trans('project.group_materials_heading')}}</h3>
                                         <ul class="group-materials-links">
                                         @foreach ( $group->materials as $key => $material)
                                                 <li>

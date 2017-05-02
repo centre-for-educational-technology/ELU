@@ -9860,6 +9860,7 @@ html {
 body {
   margin: 0 0 60px;
   /* bottom = footer height */
+  font-size: 18px !important;
 }
 .footer {
   width: 100%;

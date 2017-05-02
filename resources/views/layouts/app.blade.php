@@ -225,8 +225,10 @@
         @if(isTLUUser(Auth::user()))
             @if(empty(Auth::user()->contact_email))
                 <div class="container">
-                    <div class="alert alert-danger">
-                        {{trans('user.add_contact_email_notification')}} <a href="{{url('profile#contact-email-form')}}"><i class="fa fa-user"></i></a>
+                    <div class="row">
+                        <div class="alert alert-danger">
+                            {{trans('user.add_contact_email_notification')}} <a href="{{url('profile#contact-email-form')}}"><i class="fa fa-user"></i></a>
+                        </div>
                     </div>
                 </div>
             @endif

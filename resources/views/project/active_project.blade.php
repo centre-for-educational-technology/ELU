@@ -101,7 +101,7 @@
 
                 @if(count($project->getCourses)>0)
                     <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
-                    <ul class="list-unstyled list01 tags">
+                    <ul class="list-unstyled list01 tags keywords">
                         @foreach ($project->getCourses as $course)
                             <li><span class="label label-primary">{{ $course->name }}</span></li>
                         @endforeach

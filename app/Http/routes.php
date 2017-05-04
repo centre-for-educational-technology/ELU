@@ -212,7 +212,7 @@ Route::group(['middleware' =>['web']], function () {
               'projects' => $projects]);
         });
 
-        Route::delete('admin/all-projects/{id}', function ($id) {
+        Route::delete('admin/all-projects/{id}/delete', function ($id) {
           $project = Project::findOrFail($id);
 
           $name = $project->name;

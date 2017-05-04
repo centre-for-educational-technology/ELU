@@ -28,6 +28,7 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
@@ -35,11 +36,18 @@
                                     <tr>
                                         <td class="table-text"><div>{{ $project->name }}</div></td>
 
-                                        @if($project->submitted_by_student == 1)
-                                            <td class="table-text green"><span class="label label-info">tudengi projektiidee</span></td>
-                                        @else
-                                            <td></td>
-                                        @endif
+                                            @if($project->submitted_by_student == 1)
+                                                <td class="table-text green"><span class="label label-info">{{trans('project.student_idea_label')}}</span></td>
+                                            @else
+                                                <td></td>
+                                            @endif
+
+                                            @if($project->requires_review == 0)
+                                                <td class="table-text green"><span class="label label-success">{{trans('project.idea_in_use_label')}}</span></td>
+                                            @else
+                                                <td class="table-text green"><span class="label label-danger">{{trans('project.idea_not_in_use_label')}}</span></td>
+
+                                            @endif
 
                                         <td>
 

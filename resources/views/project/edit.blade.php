@@ -11,7 +11,20 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
+                    @if($current_project->submitted_by_student == 1)
+
+                        @if($current_project->requires_review == 1)
+                            <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}} <span class='label label-info'>{{trans('project.student_idea_label')}}</span> <span class='label label-danger'>{{trans('project.idea_not_in_use_label')}}</span></h3>
+
+                        @else
+                            <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}} <span class='label label-info'>{{trans('project.student_idea_label')}}</span> <span class='label label-success'>{{trans('project.idea_in_use_label')}}</span></h3>
+                        @endif
+                    @else
+                        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
+                    @endif
+
+
+
                 </div>
 
                 <div class="panel-body">
@@ -69,7 +82,45 @@
                             </div>
                         </div>
 
-                        <!-- Project meeting info -->
+
+                        <!-- Student idea info data -->
+                        @if($current_project->submitted_by_student == 1)
+
+                            @if(!empty($current_project->interdisciplinary_desc))
+                                <div class="row">
+                                    <label class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}</label>
+                                    <div class="col-sm-6">
+                                        <p>{{$current_project->interdisciplinary_desc}}</p>
+                                    </div>
+
+                                </div>
+                            @endif
+
+                            @if(!empty($current_project->novelty_desc))
+                                    <div class="row">
+                                        <label class="col-sm-3 control-label">{{trans('project.novelty_desc')}}</label>
+                                        <div class="col-sm-6">
+                                            <p>{{$current_project->novelty_desc}}</p>
+                                        </div>
+
+                                    </div>
+                            @endif
+
+                            @if(!empty($current_project->author_management_skills))
+                                <div class="row">
+                                    <label class="col-sm-3 control-label">{{trans('project.author_management_skills')}}</label>
+                                    <div class="col-sm-6">
+                                        <p>{{$current_project->author_management_skills}}</p>
+                                    </div>
+
+                                </div>
+                            @endif
+
+
+                        @endif
+
+
+                    <!-- Project meeting info -->
                         <div class="form-group">
                             <label for="meeting_info" class="col-sm-3 control-label">{{trans('project.meeting_info')}}</label>
 

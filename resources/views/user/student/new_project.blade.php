@@ -26,11 +26,42 @@
 
                     <!-- Project Description -->
                     <div class="form-group">
+
                         <label for="description" class="col-sm-3 control-label">{{trans('project.description')}}</label>
 
                         <div class="col-sm-6">
-
                             <textarea name="description" id="description" class="form-control">{{  old('description') }}</textarea>
+                        </div>
+                    </div>
+
+
+                    <!-- Project Interdisciplinary Desc -->
+                    <div class="form-group">
+                        <label for="interdisciplinary_desc" class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}</label>
+
+                        <div class="col-sm-6">
+                            <p>{{trans('project.interdisciplinary_desc_desc')}}</p>
+                            <textarea name="interdisciplinary_desc" id="interdisciplinary_desc" class="form-control">{{  old('interdisciplinary_desc') }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Project Novelty Desc -->
+                    <div class="form-group">
+                        <label for="novelty_desc" class="col-sm-3 control-label">{{trans('project.novelty_desc')}}</label>
+
+                        <div class="col-sm-6">
+
+                            <textarea name="novelty_desc" id="novelty_desc" class="form-control">{{  old('novelty_desc') }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Author Management Skills -->
+                    <div class="form-group">
+                        <label for="author_management_skills" class="col-sm-3 control-label">{{trans('project.author_management_skills')}}</label>
+
+                        <div class="col-sm-6">
+
+                            <textarea name="author_management_skills" id="author_management_skills" class="form-control">{{  old('author_management_skills') }}</textarea>
                         </div>
                     </div>
 
@@ -240,15 +271,15 @@
                         </div>
                     </div>
 
-                    <!-- Tags -->
-                    <div class="form-group">
-                        <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+                    {{--<!-- Tags -->--}}
+                    {{--<div class="form-group">--}}
+                        {{--<label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>--}}
 
 
-                        <div class="col-sm-6">
-                            <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />
-                        </div>
-                    </div>
+                        {{--<div class="col-sm-6">--}}
+                            {{--<input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
 
                     <!-- Extra info -->
@@ -261,12 +292,27 @@
                     </div>
 
 
+                    <h3>{{trans('project.idea_info_text_heading')}}</h3>
+                    <h4>{{trans('project.idea_info_text_subheading')}}</h4>
+                    <ul>
+                        <li>{{trans('project.idea_info_text_1')}}</li>
+                        <li>{{trans('project.idea_info_text_2')}}</li>
+                        <li>{{trans('project.idea_info_text_3')}}</li>
+                        <li>{{trans('project.idea_info_text_4')}}</li>
+                        <li>{{trans('project.idea_info_text_5')}}</li>
+                        <li>{{trans('project.idea_info_text_6')}}</li>
+                        <li>{{trans('project.idea_info_text_7')}}</li>
+                        <li>{{trans('project.idea_info_text_8')}}</li>
+
+                    </ul>
+
+
 
                     <!-- Add Project Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-plus"></i>{{trans('project.send')}}
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fa fa-btn fa-paper-plane"></i>{{trans('project.send')}}
                             </button>
                         </div>
                     </div>

@@ -95,7 +95,6 @@ return [
     'finished_desc' => 'Esialgne idee ja eesmärk',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk?',
     'group_results_heading' => 'Rühma kokkuvõte',
-
     'group_results' => 'Saavutatud tulemus',
     'group_activities' => 'Edasised tegevused',
     'group_reflection' => 'Projekti mured/rõõmud',
@@ -104,6 +103,27 @@ return [
     'supervisor_opinion' => 'Juhendaja järeldus projekti tulemusest',
     'group_materials_heading' => 'Valminud materjalid',
     'group_material_link' => 'Viide',
+	
+		'interdisciplinary_desc' => 'Interdistsiplinaarne lähenemisviis ja selle rakendamine',
+		'interdisciplinary_desc_desc' => 'Probleemi mõtestamine teise eriala perspektiivist, kokkupuutepunktide otsimine, teoreetilistest/ metodoloogilistest erinevustest uute võimaluste leidmine, loovuse arendamine.',
+		'novelty_desc' => 'Teaduspõhisus ja uudsus',
+		'author_management_skills' => 'Projektijuhtimise alusteadmised',
+		'idea_info_text_heading' => 'ELU projekti juhtides tuleb tagada õppeaine õpiväljundid.',
+		'idea_info_text_subheading' => 'Üliõpilane:',
+		'idea_info_text_1' => 'kasutab meeskonnaliikmetega koostöös loodud ELU kavandis korrektselt projektijuhtimise ja interdistsiplinaarse lähenemise põhimõisteid;',
+		'idea_info_text_2' => 'loob ELU planeerimisel distsipliinidevahelisi seoseid ja analüüsib teiste erialade perspektiivi lähtudes püstitatud projekti lahendusvõimalustest;',
+		'idea_info_text_3' => 'kasutab ELU algatamisel ja elluviimisel probleemi äratundmise ja lahendamise ning ajajuhtimise oskuseid;',
+		'idea_info_text_4' => 'kasutab ELU elluviimise käigus omandatud uusi erialaseid teadmisi tuues ELU kaitsmisel välja nende valdkondadevahelised rakendamisvõimalused;',
+		'idea_info_text_5' => 'osaleb tulemuslikult meeskonnatöös ELU projekti planeerimisel, elluviimisel ja kaitsmisel;',
+		'idea_info_text_6' => 'analüüsib projekti edenemist ja selle tulemuslikkust, hinnates oma tegevusi kriitiliselt ja kavandades parendusmeetmeid;',
+		'idea_info_text_7' => 'seostab oma eriala ja laiemate ühiskondlike ning intersektoraalsete probleemidega, arutledes nende küsimuste üle erinevatel tegevuste tasanditel ja põhjendades oma arvamust;',
+		'idea_info_text_8' => 'analüüsib enesereflektsioonis enese kui ELU meeskonnaliikme rolli ja kohustuste täitmist ning oma panust meeskonna tegevusse.',
+		'student_idea_label' => 'tudengi projektiidee',
+		'idea_in_use_label' => 'kasutusel',
+		'idea_not_in_use_label' => 'kasutamata'
+
+
+
 
 
 

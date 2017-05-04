@@ -359,7 +359,7 @@ class ProjectController extends Controller
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
 
-    $project->submitted_by_student = false;
+    $project->requires_review = false;
 
 
 
@@ -399,7 +399,10 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('project/'.$project->id)
-        ->with('message', trans('project.project_changed_notification', ['name' => $project->name]))
+		    ->with('message', [
+				    'text' => trans('project.project_changed_notification', ['name' => $project->name]),
+				    'type' => 'changed'
+		    ])
         ->with('projects', $projects);
 
   }
@@ -918,7 +921,10 @@ class ProjectController extends Controller
     $project = new Project;
     $project->name = $request->name;
     $project->description = $request->description;
-
+	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	  $project->novelty_desc = $request->novelty_desc;
+	  $project->author_management_skills = $request->author_management_skills;
+	  
 //    $project->integrated_areas = $request->integrated_areas;
 
     $project->study_term = $request->study_term;
@@ -927,15 +933,20 @@ class ProjectController extends Controller
 
     $project->supervisor = $request->cosupervisors;
 
-    $project->tags = $request->tags;
+//    $project->tags = $request->tags;
 
     $project->publishing_status = 0;
 
     $project->study_year = $request->study_year;
 
     $project->extra_info = $request->extra_info;
+	
+	  $project->status = 1;
 
     $project->submitted_by_student = true;
+	
+	  $project->requires_review = true;
+	  
 
     $project->save();
 

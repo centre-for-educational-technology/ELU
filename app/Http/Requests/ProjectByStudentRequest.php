@@ -26,13 +26,16 @@ class ProjectByStudentRequest extends Request
       return [
           'name' => 'required|max:255',
           'description' => 'required|max:9000',
+	        'interdisciplinary_desc' => 'max:3000',
+		      'novelty_desc' => 'max:3000',
+		      'author_management_skills' => 'max:3000',
 //          'integrated_areas' => 'max:3000',
           'study_term' => 'required',
           'study_areas' => 'required',
 //          'institutes' => 'required',
   //          'supervisors' => 'required',
           'cosupervisors' => 'max:3000',
-          'tags' => 'required|max:3000',
+//          'tags' => 'required|max:3000',
           'extra_info' => 'max:3000'
       ];
     }

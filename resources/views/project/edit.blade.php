@@ -588,6 +588,10 @@
 
             @endif
 
+
+            @php
+                $members_count=0;
+            @endphp
             <!-- Current Projects -->
             @if (count($current_project->users) > 0)
                 <div class="panel panel-default">
@@ -607,9 +611,6 @@
                                     @endif
                                     </thead>
                                     <tbody>
-                                    @php
-                                        $members_count=0;
-                                    @endphp
 
                                     @foreach ($current_project->users as $user)
                                         <tr>

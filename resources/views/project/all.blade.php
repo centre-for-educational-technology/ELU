@@ -102,6 +102,22 @@
                             @endif
 
 
+                            @if (!empty($project->extra_info))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
+                                <p>{!! $project->extra_info !!}</p>
+                            @endif
+
+
+                            @if (!empty($project->group_link))
+                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
+                                <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
+                            @endif
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
 
                             <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                             <ul class="list-unstyled list01">
@@ -129,22 +145,6 @@
                                     <li>English</li>
                                 @endif
                             </ul>
-
-                            @if (!empty($project->extra_info))
-                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                                <p>{!! $project->extra_info !!}</p>
-                            @endif
-
-
-                            @if (!empty($project->group_link))
-                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
-                                <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
-                            @endif
-                        </div>
-
-
-
-                        <div class="col-md-6">
 
 
                             {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}

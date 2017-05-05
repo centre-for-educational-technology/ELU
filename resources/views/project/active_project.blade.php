@@ -119,6 +119,23 @@
                     </ul>
                 @endif
 
+
+                @if (!empty($project->extra_info))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
+                    <p>{!! $project->extra_info !!}</p>
+                @endif
+
+
+                @if (!empty($project->group_link))
+                    <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
+                    <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
+                @endif
+            </div>
+
+
+
+            <div class="col-md-6">
+
                 <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                 <ul class="list-unstyled list01">
                     @if ( $project->study_term == 0 )
@@ -138,11 +155,11 @@
 
                 {{--<h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>--}}
                 {{--<ul class="list-unstyled list01">--}}
-                    {{--@if ( $project->status == 0 )--}}
-                        {{--<li>{{trans('project.finished')}}</li>--}}
-                    {{--@elseif ( $project->status == 1 )--}}
-                        {{--<li>{{trans('project.active')}}</li>--}}
-                    {{--@endif--}}
+                {{--@if ( $project->status == 0 )--}}
+                {{--<li>{{trans('project.finished')}}</li>--}}
+                {{--@elseif ( $project->status == 1 )--}}
+                {{--<li>{{trans('project.active')}}</li>--}}
+                {{--@endif--}}
                 {{--</ul>--}}
 
                 <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
@@ -153,23 +170,6 @@
                         <li>English</li>
                     @endif
                 </ul>
-
-
-                @if (!empty($project->extra_info))
-                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                    <p>{!! $project->extra_info !!}</p>
-                @endif
-
-
-                @if (!empty($project->group_link))
-                    <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
-                    <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
-                @endif
-            </div>
-
-
-
-            <div class="col-md-6">
 
 
                 {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}

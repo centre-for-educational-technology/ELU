@@ -218,7 +218,7 @@ jQuery(document).ready(function($) {
     mode : "textareas",
     theme : "modern",
     language: window.Laravel.language,
-    plugins: "link",
+    plugins: ["link", "paste"],
     menubar: false,
     toolbar: "link",
     removeformat: [
@@ -227,14 +227,15 @@ jQuery(document).ready(function($) {
       {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
     ],
     selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-    editor_selector : "mceSimpleLink"
+    editor_selector : "mceSimpleLink",
+    paste_as_text: true
   });
 
 
   tinyMCE.init({
     mode : "textareas",
     language: window.Laravel.language,
-    plugins: ["link", "lists"],
+    plugins: ["link", "lists", "paste"],
     height : "350",
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
@@ -243,7 +244,8 @@ jQuery(document).ready(function($) {
     ],
     toolbar: "redo undo bold italic numlist bullist link",
     menubar: false,
-    editor_selector : "mceSimple"
+    editor_selector : "mceSimple",
+    paste_as_text: true
   });
 
 

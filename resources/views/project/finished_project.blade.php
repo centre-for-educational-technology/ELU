@@ -202,7 +202,7 @@
                                     <!-- Group partners -->
                                     @if(!empty($group->partners))
                                         <h3>{{trans('project.group_partners')}}</h3>
-                                        {{ $group->partners }}
+                                        <p>{{ $group->partners }}</p>
                                     @endif
 
 
@@ -210,7 +210,7 @@
                                     <!-- Group students opinion -->
                                     @if(!empty($group->students_opinion))
                                         <h3>{{trans('project.students_opinion')}}</h3>
-                                        {{ $group->students_opinion }}
+                                        <p>{{ $group->students_opinion }}</p>
                                     @endif
 
 
@@ -218,7 +218,7 @@
                                     <!-- Group supervisor opinion -->
                                     @if(!empty($group->supervisor_opinion))
                                         <h3>{{trans('project.supervisor_opinion')}}</h3>
-                                        {{ $group->supervisor_opinion }}
+                                        <p>{{ $group->supervisor_opinion }}</p>
                                     @endif
 
 
@@ -233,7 +233,7 @@
                                         </div>
                                     @endif
 
-                                    </div>
+
 
 
                                     @php
@@ -276,7 +276,7 @@
 
                                         </ul>
                                     @endif
-
+                                    </div>
 
                                 </div>
 

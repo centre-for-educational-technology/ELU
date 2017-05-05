@@ -37,10 +37,13 @@
 
                     <!-- Project Interdisciplinary Desc -->
                     <div class="form-group">
-                        <label for="interdisciplinary_desc" class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}</label>
+                        <label for="interdisciplinary_desc" class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}
+                                <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                       </label>
 
                         <div class="col-sm-6">
-                            <p>{{trans('project.interdisciplinary_desc_desc')}}</p>
+
+
                             <textarea name="interdisciplinary_desc" id="interdisciplinary_desc" class="form-control">{{  old('interdisciplinary_desc') }}</textarea>
                         </div>
                     </div>

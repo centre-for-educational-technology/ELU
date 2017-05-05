@@ -74,7 +74,7 @@ return [
     'summary_title' => 'Kokkuvõtted',
     'group_members' => 'Rühma liikmed',
     'save_button' => 'Salvesta ja lõpeta',
-    'finished_and_saved_notification' => 'Projekt ":name" on lõppenud ja tulemused on salvestatud',
+    'finished_and_saved_notification' => 'Projekt ":name" on lõppenud ja tulemused salvestatud',
     'can_upload_multiple' => 'Saab lisada mitu pilte korraga',
     'see_results' => 'Näita tulemusi',
     'are_you_sure_notification' => 'Kas olete kindel?',

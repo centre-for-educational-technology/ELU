@@ -17,7 +17,7 @@
     <div class="col-md-10 margt content col-md-offset-1">
 
         <h1>{{ $project->name }}</h1>
-        @if(Auth::user()->is('project_moderator'))
+        @if(!(Auth::guest()) && Auth::user()->is('project_moderator'))
             <p>
                 <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
                     {{ csrf_field() }}

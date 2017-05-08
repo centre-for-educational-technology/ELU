@@ -18,7 +18,9 @@
       'finish_project_notification' => trans('project.finish_project_notification'),
       'other_institution' => trans('auth.other'),
       'csfr_token' => csrf_token(),
-      'remove_file_button' => trans('project.remove_file')
+      'remove_file_button' => trans('project.remove_file'),
+      'name_or_email_placeholder' => trans('project.name_or_email_placeholder'),
+      'three_or_more_char' => trans('project.three_or_more_char')
   ]); ?>
 </script>
 

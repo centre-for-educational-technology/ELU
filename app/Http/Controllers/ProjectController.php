@@ -208,7 +208,7 @@ class ProjectController extends Controller
     // Main supervisors linked in pivot table
     $project->supervisor = $request->cosupervisors;
 
-    $project->status = $request->status;
+    $project->status = 1;
 
     $project->tags = $request->tags;
 

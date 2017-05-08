@@ -312,28 +312,28 @@
 
 
                         <!-- Status -->
-                        <div class="form-group">
-                            <label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>--}}
 
-                            <div class="col-sm-6">
-                                <select class="form-control" disabled id="status" name="status">
+                            {{--<div class="col-sm-6">--}}
+                                {{--<select class="form-control" disabled id="status" name="status">--}}
 
-                                    @if ( old('status')) == 1)
-                                    <option value="1" selected>{{trans('project.active')}}</option>
-                                    @else
-                                        <option value="1">{{trans('project.active')}}</option>
-                                    @endif
+                                    {{--@if ( old('status')) == 1)--}}
+                                    {{--<option value="1" selected>{{trans('project.active')}}</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="1">{{trans('project.active')}}</option>--}}
+                                    {{--@endif--}}
 
-                                    @if ( old('status')) == 0)
-                                        <option value="0" selected>{{trans('project.finished')}}</option>
-                                    @else
-                                        <option value="0">{{trans('project.finished')}}</option>
-                                    @endif
+                                    {{--@if ( old('status')) == 0)--}}
+                                        {{--<option value="0" selected>{{trans('project.finished')}}</option>--}}
+                                    {{--@else--}}
+                                        {{--<option value="0">{{trans('project.finished')}}</option>--}}
+                                    {{--@endif--}}
 
-                                </select>
-                                <input type="hidden" name="status" value="1" />
-                            </div>
-                        </div>
+                                {{--</select>--}}
+                                {{--<input type="hidden" name="status" value="1" />--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <!-- Tags -->
                         <div class="form-group">

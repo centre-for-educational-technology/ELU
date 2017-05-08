@@ -552,7 +552,7 @@
                 {{--Add students to project--}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Lisa tudengid käsitsi
+                        {{trans('project.add_students_manually')}}
                     </div>
 
                     <div class="panel-body">
@@ -560,7 +560,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="attached-users" class="col-sm-3 control-label">Tudengite nimed või e-posti aadressid</label>
+                                <label for="attached-users" class="col-sm-3 control-label">{{trans('project.student_names_or_emails')}}</label>
 
 
                                 <div class="col-sm-6">

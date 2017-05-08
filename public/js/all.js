@@ -108,8 +108,8 @@ jQuery(document).ready(function($) {
 
   // Select2 Ajax - attaching users to project team manually
   $(".js-users-data-ajax").select2({
-    placeholder: "Nimi või e-posti aadress",
-    language: { inputTooShort: function () { return 'Kolm või rohkem tähte'; } },
+    placeholder: window.Laravel.name_or_email_placeholder,
+    language: { inputTooShort: function () { return window.Laravel.three_or_more_char; } },
     allowClear: true,
     ajax: {
       url: window.Laravel.search_user_api_url,

@@ -94,7 +94,8 @@
             display: block !important;
             clear: both !important;
             margin: 0 auto !important;
-            max-width: 580px !important; }
+            max-width: 580px !important;
+        }
         .container table {
             width: 100% !important;
             border-collapse: collapse; }
@@ -120,13 +121,18 @@
             color: #888;
             text-decoration: none;
             font-weight: bold; }
+        .container.main{
+            -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-color: #ddd;
+        }
 
     </style>
 </head>
 <body>
 <table class="body-wrap">
     <tr>
-        <td class="container">
+        <td class="container main">
 
             <!-- Message start -->
             <table>

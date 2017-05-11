@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Group;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Requests\FinishedProjectRequest;
 
@@ -958,8 +959,11 @@ class ProjectController extends Controller
     }
 
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
-
-
+	
+	  
+	  $this->newProjectIdeaAddedEmailNotification($project->name, self::getUserName(Auth::user()), url('project/'.$project->id.'/edit'));
+	
+	  
     return \Redirect::to('projects/open')
         ->with('message', [
             'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
@@ -967,6 +971,35 @@ class ProjectController extends Controller
         ]);
 
   }
+	
+	
+	public function newProjectIdeaAddedEmailNotification($project, $author, $url)
+	{
+	
+		$data = [
+				'project_name' => $project,
+				'project_author' => $author,
+				'project_url' => $url,
+		];
+		
+		$admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+		
+		$admins_emails = array();
+		
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+		
+		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
+			$m->from('elu@tlu.com', 'ELU');
+			$m->to($admins_emails)->subject('Uus projektiidee');
+//			$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+	}
 
 
   /**

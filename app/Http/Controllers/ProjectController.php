@@ -994,7 +994,6 @@ class ProjectController extends Controller
 			array_push($admins_emails, getUserEmail($admin));
 		}
 		
-		$admins_emails='glebred@tlu.ee';
 		
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
 			$m->to($admins_emails)->subject('Uus projektiidee');

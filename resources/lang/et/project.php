@@ -7,7 +7,7 @@ return [
     'delete' => 'Kustuta',
     'my_projects' => 'Minu projektid',
     'add' => 'Lisa projekt',
-    'name' => 'Nimi',
+    'name' => 'Projekti nimi',
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'description' => 'Kirjeldus',
     'integrated_study_areas' => 'Lõimitud valdkonnad',

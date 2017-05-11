@@ -997,7 +997,6 @@ class ProjectController extends Controller
 		$admins_emails='glebred@tlu.ee';
 		
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
-			$m->from('elu@tlu.com', 'ELU');
 			$m->to($admins_emails)->subject('Uus projektiidee');
 //			$m->cc($admins_emails)->subject('Uus projektiidee');
 		});

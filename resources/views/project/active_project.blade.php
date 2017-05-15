@@ -6,7 +6,7 @@
                 {{\Session::get('message')['text']}}
 
 
-                <a href="{{url('project/'.\Session::get('project')['id'])}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{\Session::get('project')['name']}}" data-desc="{{ str_limit(\Session::get('project')['description'], 150) }}" class="btnShare btn btn-social btn-social-icon btn-facebook">
+                <a href="{{url('project/'.\Session::get('project')['id'])}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{\Session::get('project')['name']}}" data-desc="{{ str_limit(strip_tags(\Session::get('project')['description']), 150) }}" class="btnShare btn btn-social btn-social-icon btn-facebook">
                     <span class="fa fa-facebook"></span>
                 </a>
 

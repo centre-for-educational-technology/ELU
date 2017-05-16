@@ -46,7 +46,7 @@ class ProjectRequest extends Request
             'supervisors' => 'required',
             'cosupervisors' => 'max:3000',
 //            'status' => 'required',
-            'publishing_status' => 'required',
+//            'publishing_status' => 'required',
             'tags' => 'required|max:3000',
             'extra_info' => 'max:3000',
             'featured_image' => 'image',

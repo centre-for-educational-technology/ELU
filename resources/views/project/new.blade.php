@@ -76,10 +76,18 @@
 
                             <div class="col-sm-6">
                                 <select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>
+
                                     @if ($courses->count())
 
                                         @foreach($courses as $course)
+
+                                            @if(!empty(old('study_areas')))
+                                                <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+
+                                            @else
                                                 <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                            @endif
+
                                         @endforeach
 
                                     @endif
@@ -287,13 +295,13 @@
                                     @if ($teachers->count())
 
                                         @foreach($teachers as $teacher)
-                                            @if(!empty($teacher->full_name))
-                                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->full_name }}</option>
+
+                                            @if(!empty(old('supervisors')))
+                                                <option {{ in_array( $teacher->id, old('supervisors')) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
                                             @else
-                                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ $teacher->name }}</option>
+                                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ getUserName($teacher) }}</option>
                                             @endif
 
-                                            {{--<option value="{{ $teacher->id }}">{{ $teacher->name }}</option>--}}
                                         @endforeach
 
                                     @endif

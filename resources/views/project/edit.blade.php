@@ -41,7 +41,7 @@
                             <label for="name" class="col-sm-3 control-label">{{trans('project.name')}}</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="name" class="form-control" value="{{ (empty($current_project) ? old('name') : $current_project->name) }}">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ (empty( old('name')) ? $current_project->name :  old('name')) }}">
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                             <label for="embedded" class="col-sm-3 control-label">{{trans('project.video_link')}} <p>https://youtu.be/...</p></label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty($current_project) ? old('embedded') : $current_project->embedded) }}">
+                                <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty( old('embedded')) ? $current_project->embedded :  old('embedded')) }}">
                             </div>
                         </div>
 
@@ -78,7 +78,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty($current_project) ? old('description') : $current_project->description) !!}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
                             </div>
                         </div>
 
@@ -120,12 +120,12 @@
                         @endif
 
 
-                    <!-- Project meeting info -->
+                        <!-- Project meeting info -->
                         <div class="form-group">
                             <label for="meeting_info" class="col-sm-3 control-label">{{trans('project.meeting_info')}}</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="meeting_info" id="meeting_info" class="form-control" value="{{  (empty($current_project) ? old('meeting_info') : $current_project->meeting_info) }}">
+                                <input type="text" name="meeting_info" id="meeting_info" class="form-control" value="{{  (empty(old('meeting_info')) ?  $current_project->meeting_info : old('meeting_info')) }}">
                             </div>
                         </div>
 
@@ -138,23 +138,25 @@
                             <div class="col-sm-6">
                                 <select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>
 
-                                    @if ($linked_courses)
-
-                                        @foreach($linked_courses as $linked_course)
-
-                                                <option value="{{ $linked_course->id }}" selected="selected">{{ $linked_course->name }}</option>
-
-                                        @endforeach
-                                    @endif
 
 
                                     @if ($courses->count())
 
                                         @foreach($courses as $course)
-                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+
+                                                @if(!empty(old('study_areas')))
+                                                    <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+
+                                                @elseif($linked_courses_ids)
+                                                    <option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+
+                                                @endif
+
                                         @endforeach
 
                                     @endif
+
+
                                 </select>
                             </div>
                         </div>
@@ -167,7 +169,7 @@
 
 
                             <div class="col-sm-6">
-                                <textarea name="integrated_areas" id="integrated_areas" class="form-control">{{ (empty($current_project) ? old('integrated_areas') : $current_project->integrated_areas) }}</textarea>
+                                <textarea name="integrated_areas" id="integrated_areas" class="form-control">{{ (empty(old('integrated_areas')) ? $current_project->integrated_areas : old('integrated_areas')) }}</textarea>
                             </div>
                         </div>
 
@@ -179,20 +181,20 @@
                             <div class="col-sm-6">
                                 <select class="form-control" id="study_term" name="study_term">
 
-                                    @if ((!empty($current_project) ?  $current_project->study_term : old('study_term')) == 0)
+                                    @if ((empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 0)
                                         <option value="0" selected>{{trans('project.autumn_semester')}}</option>
                                     @else
                                         <option value="0">{{trans('project.autumn_semester')}}</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->study_term : old('study_term')) == 1)
+                                    @if ((empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 1)
                                         <option value="1" selected>{{trans('project.spring_semester')}}</option>
                                     @else
                                         <option value="1">{{trans('project.spring_semester')}}</option>
                                     @endif
 
-                                    @if ( (!empty($current_project) ?  $current_project->study_term : old('study_term')) == 2)
+                                    @if ( (empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 2)
                                         <option value="2" selected>{{trans('project.both')}}</option>
                                     @else
                                         <option value="2">{{trans('project.both')}}</option>
@@ -260,7 +262,7 @@
                             <label for="related_courses" class="col-sm-3 control-label">{{trans('project.related_courses')}} <p>{{trans('project.one_per_line')}}</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty($current_project) ? old('related_courses') : $current_project->courses) }}</textarea>
+                                <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty(old('related_courses')) ?  $current_project->courses : old('related_courses')) }}</textarea>
                             </div>
                         </div>
 
@@ -371,21 +373,16 @@
 
                             <div class="col-sm-6">
                                 <select class="js-example-basic-multiple form-control" id="supervisors" name="supervisors[]" multiple>
-                                    @if ($authors->count())
 
-                                        @foreach($authors as $author)
-
-                                            <option value="{{ $author->id }}" selected="selected">{{ getUserName($author) }}</option>
-
-                                        @endforeach
-                                    @endif
 
                                     @if ($teachers->count())
 
                                         @foreach($teachers as $teacher)
-
-                                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-
+                                            @if(!empty(old('supervisors')))
+                                                <option {{ in_array( $teacher->id, old('supervisors')) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                            @elseif($authors_ids)
+                                                <option {{ in_array( $teacher->id, $authors_ids) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                            @endif
 
                                         @endforeach
 
@@ -400,7 +397,7 @@
                             <label for="cosupervisors" class="col-sm-3 control-label">{{trans('project.cosupervisor')}} <p>{{trans('project.one_per_line')}}</p></label>
 
                             <div class="col-sm-6">
-                                <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ (empty($current_project) ? old('cosupervisors') : $current_project->supervisor) }}</textarea>
+                                <textarea name="cosupervisors" id="cosupervisors" class="form-control">{{ (empty(old('cosupervisors'))? $current_project->supervisor : old('cosupervisors') ) }}</textarea>
                             </div>
                         </div>
 
@@ -415,18 +412,17 @@
                             <div class="col-sm-6">
                                 <select class="form-control" {{Auth::user()->is('admin')? '':'disabled'}} id="status" name="status">
 
-                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 1)
-                                        <option value="1" selected>{{trans('project.active')}}</option>
+
+                                    @if(count(old('status')) > 0)
+                                        <option value="{{old('status') == 1 ? 1: 0}}" selected>{{old('status') == 1 ? trans('project.active'): trans('project.finished')}}</option>
+
+                                        <option value="{{old('status') == 1 ? 0: 1}}">{{old('status') == 0 ? trans('project.active'): trans('project.finished')}}</option>
                                     @else
-                                        <option value="1">{{trans('project.active')}}</option>
+                                        <option value="{{$current_project->status == 1 ? 1: 0}}" selected>{{$current_project->status == 1 ? trans('project.active'): trans('project.finished')}}</option>
+
+                                        <option value="{{$current_project->status == 1 ? 0: 1}}">{{$current_project->status == 0 ? trans('project.active'): trans('project.finished')}}</option>
                                     @endif
 
-
-                                    @if ((!empty($current_project) ?  $current_project->status : old('status')) == 0)
-                                        <option value="0" selected>{{trans('project.finished')}}</option>
-                                    @else
-                                        <option value="0">{{trans('project.finished')}}</option>
-                                    @endif
 
                                 </select>
                                 @if(!Auth::user()->is('admin'))
@@ -440,7 +436,7 @@
                             <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty($current_project) ? old('tags') : $current_project->tags) }}" data-role="tagsinput" />
+                                <input type="text" name="tags" id="tags" class="form-control" value="{{ (empty(old('tags')) ? $current_project->tags :  old('tags')) }}" data-role="tagsinput" />
                             </div>
                         </div>
 
@@ -451,7 +447,7 @@
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='join_deadline'>
 
-                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty($current_project) ? old('join_deadline') : empty($current_project->join_deadline) ? old('join_deadline') :$current_project->join_deadline) }}"/>
+                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty(old('join_deadline')) ?  $current_project->join_deadline : old('join_deadline')) }}"/>
                                     <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -465,7 +461,7 @@
                             <label for="extra_info" class="col-sm-3 control-label">{{trans('project.extra_info')}}</label>
 
                             <div class="col-sm-6">
-                                <textarea name="extra_info" id="extra_info" class="form-control">{{ (empty($current_project) ? old('extra_info') : $current_project->extra_info) }}</textarea>
+                                <textarea name="extra_info" id="extra_info" class="form-control">{{ (empty(old('extra_info')) ? $current_project->extra_info : old('extra_info')) }}</textarea>
                             </div>
                         </div>
 
@@ -475,14 +471,14 @@
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="language" name="language">
-                                    @if ((!empty($current_project) ?  $current_project->language : old('language')) == 'et')
+                                    @if ((empty(old('language')) ?  $current_project->language : old('language')) == 'et')
                                         <option value="et" selected>Eesti</option>
                                     @else
                                         <option value="et">Eesti</option>
                                     @endif
 
 
-                                    @if ((!empty($current_project) ?  $current_project->language : old('language')) == 'en')
+                                    @if ((empty(old('language')) ?  $current_project->language : old('language')) == 'en')
                                         <option value="en" selected>English</option>
                                     @else
                                         <option value="en">English</option>
@@ -492,30 +488,22 @@
                             </div>
                         </div>
 
-                        <!-- Status -->
+                        <!-- Publishing status -->
                         <div class="form-group">
+
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}}</label>
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="publishing_status" name="publishing_status">
+                                    @if(count(old('publishing_status')) > 0)
+                                        <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
-
-                                    @if ((!empty($current_project) ?  $current_project->publishing_status : old('publishing_status')) == 1)
-                                        <option value="1" selected>{{trans('project.published')}}</option>
+                                        <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
                                     @else
-                                        <option value="1">{{trans('project.published')}}</option>
+                                        <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                        <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
                                     @endif
-
-
-                                    @if ((!empty($current_project) ?  $current_project->publishing_status : old('publishing_status')) == 0)
-                                        <option value="0" selected>{{trans('project.hidden')}}</option>
-                                    @else
-                                        <option value="0">{{trans('project.hidden')}}</option>
-                                    @endif
-
-
-
-
                                 </select>
                             </div>
                         </div>
@@ -527,7 +515,7 @@
                             <label for="group_link" class="col-sm-3 control-label">{{trans('project.mendeley_group_link')}}</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="group_link" id="group_link" class="form-control" value="{{ (empty($current_project) ? old('group_link') : $current_project->group_link) }}">
+                                <input type="text" name="group_link" id="group_link" class="form-control" value="{{ (empty(old('group_link')) ?  $current_project->group_link : old('group_link')) }}">
                             </div>
                         </div>
 

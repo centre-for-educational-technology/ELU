@@ -90,18 +90,23 @@ Route::group(['middleware' =>['web']], function () {
             $q->where('name', 'oppejoud');
           })->get();
 
-          $authors = $current_project->users()->select('id','name', 'full_name')->wherePivot('participation_role', 'author')->get();
-
-          $teachers = $teachers->diff($authors);
-
-
-
+          $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	        $authors_ids = array();
+	        foreach ($authors as $author){
+	        	array_push($authors_ids, $author->id);
+	        }
+	    
+	        
           //Study areas field
           $courses = Course::select('id','name')->get();
 
-          $linked_courses = $current_project->getCourses()->select('id','name')->get();
-
-          $courses = $courses->diff($linked_courses);
+          $linked_courses = $current_project->getCourses()->select('id')->get();
+	        $linked_courses_ids = array();
+          foreach ($linked_courses as $linked_course){
+            array_push($linked_courses_ids, $linked_course->id);
+          }
+	      
+         
 
 
 
@@ -123,7 +128,7 @@ Route::group(['middleware' =>['web']], function () {
             $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
           }
 
-          return view('project.edit', compact('teachers', 'authors', 'current_project', 'courses', 'projects', 'linked_courses'));
+          return view('project.edit', compact('teachers','authors_ids', 'current_project', 'courses', 'projects', 'linked_courses_ids'));
 
 
         }));

@@ -127,7 +127,7 @@ jQuery(document).ready(function($) {
         return {
           results: $.map(data, function (item) {
             return {
-              text: (item.full_name ? item.full_name : item.name) + ' ('+item.email+')',
+              text: (item.full_name ? item.full_name : item.name) + ' ('+(item.contact_email? item.contact_email : item.email)+')',
               id: item.id
             }
           })

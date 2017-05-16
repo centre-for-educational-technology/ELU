@@ -382,6 +382,8 @@
                                                 <option {{ in_array( $teacher->id, old('supervisors')) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
                                             @elseif($authors_ids)
                                                 <option {{ in_array( $teacher->id, $authors_ids) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                            @else
+                                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
                                             @endif
 
                                         @endforeach

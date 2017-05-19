@@ -50,7 +50,7 @@ function getUserNameAndCourse(\App\User $user)
 {
   if(!empty($user->full_name)){
     if(count($user->courses) >0){
-      return $user->full_name.' / '.$user->courses->first()['name'];
+      return $user->full_name.' / '.getCourseName($user->courses->first());
     }else{
       return $user->full_name;
     }
@@ -69,7 +69,7 @@ function getUserCourse(\App\User $user)
 {
   if(!empty($user->full_name)){
     if(count($user->courses) >0){
-      return $user->courses->first()['name'];
+      return getCourseName($user->courses->first());
     }
 
   }
@@ -98,7 +98,7 @@ function getUserStrippedNameAndCourse(\App\User $user)
     $firstname = implode(" ", $parts);
     if(count($user->courses) >0){
 
-      return $firstname.' / '.$user->courses->first()['name'];
+      return $firstname.' / '.getCourseName($user->courses->first());
     }else{
       return $firstname;
     }
@@ -238,6 +238,14 @@ function getGroupUsersCourses(\App\Group $group){
 
   return false;
 
+}
+
+function getCourseName(\App\Course $course){
+	if(\App::getLocale() == 'en'){
+		return $course->oppekava_eng;
+	}else{
+		return $course->oppekava_est;
+	}
 }
 
 

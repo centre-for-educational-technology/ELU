@@ -90,7 +90,7 @@
                                 @if ($courses->count())
 
                                     @foreach($courses as $course)
-                                        <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                        <option value="{{ $course->id }}">{{ getCourseName($course)  }}</option>
                                     @endforeach
 
                                 @endif

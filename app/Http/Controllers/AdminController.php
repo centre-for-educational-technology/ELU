@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
@@ -9,6 +10,8 @@ use Illuminate\Contracts\Pagination\Paginator;
 use App\Project;
 
 use App\Http\Requests;
+use App\Http\Requests\UpdateCoursesRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -230,6 +233,53 @@ class AdminController extends Controller
     return Activity::with('causer')
         ->orderBy('created_at', 'DESC')
         ->paginate(50);
+  }
+  
+  
+  
+  public function updateCourses(UpdateCoursesRequest $request){
+	
+	  $courses_csv = $request->file('courses_csv');
+	  $new_courses_count = 0;
+	  $updated_courses_count = 0;
+	  
+	  $results = array();
+	
+	  $data = Excel::load($courses_csv, function($reader) {
+	  })->get();
+	
+	  if(!empty($data) && $data->count()){
+		  foreach ($data as $key => $value) {
+			  array_push($results, ['kood_tlu' => $value->kood_tlu, 'kood_htm' => $value->kood_htm, 'oppekava_est' => $value->oppekava_est, 'oppekava_eng' => $value->oppekava_eng, 'tase' => $value->tase]);
+			
+			  $course = Course::where('kood_htm', $value->kood_htm)->first();
+			  if($course){
+				  $course->kood_tlu = $value->kood_tlu;
+				  $course->oppekava_est = $value->oppekava_est;
+				  $course->oppekava_eng = $value->oppekava_eng;
+				  $course->tase = $value->tase;
+				  $course->save();
+				  $updated_courses_count++;
+			  }else{
+				  $new_course = new Course;
+				  $new_course->kood_tlu = $value->kood_tlu;
+				  $new_course->kood_htm = $value->kood_htm;
+				  $new_course->oppekava_est = $value->oppekava_est;
+				  $new_course->oppekava_eng = $value->oppekava_eng;
+				  $new_course->tase = $value->tase;
+				  $new_course->save();
+				  $new_courses_count++;
+			  }
+		  }
+		 
+	  }
+	  
+	  
+
+	  return view('admin.update_courses')
+			  ->with('results', $results)
+			  ->with('new_courses_count', $new_courses_count)
+	      ->with('updated_courses_count', $updated_courses_count);
   }
 
 }

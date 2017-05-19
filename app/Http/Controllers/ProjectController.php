@@ -1180,7 +1180,17 @@ class ProjectController extends Controller
             $query->select('user_id')
                 ->from('project_user')
                 ->where('project_id', '=', $project_id);
-          });
+          })
+      ;
+    })->orWhere(function($query) use ($user, $project_id) {
+	    $query->where('contact_email', 'LIKE', '%'.$user.'%')
+			    ->whereNotIn('id', function ($query) use ($project_id)
+			    {
+				    $query->select('user_id')
+						    ->from('project_user')
+						    ->where('project_id', '=', $project_id);
+			    })
+	    ;
     })->get();
 
 

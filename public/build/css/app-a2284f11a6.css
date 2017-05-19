@@ -10152,6 +10152,9 @@ div[id^="group_links"] input {
   font-size: 18px;
   font-weight: 500;
 }
+.share {
+  margin-top: 20px;
+}
 .line {
   border-bottom: 2px solid #ff8033;
 }

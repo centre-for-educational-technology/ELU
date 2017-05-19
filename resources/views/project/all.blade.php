@@ -96,7 +96,7 @@
                                 <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
                                 <ul class="list-unstyled list01 tags keywords">
                                     @foreach ($project->getCourses as $course)
-                                        <li><span class="label label-primary">{{ $course->name }}</span></li>
+                                        <li><span class="label label-primary">{{ getCourseName($course) }}</span></li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -200,7 +200,7 @@
                                 @endforeach
                             </ul>
 
-                            <div class="row">
+                            <div class="row share">
                                 <div class="col-sm-8">
 
                                     <a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit(strip_tags($project->description), 150) }}" class="btnShare btn btn-block btn-social btn-facebook">
@@ -314,7 +314,7 @@
                                     <span class="label label-primary">{{ $firstname }}
                                         @if(!$user->courses->isEmpty())
                                             @foreach($user->courses as $course)
-                                                / {{ $course->name }}
+                                                / {{ getCourseName($course) }}
                                             @endforeach
                                         @endif
                                         {{$isTeacher? '('.getUserEmail($user).')' : ''}}

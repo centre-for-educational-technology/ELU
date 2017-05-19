@@ -98,7 +98,13 @@ Route::group(['middleware' =>['web']], function () {
 	    
 	        
           //Study areas field
-          $courses = Course::select('id','name')->get();
+	        if(\App::getLocale() == 'en'){
+		        $courses = Course::select('id','oppekava_eng')->get();
+	        }else{
+		        $courses = Course::select('id','oppekava_est')->get();
+	        }
+	        
+          
 
           $linked_courses = $current_project->getCourses()->select('id')->get();
 	        $linked_courses_ids = array();
@@ -241,6 +247,15 @@ Route::group(['middleware' =>['web']], function () {
 
           //Activity log summary
           Route::get('admin/log', 'AdminController@getActivityLogItems');
+	
+	
+	        //Update courses
+	        Route::get('admin/courses/update', function () {
+		        return view('admin.update_courses');
+	        });
+	
+	        Route::post('admin/courses/update', 'AdminController@updateCourses');
+	     
         });
 
 

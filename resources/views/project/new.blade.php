@@ -82,10 +82,10 @@
                                         @foreach($courses as $course)
 
                                             @if(!empty(old('study_areas')))
-                                                <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+                                                <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
 
                                             @else
-                                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                                <option value="{{ $course->id }}">{{ getCourseName($course) }}</option>
                                             @endif
 
                                         @endforeach

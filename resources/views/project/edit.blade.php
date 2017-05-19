@@ -145,10 +145,10 @@
                                         @foreach($courses as $course)
 
                                                 @if(!empty(old('study_areas')))
-                                                    <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+                                                    <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
 
                                                 @elseif($linked_courses_ids)
-                                                    <option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ $course->name }}</option>
+                                                    <option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
 
                                                 @endif
 
@@ -613,7 +613,7 @@
                                                 <td>
                                                     @if(!$user->courses->isEmpty())
                                                         @foreach($user->courses as $course)
-                                                            <span class="label label-success">{{ $course->name }}</span>
+                                                            <span class="label label-success">{{ getCourseName($course) }}</span>
                                                         @endforeach
                                                     @endif
                                                 </td>

@@ -131,12 +131,15 @@ class ProjectController extends Controller
     {
       $q->where('name', 'oppejoud');
     })->get();
+	
+	
+	  if(\App::getLocale() == 'en'){
+		  $courses = Course::select('id','oppekava_eng')->get();
+	  }else{
+		  $courses = Course::select('id','oppekava_est')->get();
+	  }
 
-
-
-    $courses = Course::select('id','name')->get();
-
-
+  
     $author =  Auth::user()->id;
 
     return view('project.new', compact('teachers', 'author', 'projects', 'courses'));

@@ -282,9 +282,14 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('student/project/new', function () {
-          $courses = Course::select('id','name')->get();
-
-          return view('user.student.new_project')->with('courses', $courses);
+         
+	        if(\App::getLocale() == 'en'){
+		        $courses = Course::select('id','oppekava_eng')->get();
+	        }else{
+		        $courses = Course::select('id','oppekava_est')->get();
+	        }
+	
+	        return view('user.student.new_project')->with('courses', $courses);
         });
 
         Route::post('student/project/new', 'ProjectController@storeProjectByStudent');

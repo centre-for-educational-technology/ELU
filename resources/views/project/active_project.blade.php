@@ -40,7 +40,7 @@
     <p class="col-md-10 margt content col-md-offset-1">
 
         <h1>{{ $project->name }}</h1>
-        @if(Auth::check() && Auth::user()->is('project_moderator'))
+        @if(!(Auth::guest()) && Auth::user()->is('project_moderator') && isMemberOfProject(Auth::user()->id, $project->id))
             <p>
                 <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
                     {{ csrf_field() }}

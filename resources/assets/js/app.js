@@ -400,7 +400,7 @@ jQuery(document).ready(function($) {
 
       e.preventDefault();
       var $div = $(this).parent().children(":last-child");
-      
+
       var num = $div.prop("id");
 
       num = parseInt(num.split("_").pop());

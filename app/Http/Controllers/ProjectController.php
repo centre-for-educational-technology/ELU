@@ -1428,14 +1428,18 @@ class ProjectController extends Controller
         if(!empty($materials_names)){
 
           foreach ($materials_names as $key => $material_name){
+          	if(!empty($materials_names[$key])){
+		
+		          $group_material = new GroupMaterial;
+		          $group_material->name = $materials_names[$key];
+		          $group_material->link = $materials_links[$key];
+		          $group_material->tags = $materials_tags[$key];
+		          $group_material->group_id = $group->id;
+		
+		          $group_material->save();
+          		
+	          }
 
-              $group_material = new GroupMaterial;
-              $group_material->name = $materials_names[$key];
-              $group_material->link = $materials_links[$key];
-              $group_material->tags = $materials_tags[$key];
-              $group_material->group_id = $group->id;
-
-              $group_material->save();
             }
 
 

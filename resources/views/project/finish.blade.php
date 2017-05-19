@@ -311,7 +311,7 @@
                                                                                 <h3><input type="text" name="group_material_tags[{{$group->id}}][]" class="form-control tags" value="" data-role="tagsinput" /></h3>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                </div>
 
 
                                                             @endif

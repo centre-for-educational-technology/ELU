@@ -34,9 +34,9 @@ class FinishedProjectRequest extends Request
             'group_supervisor_opinion.*' => 'required|max:2000',
             'group_embedded.*' =>'active_url',
 
-            'group_material_tags.*.*' => 'required|max:2000',
-            'group_material_link.*.*' => 'required|active_url',
-            'group_material_name.*.*' =>  'required|max:100'
+            'group_material_tags.*.*' => 'max:2000',
+            'group_material_link.*.*' => 'active_url',
+            'group_material_name.*.*' =>  'max:100'
 
 
         ];

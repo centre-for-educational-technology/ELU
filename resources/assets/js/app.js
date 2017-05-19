@@ -367,7 +367,6 @@ jQuery(document).ready(function($) {
       num = parseInt(num.split("_").pop());
 
 
-      console.log(num);
       var clone = $($div).clone();
       clone.prop('id', 'group_materials_'+group_id+'_'+(num+1));
       clone.find("input").val("");
@@ -398,16 +397,16 @@ jQuery(document).ready(function($) {
   remove_links_field_button.each(function (i, obj) {
     var group_id = $(obj).attr("group-id");
     $(obj).click(function(e){
-      e.preventDefault();
-      var $div = $(this).next( "div");
 
+      e.preventDefault();
+      var $div = $(this).parent().children(":last-child");
+      
       var num = $div.prop("id");
 
       num = parseInt(num.split("_").pop());
 
       if(num>0){
         $div.remove();
-        this.remove();
       }
 
 

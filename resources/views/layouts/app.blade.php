@@ -180,6 +180,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @if (Auth::user()->is('superadmin'))
                                     <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
+                                    <li><a href="{{ url('admin/courses/update') }}"><i class="fa fa-btn fa-refresh"></i>Kursuste uuendamine</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('admin'))

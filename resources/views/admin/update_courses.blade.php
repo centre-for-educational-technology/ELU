@@ -11,12 +11,6 @@
             <div class="row">
                 <div class="alert alert-info">
 
-                    Ära unusta <code>php artisan down</code>
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert alert-info">
-
                     <h3>Tabel peab olema .csv komaga eraldatud. Esimene rida on headingud. Nt:</h3>
 
                     <table class="table">

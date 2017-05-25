@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Requests\FinishedProjectRequest;
+use App\Http\Requests\AddProjectGroupRequest;
+use App\Http\Requests\AttachUsersRequest;
 
 
 
@@ -805,7 +807,7 @@ class ProjectController extends Controller
   /**
    * Attach user to project manually (used by admin)
    */
-  public function attachUsersToProject($id, Request $request)
+  public function attachUsersToProject($id, AttachUsersRequest $request)
   {
 
     $project = Project::find($id);
@@ -838,7 +840,7 @@ class ProjectController extends Controller
    * @param Request $request
    * @return mixed
    */
-  public function addNewProjectGroup($id, Request $request)
+  public function addNewProjectGroup($id, AddProjectGroupRequest $request)
   {
 
     $project = Project::find($id);

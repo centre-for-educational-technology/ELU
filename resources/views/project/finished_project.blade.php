@@ -224,9 +224,10 @@
 
                                     @if(!empty($group->embedded))
                                         <div class="row">
-
-                                            <div class="embed-responsive embed-responsive-16by9">
-                                                {!! $group->embedded !!}
+                                            <div class="col-sm-12">
+                                                <div class="embed-responsive embed-responsive-16by9">
+                                                    {!! $group->embedded !!}
+                                                </div>
                                             </div>
                                         </div>
                                     @endif

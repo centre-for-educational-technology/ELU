@@ -142,8 +142,11 @@
                         <ul class="nav nav-tabs">
                             @foreach ($project->groups as $group_key => $group)
 
-
-                                <li class="{{ ($group_key == 0 ? 'active' : '') }}"><a href="#{{$group->id}}" aria-controls="home" role="tab" data-toggle="tab">{{$group->name}}</a></li>
+                                @if(!empty($group->name))
+                                    <li class="{{ ($group_key == 0 ? 'active' : '') }}"><a href="#{{$group->id}}" aria-controls="home" role="tab" data-toggle="tab">{{$group->name}}</a></li>
+                                @else
+                                    <li class="{{ ($group_key == 0 ? 'active' : '') }}"></li>
+                                @endif
 
                             @endforeach
                         </ul>

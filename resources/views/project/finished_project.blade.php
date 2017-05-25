@@ -266,11 +266,11 @@
 
                                                     <a href="{{$material->link}}" target="_blank">{{$material->name}} <i class="fa phpdebugbar-fa-external-link"></i></a>
 
-                                                    <p>
+                                                    <ul class="tags keywords">
                                                     @foreach (explode(',', $material->tags) as $tag)
-                                                       <span class="label label-primary">{{ $tag }}</span>
+                                                       <li><span class="label label-primary">{{ $tag }}</span></li>
                                                     @endforeach
-                                                    </p>
+                                                    </ul>
 
                                                 </li>
 

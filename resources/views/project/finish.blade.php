@@ -32,7 +32,7 @@
                             <div class="col-sm-7">
                                 <p>{{trans('project.finished_desc_desc')}}</p>
 
-                                <textarea name="summary" id="summary" class="form-control mceSimple">{!! (empty($current_project) ? old('summary') : $current_project->summary) !!}</textarea>
+                                <textarea name="summary" id="summary" class="form-control mceSimple">{!! (empty(old('summary')) ? $current_project->summary : old('summary')) !!}</textarea>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <textarea name="group_results[{{$group->id}}]" id="group_results[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->results) ? old('group_results.'.$group->id) : $group->results) !!}</textarea>
+                                                                <textarea name="group_results[{{$group->id}}]" id="group_results[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_results.'.$group->id)) ?  $group->results : old('group_results.'.$group->id)) !!}</textarea>
                                                             </div>
                                                         </div>
 
@@ -92,7 +92,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <textarea name="group_activities[{{$group->id}}]" id="group_activities[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->activities) ? old('group_activities.'.$group->id) : $group->activities) !!}</textarea>
+                                                                <textarea name="group_activities[{{$group->id}}]" id="group_activities[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_activities.'.$group->id)) ? $group->activities : old('group_activities.'.$group->id)) !!}</textarea>
                                                             </div>
                                                         </div>
 
@@ -103,7 +103,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <textarea name="group_reflection[{{$group->id}}]" id="group_reflection[{{$group->id}}]" class="form-control mceSimple">{!! (empty($group->reflection) ? old('group_reflection.'.$group->id) : $group->reflection) !!}</textarea>
+                                                                <textarea name="group_reflection[{{$group->id}}]" id="group_reflection[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_reflection.'.$group->id)) ? $group->reflection : old('group_reflection.'.$group->id)) !!}</textarea>
                                                             </div>
                                                         </div>
 
@@ -114,7 +114,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <input type="text" name="group_partners[{{$group->id}}]" id="group_partners[{{$group->id}}]" class="form-control" value="{{  (empty($group->partners)? old('group_partners.'.$group->id) :  $group->partners) }}">
+                                                                <input type="text" name="group_partners[{{$group->id}}]" id="group_partners[{{$group->id}}]" class="form-control" value="{{  (empty(old('group_partners.'.$group->id))?  $group->partners : old('group_partners.'.$group->id)) }}">
 
                                                             </div>
                                                         </div>
@@ -126,7 +126,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <input type="text" name="group_students_opinion[{{$group->id}}]" id="group_students_opinion[{{$group->id}}]" class="form-control" value="{{ (empty($group->students_opinion)? old('group_students_opinion.'.$group->id) : $group->students_opinion) }}">
+                                                                <input type="text" name="group_students_opinion[{{$group->id}}]" id="group_students_opinion[{{$group->id}}]" class="form-control" value="{{ (empty(old('group_students_opinion.'.$group->id))? $group->students_opinion : old('group_students_opinion.'.$group->id)) }}">
 
                                                             </div>
                                                         </div>
@@ -138,7 +138,7 @@
 
                                                             <div class="col-sm-8">
 
-                                                                <input type="text" name="group_supervisor_opinion[{{$group->id}}]" id="group_supervisor_opinion[{{$group->id}}]" class="form-control" value="{{ (empty($group->supervisor_opinion)? old('group_supervisor_opinion.'.$group->id) : $group->supervisor_opinion) }}">
+                                                                <input type="text" name="group_supervisor_opinion[{{$group->id}}]" id="group_supervisor_opinion[{{$group->id}}]" class="form-control" value="{{ (empty(old('group_supervisor_opinion.'.$group->id))?  $group->supervisor_opinion : old('group_supervisor_opinion.'.$group->id)) }}">
 
                                                             </div>
                                                         </div>
@@ -168,7 +168,11 @@
 
                                                             <div class="col-sm-8">
                                                                 <p>{{trans('project.group_video_link_desc')}}</p>
-                                                                @if(!empty($group->embedded))
+                                                                @if(!empty(old('group_embedded.'.$group->id)))
+                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id) !!}">
+
+
+                                                                @elseif(!empty($group->embedded))
                                                                     @php
                                                                         preg_match('/src="([^"]+)"/', $group->embedded, $match);
 
@@ -176,8 +180,10 @@
 
                                                                     @endphp
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!! $embedded !!}">
+
+
                                                                 @else
-                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id) !!}">
+                                                                    <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control">
 
                                                                 @endif
                                                             </div>
@@ -195,47 +201,8 @@
 
 
                                                         <div class="group-materials">
-                                                            @if(count($group->materials)>0)
-                                                                @foreach($group->materials as $key => $material)
-                                                                    <button type="button" class="btn btn-default btn-sm remove_links_field_button" group-id="{{$group->id}}" aria-label="Left Align">
-                                                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> {{trans('project.delete')}}
-                                                                    </button>
 
-
-                                                                    <div id="group-materials_{{$group->id}}_{{$key}}">
-                                                                        <!-- Group material name -->
-                                                                        <div class="form-group">
-                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
-
-                                                                            <div class="col-sm-6">
-                                                                                <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value="{{$material->name}}"/></h3>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- Group material link -->
-                                                                        <div class="form-group">
-                                                                            <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
-
-                                                                            <div class="col-sm-6">
-                                                                                <input type="text" name="group_material_link[{{$group->id}}][]" value="{{$material->link}}" class="form-control group-links"/>
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <!-- Group material tags -->
-                                                                        <div class="form-group">
-                                                                            <label for="group_material_tags[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
-
-                                                                            <div class="col-sm-6">
-                                                                                <h3><input type="text" name="group_material_tags[{{$group->id}}][]" class="form-control tags" value="{{$material->tags}}" data-role="tagsinput" /></h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                @endforeach
-
-
-                                                            @elseif(!empty(old('group_material_name.'.$group->id)))
+                                                            @if(!empty(old('group_material_name.'.$group->id)))
 
                                                                 @foreach(old('group_material_name.'.$group->id) as $key => $material)
 
@@ -271,6 +238,46 @@
 
                                                                             <div class="col-sm-6">
                                                                                 <h3><input type="text" name="group_material_tags[{{$group->id}}][]" class="form-control tags" value="{{old('group_material_tags.'.$group->id)[$key]}}" data-role="tagsinput" /></h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                @endforeach
+
+
+                                                            @elseif(count($group->materials)>0)
+                                                                @foreach($group->materials as $key => $material)
+                                                                    <button type="button" class="btn btn-default btn-sm remove_links_field_button" group-id="{{$group->id}}" aria-label="Left Align">
+                                                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> {{trans('project.delete')}}
+                                                                    </button>
+
+
+                                                                    <div id="group-materials_{{$group->id}}_{{$key}}">
+                                                                        <!-- Group material name -->
+                                                                        <div class="form-group">
+                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
+
+                                                                            <div class="col-sm-6">
+                                                                                <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value="{{$material->name}}"/></h3>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!-- Group material link -->
+                                                                        <div class="form-group">
+                                                                            <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
+
+                                                                            <div class="col-sm-6">
+                                                                                <input type="text" name="group_material_link[{{$group->id}}][]" value="{{$material->link}}" class="form-control group-links"/>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <!-- Group material tags -->
+                                                                        <div class="form-group">
+                                                                            <label for="group_material_tags[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+
+                                                                            <div class="col-sm-6">
+                                                                                <h3><input type="text" name="group_material_tags[{{$group->id}}][]" class="form-control tags" value="{{$material->tags}}" data-role="tagsinput" /></h3>
                                                                             </div>
                                                                         </div>
                                                                     </div>

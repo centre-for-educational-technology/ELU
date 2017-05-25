@@ -76,7 +76,7 @@ return [
     'summary_title' => 'Summary',
     'group_members' => 'Group members',
     'impressions' => 'Impressions',
-    'save_button' => 'Save and finish',
+    'save_button' => 'Save',
     'finished_and_saved_notification' => 'Project ":name" is finished and results are saved',
     'can_upload_multiple' => 'You can choose multiple images',
     'see_results' => 'See results',

@@ -1401,12 +1401,12 @@ class ProjectController extends Controller
         }
 
 
-        $group->results = $request->input('group_results.'.$group->id);
-        $group->activities = $request->input('group_activities.'.$group->id);
-        $group->reflection = $request->input('group_reflection.'.$group->id);
-        $group->partners = $request->input('group_partners.'.$group->id);
-        $group->students_opinion = $request->input('group_students_opinion.'.$group->id);
-        $group->supervisor_opinion = $request->input('group_supervisor_opinion.'.$group->id);
+        $group->results = ($request->input('group_results.'.$group->id)) != null ? $request->input('group_results.'.$group->id) : null;
+        $group->activities = ($request->input('group_activities.'.$group->id)) != null ? $request->input('group_activities.'.$group->id) : null;
+        $group->reflection = ($request->input('group_reflection.'.$group->id)) !=null ? $request->input('group_reflection.'.$group->id) : null;
+        $group->partners = ($request->input('group_partners.'.$group->id)) !=null ? $request->input('group_partners.'.$group->id) :null;
+        $group->students_opinion = ($request->input('group_students_opinion.'.$group->id)) != null ? $request->input('group_students_opinion.'.$group->id) : null;
+        $group->supervisor_opinion = ($request->input('group_supervisor_opinion.'.$group->id)) !=null ? $request->input('group_supervisor_opinion.'.$group->id) : null;
         $group->embedded = $embedded;
 
 

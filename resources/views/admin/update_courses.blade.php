@@ -7,7 +7,7 @@
 
 
         <div class="col-lg-12 col-lg-offset-0 col-sm-10 col-sm-offset-1">
-            <h3><i class="fa fa-warning"></i> Kursuste uuendamine</h3>
+            <h3><i class="fa fa-refresh"></i> Kursuste uuendamine</h3>
             <div class="row">
                 <div class="alert alert-info">
 

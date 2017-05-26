@@ -150,7 +150,10 @@
                                                 @elseif($linked_courses_ids)
                                                     <option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
 
-                                                @endif
+                                                @else
+                                                    <option value="{{ $course->id }}">{{ getCourseName($course) }}</option>
+
+                                            @endif
 
                                         @endforeach
 

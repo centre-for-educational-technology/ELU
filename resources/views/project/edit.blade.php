@@ -525,6 +525,22 @@
                         </div>
 
 
+                        <!-- Get notifications -->
+                        <div class="form-group">
+
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="checkbox">
+                                    <h4>
+                                        <label>
+                                            <input name="get_notifications" id="get_notifications" type="checkbox" {{(empty(old('get_notifications')) ? (($current_project->get_notifications == 1) ? 'checked':'') : 'checked' )}}> {{trans('project.get_notification')}}
+                                        </label>
+                                    </h4>
+
+                                </div>
+                            </div>
+                        </div>
+
+
 
                         <!-- Add Project Button -->
                         <div class="form-group">

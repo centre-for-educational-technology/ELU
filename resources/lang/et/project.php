@@ -121,7 +121,8 @@ return [
 		'idea_info_text_8' => 'analüüsib enesereflektsioonis enese kui ELU meeskonnaliikme rolli ja kohustuste täitmist ning oma panust meeskonna tegevusse.',
 		'student_idea_label' => 'tudengi projektiidee',
 		'idea_in_use_label' => 'kasutusel',
-		'idea_not_in_use_label' => 'kasutamata'
+		'idea_not_in_use_label' => 'kasutamata',
+		'get_notification' => 'Saada emailile teavitus, kui tudengid liituvad projektiga'
 
 
 

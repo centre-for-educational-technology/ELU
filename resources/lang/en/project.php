@@ -124,7 +124,8 @@ return [
 		'idea_info_text_8' => 'analyze her/his own and team member’s role, obligations and their contribution to the team’s activities in a self-reflective report.',
 		'student_idea_label' => 'student idea',
 		'idea_in_use_label' => 'in use',
-		'idea_not_in_use_label' => 'not in use'
+		'idea_not_in_use_label' => 'not in use',
+		'get_notification' => 'Get notification when students join project'
 
 
 ];

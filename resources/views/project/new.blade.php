@@ -435,8 +435,23 @@
                         </div>
 
 
+                        <!-- Get notifications -->
+                        <div class="form-group">
 
-                            <!-- Add Project Button -->
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class="checkbox">
+                                    <h4>
+                                        <label>
+                                            <input name="get_notifications" id="get_notifications" type="checkbox"  {{ (old('get_notifications') =='on' ? 'checked' : '' )}}> {{trans('project.get_notification')}}
+                                        </label>
+                                    </h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-primary">

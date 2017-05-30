@@ -231,6 +231,8 @@ class ProjectController extends Controller
 
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
+	
+	  $project->get_notifications = $request->get_notifications == "on"? true : false;
 
 
     //Need that to get id
@@ -366,6 +368,8 @@ class ProjectController extends Controller
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
 
     $project->requires_review = false;
+	
+	  $project->get_notifications = $request->get_notifications == "on"? true : false;
 
 
 
@@ -783,6 +787,31 @@ class ProjectController extends Controller
     //Attach user with member role
 
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
+	
+	  
+	  
+	  if($project->get_notifications){
+		  $data = [
+				  'new_member' => getUserNameAndCourse(Auth::user()),
+				  'project_name' => $project->name,
+				  'project_url' => url('project/'.$project->id),
+		  ];
+		  $project_authors_emails = array();
+		  foreach ($project->users as $user){
+			
+			  if($user->pivot->participation_role == 'author'){
+				  array_push($project_authors_emails, getUserEmail($user));
+				
+			  }
+		  }
+		  
+		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
+			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
+//			$m->cc($admins_emails)->subject('Uus projektiidee');
+		  });
+	  }
+	
+	 
 
 
     return \Redirect::to('project/'.$project->id)

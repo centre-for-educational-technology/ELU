@@ -30,7 +30,7 @@
                                     {{ trim($logItem->subject_type, "App\\") }}
                                     @if($logItem->subject)
                                         @if(!empty($logItem->subject->name))
-                                            "{{ $logItem->subject->name }}"
+                                            <a href="{{url('project/'.$logItem->subject_id)}}">"{{ $logItem->subject->name }}"</a>
                                         @else
                                             "{{ $logItem->subject->title }}"
                                         @endif

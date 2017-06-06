@@ -107,6 +107,7 @@ return [
 		'students_opinion' => 'Students statement of the results',
 		'supervisor_opinion' => 'Supervisors’ statement of the results',
 		'group_materials_heading' => 'Group materials',
+		'group_material_name' => 'Name',
 		'group_material_link' => 'Link',
 		'interdisciplinary_desc' => 'Introduction to interdisciplinary approach and its application',
 		'interdisciplinary_desc_desc' => 'Defining a problem from the perspective of another discipline, searching for connections between knowledge domains, finding new opportunities in the theoretical/methodological differences, developing creativity',

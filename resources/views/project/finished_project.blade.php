@@ -263,8 +263,13 @@
                                         <ul class="group-materials-links">
                                         @foreach ( $group->materials as $key => $material)
                                                 <li>
+                                                    @if(!empty($material->link))
+                                                        <a href="{{$material->link}}" target="_blank">{{$material->name}} <i class="fa phpdebugbar-fa-external-link"></i></a>
 
-                                                    <a href="{{$material->link}}" target="_blank">{{$material->name}} <i class="fa phpdebugbar-fa-external-link"></i></a>
+                                                    @else
+                                                       {{$material->name}} <i class="fa phpdebugbar-fa-external-link"></i>
+
+                                                    @endif
 
                                                     <ul class="tags keywords">
                                                     @foreach (explode(',', $material->tags) as $tag)

@@ -215,7 +215,7 @@
                                                                     <div id="group-materials_{{$group->id}}_{{$key}}">
                                                                         <!-- Group material name -->
                                                                         <div class="form-group">
-                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
+                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
 
                                                                             <div class="col-sm-6">
                                                                                 <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value="{{old('group_material_name.'.$group->id)[$key]}}"/></h3>
@@ -255,7 +255,7 @@
                                                                     <div id="group-materials_{{$group->id}}_{{$key}}">
                                                                         <!-- Group material name -->
                                                                         <div class="form-group">
-                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
+                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
 
                                                                             <div class="col-sm-6">
                                                                                 <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value="{{$material->name}}"/></h3>
@@ -293,7 +293,7 @@
                                                                 <div id="group-materials_{{$group->id}}_0">
                                                                         <!-- Group material name -->
                                                                         <div class="form-group">
-                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.name')}} </label>
+                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
 
                                                                             <div class="col-sm-6">
                                                                                 <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>

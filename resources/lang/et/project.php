@@ -104,6 +104,7 @@ return [
     'students_opinion' => 'Üliõpilaste seisukoht projekti tulemusest',
     'supervisor_opinion' => 'Juhendaja järeldus projekti tulemusest',
     'group_materials_heading' => 'Valminud materjalid',
+		'group_material_name' => 'Nimi',
     'group_material_link' => 'Viide',
 		'interdisciplinary_desc' => 'Interdistsiplinaarne lähenemisviis ja selle rakendamine',
 		'interdisciplinary_desc_desc' => 'Probleemi mõtestamine teise eriala perspektiivist, kokkupuutepunktide otsimine, teoreetilistest/ metodoloogilistest erinevustest uute võimaluste leidmine, loovuse arendamine.',

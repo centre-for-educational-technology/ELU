@@ -27,8 +27,9 @@ class FinishedProjectRequest extends Request
 
         $rules = [
             'summary' => 'required|max:9000',
-            'group_results.*' => 'max:2000',
-            'group_activities.*' => 'max:2000',
+            'group_results.*' => 'max:9000',
+            'group_activities.*' => 'max:9000',
+		        'group_reflection.*' => 'max:9000',
             'group_partners.*' => 'max:2000',
             'group_students_opinion.*' => 'max:2000',
             'group_supervisor_opinion.*' => 'max:2000',

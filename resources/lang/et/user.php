@@ -15,5 +15,11 @@ return [
     'contact_email_heading' => 'E-posti aadress teiega kontakteerumiseks',
     'contact_email_changed' => 'E-posti aadress on muudetud',
     'copy_tlu_address_button' => 'Kopeeri minu TLÜ aadress',
-    'add_contact_email_notification' => 'Lisa e-posti aadress teiega kontakteerumiseks'
+    'add_contact_email_notification' => 'Lisa e-posti aadress teiega kontakteerumiseks',
+		'click_here_to_reset_password' => 'Parooli vahetamiseks vajuta siia',
+		'password_reset_link' => 'Parooli taastamine',
+		'reset_password' => 'Unustasid parooli',
+		'e-mail' => 'E-posti aadress',
+		'send_link_button' => 'Saada parooli taastamise link'
+	
 ];

@@ -30,5 +30,6 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+	      $this->subject = trans('user.password_reset_link');
     }
 }

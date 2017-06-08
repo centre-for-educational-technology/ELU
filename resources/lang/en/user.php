@@ -21,6 +21,7 @@ return [
 		'password_reset_link' => 'Your Password Reset Link',
 		'reset_password' => 'Reset Password',
 		'e-mail' => 'E-Mail Address',
-		'send_link_button' => 'Send Password Reset Link'
+		'send_link_button' => 'Send Password Reset Link',
+		'reset_password_button' => 'Reset Password'
 
 ];

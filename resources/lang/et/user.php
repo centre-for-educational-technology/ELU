@@ -18,8 +18,9 @@ return [
     'add_contact_email_notification' => 'Lisa e-posti aadress teiega kontakteerumiseks',
 		'click_here_to_reset_password' => 'Parooli vahetamiseks vajuta siia',
 		'password_reset_link' => 'Parooli taastamine',
-		'reset_password' => 'Unustasid parooli',
+		'reset_password' => 'Parooli taastamine',
 		'e-mail' => 'E-posti aadress',
-		'send_link_button' => 'Saada parooli taastamise link'
+		'send_link_button' => 'Saada parooli taastamise link',
+		'reset_password_button' => 'Taasta'
 	
 ];

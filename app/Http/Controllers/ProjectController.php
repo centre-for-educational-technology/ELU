@@ -934,6 +934,14 @@ class ProjectController extends Controller
     $project->users()->detach($userId);
 
     $user = User::find($userId);
+	
+	
+	  $user_group =  userBelongsToGroup($user);
+	
+	  if($user_group){
+		  $user_group->first()->users()->detach($user->id);
+	  }
+	  
 
     if(!empty($user->full_name)){
       return redirect()->route('project_edit', ['id' => $project->id])

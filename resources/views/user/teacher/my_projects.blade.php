@@ -25,6 +25,7 @@
                                 <th>{{trans('project.status')}}</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
@@ -44,10 +45,39 @@
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
-                                                <button type="submit" class="btn btn-warning pull-right">
+                                                <button type="submit" class="btn btn-warning pull-right btn-sm">
                                                     <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
                                                 </button>
                                             </form>
+                                        </td>
+                                        <td>
+                                            @if(projectHasUsers($project))
+                                                @if (projectHasGroupsWithMembers($project))
+
+                                                    <div class="col-lg-12 text-center">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-primary not-empty" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                        </div>
+                                                    </div>
+
+                                                @else
+                                                    <div class="col-lg-12 text-center">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-primary" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                        </div>
+                                                    </div>
+
+
+                                                @endif
+                                            @else
+
+                                                <div class="col-lg-12 text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-sm btn-primary disabled" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                    </div>
+                                                </div>
+
+                                            @endif
                                         </td>
                                         <td>
                                             <form class="delete-project" action="{{ url('project/'.$project->id.'/delete') }}" method="POST">
@@ -56,7 +86,7 @@
 
 
                                             </form>
-                                            <button type="submit" id="delete" class="btn btn-danger pull-right">
+                                            <button type="submit" id="delete" class="btn btn-danger btn-sm pull-right">
                                                 <i class="fa fa-btn fa-trash"></i>{{trans('project.delete')}}
                                             </button>
 

@@ -169,6 +169,20 @@ function projectHasGroupsWithMembers(\App\Project $project){
   return false;
 }
 
+/**
+ * Return true if project has at least on member
+ * @param \App\Project $project
+ * @return bool
+ */
+function projectHasUsers(\App\Project $project){
+	foreach ($project->users as $user){
+		if($user->pivot->participation_role == 'member'){
+			return true;
+		}
+	}
+	return false;
+}
+
 
 /**
  * Return projects this teacher is author of

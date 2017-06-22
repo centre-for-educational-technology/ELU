@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'password' => 'Salasõna peab olema vähemalt 6 sümboli pikkune',
+    'password' => 'Parool peab olema vähemalt 6 sümboli pikkune',
     'reset' => 'Sinu parool on vahetanud',
     'sent' => 'Parooli taastamise link on saadetud e-postile',
     'token' => 'Parooli taastamise link on vigane',

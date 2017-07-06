@@ -170,6 +170,30 @@ function projectHasGroupsWithMembers(\App\Project $project){
 }
 
 /**
+ * Return true if
+ * project has summary field filled in and
+ * all the groups related to that project have Results, Activities and Reflection fields filled in
+ * @param \App\Project $project
+ * @return bool
+ */
+function isProjectResultsFilledIn(\App\Project $project){
+	$completed = false;
+	if(!empty($project->summary)){
+		if(projectHasGroupsWithMembers($project)){
+			foreach ($project->groups as $group){
+				if(!empty($group->results) && !empty($group->activities) && !empty($group->reflection) && !empty($group->students_opinion) && !empty($group->supervisor_opinion)){
+					$completed = true;
+				}else{
+					$completed = false;
+				}
+			}
+			
+		}
+	}
+	return $completed;
+}
+
+/**
  * Return true if project has at least on member
  * @param \App\Project $project
  * @return bool

@@ -22,9 +22,10 @@
                             <table class="table table-responsive table-striped project-table">
                                 <thead>
                                 <th>{{trans('project.project')}}</th>
+                                <th>{{trans('project.publishing_status')}}</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 </thead>
                                 <tbody>
@@ -77,6 +78,18 @@
                                                     </div>
                                                 </div>
 
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(projectHasGroupsWithMembers($project) && $project->status == 0)
+                                                @if(isProjectResultsFilledIn($project))
+                                                    <span class="label label-success">{{trans('project.summary_completed_status')}}</span>
+                                                @else
+                                                    <span class="label label-danger">{{trans('project.summary_not_completed_status')}}</span>
+                                                @endif
+
+                                            @else
+                                                <span class="label label-info">{{trans('project.active_status')}}</span>
                                             @endif
                                         </td>
                                         <td>

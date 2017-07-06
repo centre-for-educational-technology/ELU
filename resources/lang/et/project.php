@@ -123,7 +123,11 @@ return [
 		'student_idea_label' => 'tudengi projektiidee',
 		'idea_in_use_label' => 'kasutusel',
 		'idea_not_in_use_label' => 'kasutamata',
-		'get_notification' => 'Saada emailile teavitus, kui tudengid liituvad projektiga'
+		'get_notification' => 'Saada emailile teavitus, kui tudengid liituvad projektiga',
+		'active_status' => 'aktiivne',
+		'summary_not_completed_status' => 'kokkuvõtted pole täidetud',
+		'summary_completed_status' => 'kokkuvõtted täidetud',
+		'publishing_status' => 'Avaldamisstaatus'
 
 
 

@@ -126,7 +126,12 @@ return [
 		'student_idea_label' => 'student idea',
 		'idea_in_use_label' => 'in use',
 		'idea_not_in_use_label' => 'not in use',
-		'get_notification' => 'Get notification when students join project'
+		'get_notification' => 'Get notification when students join project',
+		'active_status' => 'active',
+		'summary_not_completed_status' => 'summary not completed',
+		'summary_completed_status' => 'summary completed',
+		'publishing_status' => 'Publishing status'
+	
 
 
 ];

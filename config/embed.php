@@ -16,7 +16,7 @@ return [
      |
     */
 
-    'ssl' => false,
+    'ssl' => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -173,7 +173,7 @@ return [
             'name'    => 'Vimeo',
             'type'    => 'video',
             'website' => 'http://vimeo.com',
-            'ssl'     => false,
+            'ssl'     => true,
             'url'     => [
                 '(https?://)?(?:www\.)?vimeo\.com/([0-9]+)',
                 '(https?://)?(?:www\.)?vimeo\.com/m/([0-9]+)'
@@ -181,7 +181,7 @@ return [
             'info'    => [
                 'id'     => '{1}',
                 'url'    => '{protocol}://vimeo.com/{1}',
-                'dataUrl' => '{protocol}://vimeo.com/api/v2/video/{1}.json',
+                'dataUrl' => '{protocol}://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/{1}.json',
             ],
             'render'  => [
                 'sizeRatio' => 1.77,

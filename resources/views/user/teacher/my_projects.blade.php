@@ -57,14 +57,14 @@
 
                                                     <div class="col-lg-12 text-center">
                                                         <div class="btn-group">
-                                                            <a class="btn btn-sm btn-primary not-empty" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                            <a class="btn btn-sm btn-primary not-empty my-projects-view" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
                                                         </div>
                                                     </div>
 
                                                 @else
                                                     <div class="col-lg-12 text-center">
                                                         <div class="btn-group">
-                                                            <a class="btn btn-sm btn-primary" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                            <a class="btn btn-sm btn-primary my-projects-view" project_id="{{$project->id}}" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
                                                         </div>
                                                     </div>
 
@@ -74,7 +74,7 @@
 
                                                 <div class="col-lg-12 text-center">
                                                     <div class="btn-group">
-                                                        <a class="btn btn-sm btn-primary disabled" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
+                                                        <a class="btn btn-sm btn-primary disabled my-projects-view" id="groups-finish-button" href="{{ url('project/'.$project->id.'/finish') }}"><i class="fa fa-btn fa-flag-checkered"></i>{{trans('project.finish_project_button')}}</a>
                                                     </div>
                                                 </div>
 
@@ -115,10 +115,14 @@
 
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{trans('project.no_projekt_found')}}</h3>
+                        <h3 class="panel-title">{{trans('project.no_project_found')}}</h3>
                     </div>
                     <div class="panel-body">
-                        {{trans('project.no_projekt_found_desc')}}
+                        @if (!Auth::guest())
+                            {{trans('project.no_project_found_desc_logged')}}
+                        @else
+                            {{trans('project.no_project_found_desc_not_logged')}}
+                        @endif
                     </div>
                 </div>
 

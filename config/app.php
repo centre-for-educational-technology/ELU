@@ -169,6 +169,7 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 		    Maatwebsite\Excel\ExcelServiceProvider::class,
+		    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     ],
 
     /*
@@ -219,6 +220,7 @@ return [
         'Embed'     => Cohensive\Embed\Facades\Embed::class,
         'Image' => Intervention\Image\Facades\Image::class,
 		    'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+		    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
 
     ],
 

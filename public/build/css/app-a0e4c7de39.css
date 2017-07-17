@@ -10161,6 +10161,9 @@ div[id^="group_links"] input {
 form.contact-email {
   margin-top: 11px;
 }
+.img-thumbnail {
+  max-height: 700px !important;
+}
 @media (max-width: 992px) {
   .nomargin.search-input {
     margin-top: 10px !important;

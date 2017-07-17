@@ -701,7 +701,7 @@
 
 
                     {{--Making groups from project team--}}
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="project-groups-panel">
                         <div class="panel-heading">
                             {{trans('project.project_groups')}}
                         </div>

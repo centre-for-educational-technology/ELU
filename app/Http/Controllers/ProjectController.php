@@ -435,13 +435,18 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%author%');
-      })->where('publishing_status', 1)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      $projects = Project::where('publishing_status', 1)
+		      ->where(function ($query) use ($name) {
+			      $query->whereHas('users', function($q) use ($name)
+			      {
+				      $q->where(function($subq) use ($name) {
+					      $subq->where('name', 'LIKE', '%'.$name.'%')
+							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+				      })->where('participation_role','LIKE','%author%');
+			      });
+			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+		      })
+          ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -487,13 +492,18 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%author%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+		      ->where(function ($query) use ($name) {
+			      $query->whereHas('users', function($q) use ($name)
+			      {
+				      $q->where(function($subq) use ($name) {
+					      $subq->where('name', 'LIKE', '%'.$name.'%')
+							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+				      })->where('participation_role','LIKE','%author%');
+			      });
+			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+		      })
+          ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -539,15 +549,19 @@ class ProjectController extends Controller
 
 
     if($param == 'author'){
-
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%author%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
-
+	    
+	    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+			    ->where(function ($query) use ($name) {
+				    $query->whereHas('users', function($q) use ($name)
+				    {
+					    $q->where(function($subq) use ($name) {
+						    $subq->where('name', 'LIKE', '%'.$name.'%')
+								    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+					    })->where('participation_role','LIKE','%author%');
+				    });
+				    $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+			    })
+			    ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
     }elseif ($param == 'member'){
 
@@ -593,13 +607,18 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%author%');
-      })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+		      ->where(function ($query) use ($name) {
+			      $query->whereHas('users', function($q) use ($name)
+			      {
+				      $q->where(function($subq) use ($name) {
+					      $subq->where('name', 'LIKE', '%'.$name.'%')
+							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+				      })->where('participation_role','LIKE','%author%');
+			      });
+			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+		      })
+          ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
     }elseif ($param == 'member'){
@@ -729,12 +748,15 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%author%');
+      $projects = Project::where(function ($query) use ($name) {
+	      $query->whereHas('users', function($q) use ($name)
+	      {
+		      $q->where(function($subq) use ($name) {
+			      $subq->where('name', 'LIKE', '%'.$name.'%')
+					      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+		      })->where('participation_role','LIKE','%author%');
+	      });
+	      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
       })->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
 
 

@@ -31,6 +31,12 @@ Run `composer install` command in the root folder of the project.
 
 `.env.example`  and change name to `.env`
 
+Install and configure SimpleSAML
+
+Get reCAPTCHA[keys](https://www.google.com/recaptcha)
+
+Get[Sentry](https://sentry.io)error tracking settings
+
 ### 3. Import the database scheme
 
 Run `php artisan migrate` to create database tables

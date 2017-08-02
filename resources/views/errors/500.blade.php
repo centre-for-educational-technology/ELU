@@ -8,7 +8,13 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
                 <h1>
-                    500. {{trans('errors.500')}}
+                    Midagi läks valesti.
+                </h1>
+                <h1>
+                    /
+                </h1>
+                <h1>
+                    Something went wrong.
                 </h1>
 
             </div>

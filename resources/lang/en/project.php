@@ -110,7 +110,7 @@ return [
 		'group_materials_heading' => 'Group materials',
 		'group_material_name' => 'Name',
 		'group_material_link' => 'Link',
-		'interdisciplinary_desc' => 'Introduction to interdisciplinary approach and its application',
+		'interdisciplinary_desc' => 'Interdisciplinary approach',
 		'interdisciplinary_desc_desc' => 'Defining a problem from the perspective of another discipline, searching for connections between knowledge domains, finding new opportunities in the theoretical/methodological differences, developing creativity',
 		'novelty_desc' => 'Research base and innovation',
 		'author_management_skills' => 'Basic skills of project management',
@@ -131,8 +131,23 @@ return [
 		'active_status' => 'active',
 		'summary_not_completed_status' => 'summary not completed',
 		'summary_completed_status' => 'summary completed',
-		'publishing_status' => 'Publishing status'
+		'publishing_status' => 'Publishing status',
 	
 
+		'aim' => 'The aim of the project',
+		'outcomes' => 'Project outcome',
+		'student_expectations' => 'Compulsory tasks',
+		'student_expectations_desc_1' => 'a collaboratively created project draft',
+		'student_expectations_desc_2' => 'feedback of one’s own contribution and of the team members',
+		'student_expectations_desc_3' => 'presentation of project results',
+		'timeframe' => 'Project timeframe',
+		'meetings_dates' => 'Dates for group meetings',
+		'evaluation week' => 'Interim evaluation week',
+		'presentation_of_results' => 'Presentation of project results',
+		'to_be_arranged' => 'To be agreed on the first meeting',
+		'other' => 'Other',
+		'autumn_spring' => 'Autumn+spring',
+		'spring_autumn' => 'Spring+autumn'
 
+		
 ];

@@ -169,27 +169,41 @@ class ProjectController extends Controller
       if ($embed) {
         // Set width of the embed
         $embed->setAttribute(['width' => 600]);
-
       }
-
       $embed_html = $embed->getHtml();
 
       $project->embedded = $embed_html;
 
     }
-
+	
+	  $project->aim = $request->aim;
+	
+	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	
+	  $project->novelty_desc = $request->novelty_desc;
+	
+	  $project->project_outcomes = $request->project_outcomes;
+	
+	  $project->student_expectations = $request->student_expectations;
+	  
+	  if(!empty($request->meetings_dates_text)){
+		  $project->meeting_dates = $request->meetings_dates_text;
+	  }else{
+		  $project->meeting_dates = 'NONE';
+	  }
+	  
 
 //    $project->integrated_areas = $request->integrated_areas;
 
 
-      $project->meeting_info = $request->meeting_info;
+    $project->meeting_info = $request->meeting_info;
 
-      $project->study_term = $request->study_term;
+    $project->study_term = $request->study_term;
 
-      $project->study_year = $request->study_year;
+    $project->study_year = $request->study_year;
 
 
-//    $project->project_outcomes = $request->project_outcomes;
+    
 //    $project->student_outcomes = $request->student_outcomes;
 //
 
@@ -218,7 +232,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-    $project->group_link = $request->group_link;
+//    $project->group_link = $request->group_link;
 
 
     $project->language = $request->language;
@@ -246,11 +260,11 @@ class ProjectController extends Controller
 
 
     //Attach study areas
-    $study_areas = $request->input('study_areas');
-    foreach ($study_areas as $study_area){
-
-      $project->getCourses()->attach($study_area);
-    }
+//    $study_areas = $request->input('study_areas');
+//    foreach ($study_areas as $study_area){
+//
+//      $project->getCourses()->attach($study_area);
+//    }
 
 
     //Attach users with teacher role
@@ -307,17 +321,37 @@ class ProjectController extends Controller
       $project->embedded = $embed_html;
 
     }
+	
+	
+	  $project->aim = $request->aim;
+	
+	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	
+	  $project->novelty_desc = $request->novelty_desc;
+	
+	  $project->project_outcomes = $request->project_outcomes;
+	
+	  $project->student_expectations = $request->student_expectations;
+	
+	  if(!empty($request->meetings_dates_text)){
+		  $project->meeting_dates = $request->meetings_dates_text;
+	  }else{
+		  $project->meeting_dates = 'NONE';
+	  }
+	  
+	  
+	  
 
     //XXX to be removed
-    $project->integrated_areas = $request->integrated_areas;
+//    $project->integrated_areas = $request->integrated_areas;
 
 
 
     $project->meeting_info = $request->meeting_info;
 
     //Attach study areas
-    $study_areas = $request->input('study_areas');
-    $project->getCourses()->sync($study_areas);
+//    $study_areas = $request->input('study_areas');
+//    $project->getCourses()->sync($study_areas);
 
 
     $project->study_term = $request->study_term;
@@ -331,7 +365,7 @@ class ProjectController extends Controller
 //
 
     //XXX to be removed
-    $project->courses = $request->related_courses;
+//    $project->courses = $request->related_courses;
 
 
 //    $project->institute = $request->institutes;
@@ -354,7 +388,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-    $project->group_link = $request->group_link;
+//    $project->group_link = $request->group_link;
 
     $project->language = $request->language;
 

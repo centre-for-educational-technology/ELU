@@ -26,12 +26,13 @@ class ProjectRequest extends Request
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:9000',
+	        
 
 //          XXX to be removed
-            'integrated_areas' => 'max:3000',
-            'related_courses' => 'max:3000',
+//            'integrated_areas' => 'max:3000',
+//            'related_courses' => 'max:3000',
 
-            'study_areas' => 'required',
+//            'study_areas' => 'required',
             'embedded' => 'active_url',
 //            'project_outcomes' => 'required|max:3000',
 //            'student_outcomes' => 'required|max:3000',
@@ -40,7 +41,7 @@ class ProjectRequest extends Request
 //            'project_end' => 'required|max:100',
             'join_deadline' => 'required|max:100',
 //            'join_link' => 'active_url',
-            'group_link' => 'active_url',
+//            'group_link' => 'active_url',
             'study_term' => 'required',
 //            'institutes' => 'required',
             'supervisors' => 'required',

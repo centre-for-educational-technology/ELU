@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\EvaluationDate;
 use App\User;
 use Illuminate\Http\Request;
+use function Sodium\compare;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Contracts\Pagination\Paginator;
 use App\Project;
@@ -280,6 +282,58 @@ class AdminController extends Controller
 			  ->with('results', $results)
 			  ->with('new_courses_count', $new_courses_count)
 	      ->with('updated_courses_count', $updated_courses_count);
+  }
+  
+  
+  
+  public function indexEvaluationDates(){
+  	
+	
+	  $last_evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+	
+	  
+	  $evaluation_dates = array();
+	  
+	  foreach ($last_evaluation_dates as $last_evaluation_date){
+		  array_push($evaluation_dates, $last_evaluation_date->evaluation_date);
+	  }
+	
+	  $date_1 = isset($evaluation_dates[0])? date("m/d/Y", strtotime($evaluation_dates[0])) : '';
+	  $date_2 = isset($evaluation_dates[1])? date("m/d/Y", strtotime($evaluation_dates[1])): '';
+	  $date_3 = isset($evaluation_dates[2])? date("m/d/Y", strtotime($evaluation_dates[2])): '';
+	
+
+	  return view('admin.evaluation_dates')
+			  ->with('date_1',$date_1)
+			  ->with('date_2',$date_2)
+			  ->with('date_3',$date_3);
+  }
+  
+  
+  public function editEvaluationDates(Request $request){
+  
+  	$evaluation_date_1 = new EvaluationDate;
+	  $evaluation_date_2 = new EvaluationDate;
+	  $evaluation_date_3 = new EvaluationDate;
+	
+	  $date_1 = date_create_from_format('m/d/Y', $request->evaluation_date_1);
+	  $evaluation_date_1->evaluation_date = date("Y-m-d", $date_1->getTimestamp());
+	
+	  $date_2 = date_create_from_format('m/d/Y', $request->evaluation_date_2);
+	  $evaluation_date_2->evaluation_date = date("Y-m-d", $date_2->getTimestamp());
+	
+	  $date_3 = date_create_from_format('m/d/Y', $request->evaluation_date_3);
+	  $evaluation_date_3->evaluation_date = date("Y-m-d", $date_3->getTimestamp());
+	
+	  $evaluation_date_3->save();
+	  $evaluation_date_2->save();
+	  $evaluation_date_1->save();
+	  
+	  
+	
+	  return \Redirect::to('admin/evaluation-dates')
+			  ->with('message', 'Muudatused on salvestatud');
+	  
   }
 
 }

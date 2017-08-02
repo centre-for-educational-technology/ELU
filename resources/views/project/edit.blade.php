@@ -66,8 +66,6 @@
                                     <p><img src="{{url('storage/projects_featured_images/'.$current_project->featured_image)}}" class="img-thumbnail featured-image-preview"></p>
                                 @endif
 
-
-
                                 <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
                             </div>
                         </div>
@@ -83,28 +81,77 @@
                         </div>
 
 
+                        <!-- Project aim -->
+                        <div class="form-group">
+                            <label for="aim" class="col-sm-3 control-label">{{trans('project.aim')}}</label>
+
+                            <div class="col-sm-6">
+
+                                <textarea name="aim" id="aim" class="form-control mceSimple">{!! (empty( old('aim')) ? $current_project->aim :  old('aim')) !!}</textarea>
+                            </div>
+                        </div>
+
+
+                        <!-- Project Interdisciplinary Desc -->
+                        <div class="form-group">
+                            <label for="interdisciplinary_desc" class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}
+                                <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                            </label>
+
+                            <div class="col-sm-6">
+
+                                <textarea name="interdisciplinary_desc" id="interdisciplinary_desc" class="form-control mceSimple">{!! (empty( old('interdisciplinary_desc')) ? $current_project->interdisciplinary_desc :  old('interdisciplinary_desc')) !!}</textarea>
+                            </div>
+                        </div>
+
+
+                        <!-- Project Novelty Desc -->
+                        <div class="form-group">
+                            <label for="novelty_desc" class="col-sm-3 control-label">{{trans('project.novelty_desc')}}</label>
+
+                            <div class="col-sm-6">
+
+                                <textarea name="novelty_desc" id="novelty_desc" class="form-control mceSimple">{!! (empty( old('novelty_desc')) ? $current_project->novelty_desc :  old('novelty_desc')) !!}</textarea>
+                            </div>
+                        </div>
+
+
+                        <!-- Project Outcomes -->
+                        <div class="form-group">
+                            <label for="project_outcomes" class="col-sm-3 control-label">{{trans('project.outcomes')}}</label>
+
+
+                            <div class="col-sm-6">
+                                <textarea name="project_outcomes" id="project_outcomes" class="form-control mceSimple">{!! (empty( old('project_outcomes')) ? $current_project->project_outcomes :  old('project_outcomes')) !!}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Expectations for students -->
+                        <div class="form-group">
+                            <label for="student_expectations" class="col-sm-3 control-label">{{trans('project.student_expectations')}}</label>
+
+                            <div class="col-sm-6">
+                                <textarea name="student_expectations" id="student_expectations" class="form-control mceSimple">
+                                    @if(empty( old('student_expectations')))
+                                        @if(!empty($current_project->student_expectations))
+                                            {!! $current_project->student_expectations !!}
+                                        @else
+                                            <p><i>{{trans('project.student_expectations_desc_1')}}</i></p>
+                                            <p><i>{{trans('project.student_expectations_desc_2')}}</i></p>
+                                            <p><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                        @endif
+
+                                    @else
+                                        {!! old('student_expectations') !!}
+                                    @endif
+                                </textarea>
+                            </div>
+                        </div>
+
+
                         <!-- Student idea info data -->
                         @if($current_project->submitted_by_student == 1)
 
-                            @if(!empty($current_project->interdisciplinary_desc))
-                                <div class="row">
-                                    <label class="col-sm-3 control-label">{{trans('project.interdisciplinary_desc')}}</label>
-                                    <div class="col-sm-6">
-                                        <p>{{$current_project->interdisciplinary_desc}}</p>
-                                    </div>
-
-                                </div>
-                            @endif
-
-                            @if(!empty($current_project->novelty_desc))
-                                    <div class="row">
-                                        <label class="col-sm-3 control-label">{{trans('project.novelty_desc')}}</label>
-                                        <div class="col-sm-6">
-                                            <p>{{$current_project->novelty_desc}}</p>
-                                        </div>
-
-                                    </div>
-                            @endif
 
                             @if(!empty($current_project->author_management_skills))
                                 <div class="row">
@@ -119,62 +166,122 @@
 
                         @endif
 
+                        <div class="well well-sm">
 
-                        <!-- Project meeting info -->
-                        <div class="form-group">
-                            <label for="meeting_info" class="col-sm-3 control-label">{{trans('project.meeting_info')}}</label>
 
-                            <div class="col-sm-6">
-                                <input type="text" name="meeting_info" id="meeting_info" class="form-control" value="{{  (empty(old('meeting_info')) ?  $current_project->meeting_info : old('meeting_info')) }}">
+                            <!-- Project meeting info -->
+                            <div class="form-group">
+                                <label for="meeting_info" class="col-sm-3 control-label">{{trans('project.meeting_info')}}</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" name="meeting_info" id="meeting_info" class="form-control" value="{{  (empty(old('meeting_info')) ?  $current_project->meeting_info : old('meeting_info')) }}">
+                                </div>
                             </div>
-                        </div>
 
 
-                        <!-- Study area -->
-                        <div class="form-group">
-                            <label for="study_areas" class="col-sm-3 control-label">{{trans('project.study_area')}}</label>
+                            <!-- Dates for group meetings -->
+                            <div class="form-group">
+                                <label for="meetings_dates_text" class="col-sm-3 control-label">{{trans('project.meetings_dates')}}</label>
+
+                                <div class="col-sm-6">
 
 
-                            <div class="col-sm-6">
-                                <select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>
+                                    @if(empty(old('meetings_dates_text') || old('meetings_dates_radio')))
+                                            @if($current_project->meeting_dates == "NONE")
+                                                <div class="radio">
+                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" checked> {{trans('project.to_be_arranged')}}</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio"> {{trans('project.other')}}</label>
+                                                </div>
+
+                                                <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" disabled>
+
+                                            @else
+
+                                                <div class="radio">
+                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio"> {{trans('project.to_be_arranged')}}</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" checked> {{trans('project.other')}}</label>
+                                                </div>
 
 
-
-                                    @if ($courses->count())
-
-                                        @foreach($courses as $course)
-
-                                                @if(!empty(old('study_areas')))
-                                                    <option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
-
-                                                @elseif($linked_courses_ids)
-                                                    <option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>
-
-                                                @else
-                                                    <option value="{{ $course->id }}">{{ getCourseName($course) }}</option>
+                                                <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  $current_project->meeting_dates }}">
 
                                             @endif
 
-                                        @endforeach
+                                    @else
+                                            <div class="radio">
+                                                <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" {{!empty(old('meetings_dates_radio'))? 'checked' : ''}}> {{trans('project.to_be_arranged')}}</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" {{!empty(old('meetings_dates_text'))? 'checked' : ''}}> {{trans('project.other')}}:</label>
+                                            </div>
+
+                                            <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  !empty(old('meetings_dates_text'))? old('meetings_dates_text') : '' }}">
 
                                     @endif
 
-
-                                </select>
+                                </div>
                             </div>
+
+                            <!-- Interim evaluation week -->
+                            <div class="row">
+                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation week')}}</label>
+                                <div class="col-sm-6">
+                                    <p><strong>23.10-28.10.2017</strong></p>
+                                </div>
+
+                            </div>
+
                         </div>
+
+                        {{--<!-- Study area -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="study_areas" class="col-sm-3 control-label">{{trans('project.study_area')}}</label>--}}
+
+
+                            {{--<div class="col-sm-6">--}}
+                                {{--<select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>--}}
+
+
+
+                                    {{--@if ($courses->count())--}}
+
+                                        {{--@foreach($courses as $course)--}}
+
+                                                {{--@if(!empty(old('study_areas')))--}}
+                                                    {{--<option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
+
+                                                {{--@elseif($linked_courses_ids)--}}
+                                                    {{--<option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
+
+                                                {{--@else--}}
+                                                    {{--<option value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
+
+                                            {{--@endif--}}
+
+                                        {{--@endforeach--}}
+
+                                    {{--@endif--}}
+
+
+                                {{--</select>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
                         <!-- Integrated areas -->
                         <!-- XXX to be removed -->
-                        <div class="form-group">
-                            <label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>
+                        {{--<div class="form-group">--}}
+                            {{--<label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>--}}
 
 
-                            <div class="col-sm-6">
-                                <textarea name="integrated_areas" id="integrated_areas" class="form-control">{{ (empty(old('integrated_areas')) ? $current_project->integrated_areas : old('integrated_areas')) }}</textarea>
-                            </div>
-                        </div>
+                            {{--<div class="col-sm-6">--}}
+                                {{--<textarea name="integrated_areas" id="integrated_areas" class="form-control">{{ (empty(old('integrated_areas')) ? $current_project->integrated_areas : old('integrated_areas')) }}</textarea>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
                         <!-- Study term -->
@@ -190,7 +297,6 @@
                                         <option value="0">{{trans('project.autumn_semester')}}</option>
                                     @endif
 
-
                                     @if ((empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 1)
                                         <option value="1" selected>{{trans('project.spring_semester')}}</option>
                                     @else
@@ -198,9 +304,15 @@
                                     @endif
 
                                     @if ( (empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 2)
-                                        <option value="2" selected>{{trans('project.both')}}</option>
+                                        <option value="2" selected>{{trans('project.autumn_spring')}}</option>
                                     @else
-                                        <option value="2">{{trans('project.both')}}</option>
+                                        <option value="2">{{trans('project.autumn_spring')}}</option>
+                                    @endif
+
+                                    @if ( (empty(old('study_term')) ?  $current_project->spring_autumn : old('spring_autumn')) == 3)
+                                        <option value="3" selected>{{trans('project.spring_autumn')}}</option>
+                                    @else
+                                        <option value="3">{{trans('project.spring_autumn')}}</option>
                                     @endif
 
                                 </select>
@@ -240,16 +352,6 @@
 
 
 
-                    {{--<!-- Project Outcomes -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="project_outcomes" class="col-sm-3 control-label">Projekti väljundid <p>Üks per rida</p></label>--}}
-
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<textarea name="project_outcomes" id="project_outcomes" class="form-control">{{ (empty($current_project) ? old('project_outcomes') : $current_project->project_outcomes) }}</textarea>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
                         {{--<!-- Student Outcomes -->--}}
                         {{--<div class="form-group">--}}
                             {{--<label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid <p>Üks per rida</p></label>--}}
@@ -260,14 +362,14 @@
                         {{--</div>--}}
 
 
-                        <!-- Related Courses -->
-                        <div class="form-group">
-                            <label for="related_courses" class="col-sm-3 control-label">{{trans('project.related_courses')}} <p>{{trans('project.one_per_line')}}</p></label>
+                        {{--<!-- Related Courses -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="related_courses" class="col-sm-3 control-label">{{trans('project.related_courses')}} <p>{{trans('project.one_per_line')}}</p></label>--}}
 
-                            <div class="col-sm-6">
-                                <textarea name="related_courses" id="related_courses" class="form-control">{{ (empty(old('related_courses')) ?  $current_project->courses : old('related_courses')) }}</textarea>
-                            </div>
-                        </div>
+                            {{--<div class="col-sm-6">--}}
+                                {{--<textarea name="related_courses" id="related_courses" class="form-control">{{ (empty(old('related_courses')) ?  $current_project->courses : old('related_courses')) }}</textarea>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
                         {{--<!-- Project start -->--}}
@@ -515,14 +617,14 @@
 
 
 
-                        <!-- Mendeley group link -->
-                        <div class="form-group">
-                            <label for="group_link" class="col-sm-3 control-label">{{trans('project.mendeley_group_link')}}</label>
+                        {{--<!-- Mendeley group link -->--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="group_link" class="col-sm-3 control-label">{{trans('project.mendeley_group_link')}}</label>--}}
 
-                            <div class="col-sm-6">
-                                <input type="text" name="group_link" id="group_link" class="form-control" value="{{ (empty(old('group_link')) ?  $current_project->group_link : old('group_link')) }}">
-                            </div>
-                        </div>
+                            {{--<div class="col-sm-6">--}}
+                                {{--<input type="text" name="group_link" id="group_link" class="form-control" value="{{ (empty(old('group_link')) ?  $current_project->group_link : old('group_link')) }}">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
 
                         <!-- Get notifications -->

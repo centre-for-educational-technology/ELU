@@ -8,10 +8,16 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
                     <h1>
-                        404. {{trans('errors.404')}}
+                        Lehte ei leitud.
+                    </h1>
+                    <h1>
+                        /
+                    </h1>
+                    <h1>
+                        Page not found.
                     </h1>
                     <a class="btn btn-primary btn-lg" href="{{url('/projects/open')}}" role="button">
-                        {{trans('errors.button_search')}}
+                        Otsi projekt / Search project
                     </a>
 
                 </div>

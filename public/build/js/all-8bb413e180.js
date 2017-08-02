@@ -20,6 +20,10 @@ jQuery(document).ready(function($) {
     format: 'L'
   });
 
+  $('.evaluation-dates').datetimepicker({
+    format: 'L'
+  });
+
   $('#project_start').datetimepicker();
   $('#project_end').datetimepicker({
     useCurrent: false //Important! See issue #1075

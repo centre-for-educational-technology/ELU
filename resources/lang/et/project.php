@@ -107,7 +107,7 @@ return [
     'group_materials_heading' => 'Valminud materjalid',
 		'group_material_name' => 'Nimi',
     'group_material_link' => 'Viide',
-		'interdisciplinary_desc' => 'Interdistsiplinaarne lähenemisviis ja selle rakendamine',
+		'interdisciplinary_desc' => 'Erialade lõimimine',
 		'interdisciplinary_desc_desc' => 'Probleemi mõtestamine teise eriala perspektiivist, kokkupuutepunktide otsimine, teoreetilistest/ metodoloogilistest erinevustest uute võimaluste leidmine, loovuse arendamine.',
 		'novelty_desc' => 'Teaduspõhisus ja uudsus',
 		'author_management_skills' => 'Projektijuhtimise alusteadmised',
@@ -128,8 +128,25 @@ return [
 		'active_status' => 'aktiivne',
 		'summary_not_completed_status' => 'kokkuvõtted pole täidetud',
 		'summary_completed_status' => 'kokkuvõtted täidetud',
-		'publishing_status' => 'Avaldamisstaatus'
+		'publishing_status' => 'Avaldamisstaatus',
 
+		'aim' => 'Projekti eesmärk',
+		'outcomes' => 'Oodatav tulemus',
+		'student_expectations' => 'Nõuded projektile',
+		'student_expectations_desc_1' => 'üliõpilaste koostöös valminud projekti kavand',
+		'student_expectations_desc_2' => 'tagasiside enese ning rühmakaaslaste panusele',
+		'student_expectations_desc_3' => 'projekti tulemuste esitlemine',
+		'timeframe' => 'Projekti ajaraamistik',
+		'meetings_dates' => 'Kohtumiste ajad',
+		'evaluation week' => 'Vahekokkuvõtte nädal',
+		'presentation_of_results' => 'Projekti tulemuste esitlemine',
+		'to_be_arranged' => 'Lepitakse kokku esimesel kohtumisel',
+		'other' => 'Muu',
+		'autumn_spring' => 'Sügis+kevad',
+		'spring_autumn' => 'Kevad+sügis'
+	
+	
+	
 
 
 

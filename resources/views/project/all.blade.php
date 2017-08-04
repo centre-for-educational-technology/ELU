@@ -84,50 +84,6 @@
 
                         <div class="col-md-6">
 
-
-                            @if (!empty($project->extra_info))
-                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                                <p>{!! $project->extra_info !!}</p>
-                            @endif
-
-
-                            <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
-                            <ul class="list-unstyled list01 tags">
-                                @foreach ($project->users as $user)
-                                    @if ( $user->pivot->participation_role == 'author' )
-                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
-                                    @endif
-                                @endforeach
-                            </ul>
-
-
-
-
-                            @if(!empty($project->supervisor))
-
-                                <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
-                                <ul class="list-unstyled list01 tags">
-                                    @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                                        <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
-                                    @endforeach
-                                </ul>
-
-                            @endif
-
-
-                            <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
-                            <ul class="list-unstyled list01 tags keywords">
-                                @foreach (explode(',', $project->tags) as $tag)
-                                    <li><span class="label label-primary">{{ $tag }}</span></li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-
-
-                        <div class="col-md-6">
-
-
                             @if(!empty($project->meeting_info))
                                 <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
                                 <p>{{$project->meeting_info}}</p>
@@ -195,6 +151,54 @@
 
                                 </div>
                             </div>
+
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+
+                            @if (!empty($project->extra_info))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
+                                <p>{!! $project->extra_info !!}</p>
+                            @endif
+
+
+                            <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
+                            <ul class="list-unstyled list01 tags">
+                                @foreach ($project->users as $user)
+                                    @if ( $user->pivot->participation_role == 'author' )
+                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+
+
+
+
+                            @if(!empty($project->supervisor))
+
+                                <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
+                                <ul class="list-unstyled list01 tags">
+                                    @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
+                                        <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
+                                    @endforeach
+                                </ul>
+
+                            @endif
+
+
+                            <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
+                            <ul class="list-unstyled list01 tags keywords">
+                                @foreach (explode(',', $project->tags) as $tag)
+                                    <li><span class="label label-primary">{{ $tag }}</span></li>
+                                @endforeach
+                            </ul>
+
+
+
                         </div>
 
 

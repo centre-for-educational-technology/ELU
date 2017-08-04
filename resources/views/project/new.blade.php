@@ -151,7 +151,7 @@
 
                             <!-- Interim evaluation week -->
                             <div class="row">
-                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation week')}}</label>
+                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation_week')}}</label>
                                 <div class="col-sm-6">
                                     <p><strong>23.10-28.10.2017</strong></p>
                                 </div>
@@ -163,11 +163,12 @@
                                 <label for="presentation_of_results" class="col-sm-3 control-label">{{trans('project.presentation_of_results')}}</label>
 
                                 <div class="col-sm-6">
-                                        <select class="form-control" id="presentation_of_results">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
+
+                                        <select class="form-control" id="presentation_of_results" name="presentation_of_results">
+                                            @foreach($evaluation_dates as $evaluation_date)
+                                                <option value="{{$evaluation_date->id}}" {{old('presentation_of_results') == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
+                                            @endforeach
+
                                         </select>
                                 </div>
                             </div>
@@ -471,19 +472,12 @@
                             <label for="language" class="col-sm-3 control-label">{{trans('project.language')}}</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="language" name="language">
-                                    @if ( old('language') == 'et')
-                                    <option value="et" selected>Eesti</option>
-                                    @else
-                                        <option value="en">Eesti</option>
-                                    @endif
+                                <select class="form-control" id="language" name="language" disabled>
 
+                                    <option value="et" {{$project_language == 'et' ? 'selected' : ''}}>Eesti</option>
 
-                                    @if ( old('language') == 'en')
-                                        <option value="et" selected>English</option>
-                                    @else
-                                        <option value="en">English</option>
-                                    @endif
+                                    <option value="en" {{$project_language == 'en' ? 'selected' : ''}}>English</option>
+
                                 </select>
                             </div>
                         </div>

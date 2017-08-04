@@ -119,7 +119,7 @@ class SimpleSamlController extends Controller
           }
         }else{
           //Unknown user gets student role by default
-          $user->roles()->attach(2);
+          $user->roles()->sync(2);
         }
 
         auth()->login($user);

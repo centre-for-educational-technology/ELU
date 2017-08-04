@@ -67,7 +67,15 @@
                         @endforeach
 
                     @else
-                        <h3><a href="{{url('/project/new')}}"><i class="fa fa-plus"></i> {{trans('project.add')}}</a></h3>
+                        <h3>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> {{trans('front.add')}} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('/project/new?lang=et') }}">Eesti keeles</a></li>
+                                    <li><a href="{{ url('/project/new?lang=en') }}">In english</a></li>
+                                </ul>
+                            </li>
+                        </h3>
                     @endif
             </div>
         @endif

@@ -18,6 +18,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Course;
 use App\Group;
+use App\EvaluationDate;
 
 
 
@@ -98,12 +99,12 @@ Route::group(['middleware' =>['web']], function () {
 	    
 	        
           //Study areas field
-	        if(\App::getLocale() == 'en'){
-		        $courses = Course::select('id','oppekava_eng')->get();
-	        }else{
-		        $courses = Course::select('id','oppekava_est')->get();
-	        }
-	        
+//	        if(\App::getLocale() == 'en'){
+//		        $courses = Course::select('id','oppekava_eng')->get();
+//	        }else{
+//		        $courses = Course::select('id','oppekava_est')->get();
+//	        }
+//
           
 
           $linked_courses = $current_project->getCourses()->select('id')->get();
@@ -111,9 +112,10 @@ Route::group(['middleware' =>['web']], function () {
           foreach ($linked_courses as $linked_course){
             array_push($linked_courses_ids, $linked_course->id);
           }
-	      
-         
-
+	
+	
+	
+	        $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
 
 
 
@@ -134,7 +136,7 @@ Route::group(['middleware' =>['web']], function () {
             $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
           }
 
-          return view('project.edit', compact('teachers','authors_ids', 'current_project', 'courses', 'projects', 'linked_courses_ids'));
+          return view('project.edit', compact('teachers','authors_ids', 'current_project', 'projects', 'linked_courses_ids', 'evaluation_dates'));
 
 
         }));
@@ -287,13 +289,13 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('student/project/new', function () {
          
-	        if(\App::getLocale() == 'en'){
-		        $courses = Course::select('id','oppekava_eng')->get();
-	        }else{
-		        $courses = Course::select('id','oppekava_est')->get();
-	        }
-	
-	        return view('user.student.new_project')->with('courses', $courses);
+//	        if(\App::getLocale() == 'en'){
+//		        $courses = Course::select('id','oppekava_eng')->get();
+//	        }else{
+//		        $courses = Course::select('id','oppekava_est')->get();
+//	        }
+//
+	        return view('user.student.new_project');
         });
 
         Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
@@ -353,16 +355,23 @@ Route::group(['middleware' => ['web']], function () {
 
 
     $project = Project::find($id);
-
-    if(Auth::user()){
-      return view('project.project')
-          ->with('project', $project)
-          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    
+    if($project){
+	    if(Auth::user()){
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', Auth::user()->is('oppejoud'));
+	    }else{
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', false);
+	    }
+    	
     }else{
-      return view('project.project')
-          ->with('project', $project)
-          ->with('isTeacher', false);
+    	return view('errors.404');
     }
+
+    
 
 
   }));

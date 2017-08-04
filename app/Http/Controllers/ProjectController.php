@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\FinishedProjectRequest;
 use App\Http\Requests\AddProjectGroupRequest;
 use App\Http\Requests\AttachUsersRequest;
+use App\EvaluationDate;
 
 
 
@@ -120,7 +121,15 @@ class ProjectController extends Controller
    */
   public function add()
   {
-
+	
+	  $lang = $_GET['lang'];
+	  
+	  $project_language = 'et';
+	  if(!empty($lang)){
+		  $project_language = $lang;
+	  }
+	  
+	  
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('id', Auth::user()->id);
@@ -134,17 +143,20 @@ class ProjectController extends Controller
       $q->where('name', 'oppejoud');
     })->get();
 	
+//
+//	  if(\App::getLocale() == 'en'){
+//		  $courses = Course::select('id','oppekava_eng')->get();
+//	  }else{
+//		  $courses = Course::select('id','oppekava_est')->get();
+//	  }
 	
-	  if(\App::getLocale() == 'en'){
-		  $courses = Course::select('id','oppekava_eng')->get();
-	  }else{
-		  $courses = Course::select('id','oppekava_est')->get();
-	  }
+	
+	  $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
 
   
     $author =  Auth::user()->id;
 
-    return view('project.new', compact('teachers', 'author', 'projects', 'courses'));
+    return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
   }
@@ -191,6 +203,8 @@ class ProjectController extends Controller
 	  }else{
 		  $project->meeting_dates = 'NONE';
 	  }
+	
+	  $project->evaluation_date_id = $request->presentation_of_results;
 	  
 
 //    $project->integrated_areas = $request->integrated_areas;
@@ -338,8 +352,8 @@ class ProjectController extends Controller
 	  }else{
 		  $project->meeting_dates = 'NONE';
 	  }
-	  
-	  
+	
+	  $project->evaluation_date_id = $request->presentation_of_results;
 	  
 
     //XXX to be removed
@@ -1019,9 +1033,19 @@ class ProjectController extends Controller
 
     $project = new Project;
     $project->name = $request->name;
+
     $project->description = $request->description;
+	
+	  $project->aim = $request->aim;
+	
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	
 	  $project->novelty_desc = $request->novelty_desc;
+	
+	  $project->project_outcomes = $request->project_outcomes;
+	
+	  $project->student_expectations = $request->student_expectations;
+	  
 	  $project->author_management_skills = $request->author_management_skills;
 	  
 //    $project->integrated_areas = $request->integrated_areas;
@@ -1031,9 +1055,10 @@ class ProjectController extends Controller
 //    $project->institute = $request->institutes;
 
     $project->supervisor = $request->cosupervisors;
-
-//    $project->tags = $request->tags;
-
+	
+	  $project->tags = $request->tags;
+	  
+	  
     $project->publishing_status = 0;
 
     $project->study_year = $request->study_year;
@@ -1050,11 +1075,11 @@ class ProjectController extends Controller
     $project->save();
 
     //Attach study areas
-    $study_areas = $request->input('study_areas');
-    foreach ($study_areas as $study_area){
-
-      $project->getCourses()->attach($study_area);
-    }
+//    $study_areas = $request->input('study_areas');
+//    foreach ($study_areas as $study_area){
+//
+//      $project->getCourses()->attach($study_area);
+//    }
 
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 	

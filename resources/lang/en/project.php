@@ -142,7 +142,7 @@ return [
 		'student_expectations_desc_3' => 'presentation of project results',
 		'timeframe' => 'Project timeframe',
 		'meetings_dates' => 'Dates for group meetings',
-		'evaluation week' => 'Interim evaluation week',
+		'evaluation_week' => 'Interim evaluation week',
 		'presentation_of_results' => 'Presentation of project results',
 		'to_be_arranged' => 'To be agreed on the first meeting',
 		'other' => 'Other',

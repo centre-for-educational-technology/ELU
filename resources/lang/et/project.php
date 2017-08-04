@@ -138,7 +138,7 @@ return [
 		'student_expectations_desc_3' => 'projekti tulemuste esitlemine',
 		'timeframe' => 'Projekti ajaraamistik',
 		'meetings_dates' => 'Kohtumiste ajad',
-		'evaluation week' => 'Vahekokkuvõtte nädal',
+		'evaluation_week' => 'Vahekokkuvõtte nädal',
 		'presentation_of_results' => 'Projekti tulemuste esitlemine',
 		'to_be_arranged' => 'Lepitakse kokku esimesel kohtumisel',
 		'other' => 'Muu',

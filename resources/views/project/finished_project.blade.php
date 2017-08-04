@@ -169,11 +169,13 @@
                                         @endforeach
                                     </ul>
                                     <ul class="tags keywords">
-                                        @foreach(getGroupUsersCourses($group) as $key => $course)
+                                        @if(getGroupUsersCourses($group))
+                                            @foreach(getGroupUsersCourses($group) as $key => $course)
 
-                                            <li><span class="label label-orange">{{$key}} ({{$course}})</span></li>
+                                                <li><span class="label label-orange">{{$key}} ({{$course}})</span></li>
 
-                                        @endforeach
+                                            @endforeach
+                                        @endif
                                     </ul>
 
                                     <!-- Group results -->

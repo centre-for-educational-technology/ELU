@@ -228,11 +228,33 @@
 
                             <!-- Interim evaluation week -->
                             <div class="row">
-                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation week')}}</label>
+                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation_week')}}</label>
                                 <div class="col-sm-6">
                                     <p><strong>23.10-28.10.2017</strong></p>
                                 </div>
 
+                            </div>
+
+                            <!-- Presentation of project results -->
+                            <div class="form-group">
+                                <label for="presentation_of_results" class="col-sm-3 control-label">{{trans('project.presentation_of_results')}}</label>
+
+                                <div class="col-sm-6">
+
+                                    <select class="form-control" id="presentation_of_results" name="presentation_of_results">
+                                        @if(!empty(old('presentation_of_results')))
+                                            @foreach($evaluation_dates as $evaluation_date)
+                                                <option value="{{$evaluation_date->id}}" {{old('presentation_of_results') == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
+                                            @endforeach
+                                        @else
+                                            @foreach($evaluation_dates as $evaluation_date)
+                                                <option value="{{$evaluation_date->id}}" {{$current_project->evaluation_date_id == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
+                                            @endforeach
+                                        @endif
+
+
+                                    </select>
+                                </div>
                             </div>
 
                         </div>

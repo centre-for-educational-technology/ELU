@@ -82,6 +82,13 @@ class SimpleSamlController extends Controller
 
 
         auth()->login($new_user);
+	
+	      if($new_user->is('student')){
+		      if(empty($user->contact_email)){
+			      return redirect('/profile#contact-email-form');
+		      }
+		
+	      }
 
       }else{
 
@@ -123,16 +130,16 @@ class SimpleSamlController extends Controller
         }
 
         auth()->login($user);
+	
+	      if($user->is('student')){
+		      if(empty($user->contact_email)){
+			      return redirect('/profile#contact-email-form');
+		      }
+		
+	      }
 
       }
-
-      if($user->is('student')){
-        if(empty($user->contact_email)){
-          return redirect('/profile#contact-email-form');
-        }
-
-      }
-
+	    
 
     }
 

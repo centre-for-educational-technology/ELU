@@ -55,118 +55,40 @@
 
                     <p>{!! $project->description !!}</p>
 
+                    @if (!empty($project->aim))
+                        <h3>{{trans('project.aim')}}</h3>
+                        <p>{!! $project->aim !!}</p>
+                    @endif
 
+                    @if (!empty($project->interdisciplinary_desc))
+                        <h3>{{trans('project.interdisciplinary_desc')}}</h3>
+                        <p>{!! $project->interdisciplinary_desc !!}</p>
+                    @endif
+
+                    @if (!empty($project->novelty_desc))
+                        <h3>{{trans('project.novelty_desc')}}</h3>
+                        <p>{!! $project->novelty_desc !!}</p>
+                    @endif
+
+                    @if (!empty($project->project_outcomes))
+                        <h3>{{trans('project.outcomes')}}</h3>
+                        <p>{!! $project->project_outcomes !!}</p>
+                    @endif
+
+                    @if (!empty($project->student_expectations))
+                        <h3>{{trans('project.student_expectations')}}</h3>
+                        <p>{!! $project->student_expectations !!}</p>
+                    @endif
 
                     <div class="row mt2em">
 
                         <div class="col-md-6">
 
 
-                            @if(!empty($project->meeting_info))
-                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.meeting_info')}}</h3>
-                                <p>{{$project->meeting_info}}</p>
-                            @endif
-
-                            {{--XXX to be removed--}}
-                            @if(!empty($project->integrated_areas))
-
-                                <h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>
-                                <ul class="list-unstyled list01">
-                                    @foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)
-                                        <li>{{ $integrated_area }}</li>
-                                    @endforeach
-                                </ul>
-
-                            @endif
-
-                            {{--XXX to be removed--}}
-                            @if(!empty($project->courses))
-                                <h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>
-                                <ul class="list-unstyled list01">
-                                    @foreach (explode(PHP_EOL, $project->courses) as $course)
-                                        <li>{{ $course }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-
-
-
-
-                            @if(count($project->getCourses)>0)
-                                <h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>
-                                <ul class="list-unstyled list01 tags keywords">
-                                    @foreach ($project->getCourses as $course)
-                                        <li><span class="label label-primary">{{ getCourseName($course) }}</span></li>
-                                    @endforeach
-                                </ul>
-                            @endif
-
-
                             @if (!empty($project->extra_info))
                                 <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
                                 <p>{!! $project->extra_info !!}</p>
                             @endif
-
-
-                            @if (!empty($project->group_link))
-                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.mendeley_group_link')}}</h3>
-                                <a href="{{$project->group_link}}" target="_blank">{{trans('project.group_link_visit')}}</a>
-                            @endif
-                        </div>
-
-
-
-                        <div class="col-md-6">
-
-
-                            <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
-                            <ul class="list-unstyled list01">
-                                @if ( $project->study_term == 0 )
-                                    <li>{{trans('project.autumn_semester')}}</li>
-                                @elseif ( $project->study_term == 1 )
-                                    <li>{{trans('project.spring_semester')}}</li>
-                                @elseif ( $project->study_term == 2 )
-                                    <li>{{trans('project.both')}}</li>
-                                @endif
-
-                                @if(!empty($project->study_year))
-                                    <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
-                                @endif
-
-                            </ul>
-
-
-
-                            <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
-                            <ul class="list-unstyled list01">
-                                @if ( $project->language == 'et' )
-                                    <li>Eesti</li>
-                                @elseif ( $project->language == 'en' )
-                                    <li>English</li>
-                                @endif
-                            </ul>
-
-
-                            {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}
-                            {{--<ul class="list-unstyled list01">--}}
-                            {{--@if ( $project->institute == 0 )--}}
-                            {{--<li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>--}}
-                            {{--@elseif ( $project->institute == 1 )--}}
-                            {{--<li>Digitehnoloogiate instituut</li>--}}
-                            {{--@elseif ( $project->institute == 2 )--}}
-                            {{--<li>Humanitaarteaduste instituut</li>--}}
-                            {{--@elseif ( $project->institute == 3 )--}}
-                            {{--<li>Haridusteaduste instituut</li>--}}
-                            {{--@elseif ( $project->institute == 4 )--}}
-                            {{--<li>Loodus- ja terviseteaduste instituut</li>--}}
-                            {{--@elseif ( $project->institute == 5 )--}}
-                            {{--<li>Rakvere kolledž</li>--}}
-                            {{--@elseif ( $project->institute == 6 )--}}
-                            {{--<li>Haapsalu kolledž</li>--}}
-                            {{--@elseif ( $project->institute == 7 )--}}
-                            {{--<li>Ühiskonnateaduste instituut</li>--}}
-                            {{--@endif--}}
-                            {{--</ul>--}}
 
 
                             <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
@@ -199,6 +121,64 @@
                                     <li><span class="label label-primary">{{ $tag }}</span></li>
                                 @endforeach
                             </ul>
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+
+                            @if(!empty($project->meeting_info))
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
+                                <p>{{$project->meeting_info}}</p>
+                            @endif
+
+                            <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
+                            <ul class="list-unstyled list01">
+                                @if ( $project->language == 'et' )
+                                    <li>Eesti</li>
+                                @elseif ( $project->language == 'en' )
+                                    <li>English</li>
+                                @endif
+                            </ul>
+
+                            <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
+                            <ul class="list-unstyled list01">
+                                @if ( $project->study_term == 0 )
+                                    <li>{{trans('project.autumn_semester')}}</li>
+                                @elseif ( $project->study_term == 1 )
+                                    <li>{{trans('project.spring_semester')}}</li>
+                                @elseif ( $project->study_term == 2 )
+                                    <li>{{trans('project.autumn_spring')}}</li>
+                                @elseif ( $project->study_term == 3 )
+                                    <li>{{trans('project.spring_autumn')}}</li>
+                                @endif
+
+                                @if(!empty($project->study_year))
+                                    <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
+                                @endif
+
+                            </ul>
+
+                            @if (!empty($project->meeting_dates))
+                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.meetings_dates')}}</h3>
+                                @if($project->meeting_dates == 'NONE')
+                                    <p>{{trans('project.to_be_arranged')}}</p>
+                                @else
+                                    <p>{{$project->meeting_dates}}</p>
+                                @endif
+
+                            @endif
+
+
+                            <h3><span class="glyphicon ico-duration"></span>{{trans('project.evaluation_week')}}</h3>
+                            <p>23.10-28.10.2017</p>
+
+
+                            @if (!empty($project->evaluation_date_id))
+                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.presentation_of_results')}}</h3>
+                                <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->first()->evaluation_date))}}</p>
+                            @endif
 
                             <div class="row share">
                                 <div class="col-sm-8">

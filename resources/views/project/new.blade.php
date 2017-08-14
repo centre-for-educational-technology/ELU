@@ -472,7 +472,8 @@
                             <label for="language" class="col-sm-3 control-label">{{trans('project.language')}}</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="language" name="language">
+                                <input type="hidden" name="language" value="{{$project_language}}">
+                                <select class="form-control" id="language" name="language" disabled>
 
                                     <option value="et" {{$project_language == 'et' ? 'selected' : ''}}>Eesti</option>
 

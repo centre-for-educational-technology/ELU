@@ -52,7 +52,14 @@
                             <div class="col-sm-6">
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty( old('embedded')) ? $current_project->embedded :  old('embedded')) }}">
                             </div>
+
+                            <button type="button" class="btn btn-secondary btn-sm" id="clear-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+
+
                         </div>
+
+
+
 
                         <!-- Project Featured image -->
                         <div class="form-group">

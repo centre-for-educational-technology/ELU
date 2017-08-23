@@ -170,6 +170,8 @@
                                                                 <p>{{trans('project.group_video_link_desc')}}</p>
                                                                 @if(!empty(old('group_embedded.'.$group->id)))
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id) !!}">
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+
 
 
                                                                 @elseif(!empty($group->embedded))
@@ -180,10 +182,14 @@
 
                                                                     @endphp
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!! $embedded !!}">
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+
 
 
                                                                 @else
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control">
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+
 
                                                                 @endif
                                                             </div>

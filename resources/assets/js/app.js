@@ -423,7 +423,20 @@ jQuery(document).ready(function($) {
 
 
 
-  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="popover"]').popover();
+
+
+  $('#clear-embedded').click(function(){
+    $('#embedded')
+      .val('')
+  });
+
+
+  $('#clear-group-embedded').click(function(){
+    $(this).prev('input').val('');
+  })
+
+
 
 
 

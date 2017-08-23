@@ -312,8 +312,7 @@ class ProjectController extends Controller
    */
   public function update(ProjectRequest $request, $id)
   {
-
-    \Debugbar::info($id);
+	  
 
     $project = Project::find($id);
     $project->name = $request->name;
@@ -321,7 +320,7 @@ class ProjectController extends Controller
 
 
     if($request->embedded != null){
-
+	    
       $embed = Embed::make($request->embedded)->parseUrl();
 
       if ($embed) {
@@ -334,9 +333,10 @@ class ProjectController extends Controller
 
       $project->embedded = $embed_html;
 
+    }else{
+	    $project->embedded = null;
     }
-	
-	
+    
 	  $project->aim = $request->aim;
 	
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
@@ -1518,6 +1518,8 @@ class ProjectController extends Controller
 
           $embedded = $embed_html;
 
+        }else{
+	        $embedded = null;
         }
 
 

@@ -26,8 +26,10 @@ class ProjectRequest extends Request
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:9000',
+		        'aim' => 'required|max:9000',
+		        'novelty_desc' => 'required|max:9000',
+		        'project_outcomes' => 'required|max:9000',
 	        
-
 //          XXX to be removed
 //            'integrated_areas' => 'max:3000',
 //            'related_courses' => 'max:3000',

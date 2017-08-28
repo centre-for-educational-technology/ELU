@@ -45,7 +45,7 @@ return [
     'deadline_over' => 'Projektiga liitumine on lõppenud',
     'share_fb' => 'Jaga Facebookis',
     'share_twitter' => 'Jaga Twitteris',
-    'joined_project_notification' => 'Oled liitunud projektiga',
+    'joined_project_notification' => 'Oled liitunud projektiga (ÕISis registreerimist ei toimu)',
     'left_project_notification' => 'Oled lahkunud projektist',
     'twitter_share_joined_message' => 'Olen liitunud projektiga',
     'project_sent_to_moderation_notification' => 'Sinu projekt ":name" suunati modereerimisele. Aitäh!',
@@ -129,7 +129,6 @@ return [
 		'summary_not_completed_status' => 'kokkuvõtted pole täidetud',
 		'summary_completed_status' => 'kokkuvõtted täidetud',
 		'publishing_status' => 'Avaldamisstaatus',
-
 		'aim' => 'Projekti eesmärk',
 		'outcomes' => 'Oodatav tulemus',
 		'student_expectations' => 'Nõuded projektile',
@@ -138,13 +137,18 @@ return [
 		'student_expectations_desc_3' => 'projekti tulemuste esitlemine',
 		'timeframe' => 'Projekti ajaraamistik',
 		'meetings_dates' => 'Kohtumiste ajad',
-		'evaluation_week' => 'Vahekokkuvõtte nädal',
+		'evaluation_date' => 'Vahenädala kuupäev',
 		'presentation_of_results' => 'Projekti tulemuste esitlemine',
 		'to_be_arranged' => 'Lepitakse kokku esimesel kohtumisel',
 		'other' => 'Muu',
 		'autumn_spring' => 'Sügis+kevad',
-		'spring_autumn' => 'Kevad+sügis'
-	
+		'spring_autumn' => 'Kevad+sügis',
+		'declined_project_join_notification_max_members_limit' => 'Kahjuks on projektis juba kohad täietud',
+		'declined_project_join_notification_max_courses_limit' => 'Kahjuks on projektis juba sinu erialaga kohad täietud',
+		'find_something_else_notification' => 'Otsi midagi veel',
+		'new_project_added_notification' => 'Uus projekt on lisatud!',
+		'presentation_of_results_december' => 'detsember/jaanuar',
+		'presentation_of_results_may' => 'mai/juuni',
 	
 	
 

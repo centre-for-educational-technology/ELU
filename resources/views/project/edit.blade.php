@@ -233,25 +233,40 @@
                                 </div>
                             </div>
 
-                            <!-- Interim evaluation week -->
-                            <div class="row">
-                                <label class="col-sm-3" style="text-align: right">{{trans('project.evaluation_week')}}</label>
+                            <!-- Presentation of project results -->
+                            <div class="form-group">
+                                <label class="col-sm-3" style="text-align: right">{{trans('project.presentation_of_results')}}</label>
                                 <div class="col-sm-6">
-                                    <p><strong>23.10-28.10.2017</strong></p>
+                                    <select class="form-control" id="presentation_results" name="presentation_results">
+
+                                        @if ((empty(old('presentation_results')) ?  $current_project->presentation_results : old('presentation_results')) == 0)
+                                            <option value="0" selected>{{trans('project.presentation_of_results_december')}}</option>
+                                        @else
+                                            <option value="0">{{trans('project.presentation_of_results_december')}}</option>
+                                        @endif
+
+                                        @if ((empty(old('presentation_results')) ?  $current_project->presentation_results : old('presentation_results')) == 1)
+                                            <option value="1" selected>{{trans('project.presentation_of_results_may')}}</option>
+                                        @else
+                                            <option value="1">{{trans('project.presentation_of_results_may')}}</option>
+                                        @endif
+
+                                    </select>
                                 </div>
 
                             </div>
 
-                            <!-- Presentation of project results -->
+                            <!-- Interim evaluation date -->
                             <div class="form-group">
-                                <label for="presentation_of_results" class="col-sm-3 control-label">{{trans('project.presentation_of_results')}}</label>
+                                <label for="evaluation_date" class="col-sm-3 control-label">{{trans('project.evaluation_date')}}</label>
 
                                 <div class="col-sm-6">
 
-                                    <select class="form-control" id="presentation_of_results" name="presentation_of_results">
-                                        @if(!empty(old('presentation_of_results')))
+                                    <select class="form-control" id="evaluation_date" name="evaluation_date">
+
+                                        @if(!empty(old('evaluation_date')))
                                             @foreach($evaluation_dates as $evaluation_date)
-                                                <option value="{{$evaluation_date->id}}" {{old('presentation_of_results') == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
+                                                <option value="{{$evaluation_date->id}}" {{old('evaluation_date') == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
                                             @endforeach
                                         @else
                                             @foreach($evaluation_dates as $evaluation_date)
@@ -263,6 +278,8 @@
                                     </select>
                                 </div>
                             </div>
+
+
 
                         </div>
 
@@ -838,6 +855,7 @@
                         </div>
 
                         <div class="panel-body project-groups">
+                            @if(count($current_project->groups)<=3)
                             <h3>{{trans('project.add_group')}}</h3>
                             <form action="{{ url('project/'.$current_project->id.'/add-group') }}" method="POST" class="form-horizontal new-project ">
                                 {{ csrf_field() }}
@@ -863,6 +881,7 @@
 
 
                             </form>
+                            @endif
 
                             <h3>{{trans('project.assign_to_groups')}}</h3>
 

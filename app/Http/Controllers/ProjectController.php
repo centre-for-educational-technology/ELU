@@ -119,14 +119,17 @@ class ProjectController extends Controller
   /**
    * Add new project form
    */
-  public function add()
+  public function add(Request $request)
   {
-	
-	  $lang = $_GET['lang'];
+	  
+	  $lang = $request->lang;
 	  
 	  $project_language = 'et';
 	  if(!empty($lang)){
 		  $project_language = $lang;
+		  \App::setLocale($lang);
+		  session(['applocale' => $lang]);
+		 
 	  }
 	  
 	  
@@ -204,7 +207,9 @@ class ProjectController extends Controller
 		  $project->meeting_dates = 'NONE';
 	  }
 	
-	  $project->evaluation_date_id = $request->presentation_of_results;
+	  $project->evaluation_date_id = $request->evaluation_date;
+	  
+	  $project->presentation_results = $request->presentation_results;
 	  
 
 //    $project->integrated_areas = $request->integrated_areas;
@@ -298,7 +303,7 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('teacher/my-projects')
-        ->with('message', 'Uus projekt on lisatud!')
+        ->with('message', trans('project.new_project_added_notification'))
         ->with('projects', $projects);
 
 
@@ -353,7 +358,9 @@ class ProjectController extends Controller
 		  $project->meeting_dates = 'NONE';
 	  }
 	
-	  $project->evaluation_date_id = $request->presentation_of_results;
+	  $project->evaluation_date_id = $request->evaluation_date;
+	
+	  $project->presentation_results = $request->presentation_results;
 	  
 
     //XXX to be removed
@@ -853,12 +860,110 @@ class ProjectController extends Controller
   public function joinProject($id)
   {
     $project = Project::find($id);
+	
+	 
+    if( count($project->groups) >= 3){
+    	//All groups created
+	
+	    //Find a place
+    	foreach ($project->groups as $key=>$group){
+    		if(count($group->users) <= 7){
+    			if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
+				
+    				
+				    $group->users()->syncWithoutDetaching([Auth::user()->id]);
+				    break;
+    				
+			    }else{
+    				if($key === count($project->groups)-1){
+    					//last group
+					    //cannot join
+					    return \Redirect::to('project/'.$project->id)
+							    ->with('message', [
+									    'text' => trans('project.declined_project_join_notification_max_courses_limit').': "'.$project->name.'"',
+									    'type' => 'declined'
+							    ])
+							    ->with('project', $project);
+				    }
+			    }
+    		
+    		
+		    }else{
+			    if($key === count($project->groups)-1){
+			    	//last group
+				    //cannot join
+				    return \Redirect::to('project/'.$project->id)
+						    ->with('message', [
+								    'text' => trans('project.declined_project_join_notification_max_members_limit').': "'.$project->name.'"',
+								    'type' => 'declined'
+						    ])
+						    ->with('project', $project);
+			    }
+		    }
+	    }
+
+
+  
+    
+    }elseif (count($project->groups) > 0 && count($project->groups) <= 2){
+    	//1 or 2 groups
+	
+	    //Find a place
+	    foreach ($project->groups as $key=>$group){
+	    	if(count($group->users) <= 7){
+			    if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
+				    $group->users()->syncWithoutDetaching([Auth::user()->id]);
+				    break;
+			    }else{
+				    if($key === count($project->groups)-1){
+				    	//last group
+					    //make a new one
+					    $new_group = new Group;
+					    $new_group->name = count($project->groups)+1;
+					    $new_group->project_id = $project->id;
+					    $new_group->save();
+					    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+				    }
+			    	
+			    	
+			    }
+			    
+	    		
+		    }else{
+	    		if($key === count($project->groups)-1){
+				    //last group
+				    //make a new one
+				    $new_group = new Group;
+				    $new_group->name = count($project->groups)+1;
+				    $new_group->project_id = $project->id;
+				    $new_group->save();
+				    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+	    			
+			    }
+		    }
+	    	
+	    }
+    
+    
+    
+    } else {
+    	//0 groups
+	    //make group
+	    $new_group = new Group;
+	    $new_group->name = 1;
+	    $new_group->project_id = $project->id;
+	    $new_group->save();
+	
+	    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+    }
+    
+    
+	  
+    
+    
 
     //Attach user with member role
-
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
-	
-	  
 	  
 	  if($project->get_notifications){
 		  $data = [
@@ -1383,7 +1488,7 @@ class ProjectController extends Controller
     $validation = Validator::make($input, $rules);
 
     if ($validation->fails()) {
-      return Response::make($validation->errors->first(), 400);
+      return Response::make(trans('errors.not_image'), 400);
     }
 
 

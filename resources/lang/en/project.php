@@ -46,7 +46,7 @@ return [
     'deadline_over' => 'Registration period is over',
     'share_fb' => 'Share on Facebook',
     'share_twitter' => 'Share on Twitter',
-    'joined_project_notification' => 'You have joined the project',
+    'joined_project_notification' => 'You have joined the project (No need to join on ÕIS)',
     'left_project_notification' => 'You have left the project',
     'twitter_share_joined_message' => 'I have joined the project',
     'project_sent_to_moderation_notification' => 'Your project proposal ":name" sent for moderation. Thank you!',
@@ -132,8 +132,6 @@ return [
 		'summary_not_completed_status' => 'summary not completed',
 		'summary_completed_status' => 'summary completed',
 		'publishing_status' => 'Publishing status',
-	
-
 		'aim' => 'The aim of the project',
 		'outcomes' => 'Project outcome',
 		'student_expectations' => 'Compulsory tasks',
@@ -142,12 +140,17 @@ return [
 		'student_expectations_desc_3' => 'presentation of project results',
 		'timeframe' => 'Project timeframe',
 		'meetings_dates' => 'Dates for group meetings',
-		'evaluation_week' => 'Interim evaluation week',
+		'evaluation_date' => 'Interim evaluation date',
 		'presentation_of_results' => 'Presentation of project results',
 		'to_be_arranged' => 'To be agreed on the first meeting',
 		'other' => 'Other',
 		'autumn_spring' => 'Autumn+spring',
-		'spring_autumn' => 'Spring+autumn'
+		'spring_autumn' => 'Spring+autumn',
+		'declined_project_join_notification' => 'Unfortunately all the places are taken in this project',
+		'find_something_else_notification' => 'Find something else',
+		'new_project_added_notification' => 'New project has been added!',
+		'presentation_of_results_december' => 'December/January',
+		'presentation_of_results_may' => 'May/June',
 
 		
 ];

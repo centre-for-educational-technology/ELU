@@ -22,5 +22,6 @@ return [
 		
 		'500' => 'Something went wrong.',
 		'404' => 'Page not found.',
-		'button_search' => 'Search project'
+		'button_search' => 'Search project',
+		'not_image' => 'That is not an image',
 ];

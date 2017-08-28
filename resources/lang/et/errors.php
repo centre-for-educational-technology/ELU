@@ -22,5 +22,6 @@ return [
 		
 		'500' => 'Midagi läks valesti.',
 		'404' => 'Lehte ei leitud.',
-		'button_search' => 'Otsi projekt'
+		'button_search' => 'Otsi projekt',
+		'not_image' => 'See ei ole pilt',
 ];

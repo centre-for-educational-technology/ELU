@@ -117,7 +117,7 @@
                             </ul>
 
                             @if (!empty($project->meeting_dates))
-                                <h3><span class="glyphicon ico-brainstorm"></span> {{trans('project.meetings_dates')}}</h3>
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meetings_dates')}}</h3>
                                 @if($project->meeting_dates == 'NONE')
                                     <p>{{trans('project.to_be_arranged')}}</p>
                                 @else
@@ -127,12 +127,18 @@
                             @endif
 
 
-                            <h3><span class="glyphicon ico-duration"></span>{{trans('project.evaluation_week')}}</h3>
-                            <p>23.10-28.10.2017</p>
+                            @if (!empty($project->presentation_results))
+                                <h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>
+                                @if($project->presentation_results == 0)
+                                    <p>{{trans('project.presentation_of_results_december')}}</p>
+                                @else
+                                    <p>{{trans('project.presentation_of_results_may')}}</p>
+                                @endif
+                            @endif
 
 
                             @if (!empty($project->evaluation_date_id))
-                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.presentation_of_results')}}</h3>
+                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
                                 <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->first()->evaluation_date))}}</p>
                             @endif
 

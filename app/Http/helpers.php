@@ -256,7 +256,11 @@ function isMemberOfProject($user_id, $project_id)
 
 }
 
-
+/**
+ * Get course names of users that belong to that group
+ * @param \App\Group $group
+ * @return array|bool
+ */
 function getGroupUsersCourses(\App\Group $group){
 
   $courses = array();
@@ -276,6 +280,42 @@ function getGroupUsersCourses(\App\Group $group){
 
   return false;
 
+}
+
+/**
+ * Get course ids of users that belong to that group
+ * @param \App\Group $group
+ * @return array|bool
+ */
+function getGroupUsersCoursesIds(\App\Group $group){
+	
+	$courses = array();
+	
+	if(count($group->users)>0){
+		foreach ($group->users as $user){
+			
+			if(!empty($user->full_name)){
+				if(count($user->courses) >0){
+					$user_course = $user->courses->first()->id;
+				}else{
+					$user_course = '';
+				}
+				
+			}else{
+				$user_course = '';
+			}
+			
+		
+			array_push($courses, $user_course);
+			
+			
+		}
+		
+		return array_count_values($courses);
+	}
+	
+	return false;
+	
 }
 
 function getCourseName(\App\Course $course){
@@ -307,4 +347,35 @@ function getProjectSemester(\App\Project $project){
     return trans('project.both');
   }
 
+}
+
+
+function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user){
+	
+	$user_course = null;
+	if(!empty($user->full_name)){
+		if(count($user->courses) > 0){
+			$user_course = $user->courses->first()->id;
+		}else{
+			//User without course
+			$user_course = '';
+		}
+		
+	}else{
+		//local account student
+		$user_course = '';
+	}
+
+	if(getGroupUsersCoursesIds($group)){
+		foreach (getGroupUsersCoursesIds($group) as $course_id => $times){
+			if($course_id == $user_course && $times>=3){
+				return false;
+			}
+			
+		}
+	}
+	
+	
+	return true;
+	
 }

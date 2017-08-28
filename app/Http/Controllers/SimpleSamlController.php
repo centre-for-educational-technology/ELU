@@ -114,7 +114,12 @@ class SimpleSamlController extends Controller
                 $course = Course::where('kood_htm', $course_and_degree['course_num'])->first();
 
                 //Set user course and degree
-                $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+	              if(count($user->courses)>0){
+		              $user->courses()->updateExistingPivot($course->id, ['degree' => $course_and_degree['degree']]);
+	              }else{
+		              $user->courses()->attach($course->id, ['degree' => $course_and_degree['degree']]);
+	              }
+               
               }
 
             }

@@ -338,18 +338,28 @@ function getUserEmail(\App\User $user){
 }
 
 
-function getProjectSemester(\App\Project $project){
-  if ( $project->study_term == 0 ){
-    return trans('project.autumn_semester');
-  }else if($project->study_term == 1){
-    return trans('project.spring_semester');
-  }else{
-    return trans('project.both');
-  }
 
+function getProjectSemester(\App\Project $project)
+{
+	if ($project->study_term == 0) {
+		return trans('project.autumn_semester');
+	} else if ($project->study_term == 1) {
+		return trans('project.spring_semester');
+	} else if ($project->study_term == 2) {
+		return trans('project.autumn_spring');
+	} else {
+		return trans('project.spring_autumn');
+	}
 }
 
 
+/**
+ * Check if this user can join the project.
+ * Return true if there are less than 3 users in the group that have the same course as this user. (Or less than 3 local users with no course)
+ * @param \App\Group $group
+ * @param \App\User $user
+ * @return bool
+ */
 function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user){
 	
 	$user_course = null;
@@ -378,4 +388,23 @@ function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user)
 	
 	return true;
 	
+}
+
+/**
+ * Return true if one of the groups has less than 8 members and all 3 groups are in use
+ * @param \App\Project $project
+ * @return bool
+ */
+function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
+	if(count($project->groups) < 3){
+		return true;
+	}else{
+		foreach ($project->groups as $group){
+			if(count($group->users) < 8){
+				return true;
+			}
+		}
+	}
+	
+	return false;
 }

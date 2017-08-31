@@ -139,7 +139,7 @@
 
                             @if (!empty($project->evaluation_date_id))
                                 <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
-                                <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->first()->evaluation_date))}}</p>
+                                <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                             @endif
 
                             <div class="row share">
@@ -234,14 +234,16 @@
                                         <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                                     @else
+                                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                                                <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                    {{ csrf_field() }}
 
-                                        <form action="{{ url('join/'.$project->id) }}" method="POST">
-                                            {{ csrf_field() }}
+                                                    <button type="submit" class="btn btn-primary btn-lg">
+                                                        {{trans('search.join_button')}}
+                                                    </button>
+                                                </form>
+                                        @endif
 
-                                            <button type="submit" class="btn btn-primary btn-lg">
-                                                {{trans('search.join_button')}}
-                                            </button>
-                                        </form>
                                     @endif
                                 @else
                                     <p>{{trans('project.no_student_role_notification')}}</p>

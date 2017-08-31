@@ -199,9 +199,10 @@
                 @endif
 
 
+
                 @if (!empty($project->evaluation_date_id))
                     <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
-                    <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->first()->evaluation_date))}}</p>
+                    <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                 @endif
 
 
@@ -334,13 +335,15 @@
                         <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name'])}}</p>
 
                     @else
-                        <form action="{{ url('join/'.$project->id) }}" method="POST">
-                            {{ csrf_field() }}
+                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                            <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                {{ csrf_field() }}
 
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                {{trans('search.join_button')}}
-                            </button>
-                        </form>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    {{trans('search.join_button')}}
+                                </button>
+                            </form>
+                        @endif
                     @endif
                 @else
                     <p>{{trans('project.no_student_role_notification')}}</p>

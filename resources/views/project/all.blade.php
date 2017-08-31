@@ -90,13 +90,12 @@
                             @endif
 
                             <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
-                            <ul class="list-unstyled list01">
-                                @if ( $project->language == 'et' )
-                                    <li>Eesti</li>
-                                @elseif ( $project->language == 'en' )
-                                    <li>English</li>
-                                @endif
-                            </ul>
+                            @if ( $project->language == 'et' )
+                                <p>Eesti</p>
+                            @elseif ( $project->language == 'en' )
+                                <p>English</p>
+                            @endif
+
 
                             <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
                             <ul class="list-unstyled list01">

@@ -14,7 +14,7 @@
                 </div>
             @endif
 
-            <h3><i class="fa fa-calendar-times-o"></i> Projekti tulemuste esitlemine</h3>
+            <h3><i class="fa fa-calendar-times-o"></i> Vahenädala kuupäevad</h3>
 
 
             <div class="row">

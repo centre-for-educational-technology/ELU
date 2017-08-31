@@ -111,9 +111,9 @@
                             <div class="col-sm-6">
                                 <textarea name="student_expectations" id="student_expectations" class="form-control mceSimple">
                                     @if(empty( old('student_expectations')))
-                                        <p><i>{{trans('project.student_expectations_desc_1')}}</i></p>
-                                        <p><i>{{trans('project.student_expectations_desc_2')}}</i></p>
-                                        <p><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_1')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_2')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_3')}}</i></p>
                                     @else
                                         {!! old('student_expectations') !!}
                                     @endif

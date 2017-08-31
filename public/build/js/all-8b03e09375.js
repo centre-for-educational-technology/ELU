@@ -239,7 +239,7 @@ jQuery(document).ready(function($) {
   tinyMCE.init({
     mode : "textareas",
     language: window.Laravel.language,
-    plugins: ["link", "lists", "paste"],
+    plugins: ["link", "lists", "paste", "noneditable", "preventdelete"],
     height : "350",
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
@@ -433,9 +433,24 @@ jQuery(document).ready(function($) {
 
 
   $('#clear-group-embedded').click(function(){
-    var group_id = $(this).attr("group-id");
     $(this).prev('input').val('');
   })
+
+
+  $('body').tooltip({
+    selector: '[rel="tooltip"]'
+  });
+
+  $(".btn").click(function(e) {
+    if (! $(this).hasClass("disabled"))
+    {
+      $(".disabled").removeClass("disabled").attr("rel", null);
+      $(this).addClass("disabled").attr("rel", "tooltip");
+
+      $(this).mouseenter();
+    }
+  });
+
 
 
 

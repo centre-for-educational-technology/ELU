@@ -242,6 +242,10 @@
                                                         {{trans('search.join_button')}}
                                                     </button>
                                                 </form>
+                                        @else
+                                                <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">
+                                                    {{trans('search.join_button')}}
+                                                </button>
                                         @endif
 
                                     @endif

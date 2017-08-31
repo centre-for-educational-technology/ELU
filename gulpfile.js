@@ -1,5 +1,6 @@
 var elixir = require('laravel-elixir');
 var gulp = require('gulp');
+var rename = require("gulp-rename");
 
 /*
  |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ gulp.task("copyfiles", function() {
 
     gulp.src("resources/assets/js/config-design.js")
       .pipe(gulp.dest("public/js"));
+
+    gulp.src("resources/assets/js/preventdelete.js")
+      .pipe(rename('plugin.js'))
+      .pipe(gulp.dest("public/js/tinymce/plugins/preventdelete"));
 
 
     gulp.src("resources/assets/bower/tinymce/**/*")
@@ -52,6 +57,7 @@ elixir(function(mix) {
         '../bower/sweetalert/dist/sweetalert.min.js',
         'bootstrap-tagsinput.js',
         'bootbox.min.js',
+        'preventdelete.js',
         '../bower/select2/dist/js/select2.full.min.js',
         '../bower/tinymce/tinymce.js',
         '../bower/Sortable/Sortable.js',

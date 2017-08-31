@@ -57,7 +57,6 @@ elixir(function(mix) {
         '../bower/sweetalert/dist/sweetalert.min.js',
         'bootstrap-tagsinput.js',
         'bootbox.min.js',
-        'preventdelete.js',
         '../bower/select2/dist/js/select2.full.min.js',
         '../bower/tinymce/tinymce.js',
         '../bower/Sortable/Sortable.js',

@@ -434,23 +434,18 @@ jQuery(document).ready(function($) {
 
   $('#clear-group-embedded').click(function(){
     $(this).prev('input').val('');
-  })
+  });
 
 
   $('body').tooltip({
     selector: '[rel="tooltip"]'
   });
 
-  $(".btn").click(function(e) {
-    if (! $(this).hasClass("disabled"))
-    {
-      $(".disabled").removeClass("disabled").attr("rel", null);
-      $(this).addClass("disabled").attr("rel", "tooltip");
 
-      $(this).mouseenter();
-    }
+  //Group title renaming
+  $(document).ready(function() {
+    $('.group-name').editable();
   });
-
 
 
 

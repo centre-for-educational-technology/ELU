@@ -299,7 +299,9 @@ class ProjectController extends Controller
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->orderBy('created_at', 'desc')->paginate(5);
-
+	
+	
+	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
 
 
     return \Redirect::to('teacher/my-projects')
@@ -1073,7 +1075,18 @@ class ProjectController extends Controller
 
     return redirect('project/'.$project_id.'/edit')->with('message', trans('project.group_deleted_notification', ['name' => $group->name]));
   }
-
+	
+	
+	public function renameProjectGroup(Request $request)
+	{
+		$group = Group::findOrFail($request->pk);
+		
+		$group->name = $request->value;
+		$group->save();
+		
+		return Response::json('ok', 200);
+	}
+	
 
   /**
    * Leave project team is used by user with student role
@@ -1189,8 +1202,8 @@ class ProjectController extends Controller
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 	
 	  
-	  $this->newProjectIdeaAddedEmailNotification($project->name, self::getUserName(Auth::user()), url('project/'.$project->id.'/edit'));
-	
+	  $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id.'/edit'));
+	  
 	  
     return \Redirect::to('projects/open')
         ->with('message', [
@@ -1206,7 +1219,7 @@ class ProjectController extends Controller
 	
 		$data = [
 				'project_name' => $project,
-				'project_author' => $author,
+				'project_author' => self::getUserName($author),
 				'project_url' => $url,
 		];
 		
@@ -1227,6 +1240,45 @@ class ProjectController extends Controller
 			$m->to($admins_emails)->subject('Uus projektiidee');
 //			$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
+		
+	
+		
+		Mail::send('emails.project_idea_student_confirmation', ['data' => $data], function ($m) use ($author) {
+			$m->to($author->email)->subject('Projektiidee on lisatud / Project idea has been added');
+		});
+		
+		
+	}
+	
+	
+	public function newProjectAddedEmailNotification($project, $author, $url)
+	{
+		
+		$data = [
+				'project_name' => $project,
+				'project_author' => self::getUserName($author),
+				'project_url' => $url,
+		];
+		
+		$admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+		
+		$admins_emails = array();
+		
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+		
+		
+		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
+			$m->to($admins_emails)->subject('Uus projekt');
+//			$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+		
+		
 	}
 
 

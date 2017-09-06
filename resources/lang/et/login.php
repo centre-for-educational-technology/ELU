@@ -7,7 +7,7 @@ return [
     'no_tlu_button' => 'Mul ei ole TLÜ ÕISi kontot',
     'email'=>'E-post',
     'password' => 'Parool',
-    'remember' => 'Jäta mind meele',
+    'remember' => 'Jäta mind meelde',
     'login_button' => 'Logi sisse',
     'signup' => 'Registreeru',
     'forgot_password' => 'Unustasid parooli',

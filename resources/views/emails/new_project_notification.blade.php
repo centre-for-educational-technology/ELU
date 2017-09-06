@@ -146,21 +146,17 @@
                 <tr>
                     <td class="content">
 
-                        <h2>Tere / Hello</h2>
+                        <h2>Tere</h2>
 
                         <p>
-                            Uus tudeng <?php echo $data['new_member']; ?> on liitunud teie projektiga "<?php echo $data['project_name']; ?>".
-                        </p>
-                        <p>–</p>
-                        <p>
-                            A new student <?php echo $data['new_member']; ?> has joined your project "<?php echo $data['project_name']; ?>".
+                            Uus projekt on lisatud kasutaja <?php echo $data['project_author']; ?> poolt.
                         </p>
 
                         <table>
                             <tr>
                                 <td align="center">
                                     <p>
-                                        <a href="<?php echo $data['project_url']; ?>" class="button">Vaata projekt / Open project</a>
+                                        <a href="<?php echo $data['project_url']; ?>" class="button">Vaata</a>
                                     </p>
                                 </td>
                             </tr>

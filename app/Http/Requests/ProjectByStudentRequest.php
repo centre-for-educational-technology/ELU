@@ -27,9 +27,10 @@ class ProjectByStudentRequest extends Request
           'name' => 'required|max:255',
           'description' => 'required|max:9000',
 		      'aim' => 'max:9000',
+		      'novelty_desc' => 'required|max:9000',
+		      'project_outcomes' => 'required|max:9000',
 	        'interdisciplinary_desc' => 'max:9000',
-		      'novelty_desc' => 'max:9000',
-		      'project_outcomes' => 'max:9000',
+		    
 		      'student_expectations' => 'max:9000',
 		      'author_management_skills' => 'max:9000',
 //          'integrated_areas' => 'max:3000',
@@ -38,7 +39,7 @@ class ProjectByStudentRequest extends Request
 //          'institutes' => 'required',
   //          'supervisors' => 'required',
           'cosupervisors' => 'max:3000',
-          'tags' => 'max:3000',
+          'tags' => 'required|max:3000',
           'extra_info' => 'max:3000'
       ];
     }

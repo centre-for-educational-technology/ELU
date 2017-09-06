@@ -146,25 +146,15 @@
                 <tr>
                     <td class="content">
 
-                        <h2>Tere / Hello</h2>
+                        <h2>Hea tudeng! / Dear student!</h2>
 
                         <p>
-                            Uus tudeng <?php echo $data['new_member']; ?> on liitunud teie projektiga "<?php echo $data['project_name']; ?>".
+                            Aitäh, oleme Sinu ELU projekti idee kätte saanud. Vaatame selle üle ja võtame Sinuga ühendust!
                         </p>
                         <p>–</p>
                         <p>
-                            A new student <?php echo $data['new_member']; ?> has joined your project "<?php echo $data['project_name']; ?>".
+                            Thank you, we have received your ELU project idea. We will look it over and get back to you!
                         </p>
-
-                        <table>
-                            <tr>
-                                <td align="center">
-                                    <p>
-                                        <a href="<?php echo $data['project_url']; ?>" class="button">Vaata projekt / Open project</a>
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
 
                     </td>
                 </tr>

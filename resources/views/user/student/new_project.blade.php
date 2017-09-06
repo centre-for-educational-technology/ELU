@@ -17,7 +17,7 @@
 
                     <!-- Project Name -->
                     <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label">{{trans('project.name')}}</label>
+                        <label for="name" class="col-sm-3 control-label">{{trans('project.name')}} *</label>
 
                         <div class="col-sm-8">
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
@@ -27,7 +27,7 @@
                     <!-- Project Description -->
                     <div class="form-group">
 
-                        <label for="description" class="col-sm-3 control-label">{{trans('project.description')}}</label>
+                        <label for="description" class="col-sm-3 control-label">{{trans('project.description')}} *</label>
 
                         <div class="col-sm-8">
                             <textarea name="description" id="description" class="form-control mceSimple">{{  old('description') }}</textarea>
@@ -36,7 +36,7 @@
 
                     <!-- Project aim -->
                     <div class="form-group">
-                        <label for="aim" class="col-sm-3 control-label">{{trans('project.aim')}}</label>
+                        <label for="aim" class="col-sm-3 control-label">{{trans('project.aim')}} *</label>
 
                         <div class="col-sm-8">
 
@@ -59,7 +59,7 @@
 
                     <!-- Project Novelty Desc -->
                     <div class="form-group">
-                        <label for="novelty_desc" class="col-sm-3 control-label">{{trans('project.novelty_desc')}}</label>
+                        <label for="novelty_desc" class="col-sm-3 control-label">{{trans('project.novelty_desc')}} *</label>
 
                         <div class="col-sm-8">
 
@@ -69,7 +69,7 @@
 
                     <!-- Project Outcomes -->
                     <div class="form-group">
-                        <label for="project_outcomes" class="col-sm-3 control-label">{{trans('project.outcomes')}}</label>
+                        <label for="project_outcomes" class="col-sm-3 control-label">{{trans('project.outcomes')}} *</label>
 
 
                         <div class="col-sm-8">
@@ -84,9 +84,9 @@
                         <div class="col-sm-8">
                                 <textarea name="student_expectations" id="student_expectations" class="form-control mceSimple">
                                     @if(empty( old('student_expectations')))
-                                        <p><i>{{trans('project.student_expectations_desc_1')}}</i></p>
-                                        <p><i>{{trans('project.student_expectations_desc_2')}}</i></p>
-                                        <p><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_1')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_2')}}</i></p>
+                                        <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_3')}}</i></p>
                                     @else
                                         {!! old('student_expectations') !!}
                                     @endif
@@ -137,7 +137,7 @@
 
                     <!-- Study term -->
                     <div class="form-group">
-                        <label for="study_term" class="col-sm-3 control-label">{{trans('project.duration')}}</label>
+                        <label for="study_term" class="col-sm-3 control-label">{{trans('project.duration')}} *</label>
 
                         <div class="col-sm-8">
                             <select class="form-control" id="study_term" name="study_term">
@@ -172,7 +172,7 @@
 
                     <!-- Study year -->
                     <div class="form-group">
-                        <label for="study_year" class="col-sm-3 control-label">{{trans('project.study_year')}}</label>
+                        <label for="study_year" class="col-sm-3 control-label">{{trans('project.study_year')}} *</label>
 
                         <div class="col-sm-8">
                             <select class="form-control" id="study_year" name="study_year">
@@ -309,7 +309,7 @@
 
                     <!-- Tags -->
                     <div class="form-group">
-                        <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} <p>{{trans('project.separated_with_commas')}}</p></label>
+                        <label for="tags" class="col-sm-3 control-label">{{trans('project.keywords')}} *<p>{{trans('project.separated_with_commas')}}</p></label>
 
                         <div class="col-sm-8">
                             <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}" data-role="tagsinput" />

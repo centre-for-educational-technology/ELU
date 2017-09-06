@@ -44,7 +44,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('project/new', 'ProjectController@store');
 
 
-        Route::delete('/project/{id}', function ($id) {
+        Route::delete('/project/{id}/delete', function ($id) {
           $project = Project::findOrFail($id);
 
           $name = $project->name;
@@ -148,8 +148,9 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::post('api/group/add-user', 'ProjectController@addUserToGroup');
-
-
+	      
+	      Route::post('api/group/rename', 'ProjectController@renameProjectGroup');
+	      
         Route::delete('project/{id}/group/delete/{group_id}', 'ProjectController@deleteProjectGroup');
 
 

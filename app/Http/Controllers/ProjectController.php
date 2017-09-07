@@ -1229,6 +1229,21 @@ class ProjectController extends Controller
 		}
 		)->get();
 		
+		$superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+		
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
+	
 		$admins_emails = array();
 		
 		foreach ($admins as $admin){
@@ -1265,6 +1280,21 @@ class ProjectController extends Controller
 			$q->where('name', 'admin');
 		}
 		)->get();
+		
+		$superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+		
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
 		
 		$admins_emails = array();
 		

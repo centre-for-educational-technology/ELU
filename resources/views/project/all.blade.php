@@ -141,21 +141,21 @@
                                 <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                             @endif
 
-                            <div class="row share">
-                                <div class="col-sm-8">
+                            {{--<div class="row share">--}}
+                                {{--<div class="col-sm-8">--}}
 
-                                    <a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit(strip_tags($project->description), 150) }}" class="btnShare btn btn-block btn-social btn-facebook">
-                                        <span class="fa fa-facebook"></span> {{trans('project.share_fb')}}
-                                    </a>
+                                    {{--<a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit(strip_tags($project->description), 150) }}" class="btnShare btn btn-block btn-social btn-facebook">--}}
+                                        {{--<span class="fa fa-facebook"></span> {{trans('project.share_fb')}}--}}
+                                    {{--</a>--}}
 
-                                    <a class="btn btn-block btn-social btn-twitter"
-                                       href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"
-                                       hashtags="elu,tlu">
-                                        <span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}
-                                    </a>
+                                    {{--<a class="btn btn-block btn-social btn-twitter"--}}
+                                       {{--href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"--}}
+                                       {{--hashtags="elu,tlu">--}}
+                                        {{--<span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}--}}
+                                    {{--</a>--}}
 
-                                </div>
-                            </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
 
 
                         </div>

@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ELU - Tere tulemast</title>
+    @if(!empty($project->name))
+        <title>{{$project->name}}</title>
+    @else
+        <title>ELU - Tere tulemast</title>
+    @endif
+
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicons/apple-touch-icon.png')}}">

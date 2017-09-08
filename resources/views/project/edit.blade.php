@@ -694,7 +694,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.change_button')}}
+                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
                                 </button>
                             </div>
                         </div>

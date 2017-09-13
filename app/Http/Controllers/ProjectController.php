@@ -1425,7 +1425,7 @@ class ProjectController extends Controller
 		
 		$headers = array(
 				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu.csv",
+				"Content-Disposition" => "attachment; filename=elu_open.csv",
 				"Pragma" => "no-cache",
 				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
 				"Expires" => "0"
@@ -1468,7 +1468,7 @@ class ProjectController extends Controller
 
     $headers = array(
         "Content-type" => "text/csv",
-        "Content-Disposition" => "attachment; filename=elu.csv",
+        "Content-Disposition" => "attachment; filename=elu_ongoing.csv",
         "Pragma" => "no-cache",
         "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
         "Expires" => "0"
@@ -1512,7 +1512,7 @@ class ProjectController extends Controller
 		
 		$headers = array(
 				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu.csv",
+				"Content-Disposition" => "attachment; filename=elu_finished.csv",
 				"Pragma" => "no-cache",
 				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
 				"Expires" => "0"

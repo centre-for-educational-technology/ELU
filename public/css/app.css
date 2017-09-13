@@ -10221,28 +10221,58 @@ a:hover {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
 }
-.circle-tile-heading.green:hover {
-  background-color: #138F77;
-}
-.circle-tile-heading.orange:hover {
-  background-color: #DA8C10;
-}
 .tile-img {
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9);
 }
+.statistics .dark-blue {
+  background-color: #34495e;
+}
 .statistics .green {
-  background-color: #16A085;
+  background-color: #16a085;
+}
+.statistics .blue {
+  background-color: #2980b9;
 }
 .statistics .orange {
-  background-color: #F39C12;
+  background-color: #f39c12;
+}
+.statistics .red {
+  background-color: #e74c3c;
+}
+.statistics .purple {
+  background-color: #8e44ad;
+}
+.statistics .dark-gray {
+  background-color: #7f8c8d;
+}
+.statistics .gray {
+  background-color: #95a5a6;
+}
+.statistics .light-gray {
+  background-color: #bdc3c7;
+}
+.statistics .yellow {
+  background-color: #f1c40f;
+}
+.statistics .text-dark-blue {
+  color: #34495e;
 }
 .statistics .text-green {
-  color: #16A085;
+  color: #16a085;
+}
+.statistics .text-blue {
+  color: #2980b9;
 }
 .statistics .text-orange {
-  color: #F39C12;
+  color: #f39c12;
 }
-.statistics .text-faded {
+.statistics .text-red {
+  color: #e74c3c;
+}
+.statistics .text-purple {
+  color: #8e44ad;
+}
+.text-faded {
   color: rgba(255, 255, 255, 0.7);
 }
 .featured-image-preview {

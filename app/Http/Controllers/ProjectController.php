@@ -1321,11 +1321,18 @@ class ProjectController extends Controller
     $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->paginate(20);
 
 
+    $open_projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->count();
 
+    $ongoing_projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->count();
+	
+	  $finished_projects = Project::where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->count();
 
     return view('admin.analytics')
         ->with('projects', $projects)
-        ->with('projects_count', Project::where('publishing_status', '=', '1')->count())
+        ->with('published_projects_count', $open_projects+$ongoing_projects+$finished_projects)
+		    ->with('open_projects_count', $open_projects)
+		    ->with('ongoing_projects_count', $ongoing_projects)
+		    ->with('finished_projects_count', $finished_projects)
         ->with('users_count', User::count());
 
   }
@@ -1408,12 +1415,54 @@ class ProjectController extends Controller
 
     return implode(', ', $data);
   }
-
+	
+	/**
+	 * Get open projects statistics in form of csv file
+	 */
+	public function exportAnalyticsToCSVOpenProjects()
+	{
+		
+		
+		$headers = array(
+				"Content-type" => "text/csv",
+				"Content-Disposition" => "attachment; filename=elu.csv",
+				"Pragma" => "no-cache",
+				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+				"Expires" => "0"
+		);
+		
+		
+		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
+		
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		
+		
+		$callback = function() use ($projects, $columns)
+		{
+			$handle = fopen('php://output', 'w');
+			fputcsv($handle, $columns);
+			
+			foreach($projects as $project) {
+				
+				$authors = $this->getProjectAuthorsNamesAndEmails($project);
+				$members = $this->getProjectMembersData($project);
+				$cosupervisors = $this->getProjectCosupervisors($project);
+				
+				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+			}
+			
+			
+			fclose($handle);
+		};
+		
+		
+		return Response::stream($callback, 200, $headers);
+	}
 
   /**
-   * Get project statistics in form of csv file
+   * Get ongoing projects statistics in form of csv file
    */
-  public function exportAnalyticsToCSV()
+  public function exportAnalyticsToCSVOngoingProjects()
   {
 
 
@@ -1426,9 +1475,9 @@ class ProjectController extends Controller
     );
 
 
-    $projects = Project::where('publishing_status', '=', '1')->orderBy('name', 'asc')->get();
+    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
 
-    $columns = array(trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+    $columns = array(trans('project.project'),  trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
 
 
     $callback = function() use ($projects, $columns)
@@ -1442,18 +1491,60 @@ class ProjectController extends Controller
         $members = $this->getProjectMembersData($project);
         $cosupervisors = $this->getProjectCosupervisors($project);
 
-        fputcsv($handle, array($project->name, self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+        fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
       }
 
 
       fclose($handle);
     };
-
-
-
+	  
 
     return Response::stream($callback, 200, $headers);
   }
+	
+	
+	/**
+	 * Get finished projects statistics in form of csv file
+	 */
+	public function exportAnalyticsToCSVFinishedProjects()
+	{
+		
+		
+		$headers = array(
+				"Content-type" => "text/csv",
+				"Content-Disposition" => "attachment; filename=elu.csv",
+				"Pragma" => "no-cache",
+				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+				"Expires" => "0"
+		);
+		
+		
+		$projects = Project::where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->get();
+		
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		
+		
+		$callback = function() use ($projects, $columns)
+		{
+			$handle = fopen('php://output', 'w');
+			fputcsv($handle, $columns);
+			
+			foreach($projects as $project) {
+				
+				$authors = $this->getProjectAuthorsNamesAndEmails($project);
+				$members = $this->getProjectMembersData($project);
+				$cosupervisors = $this->getProjectCosupervisors($project);
+				
+				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+			}
+			
+			
+			fclose($handle);
+		};
+		
+		
+		return Response::stream($callback, 200, $headers);
+	}
 
 
   /**

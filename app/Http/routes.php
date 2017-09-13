@@ -208,7 +208,11 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('admin/analytics/search', 'ProjectController@getAdminAnalyticsListing');
 
-        Route::get('admin/analytics/download', 'ProjectController@exportAnalyticsToCSV');
+        Route::get('admin/analytics/download/open', 'ProjectController@exportAnalyticsToCSVOpenProjects');
+	
+	      Route::get('admin/analytics/download/ongoing', 'ProjectController@exportAnalyticsToCSVOngoingProjects');
+	
+	      Route::get('admin/analytics/download/finished', 'ProjectController@exportAnalyticsToCSVFinishedProjects');
 	
 	      Route::get('admin/evaluation-dates', 'AdminController@indexEvaluationDates');
 	

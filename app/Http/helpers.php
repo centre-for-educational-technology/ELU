@@ -240,20 +240,20 @@ function getTeacherProjects(\App\User $user){
  */
 function isMemberOfProject($user_id, $project_id)
 {
-
-  $user = \App\User::find($user_id);
-  $project = \App\Project::find($project_id);
-
-  if(count($user->projects)>0){
-    foreach ($user->projects as $user_project){
-      if($user_project->id == $project->id){
-        return true;
-      }
-    }
-  }
-  return false;
-
-
+	
+	$user = \App\User::find($user_id);
+	$project = \App\Project::find($project_id);
+	
+	if(count($user->projects)>0){
+		foreach ($user->projects as $user_project){
+			if($user_project->id == $project->id){
+				return true;
+			}
+		}
+	}
+	return false;
+	
+	
 }
 
 /**
@@ -351,7 +351,6 @@ function getProjectSemester(\App\Project $project)
 		return trans('project.spring_autumn');
 	}
 }
-
 
 /**
  * Check if this user can join the project.

@@ -46,17 +46,18 @@
     <p class="col-md-10 margt content col-md-offset-1">
 
         <h1>{{ $project->name }}</h1>
-        @if(!(Auth::guest()) && Auth::user()->is('project_moderator') && isMemberOfProject(Auth::user()->id, $project->id))
-            <p>
-                <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
-                    {{ csrf_field() }}
+        @if(!(Auth::guest()))
+            @if(canChangeTheProject(Auth::user(), $project))
+                <p>
+                    <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
+                        {{ csrf_field() }}
 
-                    <button type="submit" class="btn btn-warning">
-                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
-                    </button>
-                </form>
-            </p>
-
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
+                        </button>
+                    </form>
+                </p>
+            @endif
         @endif
 
 

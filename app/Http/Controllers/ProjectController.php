@@ -1393,7 +1393,7 @@ class ProjectController extends Controller
 
           if(!$user->courses->isEmpty()){
             $course = $user->courses->first();
-            array_push($members, $user->full_name.' / '.$course['name'].' ('.$user->email.')');
+            array_push($members, $user->full_name.' / '.$course->oppekava_est.' ('.$user->email.')');
 
           }else{
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Project;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,11 +14,12 @@ class ProjectModerator
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
-     */
+*/
     public function handle($request, Closure $next)
     {
       if(Auth::check()){
-        if ( (Auth::user()->is('project_moderator') && isMemberOfProject(Auth::user()->id, $request->id)) || Auth::user()->is('oppejoud'))
+      	
+        if ( canChangeTheProject(Auth::user(), Project::find( $request->id)))
         {
           return $next($request);
         }

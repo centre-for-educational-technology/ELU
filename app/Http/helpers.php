@@ -238,16 +238,15 @@ function getTeacherProjects(\App\User $user){
  * @param $project_id
  * @return bool
  */
-function isMemberOfProject($user_id, $project_id)
+function isMemberOfProject(\App\User $current_user, \App\Project $project)
 {
-	
-	$user = \App\User::find($user_id);
-	$project = \App\Project::find($project_id);
-	
-	if(count($user->projects)>0){
-		foreach ($user->projects as $user_project){
-			if($user_project->id == $project->id){
-				return true;
+
+	if(count($project->users)>0){
+		foreach ($project->users as $user){
+			if($user->pivot->participation_role == 'member'){
+				if($user->id == $current_user->id){
+					return true;
+				}
 			}
 		}
 	}
@@ -255,6 +254,36 @@ function isMemberOfProject($user_id, $project_id)
 	
 	
 }
+
+
+function isAuthorOfProject(\App\User $current_user, \App\Project $project){
+	if(count($project->users)>0){
+		foreach ($project->users as $user){
+			if($user->pivot->participation_role == 'author'){
+				if($user->id == $current_user->id){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+	
+}
+
+
+function canChangeTheProject(\App\User $user, \App\Project $project){
+	
+	if($user->is('project_moderator') && isMemberOfProject($user, $project)) {
+		return true;
+	}elseif ($user->is('admin')){
+		return true;
+	}elseif ($user->is('oppejoud') && isAuthorOfProject($user, $project)){
+		return true;
+	}
+	
+	return false;
+}
+
 
 /**
  * Get course names of users that belong to that group

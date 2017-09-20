@@ -95,6 +95,14 @@
             </div>
 
 
+            <h3>Tudengite järgi</h3>
+            <h4>{{trans('search.ongoing_projects')}}</h4>
+            <div class="btn-group">
+                <a class="btn btn-lg btn-success" download href="{{ url('/admin/analytics/download/students/ongoing') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>
+
+            </div>
+
+
             {{--Search form--}}
             {{--@include('admin.search_projects_form', ['url_data' => '/admin/analytics/search'])--}}
 

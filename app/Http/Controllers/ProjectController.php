@@ -1432,66 +1432,61 @@ class ProjectController extends Controller
 	/**
 	 * Get open projects statistics in form of csv file
 	 */
-//	public function exportAnalyticsToCSVStudentsOngoingProjects()
-//	{
-//
-//
-//		$headers = array(
-//				"Content-type" => "text/csv",
-//				"Content-Disposition" => "attachment; filename=elu_students_ongoing.csv",
-//				"Pragma" => "no-cache",
-//				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-//				"Expires" => "0"
-//		);
-//
-//
-//		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
-//
-//		$students_ids = array();
-//
-//		foreach ($projects as $project){
-//			$members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
-//			array_push($students_ids, $members);
-//		}
-//
-//
-//
-//		$columns = array(trans('auth.name'), trans('auth.email'), trans('project.course'), trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'));
-//
-//
-//		$callback = function() use ($students_ids, $columns)
-//		{
-//			$handle = fopen('php://output', 'w');
-//			fputcsv($handle, $columns);
-//
-//
-//			foreach ($students_ids as $student_id){
-//				$user = User::find($student_id);
-//				$project = $user->projects->first();
-//
-//
-//				fputcsv($handle, array(self::getUserName($user), getUserEmail($user), getUserCourse($user), $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
-//
-//			}
-//
-//
-//
-//			foreach($projects as $project) {
-//
-//				$authors = $this->getProjectAuthorsNamesAndEmails($project);
-//				$members = $this->getProjectMembersData($project);
-//				$cosupervisors = $this->getProjectCosupervisors($project);
-//
-//				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
-//			}
-//
-//
-//			fclose($handle);
-//		};
-//
-//
-//		return Response::stream($callback, 200, $headers);
-//	}
+	public function exportAnalyticsToCSVStudentsOngoingProjects()
+	{
+
+
+		$headers = array(
+				"Content-type" => "text/csv",
+				"Content-Disposition" => "attachment; filename=elu_students_ongoing.csv",
+				"Pragma" => "no-cache",
+				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+				"Expires" => "0"
+		);
+
+
+		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
+
+		$students_ids = array();
+
+		foreach ($projects as $project){
+			$members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+			if(count($members)>0){
+				foreach ($members as $member){
+					array_push($students_ids, $member->id);
+				}
+				
+			}
+			
+		}
+		
+
+
+		$columns = array(trans('auth.name'), trans('auth.email'), trans('project.course'), trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'));
+
+
+		$callback = function() use ($students_ids, $columns)
+		{
+			$handle = fopen('php://output', 'w');
+			fputcsv($handle, $columns);
+
+
+			foreach ($students_ids as $student_id){
+				$user = User::find($student_id);
+				$project = Project::find($user->isMemberOfProject()['id']);
+				$authors = $this->getProjectAuthorsNamesAndEmails($project);
+				$cosupervisors = $this->getProjectCosupervisors($project);
+				
+				
+				fputcsv($handle, array(self::getUserName($user), getUserEmail($user), getUserCourse($user), $user->isMemberOfProject()['name'], self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors)), ',');
+
+			}
+			
+		};
+
+
+		return Response::stream($callback, 200, $headers);
+	}
  
 	/**
 	 * Get open projects statistics in form of csv file

@@ -203,7 +203,7 @@ class AdminController extends Controller
 
     if($param == 'email'){
 
-      $users = User::where('email', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $query, 'search_param' => $param]);
+      $users = User::where('email', 'LIKE', '%'.$query.'%')->orWhere('contact_email', 'LIKE', '%'.$query.'%')->orderBy('created_at', 'desc')->paginate(5)->appends(['search' => $query, 'search_param' => $param]);
 
     }
     else{

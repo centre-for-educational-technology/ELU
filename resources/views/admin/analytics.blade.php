@@ -73,9 +73,9 @@
 
 
 
-            <h3><i class="fa fa-download"></i> Laadi alla</h3>
+            <h2><i class="fa fa-download"></i> Laadi alla</h2>
 
-
+            <h3>Projektide järgi</h3>
             <h4>{{trans('search.open_projects')}}</h4>
             <div class="btn-group">
                 <a class="btn btn-lg btn-success" download href="{{ url('/admin/analytics/download/open') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>

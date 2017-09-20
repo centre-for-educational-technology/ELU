@@ -45,7 +45,7 @@ class User extends Authenticatable
   public function isMemberOfProject(){
     foreach ($this->projects()->get() as $project){
       if($project->pivot->participation_role == 'member'){
-        if($project->submitted_by_student == false){
+        if($project->requires_review == false){
           return array('name' => $project->name,
               'id'=>$project->id);
         }

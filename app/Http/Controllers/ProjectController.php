@@ -861,8 +861,21 @@ class ProjectController extends Controller
    */
   public function joinProject($id)
   {
+  	
+  	
     $project = Project::find($id);
 	
+	  if(Auth::user()->isMemberOfProject()){
+		
+		  return \Redirect::to('project/'.$project->id)
+				  ->with('message', [
+						  'text' => trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name']),
+						  'type' => 'already_in_project'
+				  ])
+				  ->with('project', $project);
+		
+	  }
+	  
 	 
     if( count($project->groups) >= 3){
     	//All groups created
@@ -1416,6 +1429,70 @@ class ProjectController extends Controller
     return implode(', ', $data);
   }
 	
+	/**
+	 * Get open projects statistics in form of csv file
+	 */
+//	public function exportAnalyticsToCSVStudentsOngoingProjects()
+//	{
+//
+//
+//		$headers = array(
+//				"Content-type" => "text/csv",
+//				"Content-Disposition" => "attachment; filename=elu_students_ongoing.csv",
+//				"Pragma" => "no-cache",
+//				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+//				"Expires" => "0"
+//		);
+//
+//
+//		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
+//
+//		$students_ids = array();
+//
+//		foreach ($projects as $project){
+//			$members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+//			array_push($students_ids, $members);
+//		}
+//
+//
+//
+//		$columns = array(trans('auth.name'), trans('auth.email'), trans('project.course'), trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'));
+//
+//
+//		$callback = function() use ($students_ids, $columns)
+//		{
+//			$handle = fopen('php://output', 'w');
+//			fputcsv($handle, $columns);
+//
+//
+//			foreach ($students_ids as $student_id){
+//				$user = User::find($student_id);
+//				$project = $user->projects->first();
+//
+//
+//				fputcsv($handle, array(self::getUserName($user), getUserEmail($user), getUserCourse($user), $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+//
+//			}
+//
+//
+//
+//			foreach($projects as $project) {
+//
+//				$authors = $this->getProjectAuthorsNamesAndEmails($project);
+//				$members = $this->getProjectMembersData($project);
+//				$cosupervisors = $this->getProjectCosupervisors($project);
+//
+//				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+//			}
+//
+//
+//			fclose($handle);
+//		};
+//
+//
+//		return Response::stream($callback, 200, $headers);
+//	}
+ 
 	/**
 	 * Get open projects statistics in form of csv file
 	 */

@@ -35,6 +35,12 @@
                 {{\Session::get('message')['text']}}. <a href="{{url('projects/open')}}"> {{trans('project.find_something_else_notification')}}</a>
             </div>
         </div>
+    @elseif(\Session::get('message')['type'] == 'already_in_project')
+        <div class="row">
+            <div class="alert alert-warning">
+                {{\Session::get('message')['text']}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a>
+            </div>
+        </div>
     @endif
 
 
@@ -331,7 +337,7 @@
 
                     @elseif(Auth::user()->isMemberOfProject())
 
-                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name'])}}</p>
+                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name'])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                     @else
                         @if(checkIfThereIsSpaceInProjectGroups($project))

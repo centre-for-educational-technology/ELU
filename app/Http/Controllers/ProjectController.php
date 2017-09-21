@@ -1478,7 +1478,7 @@ class ProjectController extends Controller
 				$cosupervisors = $this->getProjectCosupervisors($project);
 				
 				
-				fputcsv($handle, array(self::getUserName($user), getUserEmail($user), getUserCourse($user), $user->isMemberOfProject()['name'], self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors)), ',');
+				fputcsv($handle, array(self::getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors)), ',');
 
 			}
 			

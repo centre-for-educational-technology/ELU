@@ -24,8 +24,9 @@
   ]); ?>
 </script>
 
+<script src="https://openexchangerates.github.io/accounting.js/accounting.min.js"></script>
 <script src="{{ url(asset('/js/vendor.js')) }}"></script>
-<script src="{{ url(elixir('js/all.js')) }}"></script>
+<script src="{{ url(elixir('js/app.js')) }}"></script>
 
 <script src="{{ url(asset('js/scripts.js')) }}"></script>
 
@@ -42,11 +43,18 @@
 </script>
 <div class="container">
     <footer class="main">
-        <p>{{trans('front.tallinn_university')}}<br>
-            Narva mnt 25, 10120 Tallinn<br>
-            +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a> /
-            <i class="fa fa-facebook-official fa-lg"></i> <a href="https://www.facebook.com/elu.tlu/" target="_blank">elu.tlu</a>
-        </p>
+        <div class="row">
+            <div class="col-sm-6">
+                <p>{{trans('front.tallinn_university')}}<br>
+                    Narva mnt 25, 10120 Tallinn<br>
+                    +372 6409236 / <a href="mailto:elu@tlu.ee">elu@tlu.ee</a> /
+                    <i class="fa fa-facebook-official fa-lg"></i> <a href="https://www.facebook.com/elu.tlu/" target="_blank">elu.tlu</a>
+                </p>
+            </div>
+            <div class="col-sm-2 pull-right">
+                <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="Tallinna Ülikool" class="img-responsive">
+            </div>
+        </div>
 
     </footer>
 </div>

@@ -1,6 +1,9 @@
 var elixir = require('laravel-elixir');
 var gulp = require('gulp');
 var rename = require("gulp-rename");
+require('laravel-elixir-browserify-official');
+require('laravel-elixir-vueify');
+require('laravel-elixir-vue-2');
 
 /*
  |--------------------------------------------------------------------------
@@ -65,14 +68,16 @@ elixir(function(mix) {
         '../bower/dropzone/dist/dropzone.js'
     ], 'public/js/vendor.js');
 
+  //mix.scripts('app.js');
 
 
-    mix.scripts(['app.js']);
+    mix.webpack('app.js');
+
 
     mix.less(['app.less']);
 
 
-    mix.version(["css/app.css", "js/all.js"]);
+    mix.version(["css/app.css", "js/app.js"]);
 
 
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');

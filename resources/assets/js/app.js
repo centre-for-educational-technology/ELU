@@ -1,3 +1,29 @@
+var Vue = require('vue');
+var resource = require('vue-resource');
+window.Vue = Vue;
+
+Vue.use(resource);
+
+Vue.component('teacher',require('./components/CalcTeacherLoad.vue'));
+
+// bootstrap the demo
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    gridColumns: ['name', 'EAP'],
+    gridData: [
+      { name: 'Chuck Norris', points: 0 },
+      { name: 'Bruce Lee', points: 0 },
+      { name: 'Jackie Chan', points: 0 },
+      { name: 'Jet Li', points: 0 }
+    ],
+    totalPoints: 6,
+    limitPerOne: 2,
+  }
+})
+
+
+
 jQuery(document).ready(function($) {
 
 
@@ -210,7 +236,7 @@ jQuery(document).ready(function($) {
   $('.btnShare').click(function(){
     elem = $(this);
     postToFeed(elem.prop('href'));
-    
+
     return false;
   });
 

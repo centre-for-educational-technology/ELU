@@ -65,6 +65,14 @@ Route::group(['middleware' =>['web']], function () {
         });
 
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
+	
+	
+	      Route::get('/project/{id}/calculate-load', function () {
+		   
+		      return view('project.load_calc');
+	      });
+	
+	     
 
 
       });

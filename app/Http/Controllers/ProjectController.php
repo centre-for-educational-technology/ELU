@@ -1701,6 +1701,66 @@ class ProjectController extends Controller
 
     return Response::json('Groups saved');
   }
+	
+	
+	/**
+	 * Get supervisors load for project api
+	 */
+//	public function getSupervisorsLoadForProject(Request $request){
+//
+//		$project_id = $request->project;
+//
+//
+//		return Response::json('Groups saved');
+//	}
+	
+	public function getSupervisorsLoadForProject($id){
+		
+		$project = Project::find($id);
+		
+		$supervisors = array();
+		$members_count = 0;
+		$total_points = 0;
+		$limit_per_one = 0;
+		$isFirstTimeSupervisor = false;
+		
+		
+		foreach ($project->users as $user){
+			if($user->pivot->participation_role == 'author'){
+				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => 0]);
+			}elseif ($user->pivot->participation_role == 'member'){
+				$members_count++;
+			}
+		}
+		
+		
+		
+		foreach ($supervisors as $supervisor){
+			if(count(getTeacherProjects(User::find($supervisor['id'])))<=1){
+				$isFirstTimeSupervisor = true;
+			}
+		}
+		
+		if($members_count <= 8){
+			$total_points = 3;
+			$limit_per_one = 2;
+		}else if($members_count <= 17){
+			$total_points = 6;
+			$limit_per_one = 4;
+		}else if($members_count <= 24 || $isFirstTimeSupervisor){
+			$total_points = 9;
+			$limit_per_one = 6;
+		}else if($members_count <= 32){
+			$total_points = 12;
+			$limit_per_one = 8;
+		}
+		
+		
+		return view('project.load_calc')
+				->with('total_points', $total_points)
+				->with('limit_per_one', $limit_per_one)
+				->with('supervisors', $supervisors);
+	}
 
 
   /**

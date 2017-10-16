@@ -10,15 +10,10 @@
 // var demo = new Vue({
 //   el: '#demo',
 //   data: {
-//     gridColumns: ['name', 'EAP'],
-//     gridData: [
-//       { name: 'Chuck Norris', points: 0 },
-//       { name: 'Bruce Lee', points: 0 },
-//       { name: 'Jackie Chan', points: 0 },
-//       { name: 'Jet Li', points: 0 }
-//     ],
-//     totalPoints: 6,
-//     limitPerOne: 2,
+//     gridColumns: ['id', 'name', 'EAP'],
+//     gridData: window.Laravel.supervisors,
+//     totalPoints: window.Laravel.totalPoints,
+//     limitPerOne: window.Laravel.limitPerOne,
 //   }
 // })
 
@@ -468,11 +463,19 @@ jQuery(document).ready(function($) {
   });
 
 
-  //Group title renaming
-  $(document).ready(function() {
-    $('.group-name').editable();
-  });
+  //Group title renaming;
+  $('.group-name').editable({
+    send:'always',
+    ajaxOptions: {
+      dataType: 'json',
+      type: 'post',
 
+    },
+    params: function(params) {
+      params.id = $(this).closest("div").attr("project-id");
+      return params;
+    }
+  });
 
 
 

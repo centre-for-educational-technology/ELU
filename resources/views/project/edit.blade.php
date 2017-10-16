@@ -904,7 +904,7 @@
                                     <div class="col-sm-6">
                                         <div class="well">
                                             <div class="row">
-                                                <div class="col-sm-6"><h3><a href="#" class="group-name" data-type="text" data-pk="{{$group->id}}" data-url="{{url('api/group/rename')}}">{{$group->name}}</a></h3></div>
+                                                <div class="col-sm-6" project-id="{{$current_project->id}}"><h3><a href="#" class="group-name" data-type="text" data-pk="{{$group->id}}" data-url="{!! url('api/group/rename') !!}">{{$group->name}}</a></h3></div>
                                                 <div class="col-sm-6"><h3><a href="{{url('/project/'.$current_project->id.'/group/delete/'.$group->id)}}" data-method="delete" data-token="{{csrf_token()}}"> <i class="fa fa-trash pull-right"></i></a></h3></div>
                                             </div>
                                             <ul class="list-group project-group" group-id="{{$group->id}}">

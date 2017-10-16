@@ -15,6 +15,9 @@
             <tbody>
             <tr v-for="entry in this.data">
                 <td>
+                    {{entry.id}}
+                </td>
+                <td>
                     {{entry.name}}
                 </td>
                 <td>
@@ -34,6 +37,10 @@
         columns: Array,
         points: Number,
         limit_per_one: Number,
+      },
+      mounted () {
+        // Do something useful with the data in the template
+        console.dir(this.limit_per_one)
       },
       data: function () {
         var sortOrders = {}
@@ -73,10 +80,15 @@
           if( Number(entry.points)<0){
             entry.points = 0;
           }
+          else if(Number(entry.points) > this.limit_per_one) {
+            entry.points = this.limit_per_one;
+
+            if(this.totalPointsSpent>this.points){
+              entry.points = this.points - (this.totalPointsSpent - Number(entry.points));
+            }
+          }
           else if(this.totalPointsSpent>this.points){
             entry.points = this.points - (this.totalPointsSpent - Number(entry.points));
-          }else if(Number(entry.points) > this.limit_per_one) {
-            entry.points = this.limit_per_one;
           }
 
 

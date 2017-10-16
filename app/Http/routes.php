@@ -66,12 +66,11 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
 	
+	      
 	
-	      Route::get('/project/{id}/calculate-load', function () {
-		   
-		      return view('project.load_calc');
-	      });
+	      Route::get('/project/{id}/calculate-load', 'ProjectController@getSupervisorsLoadForProject');
 	
+	      //Route::post('api/supervisors-load/get', 'ProjectController@getSupervisorsLoadForProject');
 	     
 
 

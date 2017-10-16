@@ -39,29 +39,29 @@
         }
     </style>
 
-    {{--Language parameter used by TinyMCE--}}
-    <script>
-      window.Laravel = <?php echo json_encode([
-					'language' => App::getLocale(),
-					'base_path' => url('/'),
-					'search_user_api_url' => url('api/search/user/'),
-					'add_user_to_group_api_url' => url('api/group/add-user/'),
-					'are_you_sure_notification' => trans('project.are_you_sure_notification'),
-					'cannot_restore_notification' => trans('project.cannot_restore_notification'),
-					'yes_delete' => trans('project.yes_delete'),
-					'no' => trans('project.no'),
-					'yes' => trans('project.yes'),
-					'finish_project_notification' => trans('project.finish_project_notification'),
-					'other_institution' => trans('auth.other'),
-					'csfr_token' => csrf_token(),
-					'remove_file_button' => trans('project.remove_file'),
-					'name_or_email_placeholder' => trans('project.name_or_email_placeholder'),
-					'three_or_more_char' => trans('project.three_or_more_char'),
-					'get_project_sp_load_api_url' => url('api/supervisors-load/get/'),
-			]); ?>
-    </script>
 </head>
 <body id="app-layout" class="subpage">
+{{--Language parameter used by TinyMCE--}}
+<script>
+  window.Laravel = <?php echo json_encode([
+			'language' => App::getLocale(),
+			'base_path' => url('/'),
+			'search_user_api_url' => url('api/search/user/'),
+			'add_user_to_group_api_url' => url('api/group/add-user/'),
+			'are_you_sure_notification' => trans('project.are_you_sure_notification'),
+			'cannot_restore_notification' => trans('project.cannot_restore_notification'),
+			'yes_delete' => trans('project.yes_delete'),
+			'no' => trans('project.no'),
+			'yes' => trans('project.yes'),
+			'finish_project_notification' => trans('project.finish_project_notification'),
+			'other_institution' => trans('auth.other'),
+			'csfr_token' => csrf_token(),
+			'remove_file_button' => trans('project.remove_file'),
+			'name_or_email_placeholder' => trans('project.name_or_email_placeholder'),
+			'three_or_more_char' => trans('project.three_or_more_char'),
+			'get_project_sp_load_api_url' => url('api/supervisors-load/get/'),
+	]); ?>
+</script>
 <!-- Load Facebook SDK for JavaScript -->
 <div id="fb-root"></div>
 <script>

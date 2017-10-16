@@ -1,21 +1,21 @@
-// var Vue = require('vue');
-// var resource = require('vue-resource');
-// window.Vue = Vue;
-//
-// Vue.use(resource);
-//
-// Vue.component('teacher',require('./components/CalcTeacherLoad.vue'));
-//
-// // bootstrap the demo
-// var demo = new Vue({
-//   el: '#demo',
-//   data: {
-//     gridColumns: ['id', 'name', 'EAP'],
-//     gridData: window.Laravel.supervisors,
-//     totalPoints: window.Laravel.totalPoints,
-//     limitPerOne: window.Laravel.limitPerOne,
-//   }
-// })
+var Vue = require('vue');
+var resource = require('vue-resource');
+window.Vue = Vue;
+
+Vue.use(resource);
+
+Vue.component('teacher',require('./components/CalcTeacherLoad.vue'));
+
+// bootstrap the demo
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    gridColumns: ['id', 'name', 'EAP'],
+    gridData: window.Laravel.supervisors,
+    totalPoints: window.Laravel.totalPoints,
+    limitPerOne: window.Laravel.limitPerOne,
+  }
+})
 
 
 
@@ -472,9 +472,11 @@ jQuery(document).ready(function($) {
 
     },
     params: function(params) {
+      //originally params contain pk, name and value
       params.id = $(this).closest("div").attr("project-id");
       return params;
     }
+
   });
 
 

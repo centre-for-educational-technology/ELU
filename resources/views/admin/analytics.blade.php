@@ -103,6 +103,16 @@
             </div>
 
 
+            <h3>{{trans('project.calc_load')}}</h3>
+            <h4>{{trans('search.ongoing_projects')}}</h4>
+            <div class="btn-group">
+                <a class="btn btn-lg btn-success" download href="{{ url('admin/analytics/download/teachers/ongoing/load') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>
+
+            </div>
+
+
+
+
             {{--Search form--}}
             {{--@include('admin.search_projects_form', ['url_data' => '/admin/analytics/search'])--}}
 

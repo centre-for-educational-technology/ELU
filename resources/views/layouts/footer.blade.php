@@ -30,9 +30,6 @@
                     <i class="fa fa-facebook-official fa-lg"></i> <a href="https://www.facebook.com/elu.tlu/" target="_blank">elu.tlu</a>
                 </p>
             </div>
-            <div class="col-sm-2 pull-right">
-                <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="Tallinna Ülikool" class="img-responsive">
-            </div>
         </div>
 
     </footer>

@@ -152,6 +152,12 @@ return [
 		'new_project_added_notification' => 'New project has been added!',
 		'presentation_of_results_december' => 'December/January',
 		'presentation_of_results_may' => 'May/June',
+		'changes_saved' => 'Changes saved',
+		'error' => 'There is some error',
+		'calc_load' => 'Calculate load',
+		'total' => 'Total:',
+		'out_of' => ' out of',
+		'max_to_one' => 'Max EAP points to one teacher',
 
 		
 ];

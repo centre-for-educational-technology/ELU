@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @if(!empty($project->name))
-        <title>{{$project->name}}</title>
+        @if(!empty($projects) && count($projects) > 0)
+            <title>{{$project->name}}</title>
+        @endif
     @else
         <title>ELU - Tere tulemast</title>
     @endif
@@ -60,7 +62,22 @@
 			'name_or_email_placeholder' => trans('project.name_or_email_placeholder'),
 			'three_or_more_char' => trans('project.three_or_more_char'),
 			'get_project_sp_load_api_url' => url('api/supervisors-load/get/'),
+			'changes_saved' => trans('project.changes_saved'),
+			'error' => trans('project.error'),
+			'name' => trans('auth.name'),
 	]); ?>
+</script>
+<script>
+  window.trans = <?php
+	// copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+	$lang_files = File::files(resource_path() . '/lang/' . App::getLocale());
+	$trans = [];
+	foreach ($lang_files as $f) {
+		$filename = pathinfo($f)['filename'];
+		$trans[$filename] = trans($filename);
+	}
+	echo json_encode($trans);
+	?>;
 </script>
 <!-- Load Facebook SDK for JavaScript -->
 <div id="fb-root"></div>
@@ -113,6 +130,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
+                <div class="col-sm-2" id="eu_fund_logo_container">
+                    <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="EU Fund" class="img-responsive" id="eu_fund_logo">
+                </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse pull-right">
 

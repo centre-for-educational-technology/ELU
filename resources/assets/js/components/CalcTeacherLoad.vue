@@ -1,31 +1,39 @@
 <template id="grid-template">
     <div>
-        <h4>Total: <strong>{{ totalPointsSpent }} out of {{points}} points</strong></h4>
-        <table>
-            <thead>
-            <tr>
-                <th v-for="key in columns"
-                    @click="sortBy(key)"
-                    :class="{ active: sortKey == key }">
-                    {{ key | capitalize }}
-                    <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="entry in this.data">
-                <td>
-                    {{entry.id}}
-                </td>
-                <td>
-                    {{entry.name}}
-                </td>
-                <td>
-                    <input type="number" class="form-control" v-on:change="doStuff(entry)" min="0" v-model="entry.points"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <h3>{{ trans('project.total') }} <strong>{{ totalPointsSpent }}</strong>{{ trans('project.out_of') }} <strong>{{points}}</strong></h3>
+        <h4>{{ trans('project.max_to_one') }}: <strong>{{this.limit_per_one}}</strong></h4>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th v-for="key in columns">
+                        {{ key | capitalize }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="entry in this.data_supervisors">
+                    <td>
+                        {{entry.name}}
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" v-on:change="doStuff(entry)" min="0" v-model="entry.points"/>
+                    </td>
+                </tr>
+                <tr v-for="entry in this.data_cosupervisors" class="warning">
+                    <td>
+                        {{entry.name}}
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" v-on:change="calculateValue(entry)" min="0" v-model="entry.points"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-primary" v-on:click="submit()">
+            <i class="fa fa-pencil"></i> {{ trans('project.save_button') }}
+        </button>
     </div>
 </template>
 
@@ -33,14 +41,15 @@
 <script>
     export default {
       props: {
-        data: Array,
+        data_supervisors: Array,
+        data_cosupervisors: Array,
         columns: Array,
         points: Number,
         limit_per_one: Number,
+        project_id: Number,
       },
       mounted () {
-        // Do something useful with the data in the template
-        console.dir(this.limit_per_one)
+
       },
       data: function () {
         var sortOrders = {}
@@ -55,11 +64,17 @@
       computed: {
         totalPointsSpent: function () {
           var sum = 0;
-          $.each(this.data, function (i, e) {
+          $.each(this.data_supervisors, function (i, e) {
             sum += Number(e.points);
           });
 
-          return sum;
+          if(this.data_cosupervisors.length>0){
+            $.each(this.data_cosupervisors, function (i, e) {
+              sum += Number(e.points);
+            });
+          }
+
+          return Math.round(sum * 100) / 100;
 
         },
 
@@ -75,7 +90,7 @@
           this.sortKey = key
           this.sortOrders[key] = this.sortOrders[key] * -1
         },
-        doStuff: function (entry) {
+        calculateValue: function (entry) {
           console.log(entry);
           if( Number(entry.points)<0){
             entry.points = 0;
@@ -92,7 +107,35 @@
           }
 
 
-        }
+        },
+        submit() {
+          console.log(this.project_id);
+
+          var data = {
+            'data_supervisors': this.data_supervisors,
+            'data_cosupervisors': this.data_cosupervisors,
+            'project_id': this.project_id
+          };
+
+
+          this.$http.post(window.Laravel.base_path+'/api/calculate-load/set', data).then(function(data){
+            console.log(data);
+            swal({
+              title: window.Laravel.changes_saved,
+              type: "info",
+              confirmButtonText: window.Laravel.yes,
+              closeOnConfirm: false
+            });
+          }).catch(function(error){
+            swal({
+              title: window.Laravel.error,
+              type: "error",
+              confirmButtonText: window.Laravel.yes,
+              closeOnConfirm: false
+            });
+            console.log('REEEJECTED!');
+          });
+        },
 
       }
     }

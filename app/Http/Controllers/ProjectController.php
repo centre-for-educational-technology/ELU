@@ -33,6 +33,7 @@ use App\Http\Requests\FinishedProjectRequest;
 use App\Http\Requests\AddProjectGroupRequest;
 use App\Http\Requests\AttachUsersRequest;
 use App\EvaluationDate;
+use App\CosupervisorsPoints;
 
 
 
@@ -406,6 +407,30 @@ class ProjectController extends Controller
 
 
     $project->supervisor = $request->cosupervisors;
+	 
+	  $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+	  
+	  if(count($project_cosupervisors_points)>0){
+		  foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+			
+			  $remains = false;
+			
+			  foreach (preg_split("/\\r\\n|\\r|\\n/", $request->cosupervisors) as $single_cosupervisor) {
+				
+				
+				  if($project_cosupervisor_points->name == $single_cosupervisor){
+					  $remains = true;
+				  }
+			  }
+			
+			  if($remains == false){
+				  $project_cosupervisor_points->delete();
+			  }
+			
+		  }
+		
+	  }
+	  
 
     $project->status = $request->status;
 
@@ -439,24 +464,36 @@ class ProjectController extends Controller
     }
 
     $project->save();
-
-
-
-    //Detaching teachers
-    $teachers = $project->users()->wherePivot('participation_role', 'author')->get();
-
-    if(count($teachers)){
-      $project->users()->detach($teachers);
-    }
-
-
-
-    //Attach users with teacher role
+	
+	  
+	  $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	  $teachers_ids = array();
+	  if(count($teachers)>0){
+		  foreach ($teachers as $teacher){
+			  array_push($teachers_ids, $teacher->id);
+		  }
+		
+	  }
+	  
     $supervisors = $request->input('supervisors');
-    foreach ($supervisors as $supervisor){
+	  
+	  $diff1 = array_diff($supervisors, $teachers_ids);
+	  $diff2 = array_diff($teachers_ids, $supervisors);
+	  $different_users = array_merge($diff1, $diff2);
+	  
 
-      $project->users()->attach($supervisor, ['participation_role' => 'author']);
-    }
+	  foreach ($different_users as $different_user){
+	  	
+	  	if(in_array($different_user, $teachers_ids)){
+			  //This user was in list but now removed
+			  $project->users()->detach($different_user);
+		  }else{
+	  		//This user was not in list but now added
+			  $project->users()->attach($different_user, ['participation_role' => 'author']);
+		  }
+	  }
+    
+   
 
 
     $projects = Project::whereHas('users', function($q)
@@ -1430,7 +1467,79 @@ class ProjectController extends Controller
   }
 	
 	/**
-	 * Get open projects statistics in form of csv file
+	 * Get teachers load in form of csv file
+	 */
+	public function exportAnalyticsToCSVOngoingProjectsTeachersLoad()
+	{
+		
+		
+		$headers = array(
+				"Content-type" => "text/csv",
+				"Content-Disposition" => "attachment; filename=elu_load.csv",
+				"Pragma" => "no-cache",
+				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+				"Expires" => "0"
+		);
+		
+		
+		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->get();
+		
+		
+		$columns = array(trans('project.project'), trans('auth.email'), trans('auth.name'), 'EAP');
+		
+		
+		
+		$callback = function() use ($projects, $columns)
+		{
+			$handle = fopen('php://output', 'w');
+			fputcsv($handle, $columns);
+			
+			
+			
+			foreach($projects as $project) {
+				
+				$teachers_ids = array();
+		
+				$teachers_with_points = $project->users()->select('id')->wherePivot('points', '!=', null)->get();
+			
+				if(count($teachers_with_points)>0){
+					foreach ($teachers_with_points as $teacher_with_points){
+						array_push($teachers_ids, $teacher_with_points->id);
+					}
+					
+				}
+				
+				foreach ($teachers_ids as $teachers_id){
+					$teacher = User::find($teachers_id);
+					fputcsv($handle, array($project->id, getUserEmail($teacher), self::getUserName($teacher), $teacher->projects()->select('points')->where('project_id', $project->id)->first()->points), ',');
+					
+					
+				}
+				
+				$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+				
+				if(count($project_cosupervisors_points)>0){
+					foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+						fputcsv($handle, array($project->id, 'n/a', $project_cosupervisor_points->name, $project_cosupervisor_points->points), ',');
+						
+					}
+					
+				}
+				
+			}
+			
+			
+			
+			fclose($handle);
+		};
+		
+		
+		return Response::stream($callback, 200, $headers);
+	}
+ 
+ 
+	/**
+	 * Get ongoing projects statistics by student in form of csv file
 	 */
 	public function exportAnalyticsToCSVStudentsOngoingProjects()
 	{
@@ -1706,19 +1815,12 @@ class ProjectController extends Controller
 	/**
 	 * Get supervisors load for project api
 	 */
-//	public function getSupervisorsLoadForProject(Request $request){
-//
-//		$project_id = $request->project;
-//
-//
-//		return Response::json('Groups saved');
-//	}
-	
 	public function getSupervisorsLoadForProject($id){
 		
 		$project = Project::find($id);
 		
 		$supervisors = array();
+		$cosupervisors = array();
 		$members_count = 0;
 		$total_points = 0;
 		$limit_per_one = 0;
@@ -1727,27 +1829,46 @@ class ProjectController extends Controller
 		
 		foreach ($project->users as $user){
 			if($user->pivot->participation_role == 'author'){
-				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => 0]);
+				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
 			}elseif ($user->pivot->participation_role == 'member'){
 				$members_count++;
 			}
 		}
 		
+		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+		
+		
+		if(!empty($project->supervisor)){
+			foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor){
+				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $single_cosupervisor)){
+					
+					$found_item = null;
+					$found_item = $project_cosupervisors_points->keyBy('name')->get($single_cosupervisor);
+					array_push($cosupervisors, ['name' => $found_item->name, 'points' => $found_item->points]);
+				}else{
+					array_push($cosupervisors, ['name' => $single_cosupervisor, 'points' => 0]);
+				}
+				
+			}
+		}
+		
+	
 		
 		
 		foreach ($supervisors as $supervisor){
-			if(count(getTeacherProjects(User::find($supervisor['id'])))<=1){
+			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
 				$isFirstTimeSupervisor = true;
 			}
 		}
 		
+	
 		if($members_count <= 8){
 			$total_points = 3;
 			$limit_per_one = 2;
 		}else if($members_count <= 17){
 			$total_points = 6;
 			$limit_per_one = 4;
-		}else if($members_count <= 24 || $isFirstTimeSupervisor){
+		}else if($members_count <= 24){
 			$total_points = 9;
 			$limit_per_one = 6;
 		}else if($members_count <= 32){
@@ -1756,10 +1877,73 @@ class ProjectController extends Controller
 		}
 		
 		
+		if($isFirstTimeSupervisor && $members_count <= 24){
+			$total_points = 9;
+			$limit_per_one = 6;
+		}
+		
+		
+		
 		return view('project.load_calc')
 				->with('total_points', $total_points)
 				->with('limit_per_one', $limit_per_one)
-				->with('supervisors', $supervisors);
+				->with('supervisors', $supervisors)
+				->with('cosupervisors', $cosupervisors)
+				->with('project_id', $project->id);
+	}
+	
+	
+	/**
+	 * Set supervisors load for project api
+	 * @param Request $request
+	 * @return mixed
+	 */
+	public function setSupervisorsLoadForProject(Request $request){
+		
+		$project = Project::find($request->project_id);
+		
+		
+		foreach ($request->data_supervisors as $d_item){
+			
+			
+			$project->users()->updateExistingPivot($d_item['id'], ['points' => $d_item['points']]);
+			
+		}
+		
+		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+		$data_cosupervisors = $request->data_cosupervisors;
+		
+		
+		if(count($data_cosupervisors)>0){
+			foreach ($data_cosupervisors as $item){
+				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
+					\Debugbar::info($item['name']);
+					$item_to_update = null;
+					$item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);
+					
+					$item_to_update->points = $item['points'];
+					$item_to_update->save();
+				}else{
+					$cosupervisor_points = new CosupervisorsPoints;
+					$cosupervisor_points->name = $item['name'];
+					$cosupervisor_points->points = $item['points'];
+					$cosupervisor_points->project_id = $project->id;
+					
+					$cosupervisor_points->save();
+				}
+				
+				
+			}
+		}
+	
+		
+		
+		
+		
+		return Response::json('ok', 200);
+		
+
+
 	}
 
 

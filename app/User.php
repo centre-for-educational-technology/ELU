@@ -34,7 +34,7 @@ class User extends Authenticatable
   }
 
   public function projects(){
-    return $this->belongsToMany('App\Project')->withPivot('participation_role');
+    return $this->belongsToMany('App\Project')->withPivot('participation_role', 'points');
   }
 
   public function groups(){

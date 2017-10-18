@@ -149,6 +149,12 @@ return [
 		'new_project_added_notification' => 'Uus projekt on lisatud!',
 		'presentation_of_results_december' => 'detsember/jaanuar',
 		'presentation_of_results_may' => 'mai/juuni',
+		'changes_saved' => 'Muudatused on salvestatud',
+		'error' => 'Tekkis viga',
+		'calc_load' => 'Koormusarvestus',
+		'total' => 'Arvestatud:',
+		'out_of' => ', kokku EAPd projekti kohta: ',
+		'max_to_one' => 'Max EAPd ühele õppejõule'
 	
 	
 

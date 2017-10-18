@@ -70,9 +70,8 @@ Route::group(['middleware' =>['web']], function () {
 	
 	      Route::get('/project/{id}/calculate-load', 'ProjectController@getSupervisorsLoadForProject');
 	
-	      //Route::post('api/supervisors-load/get', 'ProjectController@getSupervisorsLoadForProject');
-	     
-
+	      Route::post('api/calculate-load/set', 'ProjectController@setSupervisorsLoadForProject');
+	  
 
       });
 
@@ -222,6 +221,9 @@ Route::group(['middleware' =>['web']], function () {
 	      Route::get('admin/analytics/download/finished', 'ProjectController@exportAnalyticsToCSVFinishedProjects');
 	
 	      Route::get('admin/analytics/download/students/ongoing', 'ProjectController@exportAnalyticsToCSVStudentsOngoingProjects');
+	
+	      Route::get('admin/analytics/download/teachers/ongoing/load', 'ProjectController@exportAnalyticsToCSVOngoingProjectsTeachersLoad');
+	      
 	
 	      Route::get('admin/evaluation-dates', 'AdminController@indexEvaluationDates');
 	

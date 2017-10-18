@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @if(!empty($project->name))
         @if(!empty($projects) && count($projects) > 0)
+            <title>ELU - Tere tulemast</title>
+        @else
             <title>{{$project->name}}</title>
         @endif
     @else

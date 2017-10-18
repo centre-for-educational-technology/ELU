@@ -4,7 +4,7 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-sm-12">
 
             @if(\Session::has('message'))
                 <div class="alert alert-info">

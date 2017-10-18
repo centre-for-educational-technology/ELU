@@ -4,7 +4,7 @@
     <div class="container">
 
 
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-sm-12">
 
             {{--Search form--}}
             @include('admin.search_projects_form', ['url_data' => '/admin/all-projects/search'])

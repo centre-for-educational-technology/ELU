@@ -7,6 +7,7 @@
   window.Laravel.cosupervisors = <?php echo json_encode($cosupervisors); ?>;
   window.Laravel.project_id = <?php echo json_encode($project_id); ?>;
 </script>
+<script src="{{ url(elixir('js/calc-load.js')) }}"></script>
 @endsection
 @section('content')
     <div class="container">

@@ -4,12 +4,6 @@
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>--}}
 
 
-<script src="{{ url(asset('/js/vendor.js')) }}"></script>
-<script src="{{ url(elixir('js/app.js')) }}"></script>
-
-<script src="{{ url(asset('js/scripts.js')) }}"></script>
-
-
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

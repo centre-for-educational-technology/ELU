@@ -71,13 +71,14 @@ elixir(function(mix) {
   //mix.scripts('app.js');
 
 
-    mix.webpack('app.js');
+    mix.webpack('app.js')
+       .webpack('calc-load.js');
 
 
     mix.less(['app.less']);
 
 
-    mix.version(["css/app.css", "js/app.js"]);
+    mix.version(["css/app.css", "js/app.js", "js/calc-load.js"]);
 
 
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');

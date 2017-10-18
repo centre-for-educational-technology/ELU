@@ -17,7 +17,7 @@
                         {{entry.name}}
                     </td>
                     <td>
-                        <input type="number" class="form-control" v-on:change="doStuff(entry)" min="0" v-model="entry.points"/>
+                        <input type="number" class="form-control" v-on:change="calculateValue(entry)" min="0" v-model="entry.points"/>
                     </td>
                 </tr>
                 <tr v-for="entry in this.data_cosupervisors" class="warning">

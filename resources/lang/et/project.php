@@ -152,8 +152,8 @@ return [
 		'changes_saved' => 'Muudatused on salvestatud',
 		'error' => 'Tekkis viga',
 		'calc_load' => 'Koormusarvestus',
-		'total' => 'Arvestatud:',
-		'out_of' => ', kokku EAPd projekti kohta: ',
+		'total' => 'Kasutatud:',
+		'out_of' => ', kokku EAPd saab jagada: ',
 		'max_to_one' => 'Max EAPd ühele õppejõule'
 	
 	

@@ -34,11 +34,14 @@
 </head>
 <body id="app-layout" class="frontpage">
 
+<script src="{{ url(asset('/js/vendor.js')) }}"></script>
+
 
 <div class="jumbotron main">
     <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
+
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -46,9 +49,11 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
+
                 <div class="col-sm-2" id="eu_fund_logo_container">
                     <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="EU Fund" class="img-responsive" id="eu_fund_logo">
                 </div>
+
             </div>
             <div id="navbar" class="navbar-collapse collapse pull-right">
 
@@ -122,7 +127,7 @@
 
                         <li {{ setActive('login') }}>
                             <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('login.login')}}</a>
+                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('nav.login')}}</a>
                             </p>
                         </li>
                         {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}

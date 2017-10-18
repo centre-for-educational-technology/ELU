@@ -32,6 +32,7 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
@@ -62,6 +63,32 @@
                                                     <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
                                                 </button>
                                             </form>
+                                        </td>
+                                        <td>
+                                            @if(projectHasUsers($project))
+                                                @if (projectHasGroupsWithMembers($project))
+                                                    <div class="col-lg-12 text-center">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-primary" href="{{ url('project/'.$project->id.'/calculate-load') }}"><i class="fa fa-btn fa-calculator"></i> {{trans('project.calc_load')}}</a>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                <div class="col-lg-12 text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-sm btn-primary disabled" href="#"><i class="fa fa-btn fa-calculator"></i> {{trans('project.calc_load')}}</a>
+                                                    </div>
+                                                </div>
+
+                                                @endif
+                                            @else
+
+                                                <div class="col-lg-12 text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-sm btn-primary disabled" href="#"><i class="fa fa-btn fa-calculator"></i> {{trans('project.calc_load')}}</a>
+                                                    </div>
+                                                </div>
+
+                                            @endif
                                         </td>
                                         <td>
                                             <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id.'/delete') }}" method="POST">

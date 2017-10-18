@@ -61,6 +61,14 @@
                                                         </div>
                                                     </div>
 
+                                                @else
+                                                    <div class="col-lg-12 text-center">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-primary disabled" href="#"><i class="fa fa-btn fa-calculator"></i> {{trans('project.calc_load')}}</a>
+                                                        </div>
+                                                    </div>
+
+
                                                 @endif
                                             @else
 

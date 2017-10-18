@@ -1902,35 +1902,106 @@ class ProjectController extends Controller
 		
 		$project = Project::find($request->project_id);
 		
-		
-		foreach ($request->data_supervisors as $d_item){
-			
-			
-			$project->users()->updateExistingPivot($d_item['id'], ['points' => $d_item['points']]);
-			
+		$members_count = 0;
+		$total_points = 0;
+		$limit_per_one = 0;
+		$supervisors = array();
+		$isFirstTimeSupervisor = false;
+		foreach ($project->users as $user){
+			if($user->pivot->participation_role == 'author'){
+				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
+			}elseif ($user->pivot->participation_role == 'member'){
+				$members_count++;
+			}
 		}
+		
+		foreach ($supervisors as $supervisor){
+			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
+				$isFirstTimeSupervisor = true;
+			}
+		}
+		
+		
+		if($members_count <= 8){
+			$total_points = 3;
+			$limit_per_one = 2;
+		}else if($members_count <= 17){
+			$total_points = 6;
+			$limit_per_one = 4;
+		}else if($members_count <= 24){
+			$total_points = 9;
+			$limit_per_one = 6;
+		}else if($members_count <= 32){
+			$total_points = 12;
+			$limit_per_one = 8;
+		}
+		
+		
+		if($isFirstTimeSupervisor && $members_count <= 24){
+			$total_points = 9;
+			$limit_per_one = 6;
+		}
+		
 		
 		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 		$data_cosupervisors = $request->data_cosupervisors;
 		
+		$total_points_used = 0;
+		
+		foreach ($request->data_supervisors as $d_item){
+			$total_points_used += $d_item['points'];
+		}
 		
 		if(count($data_cosupervisors)>0){
 			foreach ($data_cosupervisors as $item){
-				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
-					\Debugbar::info($item['name']);
-					$item_to_update = null;
-					$item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);
-					
-					$item_to_update->points = $item['points'];
-					$item_to_update->save();
+				$total_points_used += $item['points'];
+			}
+		}
+		
+		
+		
+		if(intval($total_points_used) > $total_points){
+			\Debugbar::info($total_points_used.' '.$total_points);
+			return Response::json('Error with points', 409);
+		}
+		
+		
+		
+		foreach ($request->data_supervisors as $d_item){
+			
+			if($d_item['points'] <= $limit_per_one){
+				
+				$project->users()->updateExistingPivot($d_item['id'], ['points' => $d_item['points']]);
+				
+			}else{
+				return Response::json('Error with points', 409);
+			}
+			
+		}
+		
+		
+		if(count($data_cosupervisors)>0){
+			foreach ($data_cosupervisors as $item){
+				if($item['points']<=$limit_per_one){
+					if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
+						\Debugbar::info($item['name']);
+						$item_to_update = null;
+						$item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);
+						
+						$item_to_update->points = $item['points'];
+						$item_to_update->save();
+					}else{
+						$cosupervisor_points = new CosupervisorsPoints;
+						$cosupervisor_points->name = $item['name'];
+						$cosupervisor_points->points = $item['points'];
+						$cosupervisor_points->project_id = $project->id;
+						
+						$cosupervisor_points->save();
+					}
 				}else{
-					$cosupervisor_points = new CosupervisorsPoints;
-					$cosupervisor_points->name = $item['name'];
-					$cosupervisor_points->points = $item['points'];
-					$cosupervisor_points->project_id = $project->id;
-					
-					$cosupervisor_points->save();
+					return Response::json('Error with points', 409);
 				}
+				
 				
 				
 			}

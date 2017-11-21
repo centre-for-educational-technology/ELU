@@ -104,7 +104,7 @@
                             </li>
                         @endif
 
-                        @if (Auth::user()->is('student'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
                             <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 
@@ -266,7 +266,7 @@
                             </div>
                         </a>
                     @else
-                        @if (Auth::user()->is('student'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
                             <a href="{{ url('/student/project/new') }}">
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>

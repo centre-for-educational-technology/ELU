@@ -191,7 +191,7 @@
                             </li>
                         @endif
 
-                        @if (Auth::user()->is('student'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
                             <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 

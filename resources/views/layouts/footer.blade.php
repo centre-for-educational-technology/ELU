@@ -24,6 +24,9 @@
                     <i class="fa fa-facebook-official fa-lg"></i> <a href="https://www.facebook.com/elu.tlu/" target="_blank">elu.tlu</a>
                 </p>
             </div>
+            <div class="col-sm-2" id="eu_fund_logo_container">
+                    <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="EU Fund" class="img-responsive" id="eu_fund_logo">
+            </div>
         </div>
 
     </footer>

@@ -140,10 +140,6 @@
 
                 <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
 
-                <div class="col-sm-2" id="eu_fund_logo_container">
-                    <img src="{{ url(asset('/css/eu_fund_logo.jpg')) }}" alt="EU Fund" class="img-responsive" id="eu_fund_logo">
-                </div>
-
             </div>
             <div id="navbar" class="navbar-collapse collapse pull-right">
 
@@ -195,7 +191,7 @@
                             </li>
                         @endif
 
-                        @if (Auth::user()->is('student'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
                             <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
 

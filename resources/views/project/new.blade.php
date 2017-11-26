@@ -502,21 +502,17 @@
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}} *</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="publishing_status" name="publishing_status">
-
-                                    @if ( old('publishing_status')) == 0)
+                                <select class="form-control" id="publishing_status" name="publishing_status" disabled>
+                                    
                                     <option value="0" selected>{{trans('project.hidden')}}</option>
-                                    @else
-                                        <option value="0">{{trans('project.hidden')}}</option>
-                                    @endif
-
-                                    @if ( old('publishing_status')) == 1)
-                                    <option value="1" selected>{{trans('project.published')}}</option>
-                                    @else
-                                        <option value="1">{{trans('project.published')}}</option>
-                                    @endif
-
+                                    
+                                    <option value="1">{{trans('project.published')}}</option>
+                                
                                 </select>
+                                
+                                <!-- Tooltip letting users know why the project status is hidden at first -->
+                                {{trans('project.reason_of_initial_hiddenness')}}
+                            
                             </div>
                         </div>
 

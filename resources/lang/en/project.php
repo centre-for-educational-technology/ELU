@@ -157,7 +157,8 @@ return [
 		'calc_load' => 'Calculate load',
 		'total' => 'Total:',
 		'out_of' => ' out of',
-		'max_to_one' => 'Max EAP points to one teacher',
+    'max_to_one' => 'Max EAP points to one teacher',
+    'reason_of_initial_hiddenness' => 'Default status of a project is hidden. Project will be published by the administrator after being reviewed.',
 
 		
 ];

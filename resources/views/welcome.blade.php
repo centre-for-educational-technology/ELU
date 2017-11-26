@@ -274,7 +274,11 @@
                                 </div>
                             </a>
                         @elseif(Auth::user()->is('oppejoud'))
-                            <a href="{{ url('/project/new') }}">
+                            @if (App::getLocale() == 'et')
+                                <a href="{{ url('/project/new?lang=et') }}">
+                            @elseif (App::getLocale() == 'en')
+                                <a href="{{ url('/project/new?lang=en') }}">
+                            @endif
                                 <div class="pad">
                                     <span class="glyphicon ico-idea"></span>
                                     <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>

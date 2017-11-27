@@ -42,6 +42,31 @@ class ProjectController extends Controller
 {
 
 
+  /*
+  * Sort ongoing projects by language
+  */
+  public function sortOpenProjectsByLanguage($language)
+  {
+
+    if($language == 1){
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('language', '=', 'et')->orderBy('name', 'asc')->paginate(20);
+    }elseif($language == 2){
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('language', '=', 'en')->orderBy('name', 'asc')->paginate(20);
+    }
+
+    if(Auth::user()){
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', Auth::user()->is('oppejoud'));
+    }else{
+      return view('project.search')
+          ->with('projects', $projects)
+          ->with('isTeacher', false);
+    }
+
+  }
+
+
   /**
    * List the published projects
    *

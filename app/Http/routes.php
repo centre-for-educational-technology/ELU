@@ -353,6 +353,8 @@ Route::group(['middleware' => ['web']], function () {
 
   Route::get('/projects/ongoing', 'ProjectController@indexOngoingProjects');
 
+  Route::get('/projects/open/{language}', 'ProjectController@sortOpenProjectsByLanguage');
+
   Route::get('/projects/finished', 'ProjectController@indexFinishedProjects');
 
 

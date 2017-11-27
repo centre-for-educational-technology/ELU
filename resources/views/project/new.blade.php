@@ -502,6 +502,8 @@
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}} *</label>
 
                             <div class="col-sm-6">
+
+                                <input type="hidden" name="publishing_status" value=0>
                                 <select class="form-control" id="publishing_status" name="publishing_status" disabled>
                                     
                                     <option value="0" selected>{{trans('project.hidden')}}</option>

@@ -174,7 +174,7 @@
                     {{--</li>--}}
 
 
-                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
+                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open/0') }}">{{trans('front.search')}}</a></li>
                     <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
 
                     @if (!Auth::guest())
@@ -268,7 +268,7 @@
                                         <li><a href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                     @else
-                                        <li><a href="{{ url('projects/open') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+                                        <li><a href="{{ url('projects/open/0') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                     @endif
                                 @endif

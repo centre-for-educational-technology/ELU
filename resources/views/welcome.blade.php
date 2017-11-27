@@ -87,7 +87,7 @@
                     {{--</li>--}}
 
 
-                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
+                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open/0') }}">{{trans('front.search')}}</a></li>
                     <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
 
                     @if (!Auth::guest())
@@ -183,7 +183,7 @@
                                         <li><a href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                     @else
-                                        <li><a href="{{ url('projects/open') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+                                        <li><a href="{{ url('projects/open/0') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 
                                     @endif
 
@@ -240,7 +240,7 @@
             </div>
             <div class="col-md-4">
                 <div class="block01">
-                    <a href="{{ url('/projects/open') }}">
+                    <a href="{{ url('/projects/open/0') }}">
                         <div class="pad">
                             <span class="glyphicon ico-search"></span>
                             <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
@@ -254,7 +254,7 @@
                     {!! getFirstParagraph($fair_info->body_en) !!}
                 @endif
                 {{--<p>{{trans('front.idea_fair.desc')}}</p>--}}
-                <p><a class="btn btn-default" href="{{ url('/projects/open') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
+                <p><a class="btn btn-default" href="{{ url('/projects/open/0') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
             </div>
             <div class="col-md-4">
                 <div class="block01 block01c">

@@ -42,114 +42,6 @@ class ProjectController extends Controller
 {
 
 
-  /*
-  * Sort open projects by language
-  */
-  public function sortOpenProjectsByLanguage(Request $request)
-  {
-    
-    $name = $request->sort;
-    $param = $request->sort_param;
-
-    if($param == "language" && $name == "asc"){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-        ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-          ->orderBy($param, 'asc')->paginate(20);
-    }elseif ($param == "language" && $name == "desc") {
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-        ->orderBy($param, 'desc')->paginate(20);
-    }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-        ->orderBy('name', 'asc')->paginate(20);
-    }
-
-    if(Auth::user()){
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', Auth::user()->is('oppejoud'));
-    }else{
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', false);
-    }
-
-  }
-
-
-  /*
-  * Sort ongoing projects by language
-  */
-  public function sortOngoingProjectsByLanguage(Request $request)
-  {
-    $name = $request->sort;
-    $param = $request->sort_param;
-
-
-    if($param == "language" && $name == "asc"){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-        ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-          ->orderBy($param, 'asc')->paginate(20);
-    }elseif ($param == "language" && $name == "desc") {
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-        ->orderBy($param, 'desc')->paginate(20);
-    }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-        ->orderBy('name', 'asc')->paginate(20);
-    }
-
-    if(Auth::user()){
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', Auth::user()->is('oppejoud'));
-    }else{
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', false);
-    }
-
-  }
-  
-
-  /*
-  * Sort finished projects by language
-  */
-  public function sortFinishedProjectsByLanguage(Request $request)
-  {
-
-    $name = $request->sort;
-    $param = $request->sort_param;
-
-    if($param == "language" && $name == "asc"){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-        ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-          ->orderBy($param, 'asc')->paginate(20);
-    }elseif ($param == "language" && $name == "desc") {
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-        ->orderBy($param, 'desc')->paginate(20);
-    }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
-      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-        ->orderBy('name', 'asc')->paginate(20);
-    }
-
-    if(Auth::user()){
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', Auth::user()->is('oppejoud'));
-    }else{
-      return view('project.search')
-          ->with('projects', $projects)
-          ->with('isTeacher', false);
-    }
-
-  }
-
-
   /**
    * List the published projects
    *
@@ -690,44 +582,123 @@ class ProjectController extends Controller
 
     $name = $request->search;
     $param = $request->search_param;
+    $name1 = $request->sort;
+    $param1 = $request->sort_param;
+
+    if($param1 == 'language' && $name1 == 'asc') {
+      if($param == 'author'){
+
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    if($param == 'author'){
+      }elseif ($param == 'member'){
 
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-		      ->where(function ($query) use ($name) {
-			      $query->whereHas('users', function($q) use ($name)
-			      {
-				      $q->where(function($subq) use ($name) {
-					      $subq->where('name', 'LIKE', '%'.$name.'%')
-							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-				      })->where('participation_role','LIKE','%author%');
-			      });
-			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-		      })
-          ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }elseif ($param == 'member'){
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%member%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }
+    }elseif ($param1 == 'language' && $name1 == 'desc'){
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-          ->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
-            $query->orWhere('description', 'LIKE', '%'.$name.'%');
-            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
-          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }elseif ($param == 'member'){
 
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
+    } else {
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }elseif ($param == 'member'){
+
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
     }
 
     return $projects;
@@ -747,43 +718,123 @@ class ProjectController extends Controller
 
     $name = $request->search;
     $param = $request->search_param;
+    $name1 = $request->sort;
+    $param1 = $request->sort_param;
+
+    if($param1 == 'language' && $name1 == 'asc') {
+      if($param == 'author'){
+
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    if($param == 'author'){
-	    
-	    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-			    ->where(function ($query) use ($name) {
-				    $query->whereHas('users', function($q) use ($name)
-				    {
-					    $q->where(function($subq) use ($name) {
-						    $subq->where('name', 'LIKE', '%'.$name.'%')
-								    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-					    })->where('participation_role','LIKE','%author%');
-				    });
-				    $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-			    })
-			    ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }elseif ($param == 'member'){
 
-    }elseif ($param == 'member'){
-
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%member%');
-      })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-          ->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
-            $query->orWhere('description', 'LIKE', '%'.$name.'%');
-            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
-          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
+      }
+    }elseif ($param1 == 'language' && $name1 == 'desc'){
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }elseif ($param == 'member'){
+
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
+    } else {
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }elseif ($param == 'member'){
+
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
     }
 
     return $projects;
@@ -804,44 +855,123 @@ class ProjectController extends Controller
 
     $name = $request->search;
     $param = $request->search_param;
+    $name1 = $request->sort;
+    $param1 = $request->sort_param;
+
+    if($param1 == 'language' && $name1 == 'asc') {
+      if($param == 'author'){
+
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    if($param == 'author'){
+      }elseif ($param == 'member'){
 
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
-		      ->where(function ($query) use ($name) {
-			      $query->whereHas('users', function($q) use ($name)
-			      {
-				      $q->where(function($subq) use ($name) {
-					      $subq->where('name', 'LIKE', '%'.$name.'%')
-							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-				      })->where('participation_role','LIKE','%author%');
-			      });
-			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-		      })
-          ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }elseif ($param == 'member'){
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
-      $projects = Project::whereHas('users', function($q) use ($name)
-      {
-        $q->where(function($subq) use ($name) {
-          $subq->where('name', 'LIKE', '%'.$name.'%')
-              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-        })->where('participation_role','LIKE','%member%');
-      })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }
+    }elseif ($param1 == 'language' && $name1 == 'desc'){
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
-          ->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%'.$name.'%');
-            $query->orWhere('tags', 'LIKE', '%'.$name.'%');
-            $query->orWhere('description', 'LIKE', '%'.$name.'%');
-            $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
-          })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      }elseif ($param == 'member'){
 
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('language', 'desc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
+    } else {
+      if($param == 'author'){
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->whereHas('users', function($q) use ($name)
+              {
+                $q->where(function($subq) use ($name) {
+                  $subq->where('name', 'LIKE', '%'.$name.'%')
+                      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+                })->where('participation_role','LIKE','%author%');
+              });
+              $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+            })
+            ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }elseif ($param == 'member'){
+
+        $projects = Project::whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%member%');
+        })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+
+      }else{
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+            ->where(function ($query) use ($name) {
+              $query->where('name', 'LIKE', '%'.$name.'%');
+              $query->orWhere('tags', 'LIKE', '%'.$name.'%');
+              $query->orWhere('description', 'LIKE', '%'.$name.'%');
+              $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+            })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+
+      }
     }
 
     return $projects;

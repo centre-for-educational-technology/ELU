@@ -32,7 +32,7 @@
     @elseif(\Session::get('message')['type'] == 'declined')
         <div class="row">
             <div class="alert alert-warning">
-                {{\Session::get('message')['text']}}. <a href="{{url('projects/open/0')}}"> {{trans('project.find_something_else_notification')}}</a>
+                {{\Session::get('message')['text']}}. <a href="{{url('projects/open')}}"> {{trans('project.find_something_else_notification')}}</a>
             </div>
         </div>
     @elseif(\Session::get('message')['type'] == 'already_in_project')

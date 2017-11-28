@@ -19,18 +19,18 @@
 
         <h1>{{trans('search.search')}}</h1>
         <ul class="nav nav-tabs">
-            <li role="presentation" {{ setActive('projects/open/0') }}><a href="{{url('projects/open/0')}}">{{trans('search.open_projects')}}</a></li>
-            <li role="presentation" {{ setActive('projects/ongoing/0') }}><a href="{{url('projects/ongoing/0')}}">{{trans('search.ongoing_projects')}}</a></li>
-            <li role="presentation" {{ setActive('projects/finished/0') }}><a href="{{url('projects/finished/0')}}">{{trans('search.finished_projects')}}</a></li>
+            <li role="presentation" {{ setActive('projects/open') }}><a href="{{url('projects/open')}}">{{trans('search.open_projects')}}</a></li>
+            <li role="presentation" {{ setActive('projects/ongoing') }}><a href="{{url('projects/ongoing')}}">{{trans('search.ongoing_projects')}}</a></li>
+            <li role="presentation" {{ setActive('projects/finished') }}><a href="{{url('projects/finished')}}">{{trans('search.finished_projects')}}</a></li>
         </ul>
 
         {{--Search form--}}
-        @if(isPath('projects/finished/0'))
-            @include('layouts.search_projects_form', ['url_data' => '/projects/finished/0/search'])
-        @elseif(isPath('projects/ongoing/0'))
-            @include('layouts.search_projects_form', ['url_data' => '/projects/ongoing/0/search'])
+        @if(isPath('projects/finished'))
+            @include('layouts.search_projects_form', ['url_data' => '/projects/finished/search'])
+        @elseif(isPath('projects/ongoing'))
+            @include('layouts.search_projects_form', ['url_data' => '/projects/ongoing/search'])
         @else
-            @include('layouts.search_projects_form', ['url_data' => '/projects/open/0/search'])
+            @include('layouts.search_projects_form', ['url_data' => '/projects/open/search'])
         @endif
 
 
@@ -50,7 +50,7 @@
 
 
 
-        @if(isPath('projects/finished/0'))
+        @if(isPath('projects/finished'))
             @include('project.finished_all')
         @else
             @include('project.all')

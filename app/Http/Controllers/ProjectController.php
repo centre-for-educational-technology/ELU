@@ -45,15 +45,24 @@ class ProjectController extends Controller
   /*
   * Sort open projects by language
   */
-  public function sortOpenProjectsByLanguage($language)
+  public function sortOpenProjectsByLanguage(Request $request)
   {
+    
+    $name = $request->sort;
+    $param = $request->sort_param;
 
-    if($language == 1){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('language', '=', 'et')->orderBy('name', 'asc')->paginate(20);
-    }elseif($language == 2){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('language', '=', 'en')->orderBy('name', 'asc')->paginate(20);
+    if($param == "language" && $name == "asc"){
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+        ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+          ->orderBy($param, 'asc')->paginate(20);
+    }elseif ($param == "language" && $name == "desc") {
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+        ->orderBy($param, 'desc')->paginate(20);
     }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+        ->orderBy('name', 'asc')->paginate(20);
     }
 
     if(Auth::user()){
@@ -67,19 +76,29 @@ class ProjectController extends Controller
     }
 
   }
+
 
   /*
   * Sort ongoing projects by language
   */
-  public function sortOngoingProjectsByLanguage($language)
+  public function sortOngoingProjectsByLanguage(Request $request)
   {
+    $name = $request->sort;
+    $param = $request->sort_param;
 
-    if($language == 1){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('language', '=', 'et')->orderBy('name', 'asc')->paginate(20);
-    }elseif($language == 2){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('language', '=', 'en')->orderBy('name', 'asc')->paginate(20);
+
+    if($param == "language" && $name == "asc"){
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+        ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+          ->orderBy($param, 'asc')->paginate(20);
+    }elseif ($param == "language" && $name == "desc") {
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+        ->orderBy($param, 'desc')->paginate(20);
     }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+        ->orderBy('name', 'asc')->paginate(20);
     }
 
     if(Auth::user()){
@@ -93,19 +112,29 @@ class ProjectController extends Controller
     }
 
   }
+  
 
   /*
   * Sort finished projects by language
   */
-  public function sortFinishedProjectsByLanguage($language)
+  public function sortFinishedProjectsByLanguage(Request $request)
   {
 
-    if($language == 1){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->where('language', '=', 'et')->orderBy('name', 'asc')->paginate(20);
-    }elseif($language == 2){
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->where('language', '=', 'en')->orderBy('name', 'asc')->paginate(20);
+    $name = $request->sort;
+    $param = $request->sort_param;
+
+    if($param == "language" && $name == "asc"){
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+        ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+          ->orderBy($param, 'asc')->paginate(20);
+    }elseif ($param == "language" && $name == "desc") {
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+        ->orderBy($param, 'desc')->paginate(20);
     }else{
-      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20);
+      $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')
+      ->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+        ->orderBy('name', 'asc')->paginate(20);
     }
 
     if(Auth::user()){
@@ -703,7 +732,6 @@ class ProjectController extends Controller
 
     return $projects;
   }
-
 
 
   /**

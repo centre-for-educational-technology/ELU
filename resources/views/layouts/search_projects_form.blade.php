@@ -16,26 +16,30 @@
                         </ul>
                     </div>
 
-                    <div class="sort-panel">
-                        <a id="sort" href="#sort">Sorteeri</a>
-                            
-                            <select id="sort-select" style="display:none;">
+                    
+                    <table>
+
+                        <tr class="dropdown-row">
+                            <td><a id="sort" href="#sort">Sorteeri</a></td>
+                            <td><select id="sort-select" style="display:none;">
                                 <option value="project">{{trans('search.project')}}</option>
                                 <option value="member">{{trans('search.team_member')}}</option>
                                 <option value="author">{{trans('search.supervisor')}}</option>
                                 <option value="language">{{trans('search.supervisor')}}</option>
-                            </select>
+                            </select></td>
+                        </tr>
                         
-                        
-                    </div>
-                    <div class="sort-panel">
-                        <a id="filter" href="#filter">Filtreeri</a>
-                            <select id="filter-select" style="display:none;">
+                        <tr class="dropdown-row">
+                            <td><a id="filter" href="#filter">Filtreeri</a></td>
+                            <td><select id="filter-select" style="display:none;">
                                 <option value="et">Eesti keel</option>
                                 <option value="en">English</option>
-                            </select>
-                        
-                    </div>
+                            </select></td>
+                        </tr>
+
+                    </table>
+                    
+                    
 
                     
                         

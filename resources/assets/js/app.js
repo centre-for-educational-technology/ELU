@@ -174,6 +174,18 @@ jQuery(document).ready(function($) {
     $('.form-group #search_param').val(param);
   });
 
+  //Sort and filter
+  $('.sort-panel').find('a').click(function(e) {
+    e.preventDefault();
+    $('#'+this.id+'-select').toggle('fold', 'linear');
+    /*
+    var param = $(this).attr("href").replace("#","");
+    var concept = $(this).text();
+    $('.sort-panel span#sort_concept').text(concept);
+    $('.form-group #sort_param').val(param);
+    */
+  });
+
   var selector = '.search-panel .navbar-nav li';
 
   $(selector).on('click', function(){

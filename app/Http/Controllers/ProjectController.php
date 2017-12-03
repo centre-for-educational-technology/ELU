@@ -718,10 +718,11 @@ class ProjectController extends Controller
 
     $name = $request->search;
     $param = $request->search_param;
-    $name1 = $request->sort;
-    $param1 = $request->sort_param;
+    $sort_type = $request->sort_type;
+    $sort_param = $request->sort_param;
+    $filter_param = $request->filter_param;
 
-    if($param1 == 'language' && $name1 == 'asc') {
+    if($sort_param == 'language' && $sort_type == 'asc') {
       if($param == 'author'){
 
         $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
@@ -759,7 +760,7 @@ class ProjectController extends Controller
             })->orderBy('language', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
       }
-    }elseif ($param1 == 'language' && $name1 == 'desc'){
+    }elseif ($sort_param == 'language' && $sort_type == 'desc'){
       if($param == 'author'){
         
         $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))

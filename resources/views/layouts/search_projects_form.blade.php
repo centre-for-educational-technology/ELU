@@ -3,7 +3,7 @@
         <div class="row">
 
 
-            <form action="{{ url($url_data) }}" method="GET" class="form-horizontal search-project">
+            <form action="{{ url($url_data) }}" method="GET" class="form-horizontal search-project" id="subform">
                 {{ csrf_field() }}
 
                 <div class="col-lg-4 col-md-4">
@@ -18,34 +18,39 @@
 
                     
                     <table>
-
-                        <tr class="dropdown-row">
-                            <td><a id="sort" href="#sort">Sorteeri</a></td>
-                            <td><select id="sort-select" style="display:none;">
-                                <option value="project">{{trans('search.project')}}</option>
-                                <option value="member">{{trans('search.team_member')}}</option>
-                                <option value="author">{{trans('search.supervisor')}}</option>
-                                <option value="language">{{trans('search.supervisor')}}</option>
-                            </select></td>
-                        </tr>
                         
                         <tr class="dropdown-row">
-                            <td><a id="filter" href="#filter">Filtreeri</a></td>
-                            <td><select id="filter-select" style="display:none;">
-                                <option value="et">Eesti keel</option>
-                                <option value="en">English</option>
-                            </select></td>
+                            <td>
+                                <a id="filter" href="#filter">{{trans('search.filter')}}</a>
+                            </td>
+                            <td>
+                                <lable id="filter-select" style="visibility:hidden;">
+                                    <lable><input type="checkbox" name="filter_param" value="et">{{trans('search.filter_language_et')}}</lable>
+                                    <lable><input type="checkbox" name="filter_param" value="en">{{trans('search.filter_language_en')}}</lable>
+                                </lable>
+                            </td>
+                        </tr>
+                        <tr class="dropdown-row">
+                            <td>
+                                <a id="sort" href="#sort">{{trans('search.sort')}}</a>
+                            </td>
+                            <td>
+                                <lable id="sort-select" style="visibility:hidden;">
+                                    <lable><input type="radio" name="sort_param" value="project" style='display: none;'>{{trans('search.sort_project')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                                    <lable><input type="radio" name="sort_param" value="member" style='display: none;'>{{trans('search.sort_team_member')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                                    <lable><input type="radio" name="sort_param" value="author" style='display: none;'>{{trans('search.sort_supervisor')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                                    <lable><input type="radio" name="sort_param" value="language" style='display: none;'>{{trans('search.sort_language')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                                </lable>
+                            </td>
                         </tr>
 
                     </table>
-                    
-                    
 
-                    
-                        
-                
                 </div>
-
+<script>
+    //console.log("{{ app('request')->input('sort') }}");
+    //console.log("{{ 'projects' }}");
+    </script>
 
                 <div class="col-lg-8 col-md-8">
                     <div class="col-lg-10 col-md-8">
@@ -61,10 +66,11 @@
                             <button class="btn btn-primary" type="submit">{{trans('search.search')}}!</button>
                         </div>
                     </div>
+                    <div class="form-group search">
+                        </div>
                 </div>
 
             </form>
-
 
         </div>
     </div>

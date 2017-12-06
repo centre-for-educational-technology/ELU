@@ -17,36 +17,10 @@
                     </div>
 
                     
-                    <table>
-                        
-                        <tr class="dropdown-row">
-                            <td>
-                                <a id="filter" href="#filter">{{trans('search.filter')}}</a>
-                            </td>
-                            <td>
-                                <lable id="filter-select" style="visibility:hidden;">
-                                    <lable><input type="checkbox" name="filter_param" value="et">{{trans('search.filter_language_et')}}</lable>
-                                    <lable><input type="checkbox" name="filter_param" value="en">{{trans('search.filter_language_en')}}</lable>
-                                </lable>
-                            </td>
-                        </tr>
-                        <tr class="dropdown-row">
-                            <td>
-                                <a id="sort" href="#sort">{{trans('search.sort')}}</a>
-                            </td>
-                            <td>
-                                <lable id="sort-select" style="visibility:hidden;">
-                                    <lable><input type="radio" name="sort_param" value="project" style='display: none;'>{{trans('search.sort_project')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
-                                    <lable><input type="radio" name="sort_param" value="member" style='display: none;'>{{trans('search.sort_team_member')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
-                                    <lable><input type="radio" name="sort_param" value="author" style='display: none;'>{{trans('search.sort_supervisor')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
-                                    <lable><input type="radio" name="sort_param" value="language" style='display: none;'>{{trans('search.sort_language')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
-                                </lable>
-                            </td>
-                        </tr>
-
-                    </table>
+                    
 
                 </div>
+                
 <script>
     //console.log("{{ app('request')->input('sort') }}");
     //console.log("{{ 'projects' }}");
@@ -57,6 +31,8 @@
                         <div class="form-group nomargin search-input">
 
                             <input type="hidden" name="search_param" value="project" id="search_param">
+                            <input type="hidden" name="sort_param" value="" id="sort_param">
+                            <input type="hidden" name="filter_param" value="" id="filter_param">
                             <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
                         </div>
                     </div>
@@ -69,6 +45,24 @@
                     <div class="form-group search">
                         </div>
                 </div>
+                    
+                    <div class="col-lg-12 dropdown-row">
+                        <a id="filter" href="#filter">{{trans('search.filter')}}</a>
+                        <lable id="filter-select" style="visibility:hidden;">
+                            <lable><input type="checkbox" name="filter" value="et">{{trans('search.filter_language_et')}}</lable>
+                            <lable><input type="checkbox" name="filter" value="en">{{trans('search.filter_language_en')}}</lable>
+                        </lable>
+                    </div>
+                    
+                    <div class="col-lg-12 dropdown-row">
+                        <a id="sort" href="#sort">{{trans('search.sort')}}</a>
+                        <lable id="sort-radio" style="visibility:hidden;">
+                            <lable><input class="no-display" type="radio" name="sort" value="project">{{trans('search.sort_project')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                            <lable><input class="no-display" type="radio" name="sort" value="member">{{trans('search.sort_team_member')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                            <lable><input class="no-display" type="radio" name="sort" value="author">{{trans('search.sort_supervisor')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                            <lable><input class="no-display" type="radio" name="sort" value="language">{{trans('search.sort_language')}}<span class='glyphicon glyphicon-sort sort-button'></span></lable>
+                        </lable>
+                    </div>
 
             </form>
 

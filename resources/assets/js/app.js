@@ -251,12 +251,19 @@ jQuery(document).ready(function($) {
   //Filtering
 
   var getParams = getUrlParams();
-  if (!getParams || !getParams['filter_param']) {
+  if (getParams && getParams['filter_param'] == '') {
+    $('input[name="filter"]').prop('checked', false);
+    $('#filter-select').css('visibility', 'visible');    
+  } else if (!getParams || !getParams['filter_param']) {
     $('#filter-select').css('visibility', 'hidden');
-  } else if (getParams['sort_param'] != null) {
+  } else if (getParams['filter_param'] == 'both') {
+    $('#filter-select').css('visibility', 'visible');    
+    $('input[name="filter"]').prop('checked', true);
+  } else if (getParams['filter_param'] != null) {
     $('#filter-select').css('visibility', 'visible');
-    //$('input[name="sort_param"][value="'+getParams['sort_param']+'"]').prop('checked', true);
+    $('input[name="filter"][value="'+getParams['filter_param']+'"]').prop('checked', true);
   }
+
   $('#filter').click(function(e) {
     e.preventDefault();
     if ($('#filter-select').css('visibility') == 'hidden') {
@@ -267,38 +274,25 @@ jQuery(document).ready(function($) {
     }
   });
 
-  $('#filter-select').children().click(function() {
-    if ($(this).children().prop('checked') != true) {
-      $(this).children().prop('checked', true);
-    } else {
-      $(this).children().prop('checked', false);
-    }
-
-    var existingParams = getUrlParams();
-    if (existingParams != null) {
-      for (key in existingParams) {
-        if (key != 'filter_param') {
-          $('input[name='+key+']').val(existingParams[key]);
-        }
-      }
-    }
-  
-    if ($('input[name="filter_param"]:not(:checked)').length == 2 || $('input[name="filter_param"]:not(:checked)').length == 0) {
-      $('input[name=filter_param]').val('');
-    } else {
-      $('input[name=filter_param]').val($('input[name="filter_param"]:checked').val());
-    }
-
-    $('#subform').submit();
-  });
-
   $('#filter-select').children().children().click(function() {
     if ($(this).prop('checked') != true) {
       $(this).prop('checked', true);
+      $(this).trigger('change');
     } else {
       $(this).prop('checked', false);
+      $(this).trigger('change');
     }
+  });
 
+  $('#filter-select').children().click(function() {
+    if ($(this).children().prop('checked') != true) {
+      $(this).children().prop('checked', true);
+      $(this).children().trigger('change');
+    } else {
+      $(this).children().prop('checked', false);
+      $(this).children().trigger('change');
+    }
+/* 
     var existingParams = getUrlParams();
     if (existingParams != null) {
       for (key in existingParams) {
@@ -307,15 +301,21 @@ jQuery(document).ready(function($) {
         }
       }
     }
-    $('#subform').append('<input type="hidden" name="filter_param">');
-    if ($('input[name="filter_param"]:not(:checked)').length == 2 || $('input[name="filter_param"]:not(:checked)').length == 0) {
-      $('input[name=filter_param]').val('');
-    } else {
-      $('input[name=filter_param]').val($('input[name="filter_param"]:checked').val());
-    }
-  
-    $('#subform').submit();
+ */
   });
+
+  $('#filter-select').find('input').on('change', function () {
+    console.log('Pls');
+    if ($('input[name=filter]:checked').length == 0) {
+      $('input[name=filter_param]').val('');
+    } else if ($('input[name=filter]:checked').length == 2) {
+      $('input[name=filter_param]').val('both');
+    } else {
+      $('input[name=filter_param]').val($('input[name=filter]:checked').val());
+    }
+    $('#subform').submit();
+  })
+
 
 
   var selector = '.search-panel .navbar-nav li';

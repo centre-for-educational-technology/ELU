@@ -155,7 +155,7 @@ return [
 		'total' => 'Kasutatud:',
 		'out_of' => ', kokku EAPd saab jagada: ',
     'max_to_one' => 'Max EAPd ühele õppejõule',
-    'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidatud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
+    'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidetud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
 	
 	
 

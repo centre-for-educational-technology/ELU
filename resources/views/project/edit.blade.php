@@ -83,7 +83,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple" onchange="pls">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
                             </div>
                         </div>
 

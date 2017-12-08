@@ -228,19 +228,27 @@ jQuery(document).ready(function($) {
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
       {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
-      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
+      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true,}
     ],
     selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
     editor_selector : "mceSimpleLink",
     paste_as_text: true
   });
 
-
   tinyMCE.init({
     mode : "textareas",
     language: window.Laravel.language,
     plugins: ["link", "lists", "paste", "noneditable", "preventdelete"],
     height : "350",
+    setup: function(editor) {
+      editor.on('click', function(e) {
+        console.log('Editor was clicked');
+      });
+      editor.on('blur', function(e) {
+        tinyMCE.triggerSave();
+        console.log('Editor was blurred');
+      })
+    },
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
       {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},

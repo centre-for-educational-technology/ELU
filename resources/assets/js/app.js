@@ -276,7 +276,26 @@ jQuery(document).ready(function($) {
     if (string[stringLength] !== " ") {
       outputString += string[stringLength-1]
     }
+    // Removing empty tags
+    var helper = $('<div>').append(outputString);
+    removeEmptyIfNoChildren(helper);
+    outputString = helper.prop('innerHTML');
     return outputString;
+  }
+
+  function removeEmptyIfNoChildren (element) {
+    debugger;
+    if (element.children().length > 0) {
+      element.children().each(function () {
+        removeEmptyIfNoChildren($(this));
+        // Once more, so that if element had childelements and they got deleted, it would get deleted as well
+        removeEmptyIfNoChildren($(this));
+      });
+    } else {
+      if (element.html() === "") {
+        element.remove();
+      }
+    }
   }
 
   //Front page logo translation

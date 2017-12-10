@@ -27,8 +27,7 @@ class ProjectRequest extends Request
             'name' => 'required|max:255',
             'description' => array(
                 'required',
-                'max:9000',
-                'regex:/^<p>(?! *&nbsp;)*.*[\S]+.*([\n]*.*)*<\/p>$/'
+                'max:9000'
             ),
 		        'aim' => 'required|max:9000',
 		        'novelty_desc' => 'required|max:9000',

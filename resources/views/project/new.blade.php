@@ -16,7 +16,7 @@
                     @include('common.errors')
 
                     <!-- New Project Form -->
-                    <form action="{{ url('project/new')}}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('project/new')}}" id="project-form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <!-- Project Name -->
@@ -547,7 +547,7 @@
                         <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="submit-project-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-plus"></i>{{trans('project.add_button')}}
                                 </button>
                             </div>

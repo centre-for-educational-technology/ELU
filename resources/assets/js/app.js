@@ -284,7 +284,6 @@ jQuery(document).ready(function($) {
   }
 
   function removeEmptyIfNoChildren (element) {
-    debugger;
     if (element.children().length > 0) {
       element.children().each(function () {
         removeEmptyIfNoChildren($(this));

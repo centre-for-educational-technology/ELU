@@ -240,15 +240,6 @@ jQuery(document).ready(function($) {
     language: window.Laravel.language,
     plugins: ["link", "lists", "paste", "noneditable", "preventdelete"],
     height : "350",
-    setup: function(editor) {
-      editor.on('click', function(e) {
-        console.log('Editor was clicked');
-      });
-      editor.on('blur', function(e) {
-        tinyMCE.triggerSave();
-        console.log('Editor was blurred');
-      })
-    },
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
       {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
@@ -260,6 +251,33 @@ jQuery(document).ready(function($) {
     paste_as_text: true
   });
 
+  $('#submit-project-button').on('click', function (e) {
+    e.preventDefault();
+    tinyMCE.triggerSave();
+    tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('description').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
+    $('#project-form').submit();
+  });
+
+
+  function removeExcessWhitespaceFromString (string) {
+    var stringLength = string.length;
+    var outputString = "";
+    for (var i=0;i<stringLength-1;i++) {
+      if (string[i] === " " && string[i+1] === " " || string[i] === " " && string[i+1] === "<" || string[i-1] === ">" && string[i] === " ") {
+        
+      } else {
+        outputString += string[i];
+      }
+    }
+    if (string[stringLength] !== " ") {
+      outputString += string[stringLength-1]
+    }
+    return outputString;
+  }
 
   //Front page logo translation
   if(window.Laravel.language == 'en'){

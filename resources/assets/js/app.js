@@ -267,9 +267,7 @@ jQuery(document).ready(function($) {
     var stringLength = string.length;
     var outputString = "";
     for (var i=0;i<stringLength-1;i++) {
-      if (string[i] === " " && string[i+1] === " " || string[i] === " " && string[i+1] === "<" || string[i-1] === ">" && string[i] === " ") {
-        
-      } else {
+      if (!(string[i] === " " && string[i+1] === " " || string[i] === " " && string[i+1] === "<" || string[i-1] === ">" && string[i] === " ")) {
         outputString += string[i];
       }
     }

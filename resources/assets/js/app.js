@@ -287,13 +287,10 @@ jQuery(document).ready(function($) {
     if (element.children().length > 0) {
       element.children().each(function () {
         removeEmptyIfNoChildren($(this));
-        // Once more, so that if element had childelements and they got deleted, it would get deleted as well
-        removeEmptyIfNoChildren($(this));
       });
-    } else {
-      if (element.html() === "") {
-        element.remove();
-      }
+    }
+    if (element.html() === "") {
+      element.remove();
     }
   }
 

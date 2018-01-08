@@ -2030,8 +2030,13 @@ class ProjectController extends Controller
 
     $project->save();
 
-    return view('project.finish')
+    if ($project->study_year >= 2017) {
+      return view('project.finish')
         ->with('current_project', $project);
+    } else {
+      return view('project.old_finish')
+        ->with('current_project', $project);
+    }
 
   }
 
@@ -2158,6 +2163,11 @@ class ProjectController extends Controller
   public function saveFinishedProject(FinishedProjectRequest $request, $id){
 
     $project = Project::find($id);
+    if ($project->study_year >= 2017) {
+      $this->validate($request, $request->rules()[1]);
+    } else {
+      $this->validate($request, $request->rules()[0]);
+    }
     $project->summary = $request->summary;
 
     $project->save();

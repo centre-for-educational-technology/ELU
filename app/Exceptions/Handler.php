@@ -39,7 +39,6 @@ class Handler extends ExceptionHandler
 //    {
 //        parent::report($e);
 //    }
-			/*
 			public function report(Exception $e)
 			{
 				if ($this->shouldReport($e)) {
@@ -47,7 +46,6 @@ class Handler extends ExceptionHandler
 				}
 				parent::report($e);
 			}
-			*/
 	
 	
     /**

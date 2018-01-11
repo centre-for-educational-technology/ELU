@@ -14,6 +14,7 @@
   ga('send', 'pageview');
 
 </script>
+<script src="{{ url(elixir('js/app.js')) }}"></script>
 <div class="container">
     <footer class="main">
         <div class="row">

@@ -228,13 +228,12 @@ jQuery(document).ready(function($) {
     removeformat: [
       {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
       {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
-      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
+      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true,}
     ],
     selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
     editor_selector : "mceSimpleLink",
     paste_as_text: true
   });
-
 
   tinyMCE.init({
     mode : "textareas",
@@ -252,6 +251,46 @@ jQuery(document).ready(function($) {
     paste_as_text: true
   });
 
+  $('#submit-project-button').on('click', function (e) {
+    e.preventDefault();
+    tinyMCE.triggerSave();
+    tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('description').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
+    $('#project-form').submit();
+  });
+
+
+  function removeExcessWhitespaceFromString (string) {
+    var stringLength = string.length;
+    var outputString = "";
+    for (var i=0;i<stringLength-1;i++) {
+      if (!(string[i] === " " && string[i+1] === " " || string[i] === " " && string[i+1] === "<" || string[i-1] === ">" && string[i] === " ")) {
+        outputString += string[i];
+      }
+    }
+    if (string[stringLength] !== " ") {
+      outputString += string[stringLength-1]
+    }
+    // Removing empty tags
+    var helper = $('<div>').append(outputString);
+    removeEmptyIfNoChildren(helper);
+    outputString = helper.prop('innerHTML');
+    return outputString;
+  }
+
+  function removeEmptyIfNoChildren (element) {
+    if (element.children().length > 0) {
+      element.children().each(function () {
+        removeEmptyIfNoChildren($(this));
+      });
+    }
+    if (element.html() === "") {
+      element.remove();
+    }
+  }
 
   //Front page logo translation
   if(window.Laravel.language == 'en'){

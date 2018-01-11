@@ -33,7 +33,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id) }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('/project/'.$current_project->id) }}" id="project-form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <!-- Project Name -->
@@ -83,7 +83,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple" onchange="pls">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
                             </div>
                         </div>
 
@@ -707,7 +707,7 @@
                         <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="submit-project-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
                                 </button>
                             </div>

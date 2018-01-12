@@ -2030,7 +2030,7 @@ class ProjectController extends Controller
 
     $project->save();
 
-    if ($project->study_year >= 2017) {
+    if ($project->summary_version == '2' || is_null($project->summary_started_at) || date($project->summary_started_at) > date('2018-01-11 16:40:33') ) {
       return view('project.finish')
         ->with('current_project', $project);
     } else {

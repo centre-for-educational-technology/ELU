@@ -15,7 +15,6 @@ class AddSummaryVersionAndSummaryStartedToProjects extends Migration
         Schema::table('projects', function (Blueprint $table) {
             //
             $table->string('summary_version')->after('presentation_results')->nullable();
-            $table->timestamp('summary_started_at')->after('summary_version')->nullable();
         });
     }
 
@@ -29,7 +28,6 @@ class AddSummaryVersionAndSummaryStartedToProjects extends Migration
         Schema::table('projects', function (Blueprint $table) {
             //
             $table->dropColumn('summary_version');
-            $table->dropColumn('summary_started_at');
         });
     }
 }

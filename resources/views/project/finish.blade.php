@@ -21,7 +21,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id.'/finish') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('/project/'.$current_project->id.'/finishv2') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
 

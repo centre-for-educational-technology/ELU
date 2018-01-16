@@ -178,17 +178,20 @@ function projectHasGroupsWithMembers(\App\Project $project){
  */
 function isProjectResultsFilledIn(\App\Project $project){
 	$completed = false;
-	if(!empty($project->summary)){
-		if(projectHasGroupsWithMembers($project)){
-			foreach ($project->groups as $group){
-				if(!empty($group->results) && !empty($group->activities) && !empty($group->reflection) && !empty($group->students_opinion) && !empty($group->supervisor_opinion)){
-					$completed = true;
-				}else{
-					$completed = false;
+	if ($project->summary_version == 1) {
+		if(!empty($project->summary)){
+			if(projectHasGroupsWithMembers($project)){
+				foreach ($project->groups as $group){
+					if(!empty($group->results) && !empty($group->activities) && !empty($group->reflection) && !empty($group->students_opinion) && !empty($group->supervisor_opinion)){
+						$completed = true;
+					}else{
+						$completed = false;
+					}
 				}
 			}
-			
 		}
+	} else if ($project->summary_version == 2) {
+		$completed = true;
 	}
 	return $completed;
 }

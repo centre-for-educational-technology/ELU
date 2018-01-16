@@ -20,6 +20,10 @@
                     <!-- Display Validation Errors -->
                 @include('common.errors')
 
+                <div class='col-sm-12 col-sm-push-8'>
+                    <a href="{{ url('/project/'.$current_project->id.'/finish?version=2') }}"><button class="btn btn-primary btn-md">Kasuta kokkuvõtte versiooni 2</button></a>
+                </div>
+
                 <!-- New Project Form -->
                     <form action="{{ url('/project/'.$current_project->id.'/finish') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}

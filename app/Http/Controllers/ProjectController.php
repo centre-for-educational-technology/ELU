@@ -2021,16 +2021,18 @@ class ProjectController extends Controller
   /**
    * Finish project button handler
    */
-  public function finishProject($id)
+  public function finishProject(Request $request, $id)
   {
 
 
     $project = Project::find($id);
     $project->status = 0;
-
+    if ($project->summary_started_at == null && $project->summary == null) {
+      $project->summary_started_at = date('Y-m-d H:i:s');
+    }
     $project->save();
 
-    if ($project->summary_version == '2' || is_null($project->summary_started_at) || date($project->summary_started_at) > date('2018-01-11 16:40:33') ) {
+    if (($project->summary_version === '2' || is_null($project->summary_started_at) || date($project->summary_started_at) > date('2018-01-15 12:00:00')) && $project->summary == null ||  $request->version === '2') {
       return view('project.finish')
         ->with('current_project', $project);
     } else {

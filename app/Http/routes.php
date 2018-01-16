@@ -165,6 +165,8 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('project/{id}/finish', 'ProjectController@saveFinishedProject');
 
+        Route::post('project/{id}/finishv2', 'ProjectController@saveFinishedProjectv2');
+
 
         Route::post('project/{id}/finish/uploadFiles', 'ProjectController@attachGroupGalleryImages');
 

@@ -2021,7 +2021,7 @@ class ProjectController extends Controller
   /**
    * Finish project button handler
    */
-  public function finishProject($id)
+  public function finishProject(Request $request, $id)
   {
 
 
@@ -2030,8 +2030,13 @@ class ProjectController extends Controller
 
     $project->save();
 
-    return view('project.finish')
+    if ($project->summary_version == 2 || $request->version === '2' || $project->summary == null) {
+      return view('project.finish')
         ->with('current_project', $project);
+    } else {
+      return view('project.old_finish')
+        ->with('current_project', $project);
+    }
 
   }
 
@@ -2158,7 +2163,10 @@ class ProjectController extends Controller
   public function saveFinishedProject(FinishedProjectRequest $request, $id){
 
     $project = Project::find($id);
+    
+    $this->validate($request, $request->rules()[0]);
     $project->summary = $request->summary;
+    $project->summary_version = 1;
 
     $project->save();
 
@@ -2235,6 +2243,91 @@ class ProjectController extends Controller
 
 
 
+
+      }
+    }
+
+    return \Redirect::to('project/'.$project->id)
+        ->with('message', [
+            'text' => trans('project.finished_and_saved_notification', ['name' => $project->name]),
+            'type' => 'finished'
+        ])
+        ->with('project', $project);
+
+  }
+
+
+  public function saveFinishedProjectv2(FinishedProjectRequest $request, $id){
+
+    $project = Project::find($id);
+    
+    $this->validate($request, $request->rules()[1]);
+    $project->summary_version = 2;
+
+    $project->save();
+
+    if(count($project->groups)>0){
+      foreach ($project->groups as $group){
+
+
+
+        //Embedded link
+        $embedded = null;
+        if($request->input('group_embedded.'.$group->id) != null){
+
+          $embed = Embed::make($request->input('group_embedded.'.$group->id))->parseUrl();
+
+          if ($embed) {
+            // Set width of the embed
+            $embed->setAttribute(['width' => 600]);
+
+          }
+
+          $embed_html = $embed->getHtml();
+
+          $embedded = $embed_html;
+
+        }else{
+	        $embedded = null;
+        }
+
+
+        $group->embedded = $embedded;
+
+
+        $group->save();
+
+        $materials_names = $request->input('group_material_name.'.$group->id);
+        $materials_links = $request->input('group_material_link.'.$group->id);
+        $materials_tags = $request->input('group_material_tags.'.$group->id);
+
+
+        //Delete existing records to override them
+        if(count($group->materials)>0){
+
+          foreach ($group->materials as $material){
+            $material->delete();
+          }
+        }
+
+        if(!empty($materials_names)){
+
+          foreach ($materials_names as $key => $material_name){
+          	if(!empty($materials_names[$key])){
+		
+		          $group_material = new GroupMaterial;
+		          $group_material->name = $materials_names[$key];
+		          $group_material->link = $materials_links[$key];
+		          $group_material->tags = $materials_tags[$key];
+		          $group_material->group_id = $group->id;
+		
+		          $group_material->save();
+          		
+	          }
+
+            }
+
+        }
 
       }
     }

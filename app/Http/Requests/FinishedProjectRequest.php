@@ -25,7 +25,7 @@ class FinishedProjectRequest extends Request
     {
 
 
-        $rules = [
+        $old_rules = [
             'summary' => 'required|max:9000',
             'group_results.*' => 'max:9000',
             'group_activities.*' => 'max:9000',
@@ -41,6 +41,15 @@ class FinishedProjectRequest extends Request
 
 
         ];
+
+        $new_rules = [
+            'group_embedded.*' =>'active_url',
+            'group_material_tags.*.*' => 'max:2000',
+            'group_material_link.*.*' => 'active_url',
+            'group_material_name.*.*' =>  'max:100'
+        ];
+
+        $rules = [0=>$old_rules, 1=>$new_rules];
 
 
         return $rules;

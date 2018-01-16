@@ -20,9 +20,29 @@
                     <!-- Display Validation Errors -->
                 @include('common.errors')
 
+                <div class='col-sm-12 col-sm-push-8'>
+                    <a href="{{ url('/project/'.$current_project->id.'/finish?version=2') }}"><button class="btn btn-primary btn-md">Kasuta kokkuvõtte versiooni 2</button></a>
+                </div>
+
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id.'/finishv2') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('/project/'.$current_project->id.'/finish') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
+
+                        <!-- Project Summary -->
+                        <div class="form-group">
+                            <label for="summary" class="col-sm-3 control-label">{{trans('project.finished_desc')}}</label>
+
+
+                            <div class="col-sm-7">
+                                <p>{{trans('project.finished_desc_desc')}}</p>
+
+                                <textarea name="summary" id="summary" class="form-control mceSimple">{!! (empty(old('summary')) ? $current_project->summary : old('summary')) !!}</textarea>
+                            </div>
+                        </div>
+
+
+
+
 
 
                         @if (count($current_project->groups) > 0)
@@ -58,6 +78,76 @@
 
 
 
+
+                                                        <!-- Group results -->
+                                                        <div class="form-group">
+                                                            <label for="group_results[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_results')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <textarea name="group_results[{{$group->id}}]" id="group_results[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_results.'.$group->id)) ?  $group->results : old('group_results.'.$group->id)) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group activities -->
+                                                        <div class="form-group">
+                                                            <label for="group_activities[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_activities')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <textarea name="group_activities[{{$group->id}}]" id="group_activities[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_activities.'.$group->id)) ? $group->activities : old('group_activities.'.$group->id)) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group reflection -->
+                                                        <div class="form-group">
+                                                            <label for="group_reflection[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_reflection')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <textarea name="group_reflection[{{$group->id}}]" id="group_reflection[{{$group->id}}]" class="form-control mceSimple">{!! (empty(old('group_reflection.'.$group->id)) ? $group->reflection : old('group_reflection.'.$group->id)) !!}</textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group partners -->
+                                                        <div class="form-group">
+                                                            <label for="group_partners[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_partners')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_partners[{{$group->id}}]" id="group_partners[{{$group->id}}]" class="form-control" value="{{  (empty(old('group_partners.'.$group->id))?  $group->partners : old('group_partners.'.$group->id)) }}">
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group students opinion -->
+                                                        <div class="form-group">
+                                                            <label for="group_students_opinion[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.students_opinion')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_students_opinion[{{$group->id}}]" id="group_students_opinion[{{$group->id}}]" class="form-control" value="{{ (empty(old('group_students_opinion.'.$group->id))? $group->students_opinion : old('group_students_opinion.'.$group->id)) }}">
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Group supervisor opinion -->
+                                                        <div class="form-group">
+                                                            <label for="group_supervisor_opinion[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.supervisor_opinion')}}</label>
+
+                                                            <div class="col-sm-8">
+
+                                                                <input type="text" name="group_supervisor_opinion[{{$group->id}}]" id="group_supervisor_opinion[{{$group->id}}]" class="form-control" value="{{ (empty(old('group_supervisor_opinion.'.$group->id))?  $group->supervisor_opinion : old('group_supervisor_opinion.'.$group->id)) }}">
+
+                                                            </div>
+                                                        </div>
+
+
                                                         <!--Group images -->
                                                         <div class="form-group">
 
@@ -84,7 +174,7 @@
                                                                 <p>{{trans('project.group_video_link_desc')}}</p>
                                                                 @if(!empty(old('group_embedded.'.$group->id)))
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!!  old('group_embedded.'.$group->id) !!}">
-                                                                    <button type="button" class="btn btn-default btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
 
 
 
@@ -96,13 +186,13 @@
 
                                                                     @endphp
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control" value="{!! $embedded !!}">
-                                                                    <button type="button" class="btn btn-default btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
 
 
 
                                                                 @else
                                                                     <input type="text" name="group_embedded[{{$group->id}}]" id="group_embedded[{{$group->id}}]" class="form-control">
-                                                                    <button type="button" class="btn btn-default btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+                                                                    <button type="button" class="btn btn-secondary btn-sm" id="clear-group-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
 
 
                                                                 @endif

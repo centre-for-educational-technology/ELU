@@ -647,30 +647,45 @@
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}} *</label>
 
                             <div class="col-sm-6">
-                                @if (Auth::user()->is('admin'))
-                                    <select class="form-control" id="publishing_status" name="publishing_status">
-                                        @if(count(old('publishing_status')) > 0)
-                                            <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
-                                            <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
-                                        @else
+                                @if($current_project->publishing_status > 0)
+                                    <select class="form-control" id="publishing_status" name="publishing_status">
+                                        @if($current_project->publishing_status > 0)
                                             <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
                                             <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        @else
+                                            <option value="{{$current_project->publishing_status == 1 ? 1: 0}}">{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                            <option value="{{$current_project->publishing_status == 1 ? 0: 1}}" selected>{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
                                         @endif
                                     </select>
                                 @else
-                                    <input type="hidden" name="publishing_status" value=0>
-                                    <select class="form-control" id="publishing_status" name="publishing_status" disabled>
+                                    @if (Auth::user()->is('admin'))
+                                        <select class="form-control" id="publishing_status" name="publishing_status">
+                                            @if(count(old('publishing_status')) > 0)
+                                                <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                                <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                            @else
+                                                <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                                <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                            @endif
+                                        </select>
+                                    @else
+                                        <input type="hidden" name="publishing_status" value=0>
+                                        <select class="form-control" id="publishing_status" name="publishing_status" disabled>
+                                            
+                                            <option value="0" selected>{{trans('project.hidden')}}</option>
+                                            
+                                            <option value="1">{{trans('project.published')}}</option>
                                         
-                                        <option value="0" selected>{{trans('project.hidden')}}</option>
+                                        </select>
                                         
-                                        <option value="1">{{trans('project.published')}}</option>
-                                    
-                                    </select>
-                                    
-                                    <!-- Tooltip letting users know why the project status is hidden at first -->
-                                    {{trans('project.reason_of_initial_hiddenness')}}
+                                        <!-- Tooltip letting users know why the project status is hidden at first -->
+                                        {{trans('project.reason_of_initial_hiddenness')}}
+                                    @endif
                                 @endif
                             </div>
                         </div>

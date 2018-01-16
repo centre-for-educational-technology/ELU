@@ -2030,7 +2030,7 @@ class ProjectController extends Controller
 
     $project->save();
 
-    if ($project->summary_version == '2' || $request->version === '2' || $project->summary == null) {
+    if ($project->summary_version == 2 || $request->version === '2' || $project->summary == null) {
       return view('project.finish')
         ->with('current_project', $project);
     } else {
@@ -2166,7 +2166,7 @@ class ProjectController extends Controller
     
     $this->validate($request, $request->rules()[0]);
     $project->summary = $request->summary;
-    $project->summary_version = '1';
+    $project->summary_version = 1;
 
     $project->save();
 
@@ -2262,7 +2262,7 @@ class ProjectController extends Controller
     $project = Project::find($id);
     
     $this->validate($request, $request->rules()[1]);
-    $project->summary_version = '2';
+    $project->summary_version = 2;
 
     $project->save();
 

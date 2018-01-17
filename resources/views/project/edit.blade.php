@@ -33,7 +33,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id) }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('/project/'.$current_project->id) }}" id="project-form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <!-- Project Name -->
@@ -53,7 +53,7 @@
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty( old('embedded')) ? $current_project->embedded :  old('embedded')) }}">
                             </div>
 
-                            <button type="button" class="btn btn-secondary btn-sm" id="clear-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+                            <button type="button" class="btn btn-default btn-sm" id="clear-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
 
 
                         </div>
@@ -83,7 +83,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple" onchange="pls">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
                             </div>
                         </div>
 
@@ -647,17 +647,31 @@
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}} *</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="publishing_status" name="publishing_status">
-                                    @if(count(old('publishing_status')) > 0)
-                                        <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+                                @if (Auth::user()->is('admin'))
+                                    <select class="form-control" id="publishing_status" name="publishing_status">
+                                        @if(count(old('publishing_status')) > 0)
+                                            <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
-                                        <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
-                                    @else
-                                        <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+                                            <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        @else
+                                            <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
-                                        <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
-                                    @endif
-                                </select>
+                                            <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        @endif
+                                    </select>
+                                @else
+                                    <input type="hidden" name="publishing_status" value=0>
+                                    <select class="form-control" id="publishing_status" name="publishing_status" disabled>
+                                        
+                                        <option value="0" selected>{{trans('project.hidden')}}</option>
+                                        
+                                        <option value="1">{{trans('project.published')}}</option>
+                                    
+                                    </select>
+                                    
+                                    <!-- Tooltip letting users know why the project status is hidden at first -->
+                                    {{trans('project.reason_of_initial_hiddenness')}}
+                                @endif
                             </div>
                         </div>
 
@@ -693,7 +707,7 @@
                         <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="submit-project-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
                                 </button>
                             </div>

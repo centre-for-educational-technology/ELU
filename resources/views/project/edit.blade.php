@@ -143,9 +143,12 @@
                                         @if(!empty($current_project->student_expectations))
                                             {!! $current_project->student_expectations !!}
                                         @else
-                                            <p><i>{{trans('project.student_expectations_desc_1')}}</i></p>
-                                            <p><i>{{trans('project.student_expectations_desc_2')}}</i></p>
-                                            <p><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_1')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_2')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_4')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_5')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_6')}}</i></p>
                                         @endif
 
                                     @else
@@ -153,6 +156,24 @@
                                     @endif
                                 </textarea>
                             </div>
+                            @if (Auth::user()->is('admin'))
+                                <script>
+                                if ($('#student_expectations_ifr')[0]) {
+                                    for (var j = 0;j<$('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children.length;j++) {
+                                        $('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children[j].attributes[1].value = true;
+                                    }
+                                } else {
+                                    var checkForExpectations = window.setInterval(function () {
+                                        if ($('#student_expectations_ifr')[0]) {
+                                            for (var j = 0;j<$('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children.length;j++) {
+                                                $('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children[j].attributes[1].value = true;
+                                            }
+                                            clearInterval(checkForExpectations);
+                                        }
+                                    }, 1000);
+                                }
+                                </script>
+                            @endif
                         </div>
 
 

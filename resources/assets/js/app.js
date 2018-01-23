@@ -255,12 +255,41 @@ jQuery(document).ready(function($) {
     e.preventDefault();
     tinyMCE.triggerSave();
     tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
+    if (document.getElementById('novelty_desc')) {
+      tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
+    }
+    if (document.getElementById('aim')) {
+      tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
+    }
     tinyMCE.get('description').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description').getContent().split('&nbsp;').join(' ')));
     tinyMCE.triggerSave();
+
+    var values = "";
+    var amount = $('#metting_dates_fields').children().length
+    for (var i=0;i<amount;i++) {
+        values += $('#metting_dates_fields').children()[i].value;
+        if (i%2 == 0 && $('#metting_dates_fields').children()[i].value != '') {
+            values += ',';
+        }
+        if (i%2 == 1 && i != amount-1 && $('#metting_dates_fields').children()[i].value != '') {
+            values += ';';
+        }
+    }
+    //console.log(values);
+    $('#meetings_dates_text').value = values;
+
     $('#project-form').submit();
   });
+
+  $('#add_meeting_time').click(function (event) {
+    event.preventDefault();
+    var dateBox = document.createElement("input");
+    dateBox.type = 'date';
+    var timeBox = document.createElement("input");
+    timeBox.type = 'text';
+    document.getElementById('metting_dates_fields').appendChild(dateBox);
+    document.getElementById('metting_dates_fields').appendChild(timeBox);
+})
 
 
   function removeExcessWhitespaceFromString (string) {

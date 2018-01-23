@@ -43,6 +43,8 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('project/new', 'ProjectController@store');
 
+        Route::post('project/newV2', 'ProjectController@storeNewFormProject');
+
 
         Route::delete('/project/{id}/delete', function ($id) {
           $project = Project::findOrFail($id);
@@ -147,7 +149,77 @@ Route::group(['middleware' =>['web']], function () {
 
         }));
 
+        Route::get('project/{id}/editV2', array('as' => 'project_edit', function ($id) {
+
+
+          $current_project = Project::find($id);
+
+
+          if ($current_project->embedded != null) {
+            preg_match('/src="([^"]+)"/', $current_project->embedded, $match);
+
+            $current_project->embedded = $match[1];
+          }
+
+
+          //Supervisors field
+          $teachers = User::select('id','name', 'full_name')->whereHas('roles', function ($q) {
+            $q->where('name', 'oppejoud');
+          })->get();
+
+          $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	        $authors_ids = array();
+	        foreach ($authors as $author){
+	        	array_push($authors_ids, $author->id);
+	        }
+	    
+	        
+          //Study areas field
+//	        if(\App::getLocale() == 'en'){
+//		        $courses = Course::select('id','oppekava_eng')->get();
+//	        }else{
+//		        $courses = Course::select('id','oppekava_est')->get();
+//	        }
+//
+          
+
+          $linked_courses = $current_project->getCourses()->select('id')->get();
+	        $linked_courses_ids = array();
+          foreach ($linked_courses as $linked_course){
+            array_push($linked_courses_ids, $linked_course->id);
+          }
+	
+	
+	
+	        $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+
+
+
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->get();
+
+//          if ($project->start) {
+//            $project->start = date("m/d/Y", strtotime($project->start));
+//          }
+//
+//          if ($project->end) {
+//            $project->end = date("m/d/Y", strtotime($project->end));
+//          }
+
+
+          if ($current_project->join_deadline) {
+            $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
+          }
+
+          return view('project.new_edit', compact('teachers','authors_ids', 'current_project', 'projects', 'linked_courses_ids', 'evaluation_dates'));
+
+
+        }));
+
         Route::post('/project/{id}', 'ProjectController@update');
+
+        Route::post('/projectV2/{id}', 'ProjectController@newFormUpdate');
 
 
         Route::post('project/{id}/add-group', 'ProjectController@addNewProjectGroup');

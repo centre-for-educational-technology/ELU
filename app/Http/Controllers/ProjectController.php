@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\NewFormProjectRequest;
 use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;
@@ -122,7 +123,8 @@ class ProjectController extends Controller
    */
   public function add(Request $request)
   {
-	  
+
+    //\Debugbar::info($request1->rules());
 	  $lang = $request->lang;
 	  
 	  $project_language = 'et';
@@ -160,6 +162,10 @@ class ProjectController extends Controller
   
     $author =  Auth::user()->id;
 
+    if ($request->version == '151') {
+      return view('project.new_new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
+    }
+
     return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
@@ -172,6 +178,149 @@ class ProjectController extends Controller
   public function store(ProjectRequest $request)
   {
 
+    $project = new Project;
+    $project->name = $request->name;
+    $project->description = $request->description;
+
+
+    if($request->embedded != null){
+
+      $embed = Embed::make($request->embedded)->parseUrl();
+
+      if ($embed) {
+        // Set width of the embed
+        $embed->setAttribute(['width' => 600]);
+      }
+      $embed_html = $embed->getHtml();
+
+      $project->embedded = $embed_html;
+
+    }
+	
+	  $project->aim = $request->aim;
+	
+	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	
+	  $project->novelty_desc = $request->novelty_desc;
+	
+	  $project->project_outcomes = $request->project_outcomes;
+	
+	  $project->student_expectations = $request->student_expectations;
+	  
+	  if(!empty($request->meetings_dates_text)){
+		  $project->meeting_dates = $request->meetings_dates_text;
+	  }else{
+		  $project->meeting_dates = 'NONE';
+	  }
+	
+	  $project->evaluation_date_id = $request->evaluation_date;
+	  
+	  $project->presentation_results = $request->presentation_results;
+	  
+
+//    $project->integrated_areas = $request->integrated_areas;
+
+
+    $project->meeting_info = $request->meeting_info;
+
+    $project->study_term = $request->study_term;
+
+    $project->study_year = $request->study_year;
+
+
+    
+//    $project->student_outcomes = $request->student_outcomes;
+//
+
+
+//    $project->courses = $request->related_courses;
+
+
+//    $project->institute = $request->institutes;
+
+//    if($request->project_start){
+//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//      $project->start = date("Y-m-d", $date_start->getTimestamp());
+//    }
+//
+//    if($request->project_end){
+//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//      $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    }
+
+
+    // Co-supervisors saved into supervisor column
+    // Main supervisors linked in pivot table
+    $project->supervisor = $request->cosupervisors;
+
+    $project->status = 1;
+
+    $project->tags = $request->tags;
+
+//    $project->group_link = $request->group_link;
+
+
+    $project->language = $request->language;
+
+    $project->publishing_status = $request->publishing_status;
+
+
+    $project->extra_info = $request->extra_info;
+
+
+    $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
+    $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
+	
+	  $project->get_notifications = $request->get_notifications == "on"? true : false;
+
+
+    //Need that to get id
+    $project->save();
+
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+
+    $project->save();
+
+
+    //Attach study areas
+//    $study_areas = $request->input('study_areas');
+//    foreach ($study_areas as $study_area){
+//
+//      $project->getCourses()->attach($study_area);
+//    }
+
+
+    //Attach users with teacher role
+    $supervisors = $request->input('supervisors');
+    foreach ($supervisors as $supervisor){
+
+      $project->users()->attach($supervisor, ['participation_role' => 'author']);
+    }
+
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+	
+	
+	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
+
+
+    return \Redirect::to('teacher/my-projects')
+        ->with('message', trans('project.new_project_added_notification'))
+        ->with('projects', $projects);
+
+
+
+  }
+
+
+  public function storeNewFormProject(NewFormProjectRequest $request)
+  {
 
     $project = new Project;
     $project->name = $request->name;
@@ -319,6 +468,200 @@ class ProjectController extends Controller
    * Update project info
    */
   public function update(ProjectRequest $request, $id)
+  {
+	  
+
+    $project = Project::find($id);
+    $project->name = $request->name;
+    $project->description = $request->description;
+
+
+    if($request->embedded != null){
+	    
+      $embed = Embed::make($request->embedded)->parseUrl();
+
+      if ($embed) {
+        // Set width of the embed
+        $embed->setAttribute(['width' => 600]);
+
+      }
+
+      $embed_html = $embed->getHtml();
+
+      $project->embedded = $embed_html;
+
+    }else{
+	    $project->embedded = null;
+    }
+    
+	  $project->aim = $request->aim;
+	
+	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+	
+	  $project->novelty_desc = $request->novelty_desc;
+	
+	  $project->project_outcomes = $request->project_outcomes;
+	
+	  $project->student_expectations = $request->student_expectations;
+	
+	  if(!empty($request->meetings_dates_text)){
+		  $project->meeting_dates = $request->meetings_dates_text;
+	  }else{
+		  $project->meeting_dates = 'NONE';
+	  }
+	
+	  $project->evaluation_date_id = $request->evaluation_date;
+	
+	  $project->presentation_results = $request->presentation_results;
+	  
+
+    //XXX to be removed
+//    $project->integrated_areas = $request->integrated_areas;
+
+
+
+    $project->meeting_info = $request->meeting_info;
+
+    //Attach study areas
+//    $study_areas = $request->input('study_areas');
+//    $project->getCourses()->sync($study_areas);
+
+
+    $project->study_term = $request->study_term;
+
+    $project->study_year = $request->study_year;
+
+
+
+//    $project->project_outcomes = $request->project_outcomes;
+//    $project->student_outcomes = $request->student_outcomes;
+//
+
+    //XXX to be removed
+//    $project->courses = $request->related_courses;
+
+
+//    $project->institute = $request->institutes;
+//
+//
+//    if($request->project_start){
+//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+//      $project->start = date("Y-m-d", $date_start->getTimestamp());
+//    }
+//
+//    if($request->project_end){
+//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+//      $project->end = date("Y-m-d", $date_end->getTimestamp());
+//    }
+
+
+    $project->supervisor = $request->cosupervisors;
+	 
+	  $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+	  
+	  if(count($project_cosupervisors_points)>0){
+		  foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+			
+			  $remains = false;
+			
+			  foreach (preg_split("/\\r\\n|\\r|\\n/", $request->cosupervisors) as $single_cosupervisor) {
+				
+				
+				  if($project_cosupervisor_points->name == $single_cosupervisor){
+					  $remains = true;
+				  }
+			  }
+			
+			  if($remains == false){
+				  $project_cosupervisor_points->delete();
+			  }
+			
+		  }
+		
+	  }
+	  
+
+    $project->status = $request->status;
+
+    $project->tags = $request->tags;
+
+//    $project->group_link = $request->group_link;
+
+    $project->language = $request->language;
+
+    $project->publishing_status = $request->publishing_status;
+
+
+    $project->extra_info = $request->extra_info;
+
+
+    $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
+    $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
+
+    $project->requires_review = false;
+	
+	  $project->get_notifications = $request->get_notifications == "on"? true : false;
+
+
+
+    if($request->featured_image != null){
+      if($project->featured_image !=null){
+
+        File::delete(public_path('storage/projects_featured_images/') .$project->featured_image);
+      }
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+
+    $project->save();
+	
+	  
+	  $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	  $teachers_ids = array();
+	  if(count($teachers)>0){
+		  foreach ($teachers as $teacher){
+			  array_push($teachers_ids, $teacher->id);
+		  }
+		
+	  }
+	  
+    $supervisors = $request->input('supervisors');
+	  
+	  $diff1 = array_diff($supervisors, $teachers_ids);
+	  $diff2 = array_diff($teachers_ids, $supervisors);
+	  $different_users = array_merge($diff1, $diff2);
+	  
+
+	  foreach ($different_users as $different_user){
+	  	
+	  	if(in_array($different_user, $teachers_ids)){
+			  //This user was in list but now removed
+			  $project->users()->detach($different_user);
+		  }else{
+	  		//This user was not in list but now added
+			  $project->users()->attach($different_user, ['participation_role' => 'author']);
+		  }
+	  }
+    
+   
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->orderBy('created_at', 'desc')->paginate(5);
+
+
+    return \Redirect::to('project/'.$project->id)
+		    ->with('message', [
+				    'text' => trans('project.project_changed_notification', ['name' => $project->name]),
+				    'type' => 'changed'
+		    ])
+        ->with('projects', $projects);
+
+  }
+
+
+  public function newFormUpdate(NewFormProjectRequest $request, $id)
   {
 	  
 

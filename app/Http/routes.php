@@ -302,7 +302,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('join/{id}', 'ProjectController@joinProject');
 
 
-//        Route::post('leave/{id}', 'ProjectController@leaveProject');
+        Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
         Route::get('student/project/new', function () {

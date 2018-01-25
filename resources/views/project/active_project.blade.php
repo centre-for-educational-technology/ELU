@@ -326,13 +326,13 @@
             @if(Auth::check())
                 @if(Auth::user()->is('student'))
                     @if ($project->currentUserIs('member'))
-                        {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
-                        {{--{{ csrf_field() }}--}}
+                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                        {{ csrf_field() }}
 
-                        {{--<button type="submit" class="btn btn-danger btn-lg">--}}
-                        {{--{{trans('project.leave_project_button')}}--}}
-                        {{--</button>--}}
-                        {{--</form>--}}
+                        <button type="submit" class="btn btn-danger btn-lg">
+                        {{trans('project.leave_project_button')}}
+                        </button>
+                        </form>
                         <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
                     @elseif(Auth::user()->isMemberOfProject())

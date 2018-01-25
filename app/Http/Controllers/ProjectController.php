@@ -1153,7 +1153,7 @@ class ProjectController extends Controller
     })->orderBy('created_at', 'desc')->paginate(5);
 
 
-    return \Redirect::to('student/my-projects')
+    return \Redirect::to('projects/open')
         ->with('message', [
             'text' => trans('project.left_project_notification').' "'.$project->name.'"',
             'type' => 'left'

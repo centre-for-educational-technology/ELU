@@ -213,8 +213,8 @@
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                     @if(empty($isStudentMyProjectsView))
                     {{--Check for join deadline--}}
-                        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))--}}
-                        @if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')
+                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
                             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
                         @else
                             @if(Auth::check())

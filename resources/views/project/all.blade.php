@@ -21,6 +21,14 @@
                 </ul>
             </nav>
         </div>
+        <style>
+            .partially-hidden {
+                overflow: hidden;
+                line-height: 1px;
+                height: 2px;
+            }
+        </style>
+        <div><a href='' class='toggleButton'><span class='glyphicon glyphicon-chevron-down'></span></a></div>
         <div class="col-md-8 margt content tab-content">
             @foreach($projects as $index =>$project)
 

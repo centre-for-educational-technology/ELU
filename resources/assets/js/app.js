@@ -215,6 +215,20 @@ jQuery(document).ready(function($) {
   });
 
 
+  // Folding and unfolding text on "show more" / "show less" press
+  $(".toggleButton").click(function (event) {
+    event.preventDefault();
+    //console.log(this.parentElement.nextElementSibling);
+    if (this.parentElement.nextElementSibling.classList.contains('partially-hidden')) {
+      this.parentElement.nextElementSibling.classList.remove('partially-hidden');
+      $(this).html("<span class='glyphicon glyphicon-chevron-down'></span>");
+    } else {
+      this.parentElement.nextElementSibling.classList.add('partially-hidden');
+      $(this).html("<span class='glyphicon glyphicon-chevron-up'></span>");
+    }
+  });
+
+
   //TinyMC
   tinyMCE.baseURL = window.Laravel.base_path+"/js/tinymce";
 

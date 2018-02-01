@@ -29,8 +29,8 @@ return [
     'i_have_idea' => 'Mul on idee',
     'write_down' => 'pane see kirja',
     'tallinn_university' => 'Tallinna Ülikool',
-    'academic_calendar' => 'Akadeemiline kalender',
-    'seminaries' => 'Koolitused/seminarid'
+    'academic_calendar' => 'ELU kalender',
+    'seminaries' => 'Töötoad'
 
 
 

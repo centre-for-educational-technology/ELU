@@ -29,7 +29,7 @@ return [
     'i_have_idea' => 'I have an idea',
     'write_down' => 'Write it down',
     'tallinn_university' => 'Tallinn University',
-    'academic_calendar' => 'Academic Calendar',
-    'seminaries' => 'Seminaries'
+    'academic_calendar' => 'LIFE calendar',
+    'seminaries' => 'Workshops'
 
 ];

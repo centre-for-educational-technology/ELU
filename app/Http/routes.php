@@ -165,6 +165,8 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('project/{id}/finish', 'ProjectController@saveFinishedProject');
 
+        Route::post('project/{id}/finishv2', 'ProjectController@saveFinishedProjectv2');
+
 
         Route::post('project/{id}/finish/uploadFiles', 'ProjectController@attachGroupGalleryImages');
 
@@ -300,7 +302,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('join/{id}', 'ProjectController@joinProject');
 
 
-//        Route::post('leave/{id}', 'ProjectController@leaveProject');
+        Route::post('leave/{id}', 'ProjectController@leaveProject');
 
 
         Route::get('student/project/new', function () {

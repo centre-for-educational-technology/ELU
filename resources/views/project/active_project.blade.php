@@ -320,19 +320,20 @@
         <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
 
         {{--Check for join deadline--}}
+        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
         @else
             @if(Auth::check())
                 @if(Auth::user()->is('student'))
                     @if ($project->currentUserIs('member'))
-                        {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
-                        {{--{{ csrf_field() }}--}}
+                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                        {{ csrf_field() }}
 
-                        {{--<button type="submit" class="btn btn-danger btn-lg">--}}
-                        {{--{{trans('project.leave_project_button')}}--}}
-                        {{--</button>--}}
-                        {{--</form>--}}
+                        <button type="submit" class="btn btn-danger btn-lg">
+                        {{trans('project.leave_project_button')}}
+                        </button>
+                        </form>
                         <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
                     @elseif(Auth::user()->isMemberOfProject())

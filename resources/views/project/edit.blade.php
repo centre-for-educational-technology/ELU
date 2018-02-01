@@ -33,7 +33,7 @@
                 @include('common.errors')
 
                 <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id) }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    <form action="{{ url('/project/'.$current_project->id) }}" id="project-form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <!-- Project Name -->
@@ -53,7 +53,7 @@
                                 <input type="text" name="embedded" id="embedded" class="form-control" value="{{ (empty( old('embedded')) ? $current_project->embedded :  old('embedded')) }}">
                             </div>
 
-                            <button type="button" class="btn btn-secondary btn-sm" id="clear-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
+                            <button type="button" class="btn btn-default btn-sm" id="clear-embedded" style="margin-top: 5.5px">{{trans('project.delete')}}</button>
 
 
                         </div>
@@ -83,7 +83,7 @@
 
                             <div class="col-sm-6">
 
-                                <textarea name="description" id="description" class="form-control mceSimple">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
+                                <textarea name="description" id="description" class="form-control mceSimple" onchange="pls">{!! (empty( old('description')) ? $current_project->description :  old('description')) !!}</textarea>
                             </div>
                         </div>
 
@@ -143,9 +143,12 @@
                                         @if(!empty($current_project->student_expectations))
                                             {!! $current_project->student_expectations !!}
                                         @else
-                                            <p><i>{{trans('project.student_expectations_desc_1')}}</i></p>
-                                            <p><i>{{trans('project.student_expectations_desc_2')}}</i></p>
-                                            <p><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_1')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_2')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_3')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_4')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_5')}}</i></p>
+                                            <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_6')}}</i></p>
                                         @endif
 
                                     @else
@@ -153,6 +156,24 @@
                                     @endif
                                 </textarea>
                             </div>
+                            @if (Auth::user()->is('admin'))
+                                <script>
+                                if ($('#student_expectations_ifr')[0]) {
+                                    for (var j = 0;j<$('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children.length;j++) {
+                                        $('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children[j].attributes[1].value = true;
+                                    }
+                                } else {
+                                    var checkForExpectations = window.setInterval(function () {
+                                        if ($('#student_expectations_ifr')[0]) {
+                                            for (var j = 0;j<$('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children.length;j++) {
+                                                $('#student_expectations_ifr')[0].contentDocument.children[0].children[1].children[j].attributes[1].value = true;
+                                            }
+                                            clearInterval(checkForExpectations);
+                                        }
+                                    }, 1000);
+                                }
+                                </script>
+                            @endif
                         </div>
 
 
@@ -647,17 +668,46 @@
                             <label for="publishing_status" class="col-sm-3 control-label">{{trans('project.publishing')}} *</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" id="publishing_status" name="publishing_status">
-                                    @if(count(old('publishing_status')) > 0)
-                                        <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
-                                        <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                @if($current_project->publishing_status > 0)
+                                    <select class="form-control" id="publishing_status" name="publishing_status">
+                                        @if($current_project->publishing_status > 0)
+                                            <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                            <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        @else
+                                            <option value="{{$current_project->publishing_status == 1 ? 1: 0}}">{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                            <option value="{{$current_project->publishing_status == 1 ? 0: 1}}" selected>{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        @endif
+                                    </select>
+                                @else
+                                    @if (Auth::user()->is('admin'))
+                                        <select class="form-control" id="publishing_status" name="publishing_status">
+                                            @if(count(old('publishing_status')) > 0)
+                                                <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                                <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                            @else
+                                                <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
+
+                                                <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                            @endif
+                                        </select>
                                     @else
-                                        <option value="{{$current_project->publishing_status == 1 ? 1: 0}}" selected>{{$current_project->publishing_status == 1 ? trans('project.published'): trans('project.hidden')}}</option>
-
-                                        <option value="{{$current_project->publishing_status == 1 ? 0: 1}}">{{$current_project->publishing_status == 0 ? trans('project.published'): trans('project.hidden')}}</option>
+                                        <input type="hidden" name="publishing_status" value=0>
+                                        <select class="form-control" id="publishing_status" name="publishing_status" disabled>
+                                            
+                                            <option value="0" selected>{{trans('project.hidden')}}</option>
+                                            
+                                            <option value="1">{{trans('project.published')}}</option>
+                                        
+                                        </select>
+                                        
+                                        <!-- Tooltip letting users know why the project status is hidden at first -->
+                                        {{trans('project.reason_of_initial_hiddenness')}}
                                     @endif
-                                </select>
+                                @endif
                             </div>
                         </div>
 
@@ -693,7 +743,7 @@
                         <!-- Add Project Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="submit-project-button" type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
                                 </button>
                             </div>

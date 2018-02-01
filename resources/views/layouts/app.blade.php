@@ -121,7 +121,6 @@
 </script>
 
 <script src="{{ url(asset('/js/vendor.js')) }}"></script>
-<script src="{{ url(elixir('js/app.js')) }}"></script>
 <script src="{{ url(asset('js/scripts.js')) }}"></script>
 
 

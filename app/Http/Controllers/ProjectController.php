@@ -1143,6 +1143,16 @@ class ProjectController extends Controller
    */
   public function leaveProject($id)
   {
+
+    $user = User::find(Auth::user()['id']);
+	
+	
+	  $user_group =  userBelongsToGroup($user);
+	
+	  if($user_group){
+		  $user_group->first()->users()->detach($user->id);
+    }
+    
     $project = Project::find($id);
 
     $project->users()->detach(Auth::user()->id);

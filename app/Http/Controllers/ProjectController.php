@@ -1302,7 +1302,7 @@ class ProjectController extends Controller
 		
 		
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
-			$m->to($admins_emails)->subject('Uus projektiidee');
+			$m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
 //			$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 		
@@ -1321,7 +1321,7 @@ class ProjectController extends Controller
 		
 		$data = [
 				'project_name' => $project,
-				'project_author' => self::getUserName($author),
+        'project_author' => self::getUserName($author),
 				'project_url' => $url,
 		];
 		
@@ -1354,7 +1354,7 @@ class ProjectController extends Controller
 		
 		
 		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
-			$m->to($admins_emails)->subject('Uus projekt');
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projekt');
 //			$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 		

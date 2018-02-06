@@ -2,12 +2,25 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 margt content">
             <ul class="nav menu02 menu02b nav-stacked">
-                @foreach($projects as $index =>$project)
+                @if (Auth::user() && Auth::user()->is('admin'))
 
-                    <li><a href="{{url('/project/'.$project->id)}}">{{$project->name}}</a></li>
+                    @foreach($projects as $index =>$project)
+
+                        <li style="width: 40em;">
+                            <a style="display: inline;" href="{{url('/project/'.$project->id)}}">{{$project->name}}</a>
+                            <span style="float: right;">({{$project->study_year}}/{{$project->study_year+1}} {{getProjectSemester($project)}})</span>
+                        </li>
+                        <br>
 
 
-                @endforeach
+                    @endforeach
+                @else
+
+                    @foreach($projects as $index =>$project)
+                        <li><a href="{{url('/project/'.$project->id)}}">{{$project->name}}</a></li>
+                    @endforeach
+
+                @endif
 
             </ul>
 

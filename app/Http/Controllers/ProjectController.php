@@ -697,6 +697,7 @@ class ProjectController extends Controller
 
     $name = $request->search;
     $param = $request->search_param;
+    $sort = $request->sort_param;
 
 
     if($param == 'author'){
@@ -726,7 +727,13 @@ class ProjectController extends Controller
       })->where('publishing_status', 1)->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
-    }else{
+    }elseif ($sort == 'semester'){
+
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+        ->orderBy('study_year', 'desc')->orderBy('study_term', 'desc')->paginate(20);
+  
+
+    } else {
       $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');

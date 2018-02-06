@@ -16,7 +16,7 @@
                         </ul>
                     </div>
                     @if (Route::getCurrentRoute()->getPath() == "projects/finished" && Auth::user() && Auth::user()->is('admin'))
-                        <a href="/projects/finished/search?sort=semester">Sorteeri semestrite kaupa</a>
+                        <a href="/projects/finished/search?sort_param=semester">Sorteeri semestrite kaupa</a>
                     @endif
                 </div>
 

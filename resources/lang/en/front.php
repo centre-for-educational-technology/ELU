@@ -30,6 +30,6 @@ return [
     'write_down' => 'Write it down',
     'tallinn_university' => 'Tallinn University',
     'academic_calendar' => 'LIFE calendar',
-    'seminaries' => 'Workshops'
-
+    'seminaries' => 'Workshops',
+    'materials' => 'Materials'
 ];

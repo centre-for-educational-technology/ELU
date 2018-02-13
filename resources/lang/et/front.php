@@ -30,10 +30,6 @@ return [
     'write_down' => 'pane see kirja',
     'tallinn_university' => 'Tallinna Ülikool',
     'academic_calendar' => 'ELU kalender',
-    'seminaries' => 'Töötoad'
-
-
-
-
-
+    'seminaries' => 'Töötoad',
+    'materials' => 'Materjalid'
 ];

@@ -94,6 +94,7 @@ class SimpleSamlController extends Controller
 
         //Update account
         $user->full_name = $attrs['cn'][0];
+        $user->id_code = $attrs['PersonalIDCode'][0];
         $user->save();
 
 

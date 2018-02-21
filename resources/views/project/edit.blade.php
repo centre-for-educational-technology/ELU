@@ -376,7 +376,7 @@
                                         <option value="2">{{trans('project.autumn_spring')}}</option>
                                     @endif
 
-                                    @if ( (empty(old('study_term')) ?  $current_project->spring_autumn : old('spring_autumn')) == 3)
+                                    @if ( (empty(old('study_term')) ?  $current_project->study_term : old('study_term')) == 3)
                                         <option value="3" selected>{{trans('project.spring_autumn')}}</option>
                                     @else
                                         <option value="3">{{trans('project.spring_autumn')}}</option>

@@ -394,24 +394,24 @@
                             <div class="col-sm-6">
                                 <select class="form-control" id="study_year" name="study_year">
 
-
-
-                                    @if( old('study_year') == Carbon\Carbon::now()->year || $current_project->study_year == Carbon\Carbon::now()->year)
-                                        <option value="{{Carbon\Carbon::now()->year}}" selected>{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
-                                        <option value="{{Carbon\Carbon::now()->year-1}}">{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
-                                    @elseif(old('study_year') == Carbon\Carbon::now()->year-1 || $current_project->study_year == Carbon\Carbon::now()->year-1)
-                                        <option value="{{Carbon\Carbon::now()->year-1}}" selected>{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
-                                        <option value="{{Carbon\Carbon::now()->year}}">{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
+                                    @if (Carbon\Carbon::now()->month >= 6)
+                                        @for ($year=2016;$year<Carbon\Carbon::now()->year+2;$year++)
+                                            @if (old('study_year') == $year || $current_project->study_year == $year)
+                                                <option value="{{$year}}" selected> {{$year}}/{{$year+1}}</option>
+                                            @else
+                                                <option value="{{$year}}"> {{$year}}/{{$year+1}}</option>
+                                            @endif
+                                        @endfor
                                     @else
-                                        @if(Carbon\Carbon::now()->month >= 6)
-                                            <option value="{{Carbon\Carbon::now()->year}}" selected>{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
-                                            <option value="{{Carbon\Carbon::now()->year-1}}">{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
-                                        @else
-                                            <option value="{{Carbon\Carbon::now()->year-1}}" selected>{{Carbon\Carbon::now()->year-1}}/{{Carbon\Carbon::now()->year}}</option>
-                                            <option value="{{Carbon\Carbon::now()->year}}">{{Carbon\Carbon::now()->year}}/{{Carbon\Carbon::now()->year+1}}</option>
-
-                                        @endif
+                                        @for ($year=2016;$year<Carbon\Carbon::now()->year+1;$year++)
+                                            @if (old('study_year') == $year || $current_project->study_year == $year)
+                                                <option value="{{$year}}" selected> {{$year}}/{{$year+1}}</option>
+                                            @else
+                                                <option value="{{$year}}"> {{$year}}/{{$year+1}}</option>
+                                            @endif
+                                        @endfor
                                     @endif
+
 
                                 </select>
                             </div>

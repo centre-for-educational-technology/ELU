@@ -584,23 +584,27 @@
                             <label for="status" class="col-sm-3 control-label">{{trans('project.status')}}</label>
 
                             <div class="col-sm-6">
-                                <select class="form-control" {{Auth::user()->is('admin')? '':'disabled'}} id="status" name="status">
+
+                                @if (Auth::user()->is('admin'))
+                                
+                                    <select class="form-control" id="status" name="status">
 
 
-                                    @if(count(old('status')) > 0)
-                                        <option value="{{old('status') == 1 ? 1: 0}}" selected>{{old('status') == 1 ? trans('project.active'): trans('project.finished')}}</option>
+                                        @if(count(old('status')) > 0)
+                                            <option value="{{old('status') == 1 ? 1: 0}}" selected>{{old('status') == 1 ? trans('project.active'): trans('project.finished')}}</option>
 
-                                        <option value="{{old('status') == 1 ? 0: 1}}">{{old('status') == 0 ? trans('project.active'): trans('project.finished')}}</option>
-                                    @else
-                                        <option value="{{$current_project->status == 1 ? 1: 0}}" selected>{{$current_project->status == 1 ? trans('project.active'): trans('project.finished')}}</option>
+                                            <option value="{{old('status') == 1 ? 0: 1}}">{{old('status') == 0 ? trans('project.active'): trans('project.finished')}}</option>
+                                        @else
+                                            <option value="{{$current_project->status == 1 ? 1: 0}}" selected>{{$current_project->status == 1 ? trans('project.active'): trans('project.finished')}}</option>
 
-                                        <option value="{{$current_project->status == 1 ? 0: 1}}">{{$current_project->status == 0 ? trans('project.active'): trans('project.finished')}}</option>
-                                    @endif
+                                            <option value="{{$current_project->status == 1 ? 0: 1}}">{{$current_project->status == 0 ? trans('project.active'): trans('project.finished')}}</option>
+                                        @endif
 
 
-                                </select>
-                                @if(!Auth::user()->is('admin'))
-                                    <input type="hidden" name="status" value="1" />
+                                    </select>
+                                @else
+                                    <input type="text" disabled value="{{$current_project->status==0? trans('project.active'): trans('project.finished')}}">
+                                    <input type="hidden" id='status' name="status" value="{{$current_project->status}}" />
                                 @endif
                             </div>
                         </div>

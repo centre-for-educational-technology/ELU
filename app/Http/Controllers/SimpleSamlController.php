@@ -109,7 +109,7 @@ class SimpleSamlController extends Controller
               $tluStudentIdString = "{'tluStudentID':[";
               for ($i=0;$i<count($attrs['tluStudentID']);$i++) {
                 $tluStudentIdString .= "{'".$i."':'".$attrs['tluStudentID'][$i]."'}";
-                if ($i != count($attrs['tluStudentID']-1)) {
+                if ($i != count($attrs['tluStudentID'])-1) {
                   $tluStudentIdString .= ",";
                 }
               }
@@ -121,7 +121,7 @@ class SimpleSamlController extends Controller
               $tluStudyString = "{'tluStudy':[";
               for ($i=0;$i<count($attrs['tluStudy']);$i++) {
                 $tluStudyString .= "{'".$i."':'".$attrs['tluStudy'][$i]."'}";
-                if ($i != count($attrs['tluStudy']-1)) {
+                if ($i != count($attrs['tluStudy'])-1) {
                   $tluStudyString .= ",";
                 }
               }

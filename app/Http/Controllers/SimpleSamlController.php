@@ -94,6 +94,7 @@ class SimpleSamlController extends Controller
 
         //Update account
         $user->full_name = $attrs['cn'][0];
+        $user->id_code = $attrs['PersonalIDCode'][0];
         $user->save();
 
 
@@ -103,6 +104,32 @@ class SimpleSamlController extends Controller
             $user->roles()->syncWithoutDetaching([1]);
 
           }else if(in_array('student', $attrs['eduPersonAffiliation'])){
+
+            if (count($attrs['tluStudentID']) > 0) {
+              $tluStudentIdString = "{'tluStudentID':[";
+              for ($i=0;$i<count($attrs['tluStudentID']);$i++) {
+                $tluStudentIdString .= "{'".$i."':'".$attrs['tluStudentID'][$i]."'}";
+                if ($i != count($attrs['tluStudentID'])-1) {
+                  $tluStudentIdString .= ",";
+                }
+              }
+              $tluStudentIdString .= "]}";
+              $user->tlu_student_id = $tluStudentIdString;
+            }
+            
+            if (count($attrs['tluStudy']) > 0) {
+              $tluStudyString = "{'tluStudy':[";
+              for ($i=0;$i<count($attrs['tluStudy']);$i++) {
+                $tluStudyString .= "{'".$i."':'".$attrs['tluStudy'][$i]."'}";
+                if ($i != count($attrs['tluStudy'])-1) {
+                  $tluStudyString .= ",";
+                }
+              }
+              $tluStudyString .= "]}";
+              $user->tlu_study = $tluStudyString;
+            }
+
+            $user->save();
 
             $user->roles()->syncWithoutDetaching([2]);
 

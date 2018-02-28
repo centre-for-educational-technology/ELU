@@ -1900,7 +1900,7 @@ class ProjectController extends Controller
 		} else if($isFirstTimeSupervisor && $members_count <= 16){
 			$total_points = 11;
 			$limit_per_one = 8;
-		} else {
+		} else if($isFirstTimeSupervisor) {
 			$total_points = 13;
 			$limit_per_one = 10;
 		}
@@ -1966,7 +1966,7 @@ class ProjectController extends Controller
 		} else if($isFirstTimeSupervisor && $members_count <= 16){
 			$total_points = 11;
 			$limit_per_one = 8;
-		} else {
+		} else if($isFirstTimeSupervisor) {
 			$total_points = 13;
 			$limit_per_one = 10;
 		}

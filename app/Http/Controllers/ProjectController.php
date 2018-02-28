@@ -1960,9 +1960,15 @@ class ProjectController extends Controller
 		}
 		
 		
-		if($isFirstTimeSupervisor && $members_count <= 24){
+		if($isFirstTimeSupervisor && $members_count <= 8){
 			$total_points = 9;
 			$limit_per_one = 6;
+		} else if($isFirstTimeSupervisor && $members_count <= 16){
+			$total_points = 11;
+			$limit_per_one = 8;
+		} else if($isFirstTimeSupervisor && $members_count <= 24){
+			$total_points = 13;
+			$limit_per_one = 10;
 		}
 		
 		

@@ -1528,7 +1528,7 @@ class ProjectController extends Controller
 				
 				foreach ($teachers_ids as $teachers_id){
 					$teacher = User::find($teachers_id);
-					fputcsv($handle, array($project->id, getUserEmail($teacher), self::getUserName($teacher), $teacher->projects()->select('points')->where('project_id', $project->id)->first()->points), ',');
+					fputcsv($handle, array($project->name, getUserEmail($teacher), self::getUserName($teacher), $teacher->projects()->select('points')->where('project_id', $project->id)->first()->points), ',');
 					
 					
 				}
@@ -1537,7 +1537,7 @@ class ProjectController extends Controller
 				
 				if(count($project_cosupervisors_points)>0){
 					foreach ($project_cosupervisors_points as $project_cosupervisor_points){
-						fputcsv($handle, array($project->id, 'n/a', $project_cosupervisor_points->name, $project_cosupervisor_points->points), ',');
+						fputcsv($handle, array($project->name, 'n/a', $project_cosupervisor_points->name, $project_cosupervisor_points->points), ',');
 						
 					}
 					

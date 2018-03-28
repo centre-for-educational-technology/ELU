@@ -48,7 +48,9 @@ Route::group(['middleware' =>['web']], function () {
           $project = Project::findOrFail($id);
 
           $name = $project->name;
-          $project->delete();
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
 
           return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
@@ -251,7 +253,9 @@ Route::group(['middleware' =>['web']], function () {
           $project = Project::findOrFail($id);
 
           $name = $project->name;
-          $project->delete();
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
 
           return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });

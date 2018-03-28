@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Course;
 use App\GroupMaterial;
 use App\User;

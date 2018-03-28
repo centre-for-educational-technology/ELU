@@ -33,7 +33,7 @@ use App\Http\Requests\AttachUsersRequest;
 use App\EvaluationDate;
 use App\CosupervisorsPoints;
 
-class testProjectController extends Controller
+class TestProjectController extends Controller
 {
   /**
   * List the published projects

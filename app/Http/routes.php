@@ -39,9 +39,9 @@ Route::group(['middleware' =>['web']], function () {
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {
 
-        Route::get('project/new', 'ProjectController@add');
+        Route::get('project/new', 'testProjectController@add');
 
-        Route::post('project/new', 'ProjectController@store');
+        Route::post('project/new', 'testProjectController@store');
 
 
         Route::delete('/project/{id}/delete', function ($id) {
@@ -64,13 +64,13 @@ Route::group(['middleware' =>['web']], function () {
               'projects' => $projects]);
         });
 
-        Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
+        Route::post('/project/{project}/unlink/{user}', 'testProjectController@unlinkMember');
 	
 	      
 	
-	      Route::get('/project/{id}/calculate-load', 'ProjectController@getSupervisorsLoadForProject');
+	      Route::get('/project/{id}/calculate-load', 'testProjectController@getSupervisorsLoadForProject');
 	
-	      Route::post('api/calculate-load/set', 'ProjectController@setSupervisorsLoadForProject');
+	      Route::post('api/calculate-load/set', 'testProjectController@setSupervisorsLoadForProject');
 	  
 
       });
@@ -147,33 +147,33 @@ Route::group(['middleware' =>['web']], function () {
 
         }));
 
-        Route::post('/project/{id}', 'ProjectController@update');
+        Route::post('/project/{id}', 'testProjectController@update');
 
 
-        Route::post('project/{id}/add-group', 'ProjectController@addNewProjectGroup');
+        Route::post('project/{id}/add-group', 'testProjectController@addNewProjectGroup');
 
 
-        Route::post('api/group/add-user', 'ProjectController@addUserToGroup');
+        Route::post('api/group/add-user', 'testProjectController@addUserToGroup');
 	      
-	      Route::post('api/group/rename', 'ProjectController@renameProjectGroup');
+	      Route::post('api/group/rename', 'testProjectController@renameProjectGroup');
 	      
-        Route::delete('project/{id}/group/delete/{group_id}', 'ProjectController@deleteProjectGroup');
+        Route::delete('project/{id}/group/delete/{group_id}', 'testProjectController@deleteProjectGroup');
 
 
-        Route::get('project/{id}/finish', 'ProjectController@finishProject');
+        Route::get('project/{id}/finish', 'testProjectController@finishProject');
 
 
-        Route::post('project/{id}/finish', 'ProjectController@saveFinishedProject');
+        Route::post('project/{id}/finish', 'testProjectController@saveFinishedProject');
 
-        Route::post('project/{id}/finishv2', 'ProjectController@saveFinishedProjectv2');
-
-
-        Route::post('project/{id}/finish/uploadFiles', 'ProjectController@attachGroupGalleryImages');
-
-        Route::post('project/{id}/finish/deleteFile', 'ProjectController@deleteFile');
+        Route::post('project/{id}/finishv2', 'testProjectController@saveFinishedProjectv2');
 
 
-        Route::get('project/{id}/api/group-images', 'ProjectController@getGroupImages');
+        Route::post('project/{id}/finish/uploadFiles', 'testProjectController@attachGroupGalleryImages');
+
+        Route::post('project/{id}/finish/deleteFile', 'testProjectController@deleteFile');
+
+
+        Route::get('project/{id}/api/group-images', 'testProjectController@getGroupImages');
 
       });
 
@@ -210,21 +210,21 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('/faq/edit', 'PageController@storeFaq');
 
-        Route::get('admin/all-projects/search', 'ProjectController@getAllProjectsSearch');
+        Route::get('admin/all-projects/search', 'testProjectController@getAllProjectsSearch');
 
-        Route::get('admin/analytics', 'ProjectController@indexAnalytics');
+        Route::get('admin/analytics', 'testProjectController@indexAnalytics');
 
-        Route::get('admin/analytics/search', 'ProjectController@getAdminAnalyticsListing');
+        Route::get('admin/analytics/search', 'testProjectController@getAdminAnalyticsListing');
 
-        Route::get('admin/analytics/download/open', 'ProjectController@exportAnalyticsToCSVOpenProjects');
+        Route::get('admin/analytics/download/open', 'testProjectController@exportAnalyticsToCSVOpenProjects');
 	
-	      Route::get('admin/analytics/download/ongoing', 'ProjectController@exportAnalyticsToCSVOngoingProjects');
+	      Route::get('admin/analytics/download/ongoing', 'testProjectController@exportAnalyticsToCSVOngoingProjects');
 	
-	      Route::get('admin/analytics/download/finished', 'ProjectController@exportAnalyticsToCSVFinishedProjects');
+	      Route::get('admin/analytics/download/finished', 'testProjectController@exportAnalyticsToCSVFinishedProjects');
 	
-	      Route::get('admin/analytics/download/students/ongoing', 'ProjectController@exportAnalyticsToCSVStudentsOngoingProjects');
+	      Route::get('admin/analytics/download/students/ongoing', 'testProjectController@exportAnalyticsToCSVStudentsOngoingProjects');
 	
-	      Route::get('admin/analytics/download/teachers/ongoing/load', 'ProjectController@exportAnalyticsToCSVOngoingProjectsTeachersLoad');
+	      Route::get('admin/analytics/download/teachers/ongoing/load', 'testProjectController@exportAnalyticsToCSVOngoingProjectsTeachersLoad');
 	      
 	
 	      Route::get('admin/evaluation-dates', 'AdminController@indexEvaluationDates');
@@ -232,9 +232,9 @@ Route::group(['middleware' =>['web']], function () {
 	      Route::post('admin/evaluation-dates', 'AdminController@editEvaluationDates');
 	      
 //        Attach user to project api for ajax
-        Route::post('api/search/user', 'ProjectController@searchUser');
+        Route::post('api/search/user', 'testProjectController@searchUser');
 
-        Route::post('project/{id}/attach-users', 'ProjectController@attachUsersToProject');
+        Route::post('project/{id}/attach-users', 'testProjectController@attachUsersToProject');
 
 
         Route::get('admin/all-projects', function () {
@@ -299,10 +299,10 @@ Route::group(['middleware' =>['web']], function () {
 //              'projects' => $projects]);
 //        }));
 
-        Route::post('join/{id}', 'ProjectController@joinProject');
+        Route::post('join/{id}', 'testProjectController@joinProject');
 
 
-        Route::post('leave/{id}', 'ProjectController@leaveProject');
+        Route::post('leave/{id}', 'testProjectController@leaveProject');
 
 
         Route::get('student/project/new', function () {
@@ -316,7 +316,7 @@ Route::group(['middleware' =>['web']], function () {
 	        return view('user.student.new_project');
         });
 
-        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
+        Route::post('student/project/new', 'testProjectController@storeProjectByStudent');
 
       });
 
@@ -351,21 +351,21 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
-  Route::get('/projects/open', 'ProjectController@indexOpenProjects');
+  Route::get('/projects/open', 'testProjectController@indexOpenProjects');
 
-  Route::get('/projects/ongoing', 'ProjectController@indexOngoingProjects');
+  Route::get('/projects/ongoing', 'testProjectController@indexOngoingProjects');
 
-  Route::get('/projects/finished', 'ProjectController@indexFinishedProjects');
+  Route::get('/projects/finished', 'testProjectController@indexFinishedProjects');
 
 
   Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
 
 
-  Route::get('/projects/open/search', 'ProjectController@getOpenProjectsSearch');
+  Route::get('/projects/open/search', 'testProjectController@getOpenProjectsSearch');
 
-  Route::get('/projects/ongoing/search', 'ProjectController@getOngoingProjectsSearch');
+  Route::get('/projects/ongoing/search', 'testProjectController@getOngoingProjectsSearch');
 
-  Route::get('/projects/finished/search', 'ProjectController@getFinishedProjectsSearch');
+  Route::get('/projects/finished/search', 'testProjectController@getFinishedProjectsSearch');
 
 
 

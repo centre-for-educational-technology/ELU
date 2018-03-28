@@ -57,7 +57,7 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('/teacher/my-projects', function () {
-          $projects = Project::whereHas('users', function ($q) {
+          $projects = Project::where('deleted', NULL)->whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->orderBy('created_at', 'desc')->paginate(5);
 

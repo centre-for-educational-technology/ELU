@@ -1312,7 +1312,6 @@ class TestProjectController extends Controller
 			array_push($admins_emails, getUserEmail($admin));
 		}
 		
-		
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
 			$m->to(config('devinfo.dev_email'))->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
 //			$m->cc(config('devinfo.dev_email'))->subject('Uus projektiidee');

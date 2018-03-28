@@ -50,7 +50,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('deleted', NULL)->where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -75,7 +75,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('deleted', NULL)->where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -100,7 +100,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('deleted', NULL)->where('publishing_status', '=', '1')->where('status', '=', '0')->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -529,7 +529,7 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::where('publishing_status', 1)
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)
 		      ->where(function ($query) use ($name) {
 			      $query->whereHas('users', function($q) use ($name)
 			      {
@@ -545,7 +545,7 @@ class ProjectController extends Controller
 
     }elseif ($param == 'member'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
+      $projects = Project::where('deleted', NULL)->whereHas('users', function($q) use ($name)
       {
         $q->where(function($subq) use ($name) {
           $subq->where('name', 'LIKE', '%'.$name.'%')
@@ -555,7 +555,7 @@ class ProjectController extends Controller
 
 
     }else{
-      $projects = Project::where('publishing_status', 1)
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');
@@ -586,7 +586,7 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
 		      ->where(function ($query) use ($name) {
 			      $query->whereHas('users', function($q) use ($name)
 			      {
@@ -602,7 +602,7 @@ class ProjectController extends Controller
 
     }elseif ($param == 'member'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
+      $projects = Project::where('deleted', NULL)->whereHas('users', function($q) use ($name)
       {
         $q->where(function($subq) use ($name) {
           $subq->where('name', 'LIKE', '%'.$name.'%')
@@ -612,7 +612,7 @@ class ProjectController extends Controller
 
 
     }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');
@@ -644,7 +644,7 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 	    
-	    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+	    $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
 			    ->where(function ($query) use ($name) {
 				    $query->whereHas('users', function($q) use ($name)
 				    {
@@ -659,7 +659,7 @@ class ProjectController extends Controller
 
     }elseif ($param == 'member'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
+      $projects = Project::where('deleted', NULL)->whereHas('users', function($q) use ($name)
       {
         $q->where(function($subq) use ($name) {
           $subq->where('name', 'LIKE', '%'.$name.'%')
@@ -669,7 +669,7 @@ class ProjectController extends Controller
 
 
     }else{
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');
@@ -702,7 +702,7 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '0')
 		      ->where(function ($query) use ($name) {
 			      $query->whereHas('users', function($q) use ($name)
 			      {
@@ -718,7 +718,7 @@ class ProjectController extends Controller
 
     }elseif ($param == 'member'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
+      $projects = Project::where('deleted', NULL)->whereHas('users', function($q) use ($name)
       {
         $q->where(function($subq) use ($name) {
           $subq->where('name', 'LIKE', '%'.$name.'%')
@@ -729,12 +729,12 @@ class ProjectController extends Controller
 
     }elseif ($sort == 'semester'){
 
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '0')
         ->orderBy('study_year', 'desc')->orderBy('study_term', 'desc')->paginate(20);
   
 
     } else {
-      $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
+      $projects = Project::where('deleted', NULL)->where('publishing_status', 1)->where('status', '=', '0')
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
             $query->orWhere('tags', 'LIKE', '%'.$name.'%');
@@ -849,7 +849,7 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-      $projects = Project::where(function ($query) use ($name) {
+      $projects = Project::where('deleted', NULL)->where(function ($query) use ($name) {
 	      $query->whereHas('users', function($q) use ($name)
 	      {
 		      $q->where(function($subq) use ($name) {
@@ -863,7 +863,7 @@ class ProjectController extends Controller
 
     }elseif ($param == 'member'){
 
-      $projects = Project::whereHas('users', function($q) use ($name)
+      $projects = Project::where('deleted', NULL)->whereHas('users', function($q) use ($name)
       {
         $q->where(function($subq) use ($name) {
           $subq->where('name', 'LIKE', '%'.$name.'%')
@@ -873,7 +873,7 @@ class ProjectController extends Controller
 
 
     }else{
-      $projects = Project::where(function ($query) use ($name) {
+      $projects = Project::where('deleted', NULL)->where(function ($query) use ($name) {
         $query->where('name', 'LIKE', '%'.$name.'%');
         $query->orWhere('tags', 'LIKE', '%'.$name.'%');
         $query->orWhere('description', 'LIKE', '%'.$name.'%');

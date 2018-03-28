@@ -35,11 +35,8 @@ use App\Http\Requests\AttachUsersRequest;
 use App\EvaluationDate;
 use App\CosupervisorsPoints;
 
-$developer_email = 'tomingasrando@gmail.com';
-
 class TestProjectController extends Controller
 {
-
   /**
   * List the published projects
   *
@@ -1039,7 +1036,7 @@ class TestProjectController extends Controller
 		  
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-//			$m->cc($developer_email)->subject('Uus projektiidee');
+//			$m->cc(config(devinfo.dev_email))->subject('Uus projektiidee');
 		  });
 	  }
 	
@@ -1317,8 +1314,8 @@ class TestProjectController extends Controller
 		
 		
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
-			$m->to($developer_email)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
-//			$m->cc($developer_email)->subject('Uus projektiidee');
+			$m->to(config(devinfo.dev_email))->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
+//			$m->cc(config(devinfo.dev_email))->subject('Uus projektiidee');
 		});
 		
 	
@@ -1369,8 +1366,8 @@ class TestProjectController extends Controller
 		
 		
 		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      $m->to($developer_email)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projekt');
-//			$m->cc($developer_email)->subject('Uus projektiidee');
+      $m->to(config(devinfo.dev_email))->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projekt');
+//			$m->cc(config(devinfo.dev_email))->subject('Uus projektiidee');
 		});
 		
 		

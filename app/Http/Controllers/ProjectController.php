@@ -147,12 +147,13 @@ class ProjectController extends Controller
       $q->where('name', 'oppejoud');
     })->get();
 
-//
-//	  if(\App::getLocale() == 'en'){
-//		  $courses = Course::select('id','oppekava_eng')->get();
-//	  }else{
-//		  $courses = Course::select('id','oppekava_est')->get();
-//	  }
+    /*
+	  if(\App::getLocale() == 'en'){
+		  $courses = Course::select('id','oppekava_eng')->get();
+	  }else{
+		  $courses = Course::select('id','oppekava_est')->get();
+	  }
+    */
 
 
 	  $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
@@ -213,7 +214,7 @@ class ProjectController extends Controller
 	  $project->presentation_results = $request->presentation_results;
 
 
-//    $project->integrated_areas = $request->integrated_areas;
+    //$project->integrated_areas = $request->integrated_areas;
 
 
     $project->meeting_info = $request->meeting_info;
@@ -224,24 +225,24 @@ class ProjectController extends Controller
 
 
 
-//    $project->student_outcomes = $request->student_outcomes;
-//
+    //$project->student_outcomes = $request->student_outcomes;
+
+    //$project->courses = $request->related_courses;
 
 
-//    $project->courses = $request->related_courses;
+    //$project->institute = $request->institutes;
 
+    /*
+    if($request->project_start){
+      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+      $project->start = date("Y-m-d", $date_start->getTimestamp());
+    }
 
-//    $project->institute = $request->institutes;
-
-//    if($request->project_start){
-//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-//      $project->start = date("Y-m-d", $date_start->getTimestamp());
-//    }
-//
-//    if($request->project_end){
-//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-//      $project->end = date("Y-m-d", $date_end->getTimestamp());
-//    }
+    if($request->project_end){
+      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+      $project->end = date("Y-m-d", $date_end->getTimestamp());
+    }
+    */
 
 
     // Co-supervisors saved into supervisor column
@@ -252,7 +253,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-//    $project->group_link = $request->group_link;
+    //$project->group_link = $request->group_link;
 
 
     $project->language = $request->language;
@@ -280,12 +281,13 @@ class ProjectController extends Controller
 
 
     //Attach study areas
-//    $study_areas = $request->input('study_areas');
-//    foreach ($study_areas as $study_area){
-//
-//      $project->getCourses()->attach($study_area);
-//    }
+    /*
+    $study_areas = $request->input('study_areas');
+    foreach ($study_areas as $study_area){
 
+      $project->getCourses()->attach($study_area);
+    }
+    */
 
     //Attach users with teacher role
     $supervisors = $request->input('supervisors');
@@ -367,15 +369,15 @@ class ProjectController extends Controller
 
 
     //XXX to be removed
-//    $project->integrated_areas = $request->integrated_areas;
+    //$project->integrated_areas = $request->integrated_areas;
 
 
 
     $project->meeting_info = $request->meeting_info;
 
     //Attach study areas
-//    $study_areas = $request->input('study_areas');
-//    $project->getCourses()->sync($study_areas);
+    //$study_areas = $request->input('study_areas');
+    //$project->getCourses()->sync($study_areas);
 
 
     $project->study_term = $request->study_term;
@@ -384,26 +386,28 @@ class ProjectController extends Controller
 
 
 
-//    $project->project_outcomes = $request->project_outcomes;
-//    $project->student_outcomes = $request->student_outcomes;
-//
+    //$project->project_outcomes = $request->project_outcomes;
+    //$project->student_outcomes = $request->student_outcomes;
+
 
     //XXX to be removed
-//    $project->courses = $request->related_courses;
+    /*
+    $project->courses = $request->related_courses;
 
 
-//    $project->institute = $request->institutes;
-//
-//
-//    if($request->project_start){
-//      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-//      $project->start = date("Y-m-d", $date_start->getTimestamp());
-//    }
-//
-//    if($request->project_end){
-//      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-//      $project->end = date("Y-m-d", $date_end->getTimestamp());
-//    }
+    $project->institute = $request->institutes;
+
+
+    if($request->project_start){
+      $date_start = date_create_from_format('m/d/Y', $request->project_start);
+      $project->start = date("Y-m-d", $date_start->getTimestamp());
+    }
+
+    if($request->project_end){
+      $date_end = date_create_from_format('m/d/Y', $request->project_end);
+      $project->end = date("Y-m-d", $date_end->getTimestamp());
+    }
+    */
 
 
     $project->supervisor = $request->cosupervisors;
@@ -436,7 +440,7 @@ class ProjectController extends Controller
 
     $project->tags = $request->tags;
 
-//    $project->group_link = $request->group_link;
+    //$project->group_link = $request->group_link;
 
     $project->language = $request->language;
 
@@ -1041,7 +1045,7 @@ class ProjectController extends Controller
 
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-//			$m->cc($admins_emails)->subject('Uus projektiidee');
+			  //$m->cc($admins_emails)->subject('Uus projektiidee');
 		  });
 	  }
 
@@ -1233,11 +1237,11 @@ class ProjectController extends Controller
 
 	  $project->author_management_skills = $request->author_management_skills;
 
-//    $project->integrated_areas = $request->integrated_areas;
+    //$project->integrated_areas = $request->integrated_areas;
 
     $project->study_term = $request->study_term;
 
-//    $project->institute = $request->institutes;
+    //$project->institute = $request->institutes;
 
     $project->supervisor = $request->cosupervisors;
 
@@ -1260,11 +1264,13 @@ class ProjectController extends Controller
     $project->save();
 
     //Attach study areas
-//    $study_areas = $request->input('study_areas');
-//    foreach ($study_areas as $study_area){
-//
-//      $project->getCourses()->attach($study_area);
-//    }
+    /*
+    $study_areas = $request->input('study_areas');
+    foreach ($study_areas as $study_area){
+
+      $project->getCourses()->attach($study_area);
+    }
+    */
 
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
@@ -1320,7 +1326,7 @@ class ProjectController extends Controller
 
 		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
 			$m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
-//			$m->cc($admins_emails)->subject('Uus projektiidee');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 
 
@@ -1372,7 +1378,7 @@ class ProjectController extends Controller
 
 		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
       $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projekt');
-//			$m->cc($admins_emails)->subject('Uus projektiidee');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 
 
@@ -2108,12 +2114,12 @@ class ProjectController extends Controller
     $group->save();
 
 
-
-//
-//    $destinationPath = 'storage/projects_groups_images'; // upload path
-//    $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
-//    $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
-//    $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+    /*
+    $destinationPath = 'storage/projects_groups_images'; // upload path
+    $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
+    $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+    $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+    */
 
     if ($images) {
       return Response::json(['newfilename' => $new_image]);

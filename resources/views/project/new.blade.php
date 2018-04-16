@@ -507,16 +507,16 @@
                             <div class="col-sm-6">
                                 <input type="hidden" name="publishing_status" value=0>
                                 <select class="form-control" id="publishing_status" name="publishing_status" disabled>
-                                    
+
                                     <option value="0" selected>{{trans('project.hidden')}}</option>
-                                    
+
                                     <option value="1">{{trans('project.published')}}</option>
-                                
+
                                 </select>
-                                
+
                                 <!-- Tooltip letting users know why the project status is hidden at first -->
                                 {{trans('project.reason_of_initial_hiddenness')}}
-                            
+
                             </div>
                         </div>
 
@@ -574,7 +574,10 @@
                             <thead>
                             <th>{{trans('project.project')}}</th>
                             <th>&nbsp;</th>
+                            <!--
+                            So the table would liik nice without a delete button
                             <th>&nbsp;</th>
+                            -->
                             </thead>
                             <tbody>
                             @foreach ($projects as $project)
@@ -593,6 +596,7 @@
                                             </button>
                                         </form>
                                     </td>
+                                    <!--
                                     <td>
                                         <form class="delete-project" action="{{ url('project/'.$project->id.'/delete') }}" method="POST">
                                             {{ csrf_field() }}
@@ -605,6 +609,7 @@
                                         </button>
 
                                     </td>
+                                    -->
                                 </tr>
                             @endforeach
                             </tbody>

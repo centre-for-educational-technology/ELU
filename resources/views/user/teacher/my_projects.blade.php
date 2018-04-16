@@ -27,7 +27,10 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
+                                <!--
+                                So the table would liik nice without a delete button
                                 <th>&nbsp;</th>
+                                -->
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
@@ -121,6 +124,7 @@
                                                 <span class="label label-info">{{trans('project.active_status')}}</span>
                                             @endif
                                         </td>
+                                        <!--
                                         <td>
                                             <form class="delete-project" action="{{ url('project/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
@@ -133,6 +137,7 @@
                                             </button>
 
                                         </td>
+                                        -->
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -48,14 +48,16 @@ Route::group(['middleware' =>['web']], function () {
           $project = Project::findOrFail($id);
 
           $name = $project->name;
-          $project->delete();
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
 
           return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
 
         Route::get('/teacher/my-projects', function () {
-          $projects = Project::whereHas('users', function ($q) {
+          $projects = Project::where('deleted', NULL)->whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->orderBy('created_at', 'desc')->paginate(5);
 
@@ -251,7 +253,9 @@ Route::group(['middleware' =>['web']], function () {
           $project = Project::findOrFail($id);
 
           $name = $project->name;
-          $project->delete();
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
 
           return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });

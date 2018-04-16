@@ -28,7 +28,9 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <!--
                                 <th>&nbsp;</th>
+                                -->
                                 </thead>
                                 <tbody>
                                 @foreach ($projects as $project)
@@ -60,6 +62,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        <!--
                                         <td>
                                             <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
@@ -72,6 +75,7 @@
                                             </button>
 
                                         </td>
+                                        -->
                                     </tr>
                                 @endforeach
                                 </tbody>

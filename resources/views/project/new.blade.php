@@ -575,7 +575,6 @@
                             <th>{{trans('project.project')}}</th>
                             <th>&nbsp;</th>
                             <!--
-                            So the table would liik nice without a delete button
                             <th>&nbsp;</th>
                             -->
                             </thead>

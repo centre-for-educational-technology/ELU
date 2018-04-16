@@ -28,7 +28,6 @@
                                 <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
                                 <!--
-                                So the table would liik nice without a delete button
                                 <th>&nbsp;</th>
                                 -->
                                 </thead>

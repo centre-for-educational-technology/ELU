@@ -40,7 +40,7 @@
                                 @foreach ($projects as $project)
 
                                     <tr>
-                                        <td class="table-text"><div>{{ $project->name }}</div></td>
+                                        <td class="table-text"><div><a href="{{ url('project/'.$project->id) }}">{{ $project->name }}</a></div></td>
 
                                         @if($project->publishing_status == 1)
                                             <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>

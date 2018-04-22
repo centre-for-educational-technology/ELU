@@ -2113,6 +2113,20 @@ class ProjectController extends Controller
 
     $group->save();
 
+    // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'/folders.sh '.$group->id.' '.env('GOOGLE_ACCESS_TOKEN'))))[0];
+    if ($folder_id == '') {
+      exec(env('SCRIPTS_FOLDER').'/make_folder.sh '.env('GOOGLE_ACCESS_TOKEN').' '.env('GOOGLE_FOLDER_ID').' '.$group->id);
+      $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'/folders.sh '.$group->id.' '.env('GOOGLE_ACCESS_TOKEN'))))[0];
+    }
+    if(is_array($new_image)) {
+      $image = $new_image[0];
+    } else {
+      $image = $new_image;
+    }
+
+    $folder_or_file = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
+    exec(env('SCRIPTS_FOLDER').'/upload.sh '.env('GOOGLE_ACCESS_TOKEN').' '.$folder_or_file);
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path

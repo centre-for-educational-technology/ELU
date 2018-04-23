@@ -2113,11 +2113,16 @@ class ProjectController extends Controller
 
     $group->save();
 
+    $project_id = DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project_year = DB::table('projects')->where('id', $project_id)->first()->study_year;
+    $project_semester = DB::table('projects')->where('id', $project_id)->first()->study_term;
+
     // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'/folders.sh '.$group->id.' '.env('GOOGLE_ACCESS_TOKEN'))))[0];
+    // Structure to be: semester_year->projekt_id(or name?)->files
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
     if ($folder_id == '') {
-      exec(env('SCRIPTS_FOLDER').'/make_folder.sh '.env('GOOGLE_ACCESS_TOKEN').' '.env('GOOGLE_FOLDER_ID').' '.$group->id);
-      $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'/folders.sh '.$group->id.' '.env('GOOGLE_ACCESS_TOKEN'))))[0];
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$group->id);
+      $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
     }
     if(is_array($new_image)) {
       $image = $new_image[0];
@@ -2126,7 +2131,7 @@ class ProjectController extends Controller
     }
 
     $folder_or_file = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
-    exec(env('SCRIPTS_FOLDER').'/upload.sh '.env('GOOGLE_ACCESS_TOKEN').' '.$folder_or_file);
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$folder_or_file);
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path
@@ -2418,6 +2423,9 @@ class ProjectController extends Controller
     return($fileName);
   }
 
+  public function asd() {
+    \dd(Project::find(13)->first());
+  }
 
 
   /**

@@ -1,3 +1,2 @@
 #!/bin/bash
-/home/vagrant/gdrive --access-token $1 mkdir -p $2 $3
-
+/home/vagrant/gdrive -c $1 mkdir -p $2 $3

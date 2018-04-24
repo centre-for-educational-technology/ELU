@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/vagrant/gdrive -c $2 list | grep -E $1" *dir"
+/home/vagrant/gdrive -c $2 list --absolute | grep -E $1" *dir"

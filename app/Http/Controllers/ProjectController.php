@@ -2076,6 +2076,21 @@ class ProjectController extends Controller
 
   }
 
+  public function makeGdriveFolders ($folderHierarchy) {
+    if ($folderHierarchy == 'ELUTestDrive') {
+      $folder_id = env('GOOGLE_FOLDER_ID');
+      return $folder_id;
+    }
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH'))))[0];
+    if ($folder_id == '') {
+      $perviousFolder = substr($folderHierarchy, 0, strrpos($folderHierarchy, '/'));
+      $folder_id = $this->makeGdriveFolders($perviousFolder);
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$folder_id.' '.substr(strrchr($folderHierarchy, '/'), 1));
+      $folder_id = $this->makeGdriveFolders($folderHierarchy);
+    }
+    return $folder_id;
+  }
+
   public function attachGroupGalleryImages(Request $request) {
 
     $group = Group::find($request->group_id);
@@ -2113,16 +2128,31 @@ class ProjectController extends Controller
 
     $group->save();
 
-    $project_id = DB::table('groups')->where('id', $group->id)->first()->project_id;
-    $project_year = DB::table('projects')->where('id', $project_id)->first()->study_year;
-    $project_semester = DB::table('projects')->where('id', $project_id)->first()->study_term;
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project_year = \DB::table('projects')->where('id', $project_id)->first()->study_year;
+    $project_semester = \DB::table('projects')->where('id', $project_id)->first()->study_term;
+    $semester_folder_name = strval($project_year).'_'.strval($project_year+1);
+    switch ($project_year) {
+      case 0:
+        $semester_folder_name .= '_sygis';
+        break;
+      case 1:
+        $semester_folder_name .= '_sygis_kevad';
+        break;
+      case 2:
+        $semester_folder_name .= '_kevad';
+        break;
+      case 3:
+        $semester_folder_name .= '_kevad_sygis';
+    }
+
+    $folderHierarchy = $semester_folder_name.'/'.$project_id.'/'.$group->id;
 
     // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
     // Structure to be: semester_year->projekt_id(or name?)->files
     $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
     if ($folder_id == '') {
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$group->id);
-      $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
+      $folder_id = $this->makeGdriveFolders($folderHierarchy);
     }
     if(is_array($new_image)) {
       $image = $new_image[0];
@@ -2130,8 +2160,8 @@ class ProjectController extends Controller
       $image = $new_image;
     }
 
-    $folder_or_file = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$folder_or_file);
+    $fileToUpload = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
+    //exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path
@@ -2421,10 +2451,6 @@ class ProjectController extends Controller
 
 
     return($fileName);
-  }
-
-  public function asd() {
-    \dd(Project::find(13)->first());
   }
 
 

@@ -2077,17 +2077,25 @@ class ProjectController extends Controller
   }
 
   public function makeGdriveFolders ($folderHierarchy) {
+    //var_dump(explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH')))));
     if ($folderHierarchy == 'ELUTestDrive') {
       $folder_id = env('GOOGLE_FOLDER_ID');
       return $folder_id;
     }
+    echo(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH').'<br>');
     $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH'))))[0];
+    //var_dump($folder_id);
     if ($folder_id == '') {
       $perviousFolder = substr($folderHierarchy, 0, strrpos($folderHierarchy, '/'));
+      echo 'Previous folder: '.$perviousFolder.'<br>';
       $folder_id = $this->makeGdriveFolders($perviousFolder);
+      echo "Folder_id: ".$folder_id.'<br>';
+      var_dump(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$folder_id.' '.substr(strrchr($folderHierarchy, '/'), 1));
       exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$folder_id.' '.substr(strrchr($folderHierarchy, '/'), 1));
       $folder_id = $this->makeGdriveFolders($folderHierarchy);
     }
+    //echo $folderHierarchy.'<br>';
+    //echo "Folder_id: ".$folder_id.'<br>';
     return $folder_id;
   }
 
@@ -2153,6 +2161,7 @@ class ProjectController extends Controller
     $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
     if ($folder_id == '') {
       $folder_id = $this->makeGdriveFolders($folderHierarchy);
+      //$folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
     }
     if(is_array($new_image)) {
       $image = $new_image[0];
@@ -2161,7 +2170,7 @@ class ProjectController extends Controller
     }
 
     $fileToUpload = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
-    //exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path
@@ -2451,6 +2460,44 @@ class ProjectController extends Controller
 
 
     return($fileName);
+  }
+
+  public function asd() {
+    //\dd(Project::find(13)->first());
+    //\dd(\DB::table('groups')->where('id', $group->id)->first()->project_id);
+    $project_id = \DB::table('groups')->where('id', 9)->first()->project_id;
+    $project_year = \DB::table('projects')->where('id', $project_id)->first()->study_year;
+    $project_semester = \DB::table('projects')->where('id', $project_id)->first()->study_term;
+    $semester_folder_name = strval($project_year).'_'.strval($project_year+1);
+    switch ($project_year) {
+      case 0:
+        $semester_folder_name .= '_sygis';
+        break;
+      case 1:
+        $semester_folder_name .= '_sygis_kevad';
+        break;
+      case 2:
+        $semester_folder_name .= '_kevad';
+        break;
+      case 3:
+        $semester_folder_name .= '_kevad_sygis';
+    }
+
+    $folderHierarchy = 'ELUTestDrive/'.$semester_folder_name.'/'.$project_id.'/9';
+    //\dd($folderHierarchy);
+    // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    // Structure to be: semester_year->projekt_id(or name?)->files
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH'))))[0];
+    if ($folder_id == '') {
+      $folder_id = $this->makeGdriveFolders($folderHierarchy);
+      //\dd(3);
+      //$folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
+    }
+
+    $fileToUpload = base_path().'/public/storage/projects_groups_images/2/p5.png '.$folder_id;
+    \dd($fileToUpload);
+    //exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
+
   }
 
 

@@ -12,7 +12,6 @@
 @endif
 
 <div class="row">
-Tere
 
     <div class="col-md-10 margt content col-md-offset-1">
 

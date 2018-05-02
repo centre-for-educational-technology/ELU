@@ -2168,18 +2168,29 @@ class ProjectController extends Controller
     $group->save();
 
     $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
-    $project_name = Project::find($project_id)->name;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
 
     // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
     // Structure to be: semester_year->projekt_id(or name?)->files
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$project_name.' '.env('DRIVE_AUTH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH'))))[0];
 
     if(is_array($new_image)) {
       $image = $new_image[0];
     } else {
       $image = $new_image;
     }
-    $fileToUpload = Input::file('file')->pathname.' '.$folder_id.' '.Input::file('file')['-originalName'];
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
 
     /*

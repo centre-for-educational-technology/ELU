@@ -2062,16 +2062,26 @@ class ProjectController extends Controller
 
     $project = Project::find($id);
     $project->status = 0;
+    $student_group_id = '';
+    if (Auth::user()->is('student')) {
+      $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
+      $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
+      if ($student_project_id != $id) {
+      return view('errors.404');
+      }
+    }
 
     $project->save();
 
     // if ($project->summary_version == 2 || $request->version === '2' || $project->summary == null) {
     if ($project->study_year >= 2017) {
       return view('project.finish')
-        ->with('current_project', $project);
+        ->with('current_project', $project)
+        ->with('student_group', $student_group_id);
     } else {
       return view('project.old_finish')
-        ->with('current_project', $project);
+        ->with('current_project', $project)
+        ->with('student_group', $student_group_id);
     }
 
   }
@@ -2101,6 +2111,7 @@ class ProjectController extends Controller
       }
     }
 
+\dd(exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH')));
     if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
       exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$semester.' '.env('GDRIVE_APP_PATH'), $semester_folder);
       $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];

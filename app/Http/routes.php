@@ -67,13 +67,13 @@ Route::group(['middleware' =>['web']], function () {
         });
 
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
-	
-	      
-	
+
+
+
 	      Route::get('/project/{id}/calculate-load', 'ProjectController@getSupervisorsLoadForProject');
-	
+
 	      Route::post('api/calculate-load/set', 'ProjectController@setSupervisorsLoadForProject');
-	  
+
 
       });
 
@@ -104,8 +104,8 @@ Route::group(['middleware' =>['web']], function () {
 	        foreach ($authors as $author){
 	        	array_push($authors_ids, $author->id);
 	        }
-	    
-	        
+
+
           //Study areas field
 //	        if(\App::getLocale() == 'en'){
 //		        $courses = Course::select('id','oppekava_eng')->get();
@@ -113,16 +113,16 @@ Route::group(['middleware' =>['web']], function () {
 //		        $courses = Course::select('id','oppekava_est')->get();
 //	        }
 //
-          
+
 
           $linked_courses = $current_project->getCourses()->select('id')->get();
 	        $linked_courses_ids = array();
           foreach ($linked_courses as $linked_course){
             array_push($linked_courses_ids, $linked_course->id);
           }
-	
-	
-	
+
+
+
 	        $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
 
 
@@ -156,9 +156,9 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::post('api/group/add-user', 'ProjectController@addUserToGroup');
-	      
+
 	      Route::post('api/group/rename', 'ProjectController@renameProjectGroup');
-	      
+
         Route::delete('project/{id}/group/delete/{group_id}', 'ProjectController@deleteProjectGroup');
 
 
@@ -184,6 +184,8 @@ Route::group(['middleware' =>['web']], function () {
 
 //    Admin section
       Route::group(['middleware' => ['admin']], function () {
+
+        Route::get('folders', 'ProjectController@makeFolders');
 
         Route::get('/admin/users', 'AdminController@index');
 
@@ -219,20 +221,20 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('admin/analytics/search', 'ProjectController@getAdminAnalyticsListing');
 
         Route::get('admin/analytics/download/open', 'ProjectController@exportAnalyticsToCSVOpenProjects');
-	
+
 	      Route::get('admin/analytics/download/ongoing', 'ProjectController@exportAnalyticsToCSVOngoingProjects');
-	
+
 	      Route::get('admin/analytics/download/finished', 'ProjectController@exportAnalyticsToCSVFinishedProjects');
-	
+
 	      Route::get('admin/analytics/download/students/ongoing', 'ProjectController@exportAnalyticsToCSVStudentsOngoingProjects');
-	
+
 	      Route::get('admin/analytics/download/teachers/ongoing/load', 'ProjectController@exportAnalyticsToCSVOngoingProjectsTeachersLoad');
-	      
-	
+
+
 	      Route::get('admin/evaluation-dates', 'AdminController@indexEvaluationDates');
-	
+
 	      Route::post('admin/evaluation-dates', 'AdminController@editEvaluationDates');
-	      
+
 //        Attach user to project api for ajax
         Route::post('api/search/user', 'ProjectController@searchUser');
 
@@ -275,15 +277,15 @@ Route::group(['middleware' =>['web']], function () {
 
           //Activity log summary
           Route::get('admin/log', 'AdminController@getActivityLogItems');
-	
-	
+
+
 	        //Update courses
 	        Route::get('admin/courses/update', function () {
 		        return view('admin.update_courses');
 	        });
-	
+
 	        Route::post('admin/courses/update', 'AdminController@updateCourses');
-	     
+
         });
 
 
@@ -310,7 +312,7 @@ Route::group(['middleware' =>['web']], function () {
 
 
         Route::get('student/project/new', function () {
-         
+
 //	        if(\App::getLocale() == 'en'){
 //		        $courses = Course::select('id','oppekava_eng')->get();
 //	        }else{
@@ -377,7 +379,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     $project = Project::find($id);
-    
+
     if($project){
 	    if(Auth::user()){
 		    return view('project.project')
@@ -388,12 +390,12 @@ Route::group(['middleware' => ['web']], function () {
 				    ->with('project', $project)
 				    ->with('isTeacher', false);
 	    }
-    	
+
     }else{
     	return view('errors.404');
     }
 
-    
+
 
 
   }));
@@ -413,4 +415,3 @@ Route::group(['middleware' => ['web']], function () {
 
 
 });
-

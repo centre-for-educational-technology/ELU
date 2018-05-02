@@ -1638,7 +1638,7 @@ class ProjectController extends Controller
 
 		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
 		$callback = function() use ($projects, $columns)
@@ -1681,7 +1681,7 @@ class ProjectController extends Controller
 
     $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-    $columns = array(trans('project.project'),  trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+    $columns = array(trans('project.project'),  trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
     $callback = function() use ($projects, $columns)
@@ -1725,7 +1725,7 @@ class ProjectController extends Controller
 
 		$projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
 		$callback = function() use ($projects, $columns)
@@ -2076,20 +2076,59 @@ class ProjectController extends Controller
 
   }
 
-  public function makeGdriveFolders ($folderHierarchy) {
-    if ($folderHierarchy == 'ELUTestDrive') {
-      $folder_id = env('GOOGLE_FOLDER_ID');
-      return $folder_id;
+  /**
+   * Makes the folders in google drive folder for specific semester
+   * Requires get parameters:
+   * Year - e.g. 2017
+   * Semesetr - s for fall, k for spring, otherwise an empty folder is created
+   */
+  public function makeFolders(Request $request) {
+    $ending_year = $request->year;
+    $ending_semester = $request->semester;
+    if (is_null($request->year) || is_null($request->semester)) {
+      return "Missing required parameter(s)";
     }
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$folderHierarchy.' '.env('DRIVE_AUTH'))))[0];
-    if ($folder_id == '') {
-      $perviousFolder = substr($folderHierarchy, 0, strrpos($folderHierarchy, '/'));
-      $folder_id = $this->makeGdriveFolders($perviousFolder);
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$folder_id.' '.substr(strrchr($folderHierarchy, '/'), 1));
-      $folder_id = $this->makeGdriveFolders($folderHierarchy);
+    $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
+    $existing_folders = array();
+    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').' '.env('DRIVE_AUTH'), $gdrive_list_output);
+    foreach ($gdrive_list_output as $folder) {
+      $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
+        $existing_folders[$helper[0]] = $helper[1];
+      if (count($helper) != 5) {
+        for ($i=0;$i<count($helper)-5;$i++) {
+          $existing_folders[$helper[0]] .= ' '.$helper[2+$i];
+        }
+      }
     }
-    return $folder_id;
+
+    if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$semester, $semester_folder);
+      $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
+    } else {
+      $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
+    }
+
+    $projects = Project::where('publishing_status', '=', '1')->where(function ($query) use ($request) {
+      if ($request->semester == 's') {
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '0')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '3')->where('study_year', '=', $request->year-1);
+        });
+      } elseif ($request->semester == 'k') {
+        $query->where('study_term', '=', '1')->where('study_year', '=', $request->year)->orWhere('study_term', '=', '2')->where('study_year', '=', $request->year);
+      } else {
+        exit();
+      }
+    })->paginate(0);
+    foreach ($projects as $p) {
+      if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester.'/'.$p->name, $existing_folders)) {
+        exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\'');
+      }
+    }
   }
+
+
 
   public function attachGroupGalleryImages(Request $request) {
 
@@ -2098,7 +2137,7 @@ class ProjectController extends Controller
     $input = Input::all();
 
     $rules = array(
-        'file' => 'image|max:3000',
+        'file' => 'image|max:30000',
     );
 
     $validation = Validator::make($input, $rules);
@@ -2129,38 +2168,18 @@ class ProjectController extends Controller
     $group->save();
 
     $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
-    $project_year = \DB::table('projects')->where('id', $project_id)->first()->study_year;
-    $project_semester = \DB::table('projects')->where('id', $project_id)->first()->study_term;
-    $semester_folder_name = strval($project_year).'_'.strval($project_year+1);
-    switch ($project_year) {
-      case 0:
-        $semester_folder_name .= '_sygis';
-        break;
-      case 1:
-        $semester_folder_name .= '_sygis_kevad';
-        break;
-      case 2:
-        $semester_folder_name .= '_kevad';
-        break;
-      case 3:
-        $semester_folder_name .= '_kevad_sygis';
-    }
-
-    $folderHierarchy = 'ELUTestDrive/'.$semester_folder_name.'/'.$project_id.'/'.$group->id;
+    $project_name = Project::find($project_id)->name;
 
     // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
     // Structure to be: semester_year->projekt_id(or name?)->files
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$group->id.' '.env('DRIVE_AUTH'))))[0];
-    if ($folder_id == '') {
-      $folder_id = $this->makeGdriveFolders($folderHierarchy);
-    }
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.$project_name.' '.env('DRIVE_AUTH'))))[0];
+
     if(is_array($new_image)) {
       $image = $new_image[0];
     } else {
       $image = $new_image;
     }
-
-    $fileToUpload = base_path().'/public/storage/projects_groups_images/'.$group->id.'/'.$image.' '.$folder_id;
+    $fileToUpload = Input::file('file')->pathname.' '.$folder_id.' '.Input::file('file')['-originalName'];
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload);
 
     /*

@@ -2063,9 +2063,9 @@ class ProjectController extends Controller
 
 
     $project = Project::find($id);
-    //$project->status = 0;
+    $project->status = 0;
     $student_group_id = '';
-    if (Auth::user()->is('student')) {
+    if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher')) {
       if ($project->status == '0') {
         return view('errors.404');
       }
@@ -2074,6 +2074,7 @@ class ProjectController extends Controller
       if ($student_project_id != $id) {
         return view('errors.404');
       }
+      $project->status = 1;
     }
 
     $project->save();

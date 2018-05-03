@@ -172,10 +172,20 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('project/{id}/finish/uploadFiles', 'ProjectController@attachGroupGalleryImages');
 
+        Route::post('project/{id}/finish/uploadPoster', 'ProjectController@attachGroupPresentation');
+
+        Route::post('project/{id}/finish/uploadMaterials', 'ProjectController@attachGroupMaterials');
+
         Route::post('project/{id}/finish/deleteFile', 'ProjectController@deleteFile');
 
+        Route::post('finish/{id}/finish/deletePoster', 'ProjectController@deletePoster');
 
-        Route::get('project/{id}/api/group-images', 'ProjectController@getGroupImages');
+        Route::post('finish/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
+
+
+        Route::get('project/{id}/api/group-Poster', 'ProjectController@getGroupPoster');
+
+        Route::get('project/{id}/api/group-Materials', 'ProjectController@getGroupMaterials');
 
       });
 
@@ -294,6 +304,23 @@ Route::group(['middleware' =>['web']], function () {
 
 //    Student section
       Route::group(['middleware' => ['student']], function () {
+
+        Route::post('finish/{id}/finish/uploadPoster', 'ProjectController@attachGroupPresentation');
+
+        Route::post('finish/{id}/finish/uploadMaterials', 'ProjectController@attachGroupMaterials');
+
+        Route::post('finish/{id}/finish/deletePoster', 'ProjectController@deletePoster');
+
+        Route::post('finish/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
+
+
+        Route::get('finish/{id}/api/group-Poster', 'ProjectController@getGroupPoster');
+
+        Route::get('finish/{id}/api/group-Materials', 'ProjectController@getGroupMaterials');
+
+        Route::get('finish/{id}', 'ProjectController@finishProject');
+
+        Route::post('finishv2/{id}', 'ProjectController@saveFinishedProjectv2');
 
 //        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
 //          $projects = Project::whereHas('users', function ($q) {

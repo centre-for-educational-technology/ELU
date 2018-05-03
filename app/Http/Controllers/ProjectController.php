@@ -35,6 +35,8 @@ use App\Http\Requests\AttachUsersRequest;
 use App\EvaluationDate;
 use App\CosupervisorsPoints;
 
+use Imagick;
+
 
 
 
@@ -2064,10 +2066,13 @@ class ProjectController extends Controller
     $project->status = 0;
     $student_group_id = '';
     if (Auth::user()->is('student')) {
+      if ($project->status == '0') {
+        return view('errors.404');
+      }
       $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
       $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
       if ($student_project_id != $id) {
-      return view('errors.404');
+        return view('errors.404');
       }
     }
 
@@ -2111,7 +2116,6 @@ class ProjectController extends Controller
       }
     }
 
-\dd(exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH')));
     if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
       exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$semester.' '.env('GDRIVE_APP_PATH'), $semester_folder);
       $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
@@ -2139,6 +2143,116 @@ class ProjectController extends Controller
     }
   }
 
+  public function attachGroupPresentation(Request $request) {
+
+    $group = Group::find($request->group_id);
+
+    $input = Input::all();
+
+    $rules = array(
+        'file' => 'image|max:30000',
+    );
+
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
+
+    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+
+    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    if(!empty(json_decode($group->image_gdrive_ids, true))){
+      $files = json_decode($group->image_gdrive_ids, true);
+      $new_file = $this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
+      if($new_file){
+        array_push($files, $new_file);
+      }
+    }else{
+      $files = array($this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $new_file = $files;
+    }
+
+    $group->image_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    unlink(Input::file('file')->getRealPath());
+
+    if ($file_gdrive_id == null) {
+      return Response::json('error', 400);
+    } else {
+      return Response::json('success', 200);
+    }
+  }
+
+
+  public function attachGroupMaterials(Request $request) {
+
+    $group = Group::find($request->group_id);
+
+    $input = Input::all();
+
+    $rules = array(
+        'file' => 'image|max:30000',
+    );
+
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
+
+    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+
+    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    if(!empty(json_decode($group->group_materials_drive_ids, true))){
+      $files = json_decode($group->group_materials_drive_ids, true);
+      $new_file = $this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
+      if($new_file){
+        array_push($files, $new_file);
+      }
+    }else{
+      $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $new_file = $files;
+    }
+
+    $group->group_materials_drive_ids = json_encode($files);
+
+    $group->save();
+
+    unlink(Input::file('file')->getRealPath());
+
+    if ($file_gdrive_id == null) {
+      return Response::json('error', 400);
+    } else {
+      return Response::json('success', 200);
+    }
+  }
 
 
   public function attachGroupGalleryImages(Request $request) {
@@ -2220,35 +2334,50 @@ class ProjectController extends Controller
   }
 
 
-  public function deleteFile(Request $request){
+  public function deletePoster(Request $request){
 
-
-
-    $image = $request->name;
+    $file = $request->name;
 
     $group = Group::find($request->group_id);
 
+    $files = json_decode($group->image_gdrive_ids, true);
 
-
-    $images = json_decode($group->images, true);
-
-    if(($key = array_search($image, $images)) !== false) {
-      unset($images[$key]);
+    if(($key = array_search($file, $files)) !== false) {
+      unset($files[$key]);
     }
 
-
-    $group->images = json_encode($images);
+    $group->image_gdrive_ids = json_encode($files);
 
     $group->save();
 
+    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+
+    return Response::json([$file, $files]);
+
+  }
 
 
-    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+  public function deleteMaterial(Request $request){
 
-    return Response::json([$image, $images]);
+    $file = $request->name;
 
+    $group = Group::find($request->group_id);
 
+    $files = json_decode($group->group_materials_drive_ids, true);
 
+    if(($key = array_search($file, $files)) !== false) {
+      unset($files[$key]);
+    }
+
+    $group->group_materials_drive_ids = json_encode($files);
+
+    $group->save();
+
+    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+
+    return Response::json([$file, $files]);
 
   }
 
@@ -2256,17 +2385,14 @@ class ProjectController extends Controller
   /**
    * Get images related to group api
    */
-  public function getGroupImages(Request $request){
-
-
+  public function getGroupPoster(Request $request){
 
     $group = Group::find($request->query('groupid'));
 
-
     $imageAnswer = [];
 
-    if(!empty(json_decode($group->images, true))){
-      foreach (json_decode($group->images, true) as $image){
+    if(!empty(json_decode($group->image_gdrive_ids, true))){
+      foreach (json_decode($group->image_gdrive_ids, true) as $image){
 
         $imageAnswer[] = [
             'name' => $image,
@@ -2275,9 +2401,30 @@ class ProjectController extends Controller
       }
     }
 
+    return response()->json([
+        'images' => $imageAnswer
+    ]);
+  }
 
 
+  /**
+   * Get images related to group api
+   */
+  public function getGroupMaterials(Request $request){
 
+    $group = Group::find($request->query('groupid'));
+
+    $imageAnswer = [];
+
+    if(!empty(json_decode($group->group_materials_drive_ids, true))){
+      foreach (json_decode($group->group_materials_drive_ids, true) as $image){
+
+        $imageAnswer[] = [
+            'name' => $image,
+            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)
+        ];
+      }
+    }
 
     return response()->json([
         'images' => $imageAnswer
@@ -2529,12 +2676,63 @@ class ProjectController extends Controller
       return false;
     }
 
+  }
+
+  /**
+   * Upload group poster thumbnail
+   */
+  private function uploadPosterThumbnail($file, $id, $name){
+
+    if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_groups_images/'.$id), 0755, true);
+    }
+
+    $destinationPath = 'storage/projects_groups_images/'.$id.'/';
+
+    $extension = $file->getClientOriginalExtension();
+    $fileName = $name.'.png';
 
 
+    // Making a png out of pdf
+    $imagick = new Imagick();
+    $imagick->readImage($file->getRealPath());
+    $imagick->setImageBackgroundColor('white');
+    $imagick->setImageAlphaChannel(imagick::ALPHACHANNEL_REMOVE);
+    $imagick = $imagick->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+    $imagick->setImageFormat("png");
+    $saved = $imagick->writeImage($destinationPath.$fileName);
 
-
-
-
+    if($saved){
+      return($fileName);
+    }else{
+      return false;
+    }
 
   }
+
+  /**
+   * Upload group poster thumbnail
+   */
+  private function uploadMaterialsThumbnail($file, $id, $name){
+
+    if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_groups_images/'.$id), 0755, true);
+    }
+
+    $destinationPath = 'storage/projects_groups_images/'.$id.'/';
+
+    $img = Image::make(base_path().'/resources/assets/pictures/materials.png');
+    $fileName = $name.'.png';
+    $saved = $img->save($destinationPath.$fileName);
+
+    if($saved){
+      return($fileName);
+    }else{
+      return false;
+    }
+
+  }
+
 }

@@ -151,7 +151,7 @@
                         <p>
                             Uus poster on lisatud kasutaja <?php echo $data['project_author']; ?> poolt.
                         </p>
-
+                        <!--
                         <table>
                             <tr>
                                 <td align="center">
@@ -161,7 +161,7 @@
                                 </td>
                             </tr>
                         </table>
-
+                        -->
                     </td>
                 </tr>
             </table>

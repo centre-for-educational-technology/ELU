@@ -2267,8 +2267,8 @@ class ProjectController extends Controller
 
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
 
-    if(!empty(json_decode($group->group_materials_drive_ids, true))){
-      $files = json_decode($group->group_materials_drive_ids, true);
+    if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
+      $files = json_decode($group->group_materials_gdrive_ids, true);
       $new_file = $this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
       if($new_file){
         array_push($files, $new_file);
@@ -2278,7 +2278,7 @@ class ProjectController extends Controller
       $new_file = $files;
     }
 
-    $group->group_materials_drive_ids = json_encode($files);
+    $group->group_materials_gdrive_ids = json_encode($files);
 
     $group->save();
 
@@ -2401,13 +2401,13 @@ class ProjectController extends Controller
 
     $group = Group::find($request->group_id);
 
-    $files = json_decode($group->group_materials_drive_ids, true);
+    $files = json_decode($group->group_materials_gdrive_ids, true);
 
     if(($key = array_search($file, $files)) !== false) {
       unset($files[$key]);
     }
 
-    $group->group_materials_drive_ids = json_encode($files);
+    $group->group_materials_gdrive_ids = json_encode($files);
 
     $group->save();
 
@@ -2453,8 +2453,8 @@ class ProjectController extends Controller
 
     $imageAnswer = [];
 
-    if(!empty(json_decode($group->group_materials_drive_ids, true))){
-      foreach (json_decode($group->group_materials_drive_ids, true) as $image){
+    if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
+      foreach (json_decode($group->group_materials_gdrive_ids, true) as $image){
 
         $imageAnswer[] = [
             'name' => $image,

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ImagesIdsInDriveColumnToGroups extends Migration
+class GroupMaterialsAndPostersDriveIdsToGroups extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class ImagesIdsInDriveColumnToGroups extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->json('image_gdrive_ids')->nullable();
+            $table->text('group_posters_gdrive_ids')->nullable();
+            $table->text('group_materials_gdrive_ids')->nullable();
         });
     }
 
@@ -25,7 +26,8 @@ class ImagesIdsInDriveColumnToGroups extends Migration
     public function down()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->dropColumn('image_gdrive_ids');
+            $table->dropColumn('group_posters_gdrive_ids');
+            $table->dropColumn('group_materials_gdrive_ids');
         });
     }
 }

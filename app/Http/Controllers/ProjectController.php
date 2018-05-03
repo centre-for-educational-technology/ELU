@@ -2063,7 +2063,7 @@ class ProjectController extends Controller
 
 
     $project = Project::find($id);
-    $project->status = 0;
+    //$project->status = 0;
     $student_group_id = '';
     if (Auth::user()->is('student')) {
       if ($project->status == '0') {
@@ -2174,8 +2174,8 @@ class ProjectController extends Controller
 
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
 
-    if(!empty(json_decode($group->image_gdrive_ids, true))){
-      $files = json_decode($group->image_gdrive_ids, true);
+    if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
+      $files = json_decode($group->group_posters_gdrive_ids, true);
       $new_file = $this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
       if($new_file){
         array_push($files, $new_file);
@@ -2185,9 +2185,45 @@ class ProjectController extends Controller
       $new_file = $files;
     }
 
-    $group->image_gdrive_ids = json_encode($files);
+    $group->group_posters_gdrive_ids = json_encode($files);
 
     $group->save();
+
+    $url = url('/projects/'.$project->id);
+
+    $data = [
+				'project_name' => $project->name,
+        'project_author' => self::getUserName(Auth::user()),
+				'project_url' => $url,
+		];
+
+    $admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+    $superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
+    $admins_emails = array();
+
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+    Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
+    });
 
     unlink(Input::file('file')->getRealPath());
 
@@ -2340,13 +2376,13 @@ class ProjectController extends Controller
 
     $group = Group::find($request->group_id);
 
-    $files = json_decode($group->image_gdrive_ids, true);
+    $files = json_decode($group->group_posters_gdrive_ids, true);
 
     if(($key = array_search($file, $files)) !== false) {
       unset($files[$key]);
     }
 
-    $group->image_gdrive_ids = json_encode($files);
+    $group->group_posters_gdrive_ids = json_encode($files);
 
     $group->save();
 
@@ -2391,8 +2427,8 @@ class ProjectController extends Controller
 
     $imageAnswer = [];
 
-    if(!empty(json_decode($group->image_gdrive_ids, true))){
-      foreach (json_decode($group->image_gdrive_ids, true) as $image){
+    if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
+      foreach (json_decode($group->group_posters_gdrive_ids, true) as $image){
 
         $imageAnswer[] = [
             'name' => $image,

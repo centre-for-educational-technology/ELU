@@ -2222,7 +2222,7 @@ class ProjectController extends Controller
 		foreach ($admins as $admin){
 			array_push($admins_emails, getUserEmail($admin));
 		}
-    Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
+    Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
       $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
     });
 

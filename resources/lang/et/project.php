@@ -76,7 +76,7 @@ return [
     'group_members' => 'Rühma liikmed',
     'save_button' => 'Salvesta',
     'finished_and_saved_notification' => 'Projekt ":name" on lõppenud ja tulemused salvestatud',
-    'can_upload_multiple' => 'Saab lisada mitu pilte korraga',
+    'can_upload_multiple' => 'Saab lisada mitu',
     'see_results' => 'Näita tulemusi',
     'are_you_sure_notification' => 'Kas olete kindel?',
     'cannot_restore_notification' => 'Projekti ei saa taastada',
@@ -94,7 +94,8 @@ return [
     'group_video_link' => 'Lae üles videosid (YouTube, Vimeo, etc.)',
     'group_video_link_desc' => 'Kui soovid laadida üles rohkem kui ühe video, siis tee youtube’s playlist ning lisa lõppenud projekti vormile playlisti link',
     'group_images' => 'Lae üles poster',
-    'group_images_desc' => 'Kui soovid laadida üles rohkem kui ühe postri, siis hoia all ctrl/command ning vali ühest kaustast kõik pildid, mida soovid üles laadida',
+    'group_materials' => 'Lae üles valminud materjalid',
+    'group_materials_desc' => 'Kui soovid laadida üles rohkem kui ühe valminud materjali, siis hoia all ctrl/command ning vali ühest kaustast kõik failid, mida soovid üles laadida',
     'finished_desc' => 'Esialgne idee ja eesmärk',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk?',
     'group_results_heading' => 'Rühma kokkuvõte',
@@ -159,8 +160,8 @@ return [
 		'out_of' => ', kokku EAPd saab jagada: ',
     'max_to_one' => 'Max EAPd ühele õppejõule',
     'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidetud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
-	
-	
+
+
 
 
 

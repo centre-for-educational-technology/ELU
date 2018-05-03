@@ -508,23 +508,36 @@ Dropzone.prototype.defaultOptions.dictRemoveFile = window.Laravel.remove_file_bu
 
 var dropzones = $(".dropzone");
 dropzones.each(function (i) {
-  //Group images upload
-  var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
+  if (this.id.indexOf("presentationUpload") !== -1) {
+    var resourceName = "Poster";
+    var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 
-  var project_id = $('#groupImagesUpload'+group_id).attr("project-id");
-  var dropzone_name = '#groupImagesUpload'+group_id;
+    var project_id = $("#presentationUpload"+group_id).attr("project-id");
+    var dropzone_name = "#presentationUpload"+group_id;
+  } else {
+    var resourceName = "Materials";
+    var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 
-   var myDropzone = new Dropzone(dropzone_name, {
-    url: window.Laravel.base_path+"/project/"+project_id+"/finish/uploadFiles",
+    var project_id = $("#materialsUpload"+group_id).attr("project-id");
+    var dropzone_name = "#materialsUpload"+group_id;
+  }
+  if (this.getAttribute('auth') == 'student') {
+    var routeTo = 'finish';
+  } else {
+    var routeTo = 'project';
+  }
+  window.setTimeout(function () {/* do nothing */}, 2000);
+
+    var myDropzone = new Dropzone(dropzone_name, {
+    url: window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/finish/upload"+resourceName,
     params: {
       id: project_id,
       _token: window.Laravel.csfr_token,
       group_id: group_id
     },
-    parallelUploads: 20,
+    parallelUploads: 1,
     paramName: "file",
-    maxFilesize: 2, // MB
-
+    maxFilesize: 30, // MB
 
     addRemoveLinks: true,
 
@@ -534,12 +547,10 @@ dropzones.each(function (i) {
       // Add server images
       var myDropzone = this;
 
-
-      $.get(window.Laravel.base_path+"/project/"+project_id+"/api/group-images?groupid="+group_id, function(data) {
+      $.get(window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/api/group-"+resourceName+"?groupid="+group_id, function(data) {
 
 
         $.each(data.images, function (key, value) {
-
           var file = {name: value.name, size: value.size};
           myDropzone.options.addedfile.call(myDropzone, file);
           myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path+"/storage/projects_groups_images/"+group_id+"/"+value.name);
@@ -554,11 +565,11 @@ dropzones.each(function (i) {
 
         var btndelete = file.previewElement.querySelector("[data-dz-remove]");
         if(btndelete.hasAttribute("id")) {
-          var filename = btndelete.getAttribute("id").split('-').pop();
+          var filename = btndelete.getAttribute("id").substr(18);
         }
 
         $.ajax({
-          url: window.Laravel.base_path+"/project/"+project_id+"/finish/deleteFile",
+          url: window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/finish/delete"+resourceName,
           dataType: 'json',
           delay: 250,
           method: 'POST',

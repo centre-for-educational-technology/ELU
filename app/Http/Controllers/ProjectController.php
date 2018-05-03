@@ -35,6 +35,8 @@ use App\Http\Requests\AttachUsersRequest;
 use App\EvaluationDate;
 use App\CosupervisorsPoints;
 
+use Imagick;
+
 
 
 
@@ -1638,7 +1640,7 @@ class ProjectController extends Controller
 
 		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
 		$callback = function() use ($projects, $columns)
@@ -1681,7 +1683,7 @@ class ProjectController extends Controller
 
     $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-    $columns = array(trans('project.project'),  trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+    $columns = array(trans('project.project'),  trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
     $callback = function() use ($projects, $columns)
@@ -1725,7 +1727,7 @@ class ProjectController extends Controller
 
 		$projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Õpilaste arv');
+		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
 		$callback = function() use ($projects, $columns)
@@ -2061,20 +2063,239 @@ class ProjectController extends Controller
 
 
     $project = Project::find($id);
+
+    $student_group_id = '';
+    if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher')) {
+      if ($project->status == 0) {
+        return view('errors.404');
+      }
+      $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
+      $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
+      if ($student_project_id != $id) {
+        return view('errors.404');
+      }
+    } else {
     $project->status = 0;
+    }
 
     $project->save();
 
     // if ($project->summary_version == 2 || $request->version === '2' || $project->summary == null) {
     if ($project->study_year >= 2017) {
       return view('project.finish')
-        ->with('current_project', $project);
+        ->with('current_project', $project)
+        ->with('student_group', $student_group_id);
     } else {
       return view('project.old_finish')
-        ->with('current_project', $project);
+        ->with('current_project', $project)
+        ->with('student_group', $student_group_id);
     }
 
   }
+
+  /**
+   * Makes the folders in google drive folder for specific semester
+   * Requires get parameters:
+   * Year - e.g. 2017
+   * Semesetr - s for fall, k for spring, otherwise an empty folder is created
+   */
+  public function makeFolders(Request $request) {
+    $ending_year = $request->year;
+    $ending_semester = $request->semester;
+    if (is_null($request->year) || is_null($request->semester)) {
+      return "Missing required parameter(s)";
+    }
+    $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
+    $existing_folders = array();
+    exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'), $gdrive_list_output);
+    foreach ($gdrive_list_output as $folder) {
+      $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
+        $existing_folders[$helper[0]] = $helper[1];
+      if (count($helper) != 5) {
+        for ($i=0;$i<count($helper)-5;$i++) {
+          $existing_folders[$helper[0]] .= ' '.$helper[2+$i];
+        }
+      }
+    }
+
+    if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\' '.env('GDRIVE_APP_PATH'), $semester_folder);
+      $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
+    } else {
+      $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
+    }
+
+    $projects = Project::where('publishing_status', '=', '1')->where(function ($query) use ($request) {
+      if ($request->semester == 's') {
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '0')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '3')->where('study_year', '=', $request->year-1);
+        });
+      } elseif ($request->semester == 'k') {
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '1')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '2')->where('study_year', '=', $request->year);
+        });
+      } else {
+        exit();
+      }
+    })->get();
+    foreach ($projects as $p) {
+      if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester.'/'.$p->name, $existing_folders)) {
+        exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\''.' '.env('GDRIVE_APP_PATH'));
+      }
+    }
+  }
+
+  public function attachGroupPresentation(Request $request) {
+
+    $group = Group::find($request->group_id);
+
+    $input = Input::all();
+
+    $rules = array(
+        'file' => 'image|max:30000',
+    );
+
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
+
+    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+
+    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
+      $files = json_decode($group->group_posters_gdrive_ids, true);
+      $new_file = $this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
+      if($new_file){
+        array_push($files, $new_file);
+      }
+    }else{
+      $files = array($this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $new_file = $files;
+    }
+
+    $group->group_posters_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    $url = url('/projects/'.$project->id);
+
+    $data = [
+				'project_name' => $project->name,
+        'project_author' => self::getUserName(Auth::user()),
+				'project_url' => $url,
+		];
+
+    $admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+    $superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
+    $admins_emails = array();
+
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+    Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
+    });
+
+    unlink(Input::file('file')->getRealPath());
+
+    if ($file_gdrive_id == null) {
+      return Response::json('error', 400);
+    } else {
+      return Response::json('success', 200);
+    }
+  }
+
+
+  public function attachGroupMaterials(Request $request) {
+
+    $group = Group::find($request->group_id);
+
+    $input = Input::all();
+
+    $rules = array(
+        'file' => 'image|max:30000',
+    );
+
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
+
+    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+
+    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
+      $files = json_decode($group->group_materials_gdrive_ids, true);
+      $new_file = $this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
+      if($new_file){
+        array_push($files, $new_file);
+      }
+    }else{
+      $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $new_file = $files;
+    }
+
+    $group->group_materials_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    unlink(Input::file('file')->getRealPath());
+
+    if ($file_gdrive_id == null) {
+      return Response::json('error', 400);
+    } else {
+      return Response::json('success', 200);
+    }
+  }
+
 
   public function attachGroupGalleryImages(Request $request) {
 
@@ -2083,7 +2304,7 @@ class ProjectController extends Controller
     $input = Input::all();
 
     $rules = array(
-        'file' => 'image|max:3000',
+        'file' => 'image|max:30000',
     );
 
     $validation = Validator::make($input, $rules);
@@ -2113,6 +2334,31 @@ class ProjectController extends Controller
 
     $group->save();
 
+    $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
+    $project = Project::find($project_id);
+    $project_semester = '';
+    if (in_array($project->study_term, ['0','3'])) {
+      if ($project->study_term == '0') {
+        $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_S';
+      } else {
+        $project_semester = strval($project->study_year+1).'-'.strval($project->study_year+2).'_S';
+      }
+    } else {
+      $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
+    }
+
+    // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
+    // Structure to be: semester_year->projekt_id(or name?)->files
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+
+    if(is_array($new_image)) {
+      $image = $new_image[0];
+    } else {
+      $image = $new_image;
+    }
+
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'));
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path
@@ -2130,35 +2376,50 @@ class ProjectController extends Controller
   }
 
 
-  public function deleteFile(Request $request){
+  public function deletePoster(Request $request){
 
-
-
-    $image = $request->name;
+    $file = $request->name;
 
     $group = Group::find($request->group_id);
 
+    $files = json_decode($group->group_posters_gdrive_ids, true);
 
-
-    $images = json_decode($group->images, true);
-
-    if(($key = array_search($image, $images)) !== false) {
-      unset($images[$key]);
+    if(($key = array_search($file, $files)) !== false) {
+      unset($files[$key]);
     }
 
-
-    $group->images = json_encode($images);
+    $group->group_posters_gdrive_ids = json_encode($files);
 
     $group->save();
 
+    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+
+    return Response::json([$file, $files]);
+
+  }
 
 
-    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+  public function deleteMaterial(Request $request){
 
-    return Response::json([$image, $images]);
+    $file = $request->name;
 
+    $group = Group::find($request->group_id);
 
+    $files = json_decode($group->group_materials_gdrive_ids, true);
 
+    if(($key = array_search($file, $files)) !== false) {
+      unset($files[$key]);
+    }
+
+    $group->group_materials_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+
+    return Response::json([$file, $files]);
 
   }
 
@@ -2166,17 +2427,14 @@ class ProjectController extends Controller
   /**
    * Get images related to group api
    */
-  public function getGroupImages(Request $request){
-
-
+  public function getGroupPoster(Request $request){
 
     $group = Group::find($request->query('groupid'));
 
-
     $imageAnswer = [];
 
-    if(!empty(json_decode($group->images, true))){
-      foreach (json_decode($group->images, true) as $image){
+    if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
+      foreach (json_decode($group->group_posters_gdrive_ids, true) as $image){
 
         $imageAnswer[] = [
             'name' => $image,
@@ -2185,9 +2443,30 @@ class ProjectController extends Controller
       }
     }
 
+    return response()->json([
+        'images' => $imageAnswer
+    ]);
+  }
 
 
+  /**
+   * Get images related to group api
+   */
+  public function getGroupMaterials(Request $request){
 
+    $group = Group::find($request->query('groupid'));
+
+    $imageAnswer = [];
+
+    if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
+      foreach (json_decode($group->group_materials_gdrive_ids, true) as $image){
+
+        $imageAnswer[] = [
+            'name' => $image,
+            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)
+        ];
+      }
+    }
 
     return response()->json([
         'images' => $imageAnswer
@@ -2405,7 +2684,6 @@ class ProjectController extends Controller
   }
 
 
-
   /**
    * Upload group gallery multiple images
    */
@@ -2440,12 +2718,63 @@ class ProjectController extends Controller
       return false;
     }
 
+  }
+
+  /**
+   * Upload group poster thumbnail
+   */
+  private function uploadPosterThumbnail($file, $id, $name){
+
+    if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_groups_images/'.$id), 0755, true);
+    }
+
+    $destinationPath = 'storage/projects_groups_images/'.$id.'/';
+
+    $extension = $file->getClientOriginalExtension();
+    $fileName = $name.'.png';
 
 
+    // Making a png out of pdf
+    $imagick = new Imagick();
+    $imagick->readImage($file->getRealPath());
+    $imagick->setImageBackgroundColor('white');
+    $imagick->setImageAlphaChannel(imagick::ALPHACHANNEL_REMOVE);
+    $imagick = $imagick->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+    $imagick->setImageFormat("png");
+    $saved = $imagick->writeImage($destinationPath.$fileName);
 
-
-
-
+    if($saved){
+      return($fileName);
+    }else{
+      return false;
+    }
 
   }
+
+  /**
+   * Upload group poster thumbnail
+   */
+  private function uploadMaterialsThumbnail($file, $id, $name){
+
+    if(!File::exists(public_path('storage/projects_groups_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_groups_images/'.$id), 0755, true);
+    }
+
+    $destinationPath = 'storage/projects_groups_images/'.$id.'/';
+
+    $img = Image::make(base_path().'/resources/assets/pictures/materials.png');
+    $fileName = $name.'.png';
+    $saved = $img->save($destinationPath.$fileName);
+
+    if($saved){
+      return($fileName);
+    }else{
+      return false;
+    }
+
+  }
+
 }

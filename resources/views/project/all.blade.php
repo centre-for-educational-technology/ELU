@@ -216,6 +216,11 @@
                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
                         {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
                             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
+                            @if ($project->currentUserIs('member'))
+                            <form action="{{ url('finish/'.$project->id) }}">
+                                <button type="submit" class="btn btn-danger btn-lg">Esita materjale</button>
+                            </form>
+                            @endif
                         @else
                             @if(Auth::check())
                                 @if(Auth::user()->is('student'))
@@ -390,6 +395,3 @@
 
     </div>
 @endif
-
-
-

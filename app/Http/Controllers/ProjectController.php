@@ -2106,7 +2106,7 @@ class ProjectController extends Controller
     }
     $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
     $existing_folders = array();
-    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'), $gdrive_list_output);
+    exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'), $gdrive_list_output);
     foreach ($gdrive_list_output as $folder) {
       $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
         $existing_folders[$helper[0]] = $helper[1];
@@ -2118,7 +2118,7 @@ class ProjectController extends Controller
     }
 
     if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' '.$semester.' '.env('GDRIVE_APP_PATH'), $semester_folder);
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\' '.env('GDRIVE_APP_PATH'), $semester_folder);
       $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
     } else {
       $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
@@ -2136,7 +2136,7 @@ class ProjectController extends Controller
       } else {
         exit();
       }
-    })->paginate(0);
+    })->get();
     foreach ($projects as $p) {
       if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester.'/'.$p->name, $existing_folders)) {
         exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\''.' '.env('GDRIVE_APP_PATH'));
@@ -2168,7 +2168,7 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
@@ -2260,7 +2260,7 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);

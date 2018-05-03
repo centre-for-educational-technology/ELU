@@ -79,7 +79,7 @@ return [
     'impressions' => 'Impressions',
     'save_button' => 'Save',
     'finished_and_saved_notification' => 'Project ":name" is finished and results are saved',
-    'can_upload_multiple' => 'You can choose multiple images',
+    'can_upload_multiple' => 'You can choose multiple files',
     'see_results' => 'See results',
     'are_you_sure_notification' => 'Are you sure?',
     'cannot_restore_notification' => 'You will not be able to restore it',
@@ -97,7 +97,8 @@ return [
 		'group_video_link' => 'Upload videos (YouTube, Vimeo, etc.)',
 		'group_video_link_desc' => 'To upload more than one video, create a youtube playlist and add the link to the form.',
 		'group_images' => 'Upload poster',
-		'group_images_desc' => 'To upload more than one poster press ctrl/alt task and select all photos that you wish to upload.',
+    'group_materials' => 'Upload materials',
+		'group_materials_desc' => 'To upload more than one file press ctrl/alt task and select all that you wish to upload.',
 		'finished_desc' => 'Project idea and objectives',
 		'finished_desc_desc' => 'What was the initial idea and objective of the ELU project?',
 		'group_results_heading' => 'Group results',
@@ -163,5 +164,5 @@ return [
     'max_to_one' => 'Max EAP points to one teacher',
     'reason_of_initial_hiddenness' => 'Default status of a project is hidden. Project will be published by the administrator after being reviewed.',
 
-		
+
 ];

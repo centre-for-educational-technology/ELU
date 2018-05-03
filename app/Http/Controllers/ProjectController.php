@@ -2063,10 +2063,10 @@ class ProjectController extends Controller
 
 
     $project = Project::find($id);
-    $project->status = 0;
+
     $student_group_id = '';
     if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher')) {
-      if ($project->status == '0') {
+      if ($project->status == 0) {
         return view('errors.404');
       }
       $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
@@ -2074,7 +2074,8 @@ class ProjectController extends Controller
       if ($student_project_id != $id) {
         return view('errors.404');
       }
-      $project->status = 1;
+    } else {
+    $project->status = 0;
     }
 
     $project->save();
@@ -2132,7 +2133,11 @@ class ProjectController extends Controller
           $subquery->where('study_term', '=', '3')->where('study_year', '=', $request->year-1);
         });
       } elseif ($request->semester == 'k') {
-        $query->where('study_term', '=', '1')->where('study_year', '=', $request->year)->orWhere('study_term', '=', '2')->where('study_year', '=', $request->year);
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '1')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '2')->where('study_year', '=', $request->year);
+        });
       } else {
         exit();
       }

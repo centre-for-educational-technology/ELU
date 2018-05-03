@@ -178,9 +178,9 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('project/{id}/finish/deleteFile', 'ProjectController@deleteFile');
 
-        Route::post('finish/{id}/finish/deletePoster', 'ProjectController@deletePoster');
+        Route::post('project/{id}/finish/deletePoster', 'ProjectController@deletePoster');
 
-        Route::post('finish/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
+        Route::post('project/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
 
 
         Route::get('project/{id}/api/group-Poster', 'ProjectController@getGroupPoster');

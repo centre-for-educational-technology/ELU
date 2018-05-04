@@ -91,6 +91,7 @@ return [
 		'name_or_email_placeholder' => 'Nimi või e-posti aadress',
 		'three_or_more_char' => 'Kolm või rohkem tähte',
 		'add_students_manually' => 'Lisa tudengid käsitsi',
+    'add_materials' => 'Esita materjale',
     'group_video_link' => 'Lae üles videosid (YouTube, Vimeo, etc.)',
     'group_video_link_desc' => 'Kui soovid laadida üles rohkem kui ühe video, siis tee youtube’s playlist ning lisa lõppenud projekti vormile playlisti link',
     'group_images' => 'Lae üles poster',

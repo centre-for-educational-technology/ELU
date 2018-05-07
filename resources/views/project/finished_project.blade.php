@@ -82,6 +82,12 @@
                     <p>{{$project->study_year}}/{{$project->study_year+1}} ({{getProjectSemester($project)}})</p>
                 @endif
 
+                @if ($project->currentUserIs('member'))
+                    <form action="{{ url('finish/'.$project->id) }}">
+                        <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
+                    </form>
+                @endif
+
 
             </div>
 

@@ -2066,9 +2066,11 @@ class ProjectController extends Controller
 
     $student_group_id = '';
     if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher')) {
+      /*
       if ($project->status == 0) {
         return view('errors.404');
       }
+      */
       $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
       $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
       if ($student_project_id != $id) {

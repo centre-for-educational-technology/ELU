@@ -26,7 +26,7 @@
 
 
                     @if (count($current_project->groups) > 0)
-                        @if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('oppejoud'))
 
                             <div class="col-lg-10 col-lg-offset-1">
 

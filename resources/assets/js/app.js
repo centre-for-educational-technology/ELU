@@ -526,7 +526,6 @@ dropzones.each(function (i) {
   } else {
     var routeTo = 'project';
   }
-  window.setTimeout(function () {/* do nothing */}, 2000);
 
     var myDropzone = new Dropzone(dropzone_name, {
     url: window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/finish/upload"+resourceName,
@@ -593,6 +592,7 @@ dropzones.each(function (i) {
       fileuploded.innerHTML = serverResponse.newfilename;
       var btndelete = file.previewElement.querySelector("[data-dz-remove]");
       btndelete.setAttribute("id", 'delete-media-name-'+serverResponse.newfilename);
+      window.alert('Upload successful');
     }
   });
 });

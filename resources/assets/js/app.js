@@ -592,7 +592,7 @@ dropzones.each(function (i) {
       fileuploded.innerHTML = serverResponse.newfilename;
       var btndelete = file.previewElement.querySelector("[data-dz-remove]");
       btndelete.setAttribute("id", 'delete-media-name-'+serverResponse.newfilename);
-      window.alert('Üleslaetud, tänan!');
+      window.alert('Poster has been uploaded!');
     }
   });
 });

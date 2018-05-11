@@ -26,7 +26,7 @@
 
 
                     @if (count($current_project->groups) > 0)
-                        @if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher'))
+                        @if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('oppejoud'))
 
                             <div class="col-lg-10 col-lg-offset-1">
 
@@ -61,7 +61,7 @@
                                                             <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_images')}}</label>
                                                             <div class="col-sm-8">
                                                                 <div class="dropzone" id="presentationUpload{{$group->id}}" project-id="{{$current_project->id}}" auth="student" group-id="{{$group->id}}">
-                                                                    <div class="dz-message" data-dz-message><span>{{trans('project.drop_files_upload')}}</span></div>
+                                                                    <div class="dz-message" data-dz-message><span>{{trans('project.drop_poster_upload')}}</span></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -109,7 +109,7 @@
                                                                 <div class="col-sm-8">
                                                                     <p>{{trans('project.group_materials_desc')}}</p>
                                                                     <div class="dropzone" auth="student" id="materialsUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}">
-                                                                        <div class="dz-message" data-dz-message><span>{{trans('project.drop_files_upload')}}</span></div>
+                                                                        <div class="dz-message" data-dz-message><span>{{trans('project.drop_materials_upload')}}</span></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -151,7 +151,7 @@
                                                         <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_images')}}</label>
                                                         <div class="col-sm-8">
                                                             <div class="dropzone" id="presentationUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}">
-                                                                <div class="dz-message" data-dz-message><span>{{trans('project.drop_files_upload')}}</span></div>
+                                                                <div class="dz-message" data-dz-message><span>{{trans('project.drop_poster_upload')}}</span></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,7 +200,7 @@
                                                             <div class="col-sm-8">
                                                                 <p>{{trans('project.group_materials_desc')}}</p>
                                                                 <div class="dropzone" id="materialsUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}">
-                                                                    <div class="dz-message" data-dz-message><span>{{trans('project.drop_files_upload')}}</span></div>
+                                                                    <div class="dz-message" data-dz-message><span>{{trans('project.drop_materials_upload')}}</span></div>
                                                                 </div>
                                                             </div>
                                                         </div>

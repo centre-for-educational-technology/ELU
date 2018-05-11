@@ -2065,10 +2065,12 @@ class ProjectController extends Controller
     $project = Project::find($id);
 
     $student_group_id = '';
-    if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('teacher')) {
+    if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('oppejoud')) {
+      /*
       if ($project->status == 0) {
         return view('errors.404');
       }
+      */
       $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
       $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
       if ($student_project_id != $id) {
@@ -2175,7 +2177,7 @@ class ProjectController extends Controller
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
     $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
 
-    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
+    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
 
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];

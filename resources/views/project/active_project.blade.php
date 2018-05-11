@@ -323,9 +323,9 @@
         {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
-            @if ($project->currentUserIs('member'))
+            @if (!Auth::guest() && $project->currentUserIs('member'))
             <form action="{{ url('finish/'.$project->id) }}">
-                <button type="submit" class="btn btn-danger btn-lg">Esita materjale</button>
+                <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
             </form>
             @endif
         @else

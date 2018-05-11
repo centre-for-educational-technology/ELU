@@ -518,7 +518,7 @@ dropzones.each(function (i) {
     var dropzone_name = "#presentationUpload"+group_id;
   } else {
     var resourceName = "Materials";
-    var accepted = "*";
+    var accepted = "";
     var maxNumberOfFiles = 100;
     var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 

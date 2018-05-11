@@ -2740,6 +2740,7 @@ class ProjectController extends Controller
 
     // Making a png out of pdf
     $imagick = new Imagick();
+    $imagick->setResolution(25, 25);
     $imagick->readImage($file->getRealPath());
     $imagick->setImageBackgroundColor('white');
     $imagick->setImageAlphaChannel(imagick::ALPHACHANNEL_REMOVE);

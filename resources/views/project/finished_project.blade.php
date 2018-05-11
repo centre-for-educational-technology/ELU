@@ -226,6 +226,25 @@
                                     @endif
 
 
+                                    @php
+                                        $posters = json_decode($group->group_posters_gdrive_ids, true);
+                                    @endphp
+
+                                    <!--Group images that uploaded to gdrive-->
+                                    @if(!empty($posters))
+                                        <div class="row">
+                                            @foreach($posters as $poster)
+                                                <div class="col-sm-6">
+                                                    <p class="thumbnail"><a data-fancybox="gallery" href="{{url('storage/projects_groups_images/'.$group->id.'/'.$poster)}}"><img src="{{url('storage/projects_groups_images/'.$group->id.'/'.$poster)}}"></a></p>
+
+                                                </div>
+
+                                            @endforeach
+                                        </div>
+
+                                    @endif
+
+
                                     <!-- Group materials  -->
                                     @if(count($group->materials)>0)
                                         <h3>{{trans('project.group_materials_heading')}}</h3>

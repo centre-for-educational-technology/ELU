@@ -510,12 +510,16 @@ var dropzones = $(".dropzone");
 dropzones.each(function (i) {
   if (this.id.indexOf("presentationUpload") !== -1) {
     var resourceName = "Poster";
+    var accepted = "application/pdf";
+    var maxNumberOfFiles = 1;
     var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 
     var project_id = $("#presentationUpload"+group_id).attr("project-id");
     var dropzone_name = "#presentationUpload"+group_id;
   } else {
     var resourceName = "Materials";
+    var accepted = "*";
+    var maxNumberOfFiles = 100;
     var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
 
     var project_id = $("#materialsUpload"+group_id).attr("project-id");
@@ -534,8 +538,10 @@ dropzones.each(function (i) {
       _token: window.Laravel.csfr_token,
       group_id: group_id
     },
-    parallelUploads: 1,
+    parallelUploads: 20,
     paramName: "file",
+    acceptedFiles: accepted,
+    maxFiles: maxNumberOfFiles,
     maxFilesize: 30, // MB
 
     addRemoveLinks: true,

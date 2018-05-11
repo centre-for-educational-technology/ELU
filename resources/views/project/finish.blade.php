@@ -21,7 +21,11 @@
                     @include('common.errors')
 
                     <!-- New Project Form -->
-                    <form action="{{ url('/project/'.$current_project->id.'/finishv2') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    @if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('oppejoud'))
+                        <form action="{{ url('/finishv2/'.$current_project->id) }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    @else
+                        <form action="{{ url('/project/'.$current_project->id.'/finishv2') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+                    @endif
                     {{ csrf_field() }}
 
 

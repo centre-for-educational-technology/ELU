@@ -166,4 +166,5 @@ return [
     'max_to_one' => 'Max EAP points to one teacher',
     'reason_of_initial_hiddenness' => 'Default status of a project is hidden. Project will be published by the administrator after being reviewed.',
     'reminder_for_poster' => 'NB! Please make sure, that the poster would be a PDF file and that it contains the required logos!',
+    'supervisor_has_not_ended_project_yet' => 'Adding materials will be possible once the supervisor has ended the project',
 ];

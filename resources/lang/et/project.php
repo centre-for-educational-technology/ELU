@@ -163,4 +163,5 @@ return [
     'max_to_one' => 'Max EAPd ühele õppejõule',
     'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidetud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
     'reminder_for_poster' => 'NB! Jälgi, et poster oleks PDF formaadis ja peal oleksid kohustuslikud logod!',
+    'supervisor_has_not_ended_project_yet' => 'Materjalide lisamiseks peab juhendaja kõigepealt projekti lõpetama',
 ];

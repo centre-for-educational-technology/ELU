@@ -235,7 +235,9 @@
                                         <div class="row">
                                             @foreach($posters as $poster)
                                                 <div class="col-sm-6">
-                                                    <p class="thumbnail"><a data-fancybox="gallery" href="{{url('storage/projects_groups_images/'.$group->id.'/'.$poster)}}"><img src="{{url('storage/projects_groups_images/'.$group->id.'/'.$poster)}}"></a></p>
+                                                    @php
+                                                        echo '<iframe src="https://drive.google.com/files/d/'.substr($poster, 0, strlen($poster)-4).'/preview" width="100%"></iframe>
+                                                    @endphp
 
                                                 </div>
 

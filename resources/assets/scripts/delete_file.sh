@@ -1,2 +1,2 @@
 #!/bin/bash
-$3 -c $1 delete $2
+$1 -c $2 delete $3

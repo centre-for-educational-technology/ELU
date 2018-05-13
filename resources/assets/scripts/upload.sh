@@ -1,2 +1,2 @@
 #!/bin/bash
-$5 -c $1 upload $2 -p $3 --name "$4"
+$1 -c $2 upload $3 -p $4 --name "$5"

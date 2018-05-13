@@ -1,2 +1,2 @@
 #!/bin/bash
-$4 -c $1 mkdir -p $2 "$3"
+$1 -c $2 mkdir -p $3 "$4"

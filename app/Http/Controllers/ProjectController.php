@@ -2109,7 +2109,7 @@ class ProjectController extends Controller
     }
     $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
     $existing_folders = array();
-    exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'), $gdrive_list_output);
+    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\'', $gdrive_list_output);
     foreach ($gdrive_list_output as $folder) {
       $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
         $existing_folders[$helper[0]] = $helper[1];
@@ -2121,7 +2121,7 @@ class ProjectController extends Controller
     }
 
     if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\' '.env('GDRIVE_APP_PATH'), $semester_folder);
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\'', $semester_folder);
       $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
     } else {
       $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
@@ -2146,7 +2146,7 @@ class ProjectController extends Controller
     })->get();
     foreach ($projects as $p) {
       if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester.'/'.$p->name, $existing_folders)) {
-        exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\''.' '.env('GDRIVE_APP_PATH'));
+        exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\'');
       }
     }
   }
@@ -2175,12 +2175,14 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\'')))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
 
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    exec(env('SCRIPTS_FOLDER').'share.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$file_gdrive_id);
 
     if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
       $files = json_decode($group->group_posters_gdrive_ids, true);
@@ -2197,43 +2199,45 @@ class ProjectController extends Controller
 
     $group->save();
 
-    $url = url('/projects/'.$project->id);
-
-    $data = [
-				'project_name' => $project->name,
-        'project_author' => self::getUserName(Auth::user()),
-				'project_url' => $url,
-		];
-
-    $admins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'admin');
-		}
-		)->get();
-    $superadmins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'superadmin');
-		}
-		)->get();
-
-		//Remove superadmins from the list
-		foreach ($admins as $key=>$admin){
-			foreach ($superadmins as $superadmin){
-				if($admin->id == $superadmin->id){
-					unset($admins[$key]);
-				}
-			}
-		}
-    $admins_emails = array();
-
-		foreach ($admins as $admin){
-			array_push($admins_emails, getUserEmail($admin));
-		}
-    Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
-    });
-
     unlink(Input::file('file')->getRealPath());
+
+    // Email sending
+      $url = url('/projects/'.$project->id);
+
+      $data = [
+          'project_name' => $project->name,
+          'project_author' => self::getUserName(Auth::user()),
+          'project_url' => $url,
+      ];
+
+      $admins =  User::whereHas(
+          'roles', function($q){
+        $q->where('name', 'admin');
+      })->get();
+
+      $superadmins =  User::whereHas(
+          'roles', function($q){
+        $q->where('name', 'superadmin');
+      })->get();
+
+      //Remove superadmins from the list
+      foreach ($admins as $key=>$admin){
+        foreach ($superadmins as $superadmin){
+          if($admin->id == $superadmin->id){
+            unset($admins[$key]);
+          }
+        }
+      }
+
+      $admins_emails = array();
+
+      foreach ($admins as $admin){
+        array_push($admins_emails, getUserEmail($admin));
+      }
+
+      Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
+        $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
+      });
 
     if ($file_gdrive_id == null) {
       return Response::json('error', 400);
@@ -2267,12 +2271,14 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\'')))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'), $uploadedFileId);
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
 
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
+
+    exec(env('SCRIPTS_FOLDER').'share.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$file_gdrive_id);
 
     if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
       $files = json_decode($group->group_materials_gdrive_ids, true);
@@ -2351,7 +2357,7 @@ class ProjectController extends Controller
 
     // Saving picture to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
     // Structure to be: semester_year->projekt_id(or name?)->files
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.' '.env('DRIVE_AUTH').' '.env('GDRIVE_APP_PATH'))))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.$project->name.'\'')))[0];
 
     if(is_array($new_image)) {
       $image = $new_image[0];
@@ -2360,7 +2366,7 @@ class ProjectController extends Controller
     }
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' '.Input::file('file')->getClientOriginalName();
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('DRIVE_AUTH').' '.$fileToUpload.' '.env('GDRIVE_APP_PATH'));
+    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload);
 
     /*
     $destinationPath = 'storage/projects_groups_images'; // upload path
@@ -2395,7 +2401,7 @@ class ProjectController extends Controller
     $group->save();
 
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
-    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4));
 
     return Response::json([$file, $files]);
 
@@ -2419,7 +2425,7 @@ class ProjectController extends Controller
     $group->save();
 
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
-    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4).' '.env('GDRIVE_APP_PATH'));
+    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4));
 
     return Response::json([$file, $files]);
 

@@ -2284,10 +2284,10 @@ class ProjectController extends Controller
       $files = json_decode($group->group_materials_gdrive_ids, true);
       $new_file = $this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
       if($new_file){
-        array_push($files, $new_file);
+        $files[$new_file]=Input::file('file')->getClientOriginalName();
       }
     }else{
-      $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
       $new_file = $files;
     }
 
@@ -2416,8 +2416,8 @@ class ProjectController extends Controller
 
     $files = json_decode($group->group_materials_gdrive_ids, true);
 
-    if(($key = array_search($file, $files)) !== false) {
-      unset($files[$key]);
+    if (array_key_exists($file, $files)) {
+      unset($files[$file]);
     }
 
     $group->group_materials_gdrive_ids = json_encode($files);
@@ -2467,7 +2467,7 @@ class ProjectController extends Controller
     $imageAnswer = [];
 
     if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
-      foreach (json_decode($group->group_materials_gdrive_ids, true) as $image){
+      foreach (json_decode($group->group_materials_gdrive_ids, true) as $image => $name){
 
         $imageAnswer[] = [
             'name' => $image,

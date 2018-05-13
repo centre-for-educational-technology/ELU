@@ -211,7 +211,7 @@
                                         $images= json_decode($group->images, true);
                                     @endphp
 
-                                    <!--Group images -->
+                                    <!-- Group images -->
                                     @if(!empty($images))
                                         <div class="row">
                                             @foreach($images as $image)
@@ -230,13 +230,13 @@
                                         $posters = json_decode($group->group_posters_gdrive_ids, true);
                                     @endphp
 
-                                    <!--Group images that uploaded to gdrive-->
+                                    <!-- Group images that are uploaded to gdrive -->
                                     @if(!empty($posters))
                                         <div class="row">
                                             @foreach($posters as $poster)
                                                 <div class="col-sm-6">
                                                     @php
-                                                        echo '<iframe src="https://drive.google.com/files/d/'.substr($poster, 0, strlen($poster)-4).'/preview" width="100%"></iframe>
+                                                        echo '<iframe src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview"></iframe>';
                                                     @endphp
 
                                                 </div>
@@ -247,7 +247,7 @@
                                     @endif
 
 
-                                    <!-- Group materials  -->
+                                    <!-- Group materials -->
                                     @if(count($group->materials)>0)
                                         <h3>{{trans('project.group_materials_heading')}}</h3>
                                         <ul class="group-materials-links">
@@ -269,6 +269,24 @@
 
                                                 </li>
 
+                                        @endforeach
+
+                                        </ul>
+                                    @endif
+
+
+                                    <!-- Group materials that are uploaded to gdrive -->
+                                    @php
+                                        $materials = json_decode($group->group_materials_gdrive_ids, true);
+                                    @endphp
+
+                                    @if(!empty($materials))
+                                        <h3>{{trans('project.group_materials_heading')}}</h3>
+                                        <ul class="group-materials-links">
+                                        @foreach ($materials as $material=$name)
+                                            <li>
+                                                <a href="https://drive.google.com/file/d/{{substr($material, 0, strlen($material)-4)}}/view" target="_blank">{{$name}}<i class="fa phpdebugbar-fa-external-link"></i></a>
+                                            </li>
                                         @endforeach
 
                                         </ul>

@@ -220,17 +220,18 @@
                             </div>
                         @endif
                     @endif
-
-                    <!-- Add Project Button -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6 text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
-                            </button>
+                    @if ($current_project->status == 0)
+                        <!-- Add Project Button -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-6 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.save_button')}}
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    </form>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

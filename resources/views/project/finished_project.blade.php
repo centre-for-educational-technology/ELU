@@ -29,7 +29,7 @@
             </p>
         @endif
 
-
+<!--
         @if (!empty($project->featured_image))
             <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
         @endif
@@ -39,7 +39,7 @@
                 {!! $project->embedded !!}
             </div>
         @endif
-
+-->
 
         <p>{!! $project->summary !!}</p>
 

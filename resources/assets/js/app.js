@@ -538,7 +538,8 @@ dropzones.each(function (i) {
       _token: window.Laravel.csfr_token,
       group_id: group_id
     },
-    parallelUploads: 20,
+    timeout: 0,
+    parallelUploads: 1,
     paramName: "file",
     acceptedFiles: accepted,
     maxFiles: maxNumberOfFiles,

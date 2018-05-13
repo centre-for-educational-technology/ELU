@@ -100,7 +100,7 @@ return [
     'group_materials_desc' => 'Kui soovid laadida üles rohkem kui ühe valminud materjali, siis hoia all ctrl/command ning vali ühest kaustast kõik failid, mida soovid üles laadida',
     'finished_desc' => 'Esialgne idee ja eesmärk',
     'finished_desc_desc' => 'Mis oli projekti esialgne idee ja eesmärk?',
-    'group_results_heading' => 'Rühma kokkuvõte',
+    'group_results_heading' => 'Tulemuste esitamine',
     'group_results' => 'Saavutatud tulemus',
     'group_activities' => 'Edasised tegevused',
     'group_reflection' => 'Projekti rõõmud/mured',
@@ -162,11 +162,5 @@ return [
 		'out_of' => ', kokku EAPd saab jagada: ',
     'max_to_one' => 'Max EAPd ühele õppejõule',
     'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidetud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
-
-
-
-
-
-
-
+    'reminder_for_poster' => 'NB! Jälgi, et poster oleks PDF formaadis ja peal oleksid kohustuslikud logod!',
 ];

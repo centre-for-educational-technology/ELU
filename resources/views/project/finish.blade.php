@@ -62,7 +62,7 @@
 
                                                         <!--Group images -->
                                                         <div class="form-group">
-                                                            <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_images')}}</label>
+                                                            <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_images')}}<p>{{trans('project.reminder_for_poster')}}</p></label>
                                                             <div class="col-sm-8">
                                                                 <div class="dropzone" id="presentationUpload{{$group->id}}" project-id="{{$current_project->id}}" auth="student" group-id="{{$group->id}}">
                                                                     <div class="dz-message" data-dz-message><span>{{trans('project.drop_poster_upload')}}</span></div>
@@ -106,7 +106,6 @@
                                                         </div>
 
                                                         <!-- Group Materials -->
-                                                        <h3>{{trans('project.group_materials_heading')}}</h3>
                                                         <div class="group-materials">
                                                             <div class="form-group">
                                                                 <label for="materialsUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_materials')}}<p>{{trans('project.can_upload_multiple')}}</p></label>

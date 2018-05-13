@@ -103,7 +103,7 @@ return [
 		'group_materials_desc' => 'To upload more than one file press ctrl/alt task and select all that you wish to upload.',
 		'finished_desc' => 'Project idea and objectives',
 		'finished_desc_desc' => 'What was the initial idea and objective of the ELU project?',
-		'group_results_heading' => 'Group results',
+		'group_results_heading' => 'Adding files',
 		'group_results' => 'Project outcomes',
 		'group_activities' => 'Suggestion for future projects',
 		'group_reflection' => 'Positive and negative experience',
@@ -165,6 +165,5 @@ return [
 		'out_of' => ' out of',
     'max_to_one' => 'Max EAP points to one teacher',
     'reason_of_initial_hiddenness' => 'Default status of a project is hidden. Project will be published by the administrator after being reviewed.',
-
-
+    'reminder_for_poster' => 'NB! Please make sure, that the poster would be a PDF file and that it contains the required logos!',
 ];

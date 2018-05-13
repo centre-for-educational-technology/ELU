@@ -151,17 +151,15 @@
                         <p>
                             Uus poster on lisatud kasutaja <?php echo $data['project_author']; ?> poolt.
                         </p>
-                        <!--
                         <table>
                             <tr>
                                 <td align="center">
                                     <p>
-                                        <a href="<?php echo $data['project_url']; ?>" class="button">Vaata</a>
+                                        <a href="<?php echo $data['poster_url']; ?>" class="button">Vaata</a>
                                     </p>
                                 </td>
                             </tr>
                         </table>
-                        -->
                     </td>
                 </tr>
             </table>

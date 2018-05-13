@@ -2208,6 +2208,7 @@ class ProjectController extends Controller
           'project_name' => $project->name,
           'project_author' => self::getUserName(Auth::user()),
           'project_url' => $url,
+          'poster_url' => 'https://drive.google.com/file/d/'.$file_gdrive_id.'/view',
       ];
 
       $admins =  User::whereHas(

@@ -283,7 +283,7 @@
                                     @if(!empty($materials))
                                         <h3>{{trans('project.group_materials_heading')}}</h3>
                                         <ul class="group-materials-links">
-                                        @foreach ($materials as $material=$name)
+                                        @foreach ($materials as $material=>$name)
                                             <li>
                                                 <a href="https://drive.google.com/file/d/{{substr($material, 0, strlen($material)-4)}}/view" target="_blank">{{$name}}<i class="fa phpdebugbar-fa-external-link"></i></a>
                                             </li>

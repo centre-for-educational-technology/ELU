@@ -232,8 +232,8 @@
 
                                     <!-- Group images that are uploaded to gdrive -->
                                     @if(!empty($posters))
-                                        <div class="row">
-                                            @foreach($posters as $poster)
+                                        @foreach($posters as $poster)
+                                            <div class="row">
                                                 <div class="col-sm-6">
                                                     @php
                                                         echo '<iframe src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview" width="900px" height="900px"></iframe>';
@@ -241,8 +241,8 @@
 
                                                 </div>
 
-                                            @endforeach
-                                        </div>
+                                            </div>
+                                        @endforeach
 
                                     @endif
 

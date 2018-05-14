@@ -236,7 +236,7 @@
                                             @foreach($posters as $poster)
                                                 <div class="col-sm-6">
                                                     @php
-                                                        echo '<iframe src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview"></iframe>';
+                                                        echo '<iframe src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview" width="900px" height="900px"></iframe>';
                                                     @endphp
 
                                                 </div>

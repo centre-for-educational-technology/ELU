@@ -232,7 +232,7 @@
 
                                     <!-- Group images that are uploaded to gdrive -->
                                     @if(!empty($posters))
-                                        @foreach($posters as $poster)
+                                        @foreach($posters as $poster => $name)
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     @php

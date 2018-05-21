@@ -2179,7 +2179,7 @@ class ProjectController extends Controller
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
-
+//\dd($uploadedFileId);
     $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
 
     exec(env('SCRIPTS_FOLDER').'share.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$file_gdrive_id);
@@ -2188,10 +2188,10 @@ class ProjectController extends Controller
       $files = json_decode($group->group_posters_gdrive_ids, true);
       $new_file = $this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
       if($new_file){
-        array_push($files, $new_file);
+        $files[$new_file]=Input::file('file')->getClientOriginalName();
       }
     }else{
-      $files = array($this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id));
+      $files = array($this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
       $new_file = $files;
     }
 
@@ -2443,11 +2443,12 @@ class ProjectController extends Controller
     $imageAnswer = [];
 
     if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
-      foreach (json_decode($group->group_posters_gdrive_ids, true) as $image){
+      foreach (json_decode($group->group_posters_gdrive_ids, true) as $image => $name){
 
         $imageAnswer[] = [
             'name' => $image,
-            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)
+            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image),
+            'filename' => $name
         ];
       }
     }
@@ -2472,7 +2473,8 @@ class ProjectController extends Controller
 
         $imageAnswer[] = [
             'name' => $image,
-            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)
+            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image),
+            'filename' => $name
         ];
       }
     }

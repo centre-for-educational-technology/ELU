@@ -557,7 +557,7 @@ dropzones.each(function (i) {
 
 
         $.each(data.images, function (key, value) {
-          var file = {name: value.name, size: value.size};
+          var file = {name: value.filename, size: value.size};
           myDropzone.options.addedfile.call(myDropzone, file);
           myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path+"/storage/projects_groups_images/"+group_id+"/"+value.name);
           myDropzone.emit("complete", file);

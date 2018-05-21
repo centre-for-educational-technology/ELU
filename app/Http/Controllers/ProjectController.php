@@ -2393,10 +2393,14 @@ class ProjectController extends Controller
 
     $files = json_decode($group->group_posters_gdrive_ids, true);
 
+    if (array_key_exists($file, $files)) {
+      unset($files[$file]);
+    }
+    /*
     if(($key = array_search($file, $files)) !== false) {
       unset($files[$key]);
     }
-
+*/
     $group->group_posters_gdrive_ids = json_encode($files);
 
     $group->save();

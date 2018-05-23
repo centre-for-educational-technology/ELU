@@ -153,6 +153,7 @@
                                                                                     <input type="text" name="group_material_link[{{$group->id}}][]" value="{{old('group_material_link.'.$group->id)[$key]}}" class="form-control group-links"/>
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
 
                                                                     @endforeach
                                                                 @elseif(count($group->materials)>0)
@@ -178,6 +179,7 @@
                                                                                     <input type="text" name="group_material_link[{{$group->id}}][]" value="{{$material->link}}" class="form-control group-links"/>
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
 
                                                                     @endforeach
                                                                 @else
@@ -187,21 +189,21 @@
                                                                     </button>
 
                                                                     <div id="group-materials_{{$group->id}}_0">
-                                                                            <!-- Group material name -->
-                                                                            <div class="form-group">
-                                                                                <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
-                                                                                <div class="col-sm-6">
-                                                                                    <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>
-                                                                                </div>
+                                                                        <!-- Group material name -->
+                                                                        <div class="form-group">
+                                                                            <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
+                                                                            <div class="col-sm-6">
+                                                                                <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>
                                                                             </div>
+                                                                        </div>
 
-                                                                            <!-- Group material link -->
-                                                                            <div class="form-group">
-                                                                                <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" name="group_material_link[{{$group->id}}][]" class="form-control group-links"/>
-                                                                                </div>
+                                                                        <!-- Group material link -->
+                                                                        <div class="form-group">
+                                                                            <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
+                                                                            <div class="col-sm-6">
+                                                                                <input type="text" name="group_material_link[{{$group->id}}][]" class="form-control group-links"/>
                                                                             </div>
+                                                                        </div>
                                                                     </div>
 
                                                                 @endif
@@ -332,6 +334,7 @@
                                                                             <input type="text" name="group_material_link[{{$group->id}}][]" value="{{old('group_material_link.'.$group->id)[$key]}}" class="form-control group-links"/>
                                                                         </div>
                                                                     </div>
+                                                                </div>
 
                                                             @endforeach
                                                         @elseif(count($group->materials)>0)
@@ -357,6 +360,7 @@
                                                                             <input type="text" name="group_material_link[{{$group->id}}][]" value="{{$material->link}}" class="form-control group-links"/>
                                                                         </div>
                                                                     </div>
+                                                                </div>
 
                                                             @endforeach
                                                         @else
@@ -366,21 +370,21 @@
                                                             </button>
 
                                                             <div id="group-materials_{{$group->id}}_0">
-                                                                    <!-- Group material name -->
-                                                                    <div class="form-group">
-                                                                        <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
-                                                                        <div class="col-sm-6">
-                                                                            <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>
-                                                                        </div>
+                                                                <!-- Group material name -->
+                                                                <div class="form-group">
+                                                                    <label for="group_material_name[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_name')}} </label>
+                                                                    <div class="col-sm-6">
+                                                                        <h3><input type="text" name="group_material_name[{{$group->id}}][]" class="form-control" value=""/></h3>
                                                                     </div>
+                                                                </div>
 
-                                                                    <!-- Group material link -->
-                                                                    <div class="form-group">
-                                                                        <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
-                                                                        <div class="col-sm-6">
-                                                                            <input type="text" name="group_material_link[{{$group->id}}][]" class="form-control group-links"/>
-                                                                        </div>
+                                                                <!-- Group material link -->
+                                                                <div class="form-group">
+                                                                    <label for="group_material_link[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_material_link')}}</label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" name="group_material_link[{{$group->id}}][]" class="form-control group-links"/>
                                                                     </div>
+                                                                </div>
                                                             </div>
 
                                                         @endif

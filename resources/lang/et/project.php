@@ -164,4 +164,5 @@ return [
     'reason_of_initial_hiddenness' => 'Projekti staatus on vaikimisi peidetud. Projekt avaldatakse haldurite poolt peale üle vaatamist.',
     'reminder_for_poster' => 'NB! Jälgi, et poster oleks PDF formaadis ja peal oleksid kohustuslikud logod ja suurus ei ületaks 30 MB!',
     'supervisor_has_not_ended_project_yet' => 'Materjalide lisamiseks peab juhendaja kõigepealt projekti lõpetama',
+    'group_links_heading' => 'Lingid',
 ];

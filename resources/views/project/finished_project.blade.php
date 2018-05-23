@@ -249,7 +249,7 @@
 
                                     <!-- Group materials -->
                                     @if(count($group->materials)>0)
-                                        <h3>{{trans('project.group_materials_heading')}}</h3>
+                                        <h3>{{trans('project.group_links_heading')}}</h3>
                                         <ul class="group-materials-links">
                                         @foreach ( $group->materials as $key => $material)
                                                 <li>

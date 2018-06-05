@@ -2175,7 +2175,7 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('\'', '', $project->name).'\'')))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('http://', 'http:/', str_replace('\'', '', $project->name)).'\'')))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
@@ -2272,7 +2272,7 @@ class ProjectController extends Controller
     }
 
     // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('\'', '', $project->name).'\'')))[0];
+    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('http://', 'http:/', str_replace('\'', '', $project->name)).'\'')))[0];
 
     $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
     exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);

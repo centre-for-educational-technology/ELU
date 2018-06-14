@@ -168,4 +168,5 @@ return [
     'reminder_for_poster' => 'NB! Please make sure, that the poster would be a PDF file and that it contains the required logos with the maximum size of 30 MB!',
     'supervisor_has_not_ended_project_yet' => 'Adding materials will be possible once the supervisor has ended the project',
     'group_links_heading' => 'Links',
+    'adding_projects_stopped_until' => 'Adding projects will continue through a new application form in August!'
 ];

@@ -346,7 +346,8 @@ Route::group(['middleware' =>['web']], function () {
 //		        $courses = Course::select('id','oppekava_est')->get();
 //	        }
 //
-	        return view('user.student.new_project');
+	        return view('project.stopped_until');
+//          return view('user.student.new_project');
         });
 
         Route::post('student/project/new', 'ProjectController@storeProjectByStudent');

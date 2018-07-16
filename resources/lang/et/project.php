@@ -6,7 +6,7 @@ return [
     'edit' => 'Muuda',
     'delete' => 'Kustuta',
     'my_projects' => 'Minu projektid',
-    'add' => 'Lisa projekt',
+    'add' => 'Projekti idee esitamine',
     'name' => 'Projekti nimi',
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'description' => 'Kirjeldus',

@@ -163,7 +163,7 @@ class ProjectController extends Controller
 
     $author =  Auth::user()->id;
 
-    return view('project.stopped_until', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
+    return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
   }

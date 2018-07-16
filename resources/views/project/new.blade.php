@@ -1,15 +1,184 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+<!-- Pealkiri -->
+<div class="col-log-12 col-lg-offset-2">
+    <h2 class="h2 class-uppercase"><b>{{trans('project.add')}}</b></h2>
+</div>
+
+<div class="container">
+
+    <div class="row">
+    <div class=col-lg-6>
+        <!-- Kirjeldus keelevaliku kohta -->
+        <p>
+            Siin on mingi kirjeldus selle kohta, et tee projekti keelevalik ja kui soovid,
+            siis saad sama projekti kohe kahes erinevas keeles luua.
+        </p>
+
+        <!-- Keelevalik -->
+        <div class="col-lg-12 panel">
+            <p>
+                Projekti töökeel(t)e valik
+            </p>
+            <input type="checkbox"> Eesti keel
+            <input type="checkbox"> Inglise keel
+        </div>
+
+        <!-- Meeldetuletus Õppeaine õpiväljundite täitmise kohta -->
+        <p>
+            <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
+        </p>
+
+        <!-- Õppeaine õpiväljundid  -->
+        <p>Üliõpilane:</p>
+        <p>
+            <ul>
+            <li>kasutab meeskonnaliikmetega koostöös loodud ELU kavandis korrektselt projektijuhtimise ja interdistsiplinaarse lähenemise põhimõisteid;</li>
+            <li>loob ELU planeerimisel distsipliinidevahelisi seoseid ja analüüsib teiste erialade perspektiivi lähtudes püstitatud projekti lahendusvõimalustest;</li>
+            <li>kasutab ELU algatamisel ja elluviimisel probleemi äratundmise ja lahendamise ning ajajuhtimise oskuseid;</li>
+            <li>kasutab ELU elluviimise käigus omandatud uusi erialaseid teadmisi tuues ELU kaitsmisel välja nende valdkondadevahelised rakendamisvõimalused;</li>
+            <li>osaleb tulemuslikult meeskonnatöös ELU projekti planeerimisel, elluviimisel ja kaitsmisel;</li>
+            </ul>
+        </p>
+
+    </div>
+    <div class=col-lg-6>
+        <!-- Üldised kommentaarid -->
+        <p>
+            Siin on kommentaarid, mis ei käi ühegi konkreetse
+            välja kohta, aga mida on muudatuste tegemisel hea arvesse võtta
+        </p>
+    </div>
+    </div>
+
+    <!-- Ankeet algus -->
+    <div class="col-lg-12 panel">
+
+    <!-- Eesti keelse ankeedipoole algus -->
+    <div class="col-lg-6">
+
+    <!-- Projekti nimi -->
+    <p><label for="project_name_et">Projekti nimi *</label></p>
+    <input type="text" name="project_name_et" required>
+    <!-- Projekti nime kommentaar -->
+
+    <!-- Kirjeldus -->
+    <p><label for="description_et">Kirjeldus *</label></p>
+    <textarea cols="30" rows="5" name="description_et" required></textarea>
+    <!-- Kirjelduse kommentaar -->
+
+    <!-- Oodatavad väljundid -->
+    <p><label for="project_outcome_et">Oodatavad väljundid *</label></p>
+    <textarea cols="30" rows="5" name="project_outcome_et" required></textarea>
+    <!-- Oodatavate väljundite kommentaar -->
+
+    <!-- Interdistsiplinaarsus -->
+    <p><label for="interdisciplinary_approach_et">Interdistsiplinaarsus *</label></p>
+    <textarea cols="30" rows="5" name="interdisciplinary_approach_et" required></textarea>
+    <!-- Interdistsiplinaarsuse kommentaar -->
+
+    <!-- Märksõnad -->
+    <p><label for="keywords_et">Märksõnad *</label></p>
+    <input type="text" name="keywords_et" required>
+    <!-- Märksõnade kommentaar -->
+
+    <!-- Lisainfo -->
+    <p><label for="additional_information_et">Lisainfo</label></p>
+    <textarea cols="30" rows="5" name="additional_information_et" required></textarea>
+    <!-- Lisainfo kommentaar -->
+
+    <!-- Eesti keelse ankeedipoole algus -->
+    </div>
+
+    <!-- Inglise keelse ankeedipoole algus -->
+    <div class="col-lg-6">
+
+    <!-- Projekti nimi -->
+    <p><label for="project_name_en">Project name *</label></p>
+    <input type="text" name="project_name_en" required>
+    <!-- Projekti nime kommentaar -->
+
+    <!-- Kirjeldus -->
+    <p><label for="description_en">Description *</label></p>
+    <textarea cols="30" rows="5" name="description_en" required></textarea>
+    <!-- Kirjelduse kommentaar -->
+
+    <!-- Oodatavad väljundid -->
+    <p><label for="project_outcome_en">Project outcome *</label></p>
+    <textarea cols="30" rows="5" name="project_outcome_en" required></textarea>
+    <!-- Oodatavate väljundite kommentaar -->
+
+    <!-- Interdistsiplinaarsus -->
+    <p><label for="interdisciplinary_approach_en">Interdisciplinary approach *</label></p>
+    <textarea cols="30" rows="5" name="interdisciplinary_approach_en" required></textarea>
+    <!-- Interdistsiplinaarsuse kommentaar -->
+
+    <!-- Märksõnad -->
+    <p><label for="keywords_en">Keywords *</label></p>
+    <input type="text" name="keywords_en" required>
+    <!-- Märksõnade kommentaar -->
+
+    <!-- Lisainfo -->
+    <p><label for="additional_information_en">Additional information</label></p>
+    <textarea cols="30" rows="5" name="additional_information_en" required></textarea>
+    <!-- Lisainfo kommentaar -->
+
+    <!-- Inglise keelse ankeedipoole lõpp -->
+    </div>
+
+    <!-- Tumehall blokk algus -->
+
+        <!-- Projekti kestvus semestrites -->
+
+        <!-- Kohtumiste ajad algus -->
+
+            <!-- Esimene kohtumine -->
+
+            <!-- Järgmine kohtumine -->
+
+            <!-- Uue kohtumise lisamise pluss -->
+
+        <!-- Kohtumiste ajad lõpp -->
+
+    <!-- Tumehall blokk lõpp -->
+
+
+    <!-- Helehall blokk algus -->
+
+        <!-- Tutvustav video -->
+
+        <!-- Tutvustav kaanepilt -->
+
+        <!-- Vastutav juhendaja -->
+
+        <!-- Juhendav üöiõpilane -->
+
+        <!-- Kaasjuhendaja -->
+
+        <!-- Uue kaasjuhendaja lisamise pluss -->
+
+    <!-- Helehall blokk lõpp -->
+
+    <!-- Ankeet lõpp -->
+    </div>
+
+    <!-- Edasised tegevused -->
+
 
 
         <div class="col-lg-12">
+        <div class="col-lg-6">
+
+        </div>
+        <div class="col-lg-6">
+        </div>
             <div class="panel panel-default">
+<!--
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-plus"></i> {{trans('project.add')}}</h3>
                 </div>
-
+-->
                 <div class="panel-body">
 
                     <!-- Display Validation Errors -->

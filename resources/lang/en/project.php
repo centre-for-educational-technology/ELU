@@ -7,7 +7,7 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'my_projects' => 'My projects',
-    'add' => 'Add project',
+    'add' => '',
     'name' => 'Project name',
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',
     'description' => 'Description',

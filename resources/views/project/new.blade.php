@@ -55,115 +55,196 @@
     <!-- Ankeet algus -->
     <div class="col-lg-12 panel">
 
-    <!-- Eesti keelse ankeedipoole algus -->
-    <div class="col-lg-6">
+        <!-- Eesti keelse ankeedipoole algus -->
+        <div class="col-lg-6">
 
-    <!-- Projekti nimi -->
-    <p><label for="project_name_et">Projekti nimi *</label></p>
-    <input type="text" name="project_name_et" required>
-    <!-- Projekti nime kommentaar -->
+            <!-- Projekti nimi -->
+            <div class="form-group">
+                <p><label for="project_name_et">Projekti nimi *</label></p>
+                <input type="text" name="project_name_et" required>
+            </div>
+            <!-- Projekti nime kommentaar -->
 
-    <!-- Kirjeldus -->
-    <p><label for="description_et">Kirjeldus *</label></p>
-    <textarea cols="30" rows="5" name="description_et" required></textarea>
-    <!-- Kirjelduse kommentaar -->
+            <!-- Kirjeldus -->
+            <div class="form-group">
+                <p><label for="description_et">Kirjeldus *</label></p>
+                <textarea cols="30" rows="5" name="description_et" required></textarea>
+            </div>
+            <!-- Kirjelduse kommentaar -->
 
-    <!-- Oodatavad väljundid -->
-    <p><label for="project_outcome_et">Oodatavad väljundid *</label></p>
-    <textarea cols="30" rows="5" name="project_outcome_et" required></textarea>
-    <!-- Oodatavate väljundite kommentaar -->
+            <!-- Oodatavad väljundid -->
+            <div class="form-group">
+                <p><label for="project_outcome_et">Oodatavad väljundid *</label></p>
+                <textarea cols="30" rows="5" name="project_outcome_et" required></textarea>
+            </div>
+            <!-- Oodatavate väljundite kommentaar -->
 
-    <!-- Interdistsiplinaarsus -->
-    <p><label for="interdisciplinary_approach_et">Interdistsiplinaarsus *</label></p>
-    <textarea cols="30" rows="5" name="interdisciplinary_approach_et" required></textarea>
-    <!-- Interdistsiplinaarsuse kommentaar -->
+            <!-- Interdistsiplinaarsus -->
+            <div class="form-group">
+                <p><label for="interdisciplinary_approach_et">Interdistsiplinaarsus *</label></p>
+                <textarea cols="30" rows="5" name="interdisciplinary_approach_et" required></textarea>
+            </div>
+            <!-- Interdistsiplinaarsuse kommentaar -->
 
-    <!-- Märksõnad -->
-    <p><label for="keywords_et">Märksõnad *</label></p>
-    <input type="text" name="keywords_et" required>
-    <!-- Märksõnade kommentaar -->
+            <!-- Märksõnad -->
+            <div class="form-group">
+                <p><label for="keywords_et">Märksõnad *</label></p>
+                <input type="text" name="keywords_et" required>
+            </div>
+            <!-- Märksõnade kommentaar -->
 
-    <!-- Lisainfo -->
-    <p><label for="additional_information_et">Lisainfo</label></p>
-    <textarea cols="30" rows="5" name="additional_information_et" required></textarea>
-    <!-- Lisainfo kommentaar -->
+            <!-- Lisainfo -->
+            <div class="form-group">
+                <p><label for="additional_information_et">Lisainfo</label></p>
+                <textarea cols="30" rows="5" name="additional_information_et" required></textarea>
+            </div>
+            <!-- Lisainfo kommentaar -->
 
-    <!-- Eesti keelse ankeedipoole algus -->
-    </div>
+        <!-- Eesti keelse ankeedipoole algus -->
+        </div>
 
-    <!-- Inglise keelse ankeedipoole algus -->
-    <div class="col-lg-6">
+        <!-- Inglise keelse ankeedipoole algus -->
+        <div class="col-lg-6">
 
-    <!-- Projekti nimi -->
-    <p><label for="project_name_en">Project name *</label></p>
-    <input type="text" name="project_name_en" required>
-    <!-- Projekti nime kommentaar -->
+            <!-- Projekti nimi -->
+            <div class="form-group">
+                <p><label for="project_name_en">Project name *</label></p>
+                <input type="text" name="project_name_en" required>
+            </div>
+            <!-- Projekti nime kommentaar -->
 
-    <!-- Kirjeldus -->
-    <p><label for="description_en">Description *</label></p>
-    <textarea cols="30" rows="5" name="description_en" required></textarea>
-    <!-- Kirjelduse kommentaar -->
+            <!-- Kirjeldus -->
+            <div class="form-group">
+                <p><label for="description_en">Description *</label></p>
+                <textarea cols="30" rows="5" name="description_en" required></textarea>
+            </div>
+            <!-- Kirjelduse kommentaar -->
 
-    <!-- Oodatavad väljundid -->
-    <p><label for="project_outcome_en">Project outcome *</label></p>
-    <textarea cols="30" rows="5" name="project_outcome_en" required></textarea>
-    <!-- Oodatavate väljundite kommentaar -->
+            <!-- Oodatavad väljundid -->
+            <div class="form-group">
+                <p><label for="project_outcome_en">Project outcome *</label></p>
+                <textarea cols="30" rows="5" name="project_outcome_en" required></textarea>
+            </div>
+            <!-- Oodatavate väljundite kommentaar -->
 
-    <!-- Interdistsiplinaarsus -->
-    <p><label for="interdisciplinary_approach_en">Interdisciplinary approach *</label></p>
-    <textarea cols="30" rows="5" name="interdisciplinary_approach_en" required></textarea>
-    <!-- Interdistsiplinaarsuse kommentaar -->
+            <!-- Interdistsiplinaarsus -->
+            <div class="form-group">
+                <p><label for="interdisciplinary_approach_en">Interdisciplinary approach *</label></p>
+                <textarea cols="30" rows="5" name="interdisciplinary_approach_en" required></textarea>
+            </div>
+            <!-- Interdistsiplinaarsuse kommentaar -->
 
-    <!-- Märksõnad -->
-    <p><label for="keywords_en">Keywords *</label></p>
-    <input type="text" name="keywords_en" required>
-    <!-- Märksõnade kommentaar -->
+            <!-- Märksõnad -->
+            <div class="form-group">
+                <p><label for="keywords_en">Keywords *</label></p>
+                <input type="text" name="keywords_en" required>
+            </div>
+            <!-- Märksõnade kommentaar -->
 
-    <!-- Lisainfo -->
-    <p><label for="additional_information_en">Additional information</label></p>
-    <textarea cols="30" rows="5" name="additional_information_en" required></textarea>
-    <!-- Lisainfo kommentaar -->
+            <!-- Lisainfo -->
+            <div class="form-group">
+                <p><label for="additional_information_en">Additional information</label></p>
+                <textarea cols="30" rows="5" name="additional_information_en" required></textarea>
+            </div>
+            <!-- Lisainfo kommentaar -->
 
-    <!-- Inglise keelse ankeedipoole lõpp -->
-    </div>
+        <!-- Inglise keelse ankeedipoole lõpp -->
+        </div>
+        </div>
 
-    <!-- Tumehall blokk algus -->
+        <!-- Tumehall blokk algus -->
+        <div class="col-lg-12" style="background-color:#ddd;">
 
-        <!-- Projekti kestvus semestrites -->
+            <!-- Projekti kestvus semestrites -->
+            <div class="col-lg-6" name="project_duration">
+                <label for="project_duration">Projekti kestvus semestrites</label>
+                <button type="button" class="btn btn-info btn-lg btn-block">Sügissemester</button>
+                <button type="button" class="btn btn-default btn-lg btn-block">Sügis-Kevad</button>
+                <button type="button" class="btn btn-default btn-lg btn-block">Kevadsemester</button>
+                <button type="button" class="btn btn-default btn-lg btn-block">Kevad-Sügis</button>
+            </div>
 
-        <!-- Kohtumiste ajad algus -->
+            <!-- Kohtumiste ajad algus -->
+            <div class="col-lg-6" name="meetings_info">
+                <label for="meetings_info">Kohtumiste ajad*</label>
 
-            <!-- Esimene kohtumine -->
+                <!-- Esimene kohtumine -->
+                <!--
+                -->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                        <div class="col-lg-12">dd/mm</div>
+                    </div>
+                    <div class="col-lg-8">Esimene kohtumine on kohustuslik<textarea cols="30" rows="5" name="first_meeting" required></textarea></div>
+                </div>
 
-            <!-- Järgmine kohtumine -->
+                <!-- Järgmine kohtumine -->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                        <div class="col-lg-12">dd/mm</div>
+                    </div>
+                    <div class="col-lg-8"><textarea cols="30" rows="5" name="other_meetings"></textarea></div>
+                </div>
 
-            <!-- Uue kohtumise lisamise pluss -->
+                <!-- Uue kohtumise lisamise pluss -->
+                <div class="row">
+                    <div class="col-lg-offset-11"><span class="glyphicon glyphicon-plus" style="font-size:30px;"></span></div>
+                </div>
 
-        <!-- Kohtumiste ajad lõpp -->
+            <!-- Kohtumiste ajad lõpp -->
+            </div>
 
-    <!-- Tumehall blokk lõpp -->
+        <!-- Tumehall blokk lõpp -->
+        </div>
 
 
-    <!-- Helehall blokk algus -->
+        <!-- Helehall blokk algus -->
+        <div class="col-lg-12" style="background-color:#eee;">
+            <div class="col-lg-6">
 
-        <!-- Tutvustav video -->
+            <!-- Tutvustav video -->
+            <p><label for="intro_video">Tutvustav video</label></p>
+            <input type="text" name="intro_video">
 
-        <!-- Tutvustav kaanepilt -->
+            <!-- Tutvustav kaanepilt -->
+            <p><label for="thumbnail">Tutvustav kaanepilt</label></p>
+            <input type="text" name="thumbnail">
 
-        <!-- Vastutav juhendaja -->
+            </div>
 
-        <!-- Juhendav üöiõpilane -->
+            <div class="col-lg-6">
+            <!-- Vastutav juhendaja -->
+            <p><label for="supervisor">Vastutav juhendaja *</label></p>
+            <input type="text" name="supervisor" required>
 
-        <!-- Kaasjuhendaja -->
+            <!-- Juhendav üöiõpilane -->
+            <p><label for="supervising_student">Juhendav üliõpilane</label></p>
+            <input type="text" name="supervising_student">
 
-        <!-- Uue kaasjuhendaja lisamise pluss -->
+            <!-- Kaasjuhendaja -->
+            <p><label for="co_supervisor">Kaasjuhendaja</label></p>
+            <input type="text" name="co_supervisor">
 
-    <!-- Helehall blokk lõpp -->
+            <!-- Uue kaasjuhendaja lisamise pluss -->
+            <div class="col-lg-offset-11"><span class="glyphicon glyphicon-plus" style="font-size:30px;"></span></div>
+
+            </div>
+        <!-- Helehall blokk lõpp -->
+        </div>
 
     <!-- Ankeet lõpp -->
-    </div>
+    <!--</div>-->
 
     <!-- Edasised tegevused -->
+    <div class="col-lg-12">
+        <div class="col-lg-4"><buttontype="button" class="btn btn-default btn-lg btn-block">Salvesta</button></div>
+        <div class="col-lg-4"><buttontype="button" class="btn btn-default btn-lg btn-block">
+            <span class="glyphicon glyphicon-share-alt" style="font-size:15px;" aria-hidden="true"></span> Jaga
+        </button></div>
+        <div class="col-lg-4"><buttontype="button" class="btn btn-info btn-lg btn-block">Esita</button></div>
+    </div>
 
 
 

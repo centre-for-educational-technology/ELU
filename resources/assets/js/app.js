@@ -215,6 +215,16 @@ jQuery(document).ready(function($) {
   });
 
 
+  //Typeahead styling
+  $('body').on("mouseover", ".tt-suggestion", function () {
+    $('.tt-suggestion').removeClass('tt-cursor');
+    $(this).addClass('tt-cursor');
+  });
+
+  //Adding Typeahead to tags input in new project form
+
+
+
   //TinyMC
   tinyMCE.baseURL = window.Laravel.base_path+"/js/tinymce";
 

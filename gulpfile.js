@@ -65,7 +65,8 @@ elixir(function(mix) {
         '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
         '../bower/Sortable/Sortable.js',
         '../bower/fancybox/dist/jquery.fancybox.js',
-        '../bower/dropzone/dist/dropzone.js'
+        '../bower/dropzone/dist/dropzone.js',
+        '../bower/typeahead.js/dist/typeahead.bundle.js'
     ], 'public/js/vendor.js');
 
   //mix.scripts('app.js');

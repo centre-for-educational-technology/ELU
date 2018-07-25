@@ -214,8 +214,8 @@
 
                 <!-- Tags input in Estonian -->
                 <div class="form-group">
-                    <p><label for="keywords_et">Märksõnad *</label></p>
-                    <input class="form-control" type="text" name="keywords_et">
+                    <p><label for="tags_et">Märksõnad *</label></p>
+                    <input class="form-control" type="text" name="tags_et">
                 </div>
 
                 <!-- Comment for tags in Estonian -->
@@ -228,8 +228,8 @@
 
                 <!-- Tags input in English -->
                 <div class="form-group">
-                    <p><label for="keywords_en">Keywords *</label></p>
-                    <input class="form-control" type="text" name="keywords_en">
+                    <p><label for="tags_en">Keywords *</label></p>
+                    <input class="form-control" type="text" name="tags_en">
                 </div>
 
                 <!-- Comment for tags in English -->

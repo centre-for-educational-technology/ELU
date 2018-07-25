@@ -10552,5 +10552,13 @@ form.contact-email {
     margin-right: -15px !important;
   }
 }
+.disabledForm {
+  opacity: 0.1 !important;
+  pointer-events: none !important;
+}
+.tt-cursor {
+  color: #fff;
+  background-color: #00ccff;
+}
 
 /*# sourceMappingURL=app.css.map */

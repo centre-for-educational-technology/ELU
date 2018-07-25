@@ -222,7 +222,18 @@ jQuery(document).ready(function($) {
   });
 
   //Adding Typeahead to tags input in new project form
-
+  $.ajax({
+    url: window.Laravel.base_path+'/all_tags'
+  }).done(function (tags) {
+    console.log(tags);
+    var list_of_tags = new Bloodhound({
+      local: tags,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: Bloodhound.tokenizers.whitespace
+    });
+    $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags',source:list_of_tags});
+    $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags',source:list_of_tags});
+  });
 
 
   //TinyMC

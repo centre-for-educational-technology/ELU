@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Course;
 use App\Group;
 use App\EvaluationDate;
+use App\Tag;
 
 
 
@@ -33,7 +34,10 @@ Route::group(['middleware' =>['web']], function () {
 
       Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
 
-
+      Route::get('all_tags', function () {
+        $tags = Tag::get();
+        return $tags;
+      });
 
 
 //    Teacher section

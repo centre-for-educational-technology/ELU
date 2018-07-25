@@ -55,147 +55,289 @@
     <!-- Esimese ankeedi bloki algus -->
     <div class="col-lg-12 panel">
 
-        <!-- Eesti keelse ankeedipoole algus -->
-        <div class="col-lg-6">
 
-            <!-- Projekti nimi -->
-            <div class="form-group">
-                <p><label for="project_name_et">Projekti nimi *</label></p>
-                <input class="form-control" type="text" name="project_name_et" required>
+        <!-- PROJECT NAME -->
+        <div class="col-lg-12">
+
+            <!-- Project name in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Project name input in Estonian -->
+                <div class="form-group">
+                    <p><label for="project_name_et">Projekti nimi *</label></p>
+                    <input class="form-control" type="text" name="project_name_et">
+                </div>
+
+                <!-- Comment for name in Estonian -->
+                <div id="comment_name_et"></div>
+
             </div>
-            <!-- Projekti nime kommentaar -->
 
-            <!-- Kirjeldus -->
-            <div class="form-group">
-                <p><label for="description_et">
-                    Kirjeldus *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="description_et" required></textarea>
+            <!-- Project name in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Project name input in English -->
+                <div class="form-group">
+                    <p><label for="project_name_en">Project name *</label></p>
+                    <input class="form-control" type="text" name="project_name_en">
+                </div>
+
+                <!-- Comment for name in English -->
+                <div id="comment_name_en"></div>
+
             </div>
-            <!-- Kirjelduse kommentaar -->
-
-            <!-- Oodatavad väljundid -->
-            <div class="form-group">
-                <p><label for="project_outcome_et">
-                    Oodatavad väljundid *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="project_outcome_et" required></textarea>
-            </div>
-            <!-- Oodatavate väljundite kommentaar -->
-
-            <!-- Interdistsiplinaarsus -->
-            <div class="form-group">
-                <p><label for="interdisciplinary_approach_et">
-                    Interdistsiplinaarsus *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="interdisciplinary_approach_et" required></textarea>
-            </div>
-            <!-- Interdistsiplinaarsuse kommentaar -->
-
-            <!-- Märksõnad -->
-            <div class="form-group">
-                <p><label for="keywords_et">Märksõnad *</label></p>
-                <input class="form-control" type="text" name="keywords_et" required>
-            </div>
-            <!-- Märksõnade kommentaar -->
-
-            <!-- Lisainfo -->
-            <div class="form-group">
-                <p><label for="additional_information_et">Lisainfo</label></p>
-                <textarea class="mceSimple" name="additional_information_et" ></textarea>
-            </div>
-            <!-- Lisainfo kommentaar -->
-
-            <!-- Märkus ELU kordinaatoritele -->
-            <div class="form-group">
-                <p><label for="keywords_et">Märkus ELU kordinaatoritele</label></p>
-                <textarea class="mceSimple" name="comment_for_LIFE_cordinators_et"></textarea>
-            </div>
-            <!-- Märkus ELU kordinaatoritele kommentaar -->
-
-            <!-- Koostööpartneri või ettevõtte nimi -->
-            <div class="form-group">
-                <p><label for="keywords_et">Koostööpartneri või ettevõtte nimi</label></p>
-                <input class="form-control" type="text" name="partner_et">
-            </div>
-            <!-- Koostööpartneri või ettevõtte nimi kommentaar -->
-
-        <!-- Eesti keelse ankeedipoole algus -->
         </div>
 
-        <!-- Inglise keelse ankeedipoole algus -->
-        <div class="col-lg-6">
 
-            <!-- Projekti nimi -->
-            <div class="form-group">
-                <p><label for="project_name_en">Project name *</label></p>
-                <input class="form-control" type="text" name="project_name_en" required>
+        <!-- DESCRIPTION -->
+        <div class="col-lg-12">
+
+            <!-- Project description in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Project description input in Estonian -->
+                <div class="form-group">
+                    <p><label for="description_et">
+                        Kirjeldus *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="description_et"></textarea>
+                </div>
+
+                <!-- Comment for description in Estonian -->
+                <div id="comment_description_et"></div>
+
             </div>
-            <!-- Projekti nime kommentaar -->
 
-            <!-- Kirjeldus -->
-            <div class="form-group">
-                <p><label for="description_en">
-                    Description *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="description_en" required></textarea>
+            <!-- Project description in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Project description input in English -->
+                <div class="form-group">
+                    <p><label for="description_en">
+                        Description *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="description_en"></textarea>
+                </div>
+
+                <!-- Comment for description in English -->
+                <div id="comment_description_en"></div>
+
             </div>
-            <!-- Kirjelduse kommentaar -->
-
-            <!-- Oodatavad väljundid -->
-            <div class="form-group">
-                <p><label for="project_outcome_en">
-                    Project outcome *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="project_outcome_en" required></textarea>
-            </div>
-            <!-- Oodatavate väljundite kommentaar -->
-
-            <!-- Interdistsiplinaarsus -->
-            <div class="form-group">
-                <p><label for="interdisciplinary_approach_en">
-                    Interdisciplinary approach *
-                    <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
-                </label></p>
-                <textarea class="mceSimple" name="interdisciplinary_approach_en" required></textarea>
-            </div>
-            <!-- Interdistsiplinaarsuse kommentaar -->
-
-            <!-- Märksõnad -->
-            <div class="form-group">
-                <p><label for="keywords_en">Keywords *</label></p>
-                <input class="form-control" type="text" name="keywords_en" required>
-            </div>
-            <!-- Märksõnade kommentaar -->
-
-            <!-- Lisainfo -->
-            <div class="form-group">
-                <p><label for="additional_information_en">Additional information</label></p>
-                <textarea class="mceSimple" name="additional_information_en"></textarea>
-            </div>
-            <!-- Lisainfo kommentaar -->
-
-            <!-- Märkus ELU kordinaatoritele -->
-            <div class="form-group">
-                <p><label for="keywords_et">Comment for LIFE coordinators</label></p>
-                <textarea class="mceSimple" name="comment_for_LIFE_coordinators_en"></textarea>
-            </div>
-            <!-- Märkus ELU kordinaatoritele kommentaar -->
-
-            <!-- Koostööpartneri või ettevõtte nimi -->
-            <div class="form-group">
-                <p><label for="keywords_et">Name of associate/associate company</label></p>
-                <input class="form-control" type="text" name="partner_en">
-            </div>
-            <!-- Koostööpartneri või ettevõtte nimi kommentaar -->
-
-        <!-- Inglise keelse ankeedipoole lõpp -->
         </div>
+
+
+        <!-- PROJECT OUTCOME -->
+        <div class="col-lg-12">
+
+            <!-- Project outcome in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Project outcome input in Estonian -->
+                <div class="form-group">
+                    <p><label for="project_outcome_et">
+                        Oodatavad väljundid *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="project_outcome_et"></textarea>
+                </div>
+
+                <!-- Comment for outcome in Estonian -->
+                <div id="comment_project_outcome_et"></div>
+
+            </div>
+
+            <!-- Project outcome in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Project outcome input in English -->
+                <div class="form-group">
+                    <p><label for="project_outcome_en">
+                        Project outcome *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="project_outcome_en"></textarea>
+                </div>
+
+                <!-- Comment for outcome in English -->
+                <div id="comment_project_outcome_en"></div>
+
+            </div>
+        </div>
+
+
+        <!-- INTERDISCIPLINARY APPROACH -->
+        <div class="col-lg-12">
+
+            <!-- Interdisciplinary approach in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Interdisciplinary approach input in Estonian -->
+                <div class="form-group">
+                    <p><label for="interdisciplinary_approach_et">
+                        Interdistsiplinaarsus *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_et"></textarea>
+                </div>
+
+                <!-- Comment for interdisciplinary approach in Estonian -->
+                <div id="comment_interdisciplinary_approach_et"></div>
+
+            </div>
+
+            <!-- Interdisciplinary approach in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Interdisciplinary approach input in English -->
+                <div class="form-group">
+                    <p><label for="interdisciplinary_approach_en">
+                        Interdisciplinary approach *
+                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    </label></p>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_en"></textarea>
+                </div>
+
+                <!-- Comment for interdisciplinary approach in English -->
+                <div id="comment_interdisciplinary_approach_en"></div>
+
+            </div>
+        </div>
+
+
+        <!-- TAGS -->
+        <div class="col-lg-12">
+
+            <!-- Tags in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Tags input in Estonian -->
+                <div class="form-group">
+                    <p><label for="keywords_et">Märksõnad *</label></p>
+                    <input class="form-control" type="text" name="keywords_et">
+                </div>
+
+                <!-- Comment for tags in Estonian -->
+                <div id="comment_tags_et"></div>
+
+            </div>
+
+            <!-- Tags in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Tags input in English -->
+                <div class="form-group">
+                    <p><label for="keywords_en">Keywords *</label></p>
+                    <input class="form-control" type="text" name="keywords_en">
+                </div>
+
+                <!-- Comment for tags in English -->
+                <div id="comment_tags_en"></div>
+
+            </div>
+        </div>
+
+
+        <!-- ADDITIONAL INFORMATION -->
+        <div class="col-lg-12">
+
+            <!-- Additional information in Estonian -->
+                <div class="col-lg-6 form_estonian">
+
+                <!-- Additional information input in Estonian -->
+                <div class="form-group">
+                    <p><label for="additional_information_et">Lisainfo</label></p>
+                    <textarea class="mceSimple" name="additional_information_et" ></textarea>
+                </div>
+
+                <!-- Comment for additional information in Estonian -->
+                <div id="comment_additional_information_et"></div>
+
+            </div>
+
+            <!-- Additional information in English -->
+                <div class="col-lg-6 form_english">
+
+                <!-- Additional information input in English -->
+                <div class="form-group">
+                    <p><label for="additional_information_en">Additional information</label></p>
+                    <textarea class="mceSimple" name="additional_information_en"></textarea>
+                </div>
+
+                <!-- Comment for additional information in English -->
+                <div id="comment_additional_information_en"></div>
+
+            </div>
+        </div>
+
+
+        <!-- COMMENT FOR LIFE COORDINATORS -->
+        <div class="col-lg-12">
+
+            <!-- Comment for LIFE coordinators in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Comment for LIFE coordinators input in Estonian -->
+                <div class="form-group">
+                    <p><label for="comment_for_LIFE_cordinators_et">Märkus ELU kordinaatoritele</label></p>
+                    <textarea class="mceSimple" name="comment_for_LIFE_cordinators_et"></textarea>
+                </div>
+
+                <!-- Comment for comment for LIFE coordinators in Estonian -->
+                <div id="comment_comment_for_LIFE_cordinators_et"></div>
+
+            </div>
+
+            <!-- Comment for LIFE coordinators in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Comment for LIFE coordinators input in English -->
+                <div class="form-group">
+                    <p><label for="comment_for_LIFE_cordinators_en">Comment for LIFE coordinators</label></p>
+                    <textarea class="mceSimple" name="comment_for_LIFE_coordinators_en"></textarea>
+                </div>
+
+                <!-- Comment for comment for LIFE coordinators in  -->
+                <div id="comment_comment_for_LIFE_cordinators_en"></div>
+
+            </div>
+        </div>
+
+
+        <!-- PARTNERS -->
+        <div class="col-lg-12">
+
+            <!-- Partner(s) in Estonian -->
+            <div class="col-lg-6 form_estonian">
+
+                <!-- Partner(s) input in Estonian -->
+                <div class="form-group">
+                    <p><label for="partners_et">Koostööpartneri või ettevõtte nimi</label></p>
+                    <input class="form-control" type="text" name="partners_et">
+                </div>
+
+                <!-- Comment for Partner(s) in Estonian -->
+                <div id="comment_partners_et"></div>
+
+            </div>
+
+            <!-- Partner(s) in English -->
+            <div class="col-lg-6 form_english">
+
+                <!-- Partner(s) input in English -->
+                <div class="form-group">
+                    <p><label for="partners_en">Name of associate/associate company</label></p>
+                    <input class="form-control" type="text" name="partners_en">
+                </div>
+
+                <!-- Comment for Partner(s) in English -->
+                <div id="comment_partners_en"></div>
+
+            </div>
+        </div>
+
+
         <!-- Esimese ankeedi bloki Lõpp -->
         </div>
 
@@ -228,14 +370,14 @@
         <div class="col-lg-12 panel">
 
             <!-- Kohtumiste ajad eesti keeles algus -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 form_estonian">
 
                 <!-- Kohtumiste täiendav info -->
                 <div class="col-lg-12">
                     <label for="meetings_info">
                         Kohtumiste täiendav info *
                     </label>
-                    <textarea rows="5" name="first_meeting" style="width: 100%;" required></textarea>
+                    <textarea rows="5" name="first_meeting" style="width: 100%;"></textarea>
                 </div>
 
 
@@ -267,14 +409,14 @@
 
 
             <!-- Kohtumiste ajad inglise keeles algus -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 form_english">
 
                 <!-- Kohtumiste täiendav info -->
                 <div class="col-lg-12">
                     <label for="meetings_info">
                         Info about the meetings *
                     </label>
-                    <textarea rows="5" name="first_meeting" style="width: 100%;" required></textarea>
+                    <textarea rows="5" name="first_meeting" style="width: 100%;"></textarea>
                 </div>
 
 

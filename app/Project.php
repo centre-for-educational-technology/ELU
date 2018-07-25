@@ -44,4 +44,10 @@ class Project extends Model
     return false;
   }
 
+
+  public function tags()
+  {
+    return $this->hasMany('App\Tag');
+  }
+
 }

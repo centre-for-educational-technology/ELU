@@ -215,6 +215,29 @@ jQuery(document).ready(function($) {
   });
 
 
+  //Form/Project language selection
+  $('#project_in_english').on('click', function () {
+    $('.form_english').toggleClass("disabledForm");
+    //$('#project_in_english').children('input').trigger('click');
+  })
+  $('#project_in_estonian').on('click', function () {
+    $('.form_estonian').toggleClass("disabledForm");
+    //$('#project_in_estonian').children('input').trigger('click');
+  })
+
+  $('#open_learning_outcomes').on('click', function () {
+    $('#learning_outcomes').toggle(100);
+    $('#open_learning_outcomes').toggle(1);
+    $('#close_learning_outcomes').toggle(1);
+  })
+
+  $('#close_learning_outcomes').on('click', function () {
+    $('#learning_outcomes').toggle(100);
+    $('#close_learning_outcomes').toggle(1);
+    $('#open_learning_outcomes').toggle(1);
+  })
+
+
   //Typeahead styling
   $('body').on("mouseover", ".tt-suggestion", function () {
     $('.tt-suggestion').removeClass('tt-cursor');
@@ -225,7 +248,6 @@ jQuery(document).ready(function($) {
   $.ajax({
     url: window.Laravel.base_path+'/all_tags'
   }).done(function (tags) {
-    console.log(tags);
     var list_of_tags = new Bloodhound({
       local: tags,
       queryTokenizer: Bloodhound.tokenizers.whitespace,

@@ -35,7 +35,11 @@ Route::group(['middleware' =>['web']], function () {
       Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
 
       Route::get('all_tags', function () {
-        $tags = Tag::get();
+        $tags = [];
+        $tags_data = Tag::all();
+        foreach ($tags_data as $tag_data) {
+          array_push($tags, $tag_data['tag']);
+        }
         return $tags;
       });
 

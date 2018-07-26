@@ -21,17 +21,17 @@
             <p>
                 Projekti töökeel(t)e valik
             </p>
-            <input type="checkbox"> Eesti keel
-            <input type="checkbox"> Inglise keel
+            <span id="project_in_estonian"><input type="checkbox" checked><span>Eesti keel</span></span>
+            <span id="project_in_english"><input type="checkbox" checked><span>Inglise keel</span></span>
         </div>
 
         <!-- Meeldetuletus Õppeaine õpiväljundite täitmise kohta -->
         <p>
-            <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
+            <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
         </p>
 
         <!-- Õppeaine õpiväljundid  -->
-        <p>Üliõpilane:</p>
+        <div id="learning_outcomes"><p>Üliõpilane:</p>
         <p>
             <ul>
             <li>kasutab meeskonnaliikmetega koostöös loodud ELU kavandis korrektselt projektijuhtimise ja interdistsiplinaarse lähenemise põhimõisteid;</li>
@@ -41,6 +41,7 @@
             <li>osaleb tulemuslikult meeskonnatöös ELU projekti planeerimisel, elluviimisel ja kaitsmisel;</li>
             </ul>
         </p>
+        </div>
 
     </div>
     <div class=col-lg-6>

@@ -10560,5 +10560,21 @@ form.contact-email {
   color: #fff;
   background-color: #00ccff;
 }
+.tag_output {
+  color: #fff;
+  background-color: #00ccff;
+  border-radius: 8px;
+  margin: 2px;
+  display: inline-block;
+}
+.glyphicon {
+  cursor: pointer;
+}
+.fa-question-circle {
+  cursor: pointer;
+}
+.glyphicon-trash {
+  font-size: 30px;
+}
 
 /*# sourceMappingURL=app.css.map */

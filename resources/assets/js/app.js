@@ -225,6 +225,8 @@ jQuery(document).ready(function($) {
     //$('#project_in_estonian').children('input').trigger('click');
   })
 
+
+  //Learning outcomes show/hide
   $('#open_learning_outcomes').on('click', function () {
     $('#learning_outcomes').toggle(100);
     $('#open_learning_outcomes').toggle(1);
@@ -248,14 +250,74 @@ jQuery(document).ready(function($) {
   $.ajax({
     url: window.Laravel.base_path+'/all_tags'
   }).done(function (tags) {
-    var list_of_tags = new Bloodhound({
-      local: tags,
+    var list_of_tags_et = new Bloodhound({
+      local: tags['et'],
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       datumTokenizer: Bloodhound.tokenizers.whitespace
     });
-    $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags',source:list_of_tags});
-    $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags',source:list_of_tags});
+    var list_of_tags_en = new Bloodhound({
+      local: tags['en'],
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: Bloodhound.tokenizers.whitespace
+    });
+    addTag('et');
+    addTag('en');
+    $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
+    $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
   });
+
+  function addTag (language) {
+    $('input[name=tags_'+language+']').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      newTag = document.createElement('span');
+      newTag.className = 'tag_output';
+      newTag.innerHTML = $('input[name=tags_'+language+']').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
+      $(newTag).children('span.glyphicon-remove').on('click', function () {
+        $(this).parent().remove();
+      });
+      $('#tags_'+language+'_output').append(newTag);
+    }});
+  }
+
+  $('#add_meeting_et').on('click', function () {$('#other_meetings_et').append(getMeetingFieldToAdd('et'));});
+  $('#add_meeting_en').on('click', function () {$('#other_meetings_en').append(getMeetingFieldToAdd('en'));});
+  $('#remove_meeting_et').on('click', function () {$('#other_meetings_et').children(':last-child').remove()});
+  $('#remove_meeting_en').on('click', function () {$('#other_meetings_en').children(':last-child').remove()});
+  $('#add_cosupervisor').on('click', function () {
+    newCosupervisor = document.createElement('input');
+    newCosupervisor.className ="form-control";
+    newCosupervisor.type="text";
+    newCosupervisor.name="co_supervisor";
+    $(this).parent().prev('#co_supervisor_div').append(newCosupervisor)
+  });
+  $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove()});
+
+  function getMeetingFieldToAdd (language) {
+    outerDiv = document.createElement('div');
+    outerDiv.className = 'row';
+    iconDiv = document.createElement('div');
+    iconDiv.className = 'col-lg-3';
+    iconCalendarDiv = document.createElement('div');
+    iconCalendarDiv.className = 'col-lg-12';
+    iconCalendar = document.createElement('span');
+    iconCalendar.className = 'glyphicon glyphicon-calendar';
+    iconCalendar.style = 'font-size:75px;';
+    iconSubCalendarTextDiv = document.createElement('div');
+    iconSubCalendarTextDiv.className = 'col-lg-12';
+    iconSubCalendarTextDiv.innerHTML = 'dd/mm';
+    textareaDiv = document.createElement('div');
+    textareaDiv.className = 'col-lg-8';
+    textarea = document.createElement('textarea');
+    textarea.name = 'meetings_'+language;
+    textarea.style = 'width: 100%;';
+    textarea.rows = '5';
+    iconDiv.append(iconCalendarDiv);
+    iconCalendarDiv.append(iconCalendar);
+    iconDiv.append(iconSubCalendarTextDiv);
+    textareaDiv.append(textarea);
+    outerDiv.append(iconDiv);
+    outerDiv.append(textareaDiv);
+    return outerDiv;
+  }
 
 
   //TinyMC

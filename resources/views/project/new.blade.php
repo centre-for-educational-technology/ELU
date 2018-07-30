@@ -10,13 +10,13 @@
 
     <div class="row">
     <div class=col-lg-6>
-        <!-- Kirjeldus keelevaliku kohta -->
+        <!-- Description about project language selection -->
         <p>
             Siin on mingi kirjeldus selle kohta, et tee projekti keelevalik ja kui soovid,
             siis saad sama projekti kohe kahes erinevas keeles luua.
         </p>
 
-        <!-- Keelevalik -->
+        <!-- Project language selection -->
         <div class="col-lg-12 panel">
             <p>
                 Projekti töökeel(t)e valik
@@ -25,12 +25,12 @@
             <span id="project_in_english"><input type="checkbox" checked><span>Inglise keel</span></span>
         </div>
 
-        <!-- Meeldetuletus Õppeaine õpiväljundite täitmise kohta -->
+        <!-- Reminder about fujlfilling learning outcomes -->
         <p>
             <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
         </p>
 
-        <!-- Õppeaine õpiväljundid  -->
+        <!-- Course's learning outcomes  -->
         <div id="learning_outcomes"><p>Üliõpilane:</p>
         <p>
             <ul>
@@ -45,7 +45,7 @@
 
     </div>
     <div class=col-lg-6>
-        <!-- Üldised kommentaarid -->
+        <!-- General comments about the project from LIFE coordinators -->
         <p>
             Siin on kommentaarid, mis ei käi ühegi konkreetse
             välja kohta, aga mida on muudatuste tegemisel hea arvesse võtta
@@ -53,7 +53,7 @@
     </div>
     </div>
 
-    <!-- Esimese ankeedi bloki algus -->
+    <!-- Start of the first block -->
     <div class="col-lg-12 panel">
 
 
@@ -100,7 +100,7 @@
                 <div class="form-group">
                     <p><label for="description_et">
                         Kirjeldus *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="description_et"></textarea>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="form-group">
                     <p><label for="description_en">
                         Description *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="description_en"></textarea>
                 </div>
@@ -139,7 +139,7 @@
                 <div class="form-group">
                     <p><label for="project_outcome_et">
                         Oodatavad väljundid *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="project_outcome_et"></textarea>
                 </div>
@@ -156,7 +156,7 @@
                 <div class="form-group">
                     <p><label for="project_outcome_en">
                         Project outcome *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="project_outcome_en"></textarea>
                 </div>
@@ -178,7 +178,7 @@
                 <div class="form-group">
                     <p><label for="interdisciplinary_approach_et">
                         Interdistsiplinaarsus *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="interdisciplinary_approach_et"></textarea>
                 </div>
@@ -195,7 +195,7 @@
                 <div class="form-group">
                     <p><label for="interdisciplinary_approach_en">
                         Interdisciplinary approach *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="interdisciplinary_approach_en"></textarea>
                 </div>
@@ -219,6 +219,9 @@
                     <input class="form-control" type="text" name="tags_et">
                 </div>
 
+                <!-- Div to show the selected tags_et to the user -->
+                <div id="tags_et_output" class="form-group"></div>
+
                 <!-- Comment for tags in Estonian -->
                 <div id="comment_tags_et"></div>
 
@@ -232,6 +235,9 @@
                     <p><label for="tags_en">Keywords *</label></p>
                     <input class="form-control" type="text" name="tags_en">
                 </div>
+
+                <!-- Div to show the selected tags_en to the user -->
+                <div id="tags_en_output" class="form-group row"></div>
 
                 <!-- Comment for tags in English -->
                 <div id="comment_tags_en"></div>
@@ -339,17 +345,17 @@
         </div>
 
 
-        <!-- Esimese ankeedi bloki Lõpp -->
+        <!-- End of the first block -->
         </div>
 
 
-        <!-- Teise ankeedi bloki algus -->
+        <!-- Start of the second block -->
         <div class="col-lg-12 panel">
 
-            <!-- Projekti kestvus semestrites -->
+            <!-- Project semester(s) -->
             <label for="project_duration">
                 Projekti kestvus semestrites
-                <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
             </label>
             <div class="col-lg-12" id="project_duration">
                 <div class="col-lg-6">
@@ -363,135 +369,151 @@
                 </div>
             </div>
 
-        <!-- Teise ankeedi bloki lõpp -->
+        <!-- End of the second block -->
         </div>
 
 
-        <!-- Kolmanda ankeedi bloki algus -->
+        <!-- Start of the third block -->
         <div class="col-lg-12 panel">
 
-            <!-- Kohtumiste ajad eesti keeles algus -->
+            <!-- Meetings in Estonian start -->
             <div class="col-lg-6 form_estonian">
 
-                <!-- Kohtumiste täiendav info -->
+                <!-- Additional info about the meetings in Estonian -->
                 <div class="col-lg-12">
-                    <label for="meetings_info">
+                    <label for="meetings_info_et">
                         Kohtumiste täiendav info *
                     </label>
-                    <textarea rows="5" name="first_meeting" style="width: 100%;"></textarea>
+                    <textarea rows="5" name="meetings_info_et" style="width: 100%;"></textarea>
                 </div>
 
 
-                <!-- Esimene ja järgmised kohtumised -->
+                <!-- Meetings info in Estonian -->
                 <div class="col-lg-12">
-                    <label for="meetings">
+                    <label for="first_meeting_et">
                         Esimene kohtumine *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label>
-                    <div class="row" name="meetings">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
-                            <div class="col-lg-12">dd/mm</div>
+                    <div id='first_meeting_et'>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                                <div class="col-lg-12">dd/mm</div>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea rows="5" name="meetings_et" style="width: 100%;"></textarea>
+                            </div>
                         </div>
-                        <div class="col-lg-8"><textarea rows="5" name="other_meetings" style="width: 100%;"></textarea></div>
+                    </div>
+                    <div id='other_meetings_et'>
                     </div>
                 </div>
 
-                <!-- Uue kohtumise kustutamise/lisamise prügikast/pluss -->
+                <!-- Icons for adding/removing another Estonian meeting input field -->
                 <div class="col-lg-12">
                     <div class="pull-right">
-                        <span class="glyphicon glyphicon-trash" style="font-size:30px;"></span>
-                        <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span>
+                        <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
 
-            <!-- Kohtumiste ajad eesti keeles lõpp -->
+            <!-- Meetings in Estonian end -->
             </div>
 
 
-            <!-- Kohtumiste ajad inglise keeles algus -->
+            <!-- Meetings in English start -->
             <div class="col-lg-6 form_english">
 
-                <!-- Kohtumiste täiendav info -->
+                <!-- Additional info about the meetings in English -->
                 <div class="col-lg-12">
-                    <label for="meetings_info">
+                    <label for="meetings_info_en">
                         Info about the meetings *
                     </label>
-                    <textarea rows="5" name="first_meeting" style="width: 100%;"></textarea>
+                    <textarea rows="5" name="meetings_info_en" style="width: 100%;"></textarea>
                 </div>
 
 
-                <!-- Esimene ja järgmised kohtumised -->
+                <!-- Meetings info in English -->
                 <div class="col-lg-12">
-                    <label for="meetings">
-                        The first meetings *
-                        <i class="fa fa-question-circle" style="cursor: pointer" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                    <label for="first_meeting_en">
+                        The first meeting *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label>
-                    <div class="row" name="meetings">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
-                            <div class="col-lg-12">dd/mm</div>
+                    <div id='first_meeting_en'>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                                <div class="col-lg-12">dd/mm</div>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea rows="5" name="meetings_en" style="width: 100%;"></textarea>
+                            </div>
                         </div>
-                        <div class="col-lg-8"><textarea rows="5" name="other_meetings" style="width: 100%;"></textarea></div>
+                    </div>
+                    <div id='other_meetings_en'>
                     </div>
                 </div>
 
-                <!-- Uue kohtumise kustutamise/lisamise prügikast/pluss -->
+                <!-- Icons for adding/removing another English meeting input field -->
                 <div class="col-lg-12">
                     <div class="pull-right">
-                        <span class="glyphicon glyphicon-trash" style="font-size:30px;"></span>
-                        <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span>
+                        <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
 
-            <!-- Kohtumiste ajad inglise keeles lõpp -->
+            <!-- Meetings in English end -->
             </div>
 
-        <!-- Kolmanda ankeedi bloki lõpp -->
+        <!-- End of the third block -->
         </div>
 
 
-        <!-- Neljanda ankeedi bloki algus -->
+        <!-- Start of the fourth block -->
         <div class="col-lg-12 panel">
             <div class="col-lg-6">
 
-            <!-- Tutvustav video -->
-            <p><label for="intro_video">Tutvustav video</label></p>
-            <input class="form-control" type="text" name="intro_video">
+            <!-- Featured video link -->
+            <p><label for="featured_video_link">Tutvustav video</label></p>
+            <input class="form-control" type="text" name="featured_video_link">
 
-            <!-- Tutvustav kaanepilt -->
+            <!-- Featured image -->
             <p><label for="thumbnail">Tutvustav kaanepilt</label></p>
-            <input class="form-control" type="text" name="thumbnail">
+<!--            <input class="form-control" type="text" name="thumbnail">-->
+            <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
 
             </div>
 
             <div class="col-lg-6">
-            <!-- Vastutav juhendaja -->
+            <!-- Supervisor -->
             <p><label for="supervisor">Vastutav juhendaja *</label></p>
             <input class="form-control" type="text" name="supervisor" required>
 
-            <!-- Juhendav üöiõpilane -->
+            <!-- Supervising student -->
             <p><label for="supervising_student">Juhendav üliõpilane</label></p>
             <input class="form-control" type="text" name="supervising_student">
 
-            <!-- Kaasjuhendaja -->
+            <!-- Cosupervisor -->
             <p><label for="co_supervisor">Kaasjuhendaja</label></p>
-            <input class="form-control" type="text" name="co_supervisor">
+            <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
+            <div id="co_supervisor_div">
+                <input class="form-control" type="text" name="co_supervisor">
+            </div>
 
-            <!-- Uue kaasjuhendaja kustutamise/lisamise prügikast/pluss -->
+            <!-- Icons for adding/removing cosupervisor input -->
             <div class="pull-right">
-                <span class="glyphicon glyphicon-trash" style="font-size:30px;"></span>
-                <span class="glyphicon glyphicon-plus" style="font-size:30px;"></span>
+                <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
+                <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
             </div>
 
             </div>
-        <!-- Neljanda ankeedi bloki lõpp -->
+        <!-- End of the fourth block -->
         </div>
 
     <!-- Ankeet lõpp -->
     <!--</div>-->
 
-    <!-- Edasised tegevused -->
+    <!-- Submit options -->
     <div class="col-lg-12">
         <div class="col-lg-4"><buttontype="button" class="btn btn-default btn-lg btn-block">Salvesta</button></div>
         <div class="col-lg-4"><buttontype="button" class="btn btn-default btn-lg btn-block">

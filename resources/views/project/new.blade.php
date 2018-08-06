@@ -8,7 +8,7 @@
 
 <div class="container">
 
-    <form action="{{ url('project/new') }}" id="project_form" method="GET" class="form-horizontal new-project" enctype="multipart/form-data">
+    <form action="{{ url('project/new') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 
     <div class="row">

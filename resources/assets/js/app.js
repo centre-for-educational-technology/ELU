@@ -338,8 +338,7 @@ jQuery(document).ready(function($) {
     outerDiv.append(textareaDiv);
     $(iconSubCalendarInput).pickadate();
     $(iconCalendar).on('click', function () {
-      $($(this).parent().siblings().children('input')[0]).pickadate('open', 'false');
-      console.log($($(this).parent().siblings().children('input')[0]));
+      $($(this).parent().siblings().children('input')[0]).trigger('click');
     })
     return outerDiv;
   }

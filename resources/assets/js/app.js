@@ -336,7 +336,10 @@ jQuery(document).ready(function($) {
     textareaDiv.append(textarea);
     outerDiv.append(iconDiv);
     outerDiv.append(textareaDiv);
-    console.log(iconCalendar);
+    $(iconSubCalendarInput).datepicker();
+    $(iconCalendar).on('click', function () {
+      $($(this).parent().siblings().children('input')).pickadate('open');
+    })
     return outerDiv;
   }
 

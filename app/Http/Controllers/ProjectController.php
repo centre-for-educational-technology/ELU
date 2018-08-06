@@ -280,6 +280,13 @@ class ProjectController extends Controller
       $project->featured_video_link = $featured_video_html;
     }
 
+    /**
+     * Status
+     * 1 - to be checked out by coordinators, no changes allowed
+     * 2 - needs significant changes, coordinators comment, author gets to change => to 1 again
+     * 3 - to be checked by council, idea is locked
+     * 4 - publishing and joining dates added
+     */
     $project->status = 1;
 
     $project->save();

@@ -392,13 +392,13 @@
             </label>
             <div class="col-lg-12" id="project_duration">
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-info btn-lg btn-block">{{ trans('project.autumn_semester') }}</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.autumn_spring') }}</button>
+                    <button class="btn btn-info btn-lg btn-block">{{ trans('project.autumn_semester') }}</button>
+                    <button class="btn btn-default btn-lg btn-block">{{ trans('project.autumn_spring') }}</button>
                 </div>
 
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.spring_semester') }}</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.spring_autumn') }}</button>
+                    <button class="btn btn-default btn-lg btn-block">{{ trans('project.spring_semester') }}</button>
+                    <button class="btn btn-default btn-lg btn-block">{{ trans('project.spring_autumn') }}</button>
                 </div>
             </div>
 

@@ -318,9 +318,11 @@ jQuery(document).ready(function($) {
     iconCalendar = document.createElement('span');
     iconCalendar.className = 'glyphicon glyphicon-calendar';
     iconCalendar.style = 'font-size:75px;';
-    iconSubCalendarTextDiv = document.createElement('div');
-    iconSubCalendarTextDiv.className = 'col-lg-12';
-    iconSubCalendarTextDiv.innerHTML = 'dd/mm';
+    iconSubCalendarInputDiv = document.createElement('div');
+    iconSubCalendarInputDiv.className = 'col-lg-12';
+    iconSubCalendarInput = document.createElement('input');
+    iconSubCalendarInput.className = 'form-control meeting_date';
+    iconSubCalendarInput.type = 'text';
     textareaDiv = document.createElement('div');
     textareaDiv.className = 'col-lg-8';
     textarea = document.createElement('textarea');

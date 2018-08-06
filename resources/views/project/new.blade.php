@@ -432,7 +432,7 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
-                                <div class="col-lg-12">dd/mm</div>
+                                <div class="col-lg-12"><input type="text" class="form-control meeting_date"></div>
                             </div>
                             <div class="col-lg-8">
                                 <textarea rows="5" style="width: 100%;"></textarea>

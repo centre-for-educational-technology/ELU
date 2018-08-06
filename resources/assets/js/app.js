@@ -227,15 +227,12 @@ jQuery(document).ready(function($) {
 
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
-    var co_supervisors = ''
+    var co_supervisors = []
     for (var i=0;i<$('.co_supervisor').length;i++)
     {
-      co_supervisors += $($('.co_supervisor')[i]).val();
-      if (i<$('.co_supervisor').length-1) {
-        co_supervisors += ',';
-      }
+      co_supervisors.push($($('.co_supervisor')[i]).val());
     }
-    $('#co_supervisors').val(co_supervisors);
+    $('#co_supervisors').val(JSON.stringify(co_supervisors));
     $('#project_form').submit();
   });
 

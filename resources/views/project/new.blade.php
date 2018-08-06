@@ -14,10 +14,7 @@
     <div class="row">
     <div class=col-lg-6>
         <!-- Description about project language selection -->
-        <p>
-            Siin on mingi kirjeldus selle kohta, et tee projekti keelevalik ja kui soovid,
-            siis saad sama projekti kohe kahes erinevas keeles luua.
-        </p>
+        <p></p>
 
         <!-- Project language selection -->
         <div class="col-lg-12 panel">
@@ -34,14 +31,14 @@
         </p>
 
         <!-- Course's learning outcomes  -->
-        <div id="learning_outcomes"><p>Üliõpilane:</p>
+        <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}:</p>
         <p>
             <ul>
-            <li>kasutab meeskonnaliikmetega koostöös loodud ELU kavandis korrektselt projektijuhtimise ja interdistsiplinaarse lähenemise põhimõisteid;</li>
-            <li>loob ELU planeerimisel distsipliinidevahelisi seoseid ja analüüsib teiste erialade perspektiivi lähtudes püstitatud projekti lahendusvõimalustest;</li>
-            <li>kasutab ELU algatamisel ja elluviimisel probleemi äratundmise ja lahendamise ning ajajuhtimise oskuseid;</li>
-            <li>kasutab ELU elluviimise käigus omandatud uusi erialaseid teadmisi tuues ELU kaitsmisel välja nende valdkondadevahelised rakendamisvõimalused;</li>
-            <li>osaleb tulemuslikult meeskonnatöös ELU projekti planeerimisel, elluviimisel ja kaitsmisel;</li>
+                <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
+                <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
+                <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
+                <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
+                <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
             </ul>
         </p>
         </div>
@@ -49,10 +46,7 @@
     </div>
     <div class=col-lg-6>
         <!-- General comments about the project from LIFE coordinators -->
-        <p>
-            Siin on kommentaarid, mis ei käi ühegi konkreetse
-            välja kohta, aga mida on muudatuste tegemisel hea arvesse võtta
-        </p>
+        <p></p>
     </div>
     </div>
 
@@ -484,7 +478,7 @@
                     <div id='first_meeting_en'>
                         <div class="row">
                             <div class="col-lg-3">
-                                <input id="meeting_date" type="text" name="meeting_date" style="display:none;">
+                                <input id="meeting_date" type="text" style="display:none;">
                                 <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
                                 <div class="col-lg-12">dd/mm</div>
                             </div>

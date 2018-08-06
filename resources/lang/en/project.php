@@ -10,6 +10,13 @@ return [
     'adding' => 'Adding new project idea',
     'active_language_selection' => 'Choose languages for the project',
     //
+    'expectations_to_meet_for' => 'Student:',
+    'expectations_to_meet_for_student_1' => 'Can make connections and can analyse the goals of the project and their possible solutions from the perspective of one’s own as well as that of other fields;',
+    'expectations_to_meet_for_student_2' => 'Can use professional and cross-disciplinary knowledge newly acquired during the project and can identify their application potential;',
+    'expectations_to_meet_for_student_3' => 'Has knowledge and skills of applying principles of teamwork, including the division of roles, taking responsibility and contribution to group work and has acquired time management skills;',
+    'expectations_to_meet_for_student_4' => 'Can analyse the performance and effectiveness of the project by critically assessing one’s own activities and suggesting improvement measures;',
+    'expectations_to_meet_for_student_5' => 'Can analyse his/her own, as well as team members’, role and responsibilities when implementing the activities and goals of the project.',
+    //
     'name' => 'Project name',
     'description' => 'Description',
     'description_desc' => 'Tuua välja, mida projekti idee endast kujutab, mis tegevusi hõlmab, milline on probleemi püstitus ja mis on eesmärk. Millistele teaduslikele allikatele, teooriatele projekti teema või probleem tugineb? Milles seisneb projekti olulisus?',

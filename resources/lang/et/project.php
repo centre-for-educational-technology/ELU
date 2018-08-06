@@ -10,6 +10,13 @@ return [
     'adding' => 'Projekti idee esitamine',
     'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
+    'expectations_to_meet_for' => 'Üliõpilane:',
+    'expectations_to_meet_for_student_1' => 'Oskab luua seoseid ja analüüsida ELU projektis seatud eesmärke ja nende lahendusvõimalusi nii enda kui teiste erialade perspektiividest lähtudes;',
+    'expectations_to_meet_for_student_2' => 'Kasutab ELU projekti elluviimise käigus omandatud uusi erialaseid ja erialade vahelisi teadmisi ning tunneb ära nende rakendamisvõimalused;',
+    'expectations_to_meet_for_student_3' => 'Teab ja oskab rakendada projekti- ja meeskonnatöö toimimise põhimõtteid, sh rollide jaotamine, vastutuse võtmine, panustamine grupitöösse ning on omandanud ajajuhtimise oskused;',
+    'expectations_to_meet_for_student_4' => 'Analüüsib projekti edenemist ja selle tulemuslikkust, hinnates oma tegevusi kriitiliselt ja kavandades parendusmeetmeid;',
+    'expectations_to_meet_for_student_5' => 'Oskab eneserefleksioonis analüüsida oma ja teiste rolli ja vastutust projekti tegevuste ja eesmärkide elluviimisel.',
+    //
     'name' => 'Projekti nimi',
     'description' => 'Projekti kirjeldus',
     'description_desc' => 'Bring out, what is the project idea about, what activities are necessary. What is the issue about and what is the aim of the project. What kind of scientific literature or theories support the project issue? Why and how is this issue important?',

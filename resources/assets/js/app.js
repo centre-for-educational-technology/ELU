@@ -270,7 +270,7 @@ jQuery(document).ready(function($) {
     }
     $('#co_supervisors').val(JSON.stringify(co_supervisors));
     
-    $('#project_form').submit();
+    $('#hidden_project_form_submit').trigger('click');
   });
 
   $('.study_term_button').on('click', function () {

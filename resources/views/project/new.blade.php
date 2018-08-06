@@ -569,6 +569,11 @@
             </button>
             --}}
         </div>
+        
+        <!-- hidden submit button to trigger form validation after using preventDefault() -->
+        <div style="display:none">
+            <button id="hidden_project_form_submit" type="submit"></button>
+        </div>
     </div>
 
     </form>

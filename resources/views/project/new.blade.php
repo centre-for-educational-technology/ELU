@@ -21,17 +21,17 @@
             <p>
                 {{ trans('project.active_language_selection') }}
             </p>
-            <span id="project_in_estonian"><input type="checkbox" checked><span>Eesti keel</span></span>
-            <span id="project_in_english"><input type="checkbox" checked><span>English</span></span>
+            <span id="project_in_estonian"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
+            <span id="project_in_english"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
         </div>
 
         <!-- Reminder about fulfilling learning outcomes -->
         <p>
-            <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
+            <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
         </p>
 
         <!-- Course's learning outcomes  -->
-        <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}:</p>
+        <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}</p>
         <p>
             <ul>
                 <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>

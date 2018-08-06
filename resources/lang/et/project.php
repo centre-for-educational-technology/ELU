@@ -10,6 +10,7 @@ return [
     'adding' => 'Projekti idee esitamine',
     'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
+    'about_fulfilling_expectations' => 'ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:',
     'expectations_to_meet_for' => 'Üliõpilane:',
     'expectations_to_meet_for_student_1' => 'Oskab luua seoseid ja analüüsida ELU projektis seatud eesmärke ja nende lahendusvõimalusi nii enda kui teiste erialade perspektiividest lähtudes;',
     'expectations_to_meet_for_student_2' => 'Kasutab ELU projekti elluviimise käigus omandatud uusi erialaseid ja erialade vahelisi teadmisi ning tunneb ära nende rakendamisvõimalused;',

@@ -218,7 +218,7 @@ class ProjectController extends Controller
     $project->updated_by = Auth::user()->id;
     $project->languages = [];
     
-    if ($request->et) {
+    if ($request->project_in_estonian == "true") {
       array_push($project->languages, "et");
       $project->name_et = $request->name_et;
       $project->description_et = $request->description_et;
@@ -232,7 +232,7 @@ class ProjectController extends Controller
       $project->meetings_et = $request->meetings_et;
     }
 
-    if ($request->en) {
+    if ($request->project_in_english == "true") {
       array_push($project->languages, "en");
       $project->name_en = $request->name_en;
       $project->description_en = $request->description_en;

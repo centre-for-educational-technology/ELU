@@ -10,6 +10,7 @@ return [
     'adding' => 'Adding new project idea',
     'active_language_selection' => 'Choose languages for the project',
     //
+    'about_fulfilling_expectations' => 'The following learning outcomes are to be guaranteed:',
     'expectations_to_meet_for' => 'Student:',
     'expectations_to_meet_for_student_1' => 'Can make connections and can analyse the goals of the project and their possible solutions from the perspective of one’s own as well as that of other fields;',
     'expectations_to_meet_for_student_2' => 'Can use professional and cross-disciplinary knowledge newly acquired during the project and can identify their application potential;',

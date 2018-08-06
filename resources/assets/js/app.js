@@ -216,11 +216,11 @@ jQuery(document).ready(function($) {
 
 
   //Form/Project language selection
-  $('#project_in_english').on('click', function () {
+  $('#project_in_english').children('input').on('click', function () {
     $('.form_english').toggleClass("disabledForm");
     //$('#project_in_english').children('input').trigger('click');
   });
-  $('#project_in_estonian').on('click', function () {
+  $('#project_in_estonian').children('input').on('click', function () {
     $('.form_estonian').toggleClass("disabledForm");
     //$('#project_in_estonian').children('input').trigger('click');
   });

@@ -218,18 +218,12 @@ class ProjectController extends Controller
     $project = new NewProject;
     $project->created_by = Auth::user()->id;
     $project->updated_by = Auth::user()->id;
-    $project->languages = [];
+    $project->languages = '';
 
-    if ($request->project_in_estonian && $request->project_in_english) {
-      $this->validate($request, $request->rules()[2]);
-    } else if ($request->project_in_english) {
-      $this->validate($request, $request->rules()[1]);
-    } else {
-      $this->validate($request, $request->rules()[0]);
-    }
+    $this->validate($request, $request->rules());
     
     if ($request->project_in_estonian == "true") {
-      array_push($project->languages, "et");
+      $project->languages .= "et";
       $project->name_et = $request->name_et;
       $project->description_et = $request->description_et;
 	    $project->project_outcomes_et = $request->project_outcomes_et;
@@ -243,7 +237,7 @@ class ProjectController extends Controller
     }
 
     if ($request->project_in_english == "true") {
-      array_push($project->languages, "en");
+      $project->languages .= "en";
       $project->name_en = $request->name_en;
       $project->description_en = $request->description_en;
 	    $project->project_outcomes_en = $request->project_outcomes_en;

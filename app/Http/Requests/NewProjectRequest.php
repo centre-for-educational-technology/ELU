@@ -65,9 +65,9 @@ class NewProjectRequest extends Request
             'study_term' => 'required',
         );
 
-        $rules[0] = $et_rules;
-        $rules[1] = $en_rules;
-        $rules[2] = $both_rules;
+        $rules['et'] = $et_rules;
+        $rules['en'] = $en_rules;
+        $rules['both'] = $both_rules;
         
         return $rules;
     }

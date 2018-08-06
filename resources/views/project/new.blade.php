@@ -478,7 +478,6 @@
                     <div id='first_meeting_en'>
                         <div class="row">
                             <div class="col-lg-4">
-                                <input id="meeting_date" type="text" style="display:none;">
                                 <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
                                 <div class="col-lg-12"><input type="text" class="form-control meeting_date_en"></div>
                             </div>

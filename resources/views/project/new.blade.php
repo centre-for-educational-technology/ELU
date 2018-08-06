@@ -8,6 +8,10 @@
 
 <div class="container">
 
+    <!-- Display Validation Errors -->
+    @include('common.errors')
+
+
     <form action="{{ url('project/new') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 

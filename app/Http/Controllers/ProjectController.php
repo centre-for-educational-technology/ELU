@@ -213,18 +213,32 @@ class ProjectController extends Controller
   public function store(ProjectRequest $request)
   {
 
+    $this->validate($request, [
+
+    ]);
+
     $project = new Project;
     $project->created_by = Auth::user()->id;
     $project->updated_by = Auth::user()->id;
     $project->languages = [];
     
     if ($request->project_in_estonian == "true") {
+      $this->validate($request, [
+        'name_et' => 'required',
+        'description_et' => 'required',
+        'project_outcomes_et' => 'required',
+        'interdisciplinary_approach_et' => 'required',
+        'keywords_et' => 'required',
+        'meetings_info_et' => 'required',
+        'meetings_et' => 'required',
+        'study_term' => 'required',
+      ]);
       array_push($project->languages, "et");
       $project->name_et = $request->name_et;
       $project->description_et = $request->description_et;
 	    $project->project_outcomes_et = $request->project_outcomes_et;
       $project->interdisciplinary_approach_et = $request->interdisciplinary_approach_et;
-      $project->tags_et = $request->tags_et;
+      $project->tags_et = $request->keywords_et;
       $project->additional_info_et = $request->additional_info_et;
       $project->comment_for_coordinators_et = $request->comment_for_coordinators_et;
       $project->partners_et = $request->partners_et;
@@ -233,12 +247,22 @@ class ProjectController extends Controller
     }
 
     if ($request->project_in_english == "true") {
+      $this->validate($request, [
+        'name_en' => 'required',
+        'description_en' => 'required',
+        'project_outcomes_en' => 'required',
+        'interdisciplinary_approach_en' => 'required',
+        'keywords_en' => 'required',
+        'meetings_info_en' => 'required',
+        'meetings_en' => 'required',
+        'study_term' => 'required',
+      ]);
       array_push($project->languages, "en");
       $project->name_en = $request->name_en;
       $project->description_en = $request->description_en;
 	    $project->project_outcomes_en = $request->project_outcomes_en;
       $project->interdisciplinary_approach_en = $request->interdisciplinary_approach_en;
-      $project->tags_en = $request->tags_en;
+      $project->tags_en = $request->keywords_en;
       $project->additional_info_en = $request->additional_info_en;
       $project->comment_for_coordinators_en = $request->comment_for_coordinators_en;
       $project->partners_en = $request->partners_en;

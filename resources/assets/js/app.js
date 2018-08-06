@@ -302,15 +302,15 @@ jQuery(document).ready(function($) {
     e.preventDefault();
 
     // To stop tinyMCE inputs be accepted with just spaces
-    /*
     tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
+    /*
     tinyMCE.get('description_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_en').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('project_outcomes_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_et').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('project_outcomes_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_en').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('interdisciplinary_approach_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_et').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('interdisciplinary_approach_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_en').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.triggerSave();
     */
+   tinyMCE.triggerSave();
 
     // Adding tags from div to an input field, to send the data
     var tags_estonian = [];

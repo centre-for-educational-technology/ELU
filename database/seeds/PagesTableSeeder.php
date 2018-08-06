@@ -70,7 +70,7 @@ class PagesTableSeeder extends Seeder
       ));
 
 
-
+/*
       $info = \App\Page::where('permalink', 'LIKE', '%info%')->first();
 
       $info->body_en = "<p>ELU is a new type of subject where, together with their supervisors, students from different study areas create a project on a topic of their interest whereas suitable methods for carrying out their ideas are chosen by themselves.</p>";
@@ -78,7 +78,7 @@ class PagesTableSeeder extends Seeder
       $info->body_et = "<p>ELU on uutmoodi õppeaine, kus erinevate erialade üliõpilased koostöös juhendajatega koostavad projekti endale huvipakkuval teemal, valides seejuures ise sobilikud viisid oma ideede teostamiseks.</p>";
 
       $info->save();
-
+*/
 
       \App\Page::create(array(
           'title' => 'Ideelaat',
@@ -91,7 +91,7 @@ class PagesTableSeeder extends Seeder
 
       $faq = \App\Page::where('permalink', 'LIKE', '%faq%')->first();
 
-      $faq->delete();
+      //$faq->delete();
 
 
 
@@ -101,4 +101,3 @@ class PagesTableSeeder extends Seeder
 
 
   }
-

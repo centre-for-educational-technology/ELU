@@ -11,10 +11,12 @@ class MakeAdminSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $user = \App\User::find(1);
 
         $user->role = 2;
 
         $user->save();
+        */
     }
 }

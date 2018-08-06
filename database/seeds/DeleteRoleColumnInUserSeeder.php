@@ -11,6 +11,7 @@ class DeleteRoleColumnInUserSeeder extends Seeder
      */
     public function run()
     {
+      /*
       Schema::table('users', function ($table) {
         $table->dropColumn('role');
       });
@@ -20,5 +21,6 @@ class DeleteRoleColumnInUserSeeder extends Seeder
       $user->roles()->attach(3);
 
       $user->save();
+      */
     }
 }

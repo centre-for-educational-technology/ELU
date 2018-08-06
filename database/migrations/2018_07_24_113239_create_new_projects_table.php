@@ -46,6 +46,10 @@ class CreateNewProjectsTable extends Migration
             $table->text('comment_for_coordinators_en')->nullable();
             $table->text('comment_comment_for_coordinators_et')->nullable();
             $table->text('comment_comment_for_coordinators_en')->nullable();
+            $table->string('partners_et')->nullable();
+            $table->string('partners_en')->nullable();
+            $table->text('comment_partners_et')->nullable();
+            $table->text('comment_partners_en')->nullable();
             $table->tinyInteger('study_term')->nullable();
             $table->text('comment_study_term')->nullable();
             $table->text('meetings_info_et')->nullable();

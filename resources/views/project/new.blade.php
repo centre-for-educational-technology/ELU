@@ -53,6 +53,7 @@
     </div>
     </div>
 
+    <?php $startingLanguage = App::getLocale(); ?>
     <!-- Start of the first block -->
     <div class="col-lg-12 panel">
 
@@ -64,8 +65,9 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Project name input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="project_name_et">Projekti nimi *</label></p>
+                    <p><label for="project_name_et">{{ trans('project.name') }} *</label></p>
                     <input class="form-control" type="text" name="project_name_et">
                 </div>
 
@@ -78,8 +80,9 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Project name input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="project_name_en">Project name *</label></p>
+                    <p><label for="project_name_en">{{ trans('project.name') }} *</label></p>
                     <input class="form-control" type="text" name="project_name_en">
                 </div>
 
@@ -97,10 +100,11 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Project description input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="description_et">
-                        Kirjeldus *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.description') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="description_et"></textarea>
                 </div>
@@ -114,10 +118,11 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Project description input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="description_en">
-                        Description *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.description') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="description_en"></textarea>
                 </div>
@@ -136,10 +141,11 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Project outcome input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="project_outcome_et">
-                        Oodatavad väljundid *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.outcomes') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="project_outcome_et"></textarea>
                 </div>
@@ -153,10 +159,11 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Project outcome input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="project_outcome_en">
-                        Project outcome *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.outcomes') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="project_outcome_en"></textarea>
                 </div>
@@ -175,9 +182,10 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Interdisciplinary approach input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="interdisciplinary_approach_et">
-                        Interdistsiplinaarsus *
+                        {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="interdisciplinary_approach_et"></textarea>
@@ -192,9 +200,10 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Interdisciplinary approach input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="interdisciplinary_approach_en">
-                        Interdisciplinary approach *
+                        {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
                     <textarea class="mceSimple" name="interdisciplinary_approach_en"></textarea>
@@ -214,8 +223,9 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Tags input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="tags_et">Märksõnad *</label></p>
+                    <p><label for="tags_et">{{ trans('project.keywords') }} *</label></p>
                     <input class="form-control" type="text" name="tags_et">
                 </div>
 
@@ -231,8 +241,9 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Tags input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="tags_en">Keywords *</label></p>
+                    <p><label for="tags_en">{{ trans('project.keywords') }} *</label></p>
                     <input class="form-control" type="text" name="tags_en">
                 </div>
 
@@ -253,8 +264,9 @@
                 <div class="col-lg-6 form_estonian">
 
                 <!-- Additional information input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="additional_information_et">Lisainfo</label></p>
+                    <p><label for="additional_information_et">{{ trans('project.extra_info') }}</label></p>
                     <textarea class="mceSimple" name="additional_information_et" ></textarea>
                 </div>
 
@@ -267,8 +279,9 @@
                 <div class="col-lg-6 form_english">
 
                 <!-- Additional information input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="additional_information_en">Additional information</label></p>
+                    <p><label for="additional_information_en">{{ trans('project.extra_info') }}</label></p>
                     <textarea class="mceSimple" name="additional_information_en"></textarea>
                 </div>
 
@@ -286,8 +299,9 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Comment for LIFE coordinators input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="comment_for_LIFE_cordinators_et">Märkus ELU kordinaatoritele</label></p>
+                    <p><label for="comment_for_LIFE_cordinators_et">{{ trans('project.comment_for_coordinators') }}</label></p>
                     <textarea class="mceSimple" name="comment_for_LIFE_cordinators_et"></textarea>
                 </div>
 
@@ -300,8 +314,9 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Comment for LIFE coordinators input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="comment_for_LIFE_cordinators_en">Comment for LIFE coordinators</label></p>
+                    <p><label for="comment_for_LIFE_cordinators_en">{{ trans('project.comment_for_coordinators') }}</label></p>
                     <textarea class="mceSimple" name="comment_for_LIFE_coordinators_en"></textarea>
                 </div>
 
@@ -319,8 +334,9 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Partner(s) input in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="partners_et">Koostööpartneri või ettevõtte nimi</label></p>
+                    <p><label for="partners_et">{{ trans('project.partners') }}</label></p>
                     <input class="form-control" type="text" name="partners_et">
                 </div>
 
@@ -333,8 +349,9 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Partner(s) input in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="partners_en">Name of associate/associate company</label></p>
+                    <p><label for="partners_en">{{ trans('project.partners') }}</label></p>
                     <input class="form-control" type="text" name="partners_en">
                 </div>
 
@@ -353,19 +370,20 @@
         <div class="col-lg-12 panel">
 
             <!-- Project semester(s) -->
+            <?php App::setLocale($startingLanguage); ?>
             <label for="project_duration">
-                Projekti kestvus semestrites
-                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                {{ trans('project.duration') }}
+                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
             </label>
             <div class="col-lg-12" id="project_duration">
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-info btn-lg btn-block">Sügissemester</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block">Sügis-Kevad</button>
+                    <button type="button" class="btn btn-info btn-lg btn-block">{{ trans('project.autumn_semester') }}</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.autumn_spring') }}</button>
                 </div>
 
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-default btn-lg btn-block">Kevadsemester</button>
-                    <button type="button" class="btn btn-default btn-lg btn-block">Kevad-Sügis</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.spring_semester') }}</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.spring_autumn') }}</button>
                 </div>
             </div>
 
@@ -380,9 +398,10 @@
             <div class="col-lg-6 form_estonian">
 
                 <!-- Additional info about the meetings in Estonian -->
+                <?php App::setLocale('et'); ?>
                 <div class="col-lg-12">
                     <label for="meetings_info_et">
-                        Kohtumiste täiendav info *
+                        {{ trans('project.meetings_info') }} *
                     </label>
                     <textarea rows="5" name="meetings_info_et" style="width: 100%;"></textarea>
                 </div>
@@ -391,8 +410,8 @@
                 <!-- Meetings info in Estonian -->
                 <div class="col-lg-12">
                     <label for="first_meeting_et">
-                        Esimene kohtumine *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.meeting_dates') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
                     </label>
                     <div id='first_meeting_et'>
                         <div class="row">
@@ -425,9 +444,10 @@
             <div class="col-lg-6 form_english">
 
                 <!-- Additional info about the meetings in English -->
+                <?php App::setLocale('en'); ?>
                 <div class="col-lg-12">
                     <label for="meetings_info_en">
-                        Info about the meetings *
+                        {{ trans('project.meetings_info') }} *
                     </label>
                     <textarea rows="5" name="meetings_info_en" style="width: 100%;"></textarea>
                 </div>
@@ -436,12 +456,13 @@
                 <!-- Meetings info in English -->
                 <div class="col-lg-12">
                     <label for="first_meeting_en">
-                        The first meeting *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
+                        {{ trans('project.meeting_dates') }} *
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
                     </label>
                     <div id='first_meeting_en'>
                         <div class="row">
                             <div class="col-lg-3">
+                                <input id="meeting_date" type="text" name="meeting_date" style="display:none;">
                                 <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
                                 <div class="col-lg-12">dd/mm</div>
                             </div>
@@ -472,13 +493,14 @@
         <!-- Start of the fourth block -->
         <div class="col-lg-12 panel">
             <div class="col-lg-6">
+            <?php App::setLocale($startingLanguage); ?>
 
             <!-- Featured video link -->
-            <p><label for="featured_video_link">Tutvustav video</label></p>
+            <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
             <input class="form-control" type="text" name="featured_video_link">
 
             <!-- Featured image -->
-            <p><label for="thumbnail">Tutvustav kaanepilt</label></p>
+            <p><label for="thumbnail">{{ trans('project.featured_image') }}</label></p>
 <!--            <input class="form-control" type="text" name="thumbnail">-->
             <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
 
@@ -486,15 +508,15 @@
 
             <div class="col-lg-6">
             <!-- Supervisor -->
-            <p><label for="supervisor">Vastutav juhendaja *</label></p>
+            <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
             <input class="form-control" type="text" name="supervisor" required>
 
             <!-- Supervising student -->
-            <p><label for="supervising_student">Juhendav üliõpilane</label></p>
+            <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
             <input class="form-control" type="text" name="supervising_student">
 
             <!-- Cosupervisor -->
-            <p><label for="co_supervisor">Kaasjuhendaja</label></p>
+            <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
             <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
             <div id="co_supervisor_div">
                 <input class="form-control" type="text" name="co_supervisor">

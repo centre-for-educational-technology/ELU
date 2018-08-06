@@ -54,6 +54,7 @@ elixir(function(mix) {
 
     mix.scripts([
         '../bower/jquery/dist/jquery.min.js',
+        '../bower/jquery-ui/ui/jquery-1-7.js',
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.min.js',
         '../bower/sweetalert/dist/sweetalert.min.js',

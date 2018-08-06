@@ -227,7 +227,15 @@ jQuery(document).ready(function($) {
 
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
-    var co_supervisors = $
+    var co_supervisors = ''
+    for (var i=0;i<$('.co_supervisor').length;i++)
+    {
+      co_supervisors += $($('.co_supervisor')[i]).val();
+      if (i<$('.co_supervisor').length-1) {
+        co_supervisors += ',';
+      }
+    }
+    $('#co_supervisors').val(co_supervisors);
     $('#project_form').submit();
   });
 
@@ -297,9 +305,8 @@ jQuery(document).ready(function($) {
   $('#remove_meeting_en').on('click', function () {$('#other_meetings_en').children(':last-child').remove()});
   $('#add_cosupervisor').on('click', function () {
     newCosupervisor = document.createElement('input');
-    newCosupervisor.className ="form-control";
+    newCosupervisor.className ="form-control co_supervisor";
     newCosupervisor.type="text";
-    newCosupervisor.className="co_supervisor";
     $(this).parent().prev('#co_supervisor_div').append(newCosupervisor)
   });
   $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove()});

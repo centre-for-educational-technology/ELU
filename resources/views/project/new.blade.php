@@ -69,7 +69,7 @@
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="name_et">{{ trans('project.name') }} *</label></p>
-                    <input class="form-control" type="text" name="name_et">
+                    <input class="form-control" type="text" name="name_et" value="{{ old('name_et') }}">
                 </div>
 
                 <!-- Comment for name in Estonian -->
@@ -84,7 +84,7 @@
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="name_en">{{ trans('project.name') }} *</label></p>
-                    <input class="form-control" type="text" name="name_en">
+                    <input class="form-control" type="text" name="name_en" value="{{ old('name_en') }}">
                 </div>
 
                 <!-- Comment for name in English -->
@@ -107,7 +107,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_et"></textarea>
+                    <textarea class="mceSimple" name="description_et">{!! old('description_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for description in Estonian -->
@@ -125,7 +125,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_en"></textarea>
+                    <textarea class="mceSimple" name="description_en">{!! old('description_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for description in English -->
@@ -148,7 +148,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_et"></textarea>
+                    <textarea class="mceSimple" name="project_outcomes_et">{!! old('project_outcomes_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for outcome in Estonian -->
@@ -166,7 +166,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_en"></textarea>
+                    <textarea class="mceSimple" name="project_outcomes_en">{!! old('project_outcomes_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for outcome in English -->
@@ -189,7 +189,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_et"></textarea>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_et">{!! old('interdisciplinary_approach_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in Estonian -->
@@ -207,7 +207,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_en"></textarea>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_en">{!! old('interdisciplinary_approach_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in English -->
@@ -237,7 +237,7 @@
                 <div id="tags_et_output" class="form-group"></div>
 
                 <!-- To save the tags -->
-                <input type="hidden" name="keywords_et" id="keywords_et">
+                <input type="hidden" name="keywords_et" id="keywords_et" value="{{ old('keywords_et') }}">
 
                 <!-- Comment for tags in Estonian -->
                 <div id="comment_tags_et"></div>
@@ -261,7 +261,7 @@
                 <div id="tags_en_output" class="form-group row"></div>
                 
                 <!-- To save the tags -->
-                <input type="hidden" name="keywords_en" id="keywords_en">
+                <input type="hidden" name="keywords_en" id="keywords_en" value="{{ old('keywords_en') }}">
 
                 <!-- Comment for tags in English -->
                 <div id="comment_tags_en"></div>
@@ -280,7 +280,7 @@
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="additional_info_et">{{ trans('project.extra_info') }}</label></p>
-                    <textarea class="mceSimple" name="additional_info_et" ></textarea>
+                    <textarea class="mceSimple" name="additional_info_et" >{!! old('additional_info_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for additional information in Estonian -->
@@ -295,7 +295,7 @@
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="additional_info_en">{{ trans('project.extra_info') }}</label></p>
-                    <textarea class="mceSimple" name="additional_info_en"></textarea>
+                    <textarea class="mceSimple" name="additional_info_en">{!! old('additional_info_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for additional information in English -->
@@ -315,7 +315,7 @@
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="comment_for_coordinators_et">{{ trans('project.comment_for_coordinators') }}</label></p>
-                    <textarea class="mceSimple" name="comment_for_coordinators_et"></textarea>
+                    <textarea class="mceSimple" name="comment_for_coordinators_et">{!! old('comment_for_coordinators_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for comment for LIFE coordinators in Estonian -->
@@ -330,7 +330,7 @@
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="comment_for_coordinators_en">{{ trans('project.comment_for_coordinators') }}</label></p>
-                    <textarea class="mceSimple" name="comment_for_coordinators_en"></textarea>
+                    <textarea class="mceSimple" name="comment_for_coordinators_en">{!! old('comment_for_coordinators_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for comment for LIFE coordinators in  -->
@@ -350,7 +350,7 @@
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="partners_et">{{ trans('project.partners') }}</label></p>
-                    <input class="form-control" type="text" name="partners_et">
+                    <input class="form-control" type="text" name="partners_et" value="{{ old('partners_et') }}">
                 </div>
 
                 <!-- Comment for Partner(s) in Estonian -->
@@ -365,7 +365,7 @@
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="partners_en">{{ trans('project.partners') }}</label></p>
-                    <input class="form-control" type="text" name="partners_en">
+                    <input class="form-control" type="text" name="partners_en" value="{{ old('partners_en') }}">
                 </div>
 
                 <!-- Comment for Partner(s) in English -->
@@ -422,7 +422,7 @@
                     <label for="meetings_info_et">
                         {{ trans('project.meetings_info') }} *
                     </label>
-                    <textarea rows="5" name="meetings_info_et" style="width: 100%;"></textarea>
+                    <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! old('meetings_info_et') !!}</textarea>
                 </div>
 
 
@@ -445,7 +445,7 @@
                     </div>
                     <div id='other_meetings_et'>
                     </div>
-                    <input id="meetings_et" type="hidden" name="meetings_et">
+                    <input id="meetings_et" type="hidden" name="meetings_et" value="{{ old('meetings_et') }}">
                 </div>
 
                 <!-- Icons for adding/removing another Estonian meeting input field -->
@@ -469,7 +469,7 @@
                     <label for="meetings_info_en">
                         {{ trans('project.meetings_info') }} *
                     </label>
-                    <textarea rows="5" name="meetings_info_en" style="width: 100%;"></textarea>
+                    <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! old('meetings_info_en') !!}</textarea>
                 </div>
 
 
@@ -492,7 +492,7 @@
                     </div>
                     <div id='other_meetings_en'>
                     </div>
-                    <input id="meetings_en" type="hidden" name="meetings_en">
+                    <input id="meetings_en" type="hidden" name="meetings_en" value="{{ old('meetings_en') }}">
                 </div>
 
                 <!-- Icons for adding/removing another English meeting input field -->
@@ -517,7 +517,7 @@
 
             <!-- Featured video link -->
             <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
-            <input class="form-control" type="text" name="featured_video_link">
+            <input class="form-control" type="text" name="featured_video_link" value="{{ old('featured_video_link') }}">
 
             <!-- Featured image -->
             <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
@@ -529,18 +529,18 @@
             <div class="col-lg-6">
             <!-- Supervisor -->
             <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
-            <input class="form-control" type="text" name="supervisor">
+            <input class="form-control" type="text" name="supervisor" value="{{ old('supervisor') }}">
 
             <!-- Supervising student -->
             <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
-            <input class="form-control" type="text" name="supervising_student">
+            <input class="form-control" type="text" name="supervising_student" value="{{ old('supervising_student') }}">
 
             <!-- Cosupervisor -->
             <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
             <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
             <div id="co_supervisor_div">
                 <input class="form-control co_supervisor" type="text">
-                <input type="hidden" id="co_supervisors" name="co_supervisors">
+                <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ old('co_supervisors') }}">
             </div>
 
             <!-- Icons for adding/removing cosupervisor input -->

@@ -331,10 +331,12 @@ jQuery(document).ready(function($) {
     textarea.rows = '5';
     iconDiv.append(iconCalendarDiv);
     iconCalendarDiv.append(iconCalendar);
-    iconDiv.append(iconSubCalendarTextDiv);
+    iconDiv.append(iconSubCalendarInputDiv);
+    iconSubCalendarInputDiv.append(iconSubCalendarInput);
     textareaDiv.append(textarea);
     outerDiv.append(iconDiv);
     outerDiv.append(textareaDiv);
+    console.log(iconCalendar);
     return outerDiv;
   }
 

@@ -225,6 +225,12 @@ jQuery(document).ready(function($) {
     //$('#project_in_estonian').children('input').trigger('click');
   });
 
+  $('#submit_project').on('click', function (e) {
+    e.preventDefault();
+    var co_supervisors = $
+    $('#project_form').submit();
+  });
+
   $('.study_term_button').on('click', function () {
     $('.study_term_button').removeClass('btn-info');
     $('.study_term_button').removeClass('btn-default');
@@ -293,7 +299,7 @@ jQuery(document).ready(function($) {
     newCosupervisor = document.createElement('input');
     newCosupervisor.className ="form-control";
     newCosupervisor.type="text";
-    newCosupervisor.name="co_supervisor";
+    newCosupervisor.className="co_supervisor";
     $(this).parent().prev('#co_supervisor_div').append(newCosupervisor)
   });
   $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove()});
@@ -314,7 +320,7 @@ jQuery(document).ready(function($) {
     textareaDiv = document.createElement('div');
     textareaDiv.className = 'col-lg-8';
     textarea = document.createElement('textarea');
-    textarea.name = 'meetings_'+language;
+    textarea.className = 'meetings_'+language;
     textarea.style = 'width: 100%;';
     textarea.rows = '5';
     iconDiv.append(iconCalendarDiv);

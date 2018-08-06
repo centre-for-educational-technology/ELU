@@ -8,7 +8,7 @@
 
 <div class="container">
 
-    <form action="{{ url('project/new') }}" method="GET" class="form-horizontal new-project" enctype="multipart/form-data">
+    <form action="{{ url('project/new') }}" id="project_form" method="GET" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 
     <div class="row">
@@ -567,7 +567,7 @@
         --}}
         </div>
         <div class="col-lg-4">
-            <button type="submit" class="btn btn-info btn-lg btn-block">Esita</button>
+            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">Esita</button>
         </div>
         <div class="col-lg-4">
             {{--

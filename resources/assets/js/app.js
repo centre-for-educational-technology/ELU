@@ -312,7 +312,7 @@ jQuery(document).ready(function($) {
     outerDiv = document.createElement('div');
     outerDiv.className = 'row';
     iconDiv = document.createElement('div');
-    iconDiv.className = 'col-lg-3';
+    iconDiv.className = 'col-lg-4';
     iconCalendarDiv = document.createElement('div');
     iconCalendarDiv.className = 'col-lg-12';
     iconCalendar = document.createElement('span');
@@ -324,7 +324,7 @@ jQuery(document).ready(function($) {
     iconSubCalendarInput.className = 'form-control meeting_date';
     iconSubCalendarInput.type = 'text';
     textareaDiv = document.createElement('div');
-    textareaDiv.className = 'col-lg-8';
+    textareaDiv.className = 'col-lg-7';
     textarea = document.createElement('textarea');
     textarea.className = 'meetings_'+language;
     textarea.style = 'width: 100%;';
@@ -338,8 +338,7 @@ jQuery(document).ready(function($) {
     outerDiv.append(textareaDiv);
     $(iconSubCalendarInput).pickadate();
     $(iconCalendar).on('click', function () {
-      $($(this).parent().siblings().children('input')).pickadate('open');
-      console.log($(this).parent().siblings().children('input'));
+      $(this).parent().siblings().children('input')[0].pickadate('open');
     })
     return outerDiv;
   }

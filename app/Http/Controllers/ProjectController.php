@@ -210,29 +210,23 @@ class ProjectController extends Controller
   /**
    * Save new project
    */
-  public function store(ProjectRequest $request)
+  public function store(NewProjectRequest $request)
   {
 
-    $this->validate($request, [
-
-    ]);
-
-    $project = new Project;
+    $project = new NewProject;
     $project->created_by = Auth::user()->id;
     $project->updated_by = Auth::user()->id;
     $project->languages = [];
+
+    if ($request->project_in_estonian && $request->project_in_english) {
+      $this->validate($request, $request->rules()[2]);
+    } else if ($request->project_in_english) {
+      $this->validate($request, $request->rules()[1]);
+    } else {
+      $this->validate($request, $request->rules()[0]);
+    }
     
     if ($request->project_in_estonian == "true") {
-      $this->validate($request, [
-        'name_et' => 'required',
-        'description_et' => 'required',
-        'project_outcomes_et' => 'required',
-        'interdisciplinary_approach_et' => 'required',
-        'keywords_et' => 'required',
-        'meetings_info_et' => 'required',
-        'meetings_et' => 'required',
-        'study_term' => 'required',
-      ]);
       array_push($project->languages, "et");
       $project->name_et = $request->name_et;
       $project->description_et = $request->description_et;
@@ -247,16 +241,6 @@ class ProjectController extends Controller
     }
 
     if ($request->project_in_english == "true") {
-      $this->validate($request, [
-        'name_en' => 'required',
-        'description_en' => 'required',
-        'project_outcomes_en' => 'required',
-        'interdisciplinary_approach_en' => 'required',
-        'keywords_en' => 'required',
-        'meetings_info_en' => 'required',
-        'meetings_en' => 'required',
-        'study_term' => 'required',
-      ]);
       array_push($project->languages, "en");
       $project->name_en = $request->name_en;
       $project->description_en = $request->description_en;

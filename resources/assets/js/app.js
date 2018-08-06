@@ -216,41 +216,61 @@ jQuery(document).ready(function($) {
 
 
   // Populateing fields after a failed submit/refresh
-  var cosupervisors = JSON.parse($('#co_supervisors').val());
-  $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[0]);  
-  for (var i=1;i<cosupervisors.length;i++) {
-    $('#co_supervisor_div').append(getCosupervisorFieldToAdd());
-    $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
+  try {
+    var cosupervisors = JSON.parse($('#co_supervisors').val());
+    $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[0]);  
+    for (var i=1;i<cosupervisors.length;i++) {
+      $('#co_supervisor_div').append(getCosupervisorFieldToAdd());
+      $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
+    }
+  } catch (err) {
+    consol.log('No previous values');
   }
   
-  var meetings_et = JSON.parse($('#meetings_et').val());
-  $($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
-  $($($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
-  for (var i=1;i<meetings_et.length;i++) {
-    $('#other_meetings_et').append(getMeetingFieldToAdd('et'));
-    $($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[i][0]);
-    $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
+  try {
+    var meetings_et = JSON.parse($('#meetings_et').val());
+    $($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
+    $($($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
+    for (var i=1;i<meetings_et.length;i++) {
+      $('#other_meetings_et').append(getMeetingFieldToAdd('et'));
+      $($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[i][0]);
+      $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
+    }
+  } catch (err) {
+    consol.log('No previous values');
   }
 
-  var meetings_en = JSON.parse($('#meetings_en').val());
-  $($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
-  $($($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
-  for (var i=1;i<meetings_en.length;i++) {
-    $('#other_meetings_en').append(getMeetingFieldToAdd('en'));
-    $($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[i][0]);
-    $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
+  try {
+    var meetings_en = JSON.parse($('#meetings_en').val());
+    $($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
+    $($($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
+    for (var i=1;i<meetings_en.length;i++) {
+      $('#other_meetings_en').append(getMeetingFieldToAdd('en'));
+      $($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[i][0]);
+      $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
+    }
+  } catch (err) {
+    consol.log('No previous values');
   }
 
-  var tags_et = JSON.parse($('#keywords_et').val());
-  for (var i=0;i<tags_et.length;i++) {
-    $('.tags_et').val(tags_et[i]);
-    addTag('et');
+  try {
+    var tags_et = JSON.parse($('#keywords_et').val());
+    for (var i=0;i<tags_et.length;i++) {
+      $('.tags_et').val(tags_et[i]);
+      addTag('et');
+    }
+  } catch (err) {
+    consol.log('No previous values');
   }
   
-  var tags_en = JSON.parse($('#keywords_en').val());
-  for (var i=0;i<tags_en.length;i++) {
-    $('.tags_en').val(tags_en[i]);
-    addTag('en');
+  try {
+    var tags_en = JSON.parse($('#keywords_en').val());
+    for (var i=0;i<tags_en.length;i++) {
+      $('.tags_en').val(tags_en[i]);
+      addTag('en');
+    }
+  } catch (err) {
+    consol.log('No previous values');
   }
 
 

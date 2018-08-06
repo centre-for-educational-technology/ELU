@@ -351,7 +351,7 @@ jQuery(document).ready(function($) {
     iconSubCalendarInputDiv = document.createElement('div');
     iconSubCalendarInputDiv.className = 'col-lg-12';
     iconSubCalendarInput = document.createElement('input');
-    iconSubCalendarInput.className = 'form-control meeting_date'+language;
+    iconSubCalendarInput.className = 'form-control meeting_date_'+language;
     iconSubCalendarInput.type = 'text';
     textareaDiv = document.createElement('div');
     textareaDiv.className = 'col-lg-7';

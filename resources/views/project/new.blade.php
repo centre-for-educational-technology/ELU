@@ -402,10 +402,10 @@
                 </div>
             </div>
             <div style="display:none">
-                <input id="duration_0_radio" name="study_term" type="radio">
-                <input id="duration_1_radio" name="study_term" type="radio">
-                <input id="duration_2_radio" name="study_term" type="radio">
-                <input id="duration_3_radio" name="study_term" type="radio">
+                <input id="duration_0_radio" name="study_term" type="radio" value="0">
+                <input id="duration_1_radio" name="study_term" type="radio" value="1">
+                <input id="duration_2_radio" name="study_term" type="radio" value="2">
+                <input id="duration_3_radio" name="study_term" type="radio" value="3">
             </div>
 
         <!-- End of the second block -->

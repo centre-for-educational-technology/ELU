@@ -308,6 +308,7 @@ jQuery(document).ready(function($) {
   });
 
   // Adding datepicker to initial date inputs in new project form
+  $($('.glyphicon-calendar').parent().siblings().children('input')[0]).pickadate({format: 'dd/mm/yyyy'});
   $('.glyphicon-calendar').on('click', function (event) {
     event.stopPropagation();
     $($(this).parent().siblings().children('input')[0]).pickadate('open');
@@ -350,7 +351,7 @@ jQuery(document).ready(function($) {
     iconSubCalendarInputDiv = document.createElement('div');
     iconSubCalendarInputDiv.className = 'col-lg-12';
     iconSubCalendarInput = document.createElement('input');
-    iconSubCalendarInput.className = 'form-control meeting_date';
+    iconSubCalendarInput.className = 'form-control meeting_date'+language;
     iconSubCalendarInput.type = 'text';
     textareaDiv = document.createElement('div');
     textareaDiv.className = 'col-lg-7';
@@ -365,7 +366,7 @@ jQuery(document).ready(function($) {
     textareaDiv.append(textarea);
     outerDiv.append(iconDiv);
     outerDiv.append(textareaDiv);
-    $(iconSubCalendarInput).pickadate();
+    $(iconSubCalendarInput).pickadate({format: 'dd/mm/yyyy'});
     $(iconCalendar).on('click', function (event) {
       event.stopPropagation();
       $($(this).parent().siblings().children('input')[0]).pickadate('open');

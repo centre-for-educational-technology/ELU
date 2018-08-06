@@ -435,7 +435,7 @@
                                 <div class="col-lg-12">dd/mm</div>
                             </div>
                             <div class="col-lg-8">
-                                <textarea rows="5" name="meetings_et" style="width: 100%;"></textarea>
+                                <textarea rows="5" style="width: 100%;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -483,7 +483,7 @@
                                 <div class="col-lg-12">dd/mm</div>
                             </div>
                             <div class="col-lg-8">
-                                <textarea rows="5" name="meetings_en" style="width: 100%;"></textarea>
+                                <textarea rows="5" style="width: 100%;"></textarea>
                             </div>
                         </div>
                     </div>

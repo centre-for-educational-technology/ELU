@@ -219,25 +219,33 @@ jQuery(document).ready(function($) {
   $('#project_in_english').on('click', function () {
     $('.form_english').toggleClass("disabledForm");
     //$('#project_in_english').children('input').trigger('click');
-  })
+  });
   $('#project_in_estonian').on('click', function () {
     $('.form_estonian').toggleClass("disabledForm");
     //$('#project_in_estonian').children('input').trigger('click');
-  })
+  });
 
+  $('#project_duration').children('div').children('button').on('click', function () {
+    console.log($(this).siblings());
+    console.log($(this).parents().siblings().children('button'));
+    $(this).siblings().removeClass('btn-info');
+    $(this).parents().siblings().children('button').removeClass('btn-info');
+    $(this).removeClass('btn-default');
+    $(this).addClass('btn-info');
+  });
 
   //Learning outcomes show/hide
   $('#open_learning_outcomes').on('click', function () {
     $('#learning_outcomes').toggle(100);
     $('#open_learning_outcomes').toggle(1);
     $('#close_learning_outcomes').toggle(1);
-  })
+  });
 
   $('#close_learning_outcomes').on('click', function () {
     $('#learning_outcomes').toggle(100);
     $('#close_learning_outcomes').toggle(1);
     $('#open_learning_outcomes').toggle(1);
-  })
+  });
 
 
   //Typeahead styling

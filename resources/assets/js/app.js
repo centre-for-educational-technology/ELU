@@ -218,13 +218,13 @@ jQuery(document).ready(function($) {
   // Populateing fields after a failed submit/refresh
   try {
     var cosupervisors = JSON.parse($('#co_supervisors').val());
-    $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[0]);  
+    $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
     for (var i=1;i<cosupervisors.length;i++) {
       $('#co_supervisor_div').append(getCosupervisorFieldToAdd());
       $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
     }
   } catch (err) {
-    console.log('No previous values');
+    console.log('No previous values for cosupervisors');
   }
   
   try {
@@ -237,7 +237,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
     }
   } catch (err) {
-    console.log('No previous values');
+    console.log('No previous values for meetings_et');
   }
 
   try {
@@ -250,7 +250,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
     }
   } catch (err) {
-    console.log('No previous values');
+    console.log('No previous values for meetings_en');
   }
 
   try {
@@ -260,7 +260,7 @@ jQuery(document).ready(function($) {
       addTag('et');
     }
   } catch (err) {
-    console.log('No previous values');
+    console.log('No previous values for tags_et');
   }
   
   try {
@@ -270,7 +270,7 @@ jQuery(document).ready(function($) {
       addTag('en');
     }
   } catch (err) {
-    console.log('No previous values');
+    console.log('No previous values for tags_en');
   }
 
 
@@ -394,8 +394,14 @@ jQuery(document).ready(function($) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       datumTokenizer: Bloodhound.tokenizers.whitespace
     });
-    addTag('et');
-    addTag('en');
+    $('input.tags_et').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
+      addTag('et');
+    }});
+    $('input.tags_en').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
+      addTag('en');
+    }});
     $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
     $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
   });
@@ -408,18 +414,16 @@ jQuery(document).ready(function($) {
   });
 
   function addTag (language) {
-    $('input.tags_'+language+'').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
-      event.preventDefault();
-      newTag = document.createElement('span');
-      newTag.className = 'tag_output';
-      newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
-      $(newTag).children('span.glyphicon-remove').on('click', function () {
-        $(this).parent().remove();
-      });
-      $('#tags_'+language+'_output').append(newTag);
-      $(this).val('');
-    }});
+    newTag = document.createElement('span');
+    newTag.className = 'tag_output';
+    newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
+    $(newTag).children('span.glyphicon-remove').on('click', function () {
+      $(this).parent().remove();
+    });
+    $('#tags_'+language+'_output').append(newTag);
+    $(this).val('');
   }
+  
 
   $('#add_meeting_et').on('click', function () {$('#other_meetings_et').append(getMeetingFieldToAdd('et'));});
   $('#add_meeting_en').on('click', function () {$('#other_meetings_en').append(getMeetingFieldToAdd('en'));});

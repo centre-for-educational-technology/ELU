@@ -247,13 +247,13 @@ jQuery(document).ready(function($) {
     for (var i=0;i<$('#tags_et_output').children().length;i++) {
       tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
     }
-    $('#tags_et').val(JSON.stringify(tags_estonian));
+    $('#keywords_et').val(JSON.stringify(tags_estonian));
 
     var tags_english = [];
     for (var i=0;i<$('#tags_en_output').children().length;i++) {
       tags_english.push($('#tags_en_output').children()[i].innerHTML.split('<')[0]);
     }
-    $('#tags_en').val(JSON.stringify(tags_english));
+    $('#keywords_en').val(JSON.stringify(tags_english));
     
     // Adding meeting dates from different fields to one, to send all data with one parameter
     var meetings_et = [];

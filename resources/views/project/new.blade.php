@@ -233,7 +233,7 @@
                 <div id="tags_et_output" class="form-group"></div>
 
                 <!-- To save the tags -->
-                <input type="hidden" name="tags_et" required>
+                <input type="hidden" name="keywords_et" id="keywords_et" required>
 
                 <!-- Comment for tags in Estonian -->
                 <div id="comment_tags_et"></div>
@@ -257,7 +257,7 @@
                 <div id="tags_en_output" class="form-group row"></div>
                 
                 <!-- To save the tags -->
-                <input type="hidden" name="tags_en" required>
+                <input type="hidden" name="keywords_en" id="keywords_en" required>
 
                 <!-- Comment for tags in English -->
                 <div id="comment_tags_en"></div>

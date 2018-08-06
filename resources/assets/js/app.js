@@ -302,28 +302,32 @@ jQuery(document).ready(function($) {
     e.preventDefault();
 
     // To stop tinyMCE inputs be accepted with just spaces
-    tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
     /*
+    tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('description_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_en').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('project_outcomes_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_et').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('project_outcomes_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_en').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('interdisciplinary_approach_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_et').getContent().split('&nbsp;').join(' ')));
     tinyMCE.get('interdisciplinary_approach_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
     */
-   tinyMCE.triggerSave();
 
     // Adding tags from div to an input field, to send the data
     var tags_estonian = [];
     for (var i=0;i<$('#tags_et_output').children().length;i++) {
       tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
     }
-    $('#keywords_et').val(JSON.stringify(tags_estonian));
+    if (tags_estonian.length != 0) {
+      $('#keywords_et').val(JSON.stringify(tags_estonian));
+    }
 
     var tags_english = [];
     for (var i=0;i<$('#tags_en_output').children().length;i++) {
       tags_english.push($('#tags_en_output').children()[i].innerHTML.split('<')[0]);
     }
-    $('#keywords_en').val(JSON.stringify(tags_english));
+    if (tags_english.length != 0) {
+      $('#keywords_en').val(JSON.stringify(tags_english));
+    }
     
     // Adding meeting dates from different fields to one, to send all data with one parameter
     var meetings_et = [];
@@ -342,8 +346,12 @@ jQuery(document).ready(function($) {
       meeting.push($($('.meeting_info_en')[i]).val());
       meetings_en.push(meeting);
     }
-    $('#meetings_et').val(JSON.stringify(meetings_et));
-    $('#meetings_en').val(JSON.stringify(meetings_en));
+    if (meetings_et[0].length != 0) {
+      $('#meetings_et').val(JSON.stringify(meetings_et));
+    }
+    if (meetings_en[0].length != 0) {
+      $('#meetings_en').val(JSON.stringify(meetings_en));
+    }
 
     // Adding cosupervisors from different fields to one, to send all data with one parameter
     var co_supervisors = []

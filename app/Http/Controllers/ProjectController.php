@@ -15,6 +15,7 @@ use App\Http\Requests\NewProjectRequest;
 use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;
+use App\NewProject;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;

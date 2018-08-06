@@ -557,15 +557,15 @@
     <div class="col-lg-12">
         <div class="col-lg-4">
         {{--
-            <buttontype="button" class="btn btn-default btn-lg btn-block">Salvesta</button>
+            <button type="button" class="btn btn-default btn-lg btn-block">Salvesta</button>
         --}}
         </div>
         <div class="col-lg-4">
-            <buttontype="button" class="btn btn-info btn-lg btn-block">Esita</button>
+            <button type="submit" class="btn btn-info btn-lg btn-block">Esita</button>
         </div>
         <div class="col-lg-4">
             {{--
-            <buttontype="button" class="btn btn-default btn-lg btn-block">
+            <button type="button" class="btn btn-default btn-lg btn-block">
                 <span class="glyphicon glyphicon-share-alt" style="font-size:15px;" aria-hidden="true"></span> Jaga teistega
             </button>
             --}}

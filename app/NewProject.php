@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class New_project extends Model
+class NewProject extends Model
 {
   use LogsActivity;
 

@@ -543,7 +543,7 @@
             <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
             <div id="co_supervisor_div">
                 <input class="form-control co_supervisor" type="text">
-                <input type="hidden" name="co_supervisors">
+                <input type="hidden" id="co_supervisors" name="co_supervisors">
             </div>
 
             <!-- Icons for adding/removing cosupervisor input -->

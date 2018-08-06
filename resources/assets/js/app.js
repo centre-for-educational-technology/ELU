@@ -224,7 +224,7 @@ jQuery(document).ready(function($) {
       $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
     }
   } catch (err) {
-    console.log('No previous values for cosupervisors');
+    console.log('No previous values for cosupervisors: '+err);
   }
   
   try {
@@ -237,7 +237,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
     }
   } catch (err) {
-    console.log('No previous values for meetings_et');
+    console.log('No previous values for meetings_et: '+err);
   }
 
   try {
@@ -250,7 +250,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
     }
   } catch (err) {
-    console.log('No previous values for meetings_en');
+    console.log('No previous values for meetings_en: '+err);
   }
 
   try {
@@ -261,7 +261,7 @@ jQuery(document).ready(function($) {
     }
     $('.tags_et').val('');
   } catch (err) {
-    console.log('No previous values for tags_et');
+    console.log('No previous values for tags_et: '+err);
   }
   
   try {
@@ -272,7 +272,7 @@ jQuery(document).ready(function($) {
     }
     $('.tags_en').val('');
   } catch (err) {
-    console.log('No previous values for tags_en');
+    console.log('No previous values for tags_en: '+err);
   }
 
 

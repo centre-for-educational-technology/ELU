@@ -69,7 +69,7 @@
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
                     <p><label for="name_et">{{ trans('project.name') }} *</label></p>
-                    <input class="form-control" type="text" name="name_et" required>
+                    <input class="form-control" type="text" name="name_et">
                 </div>
 
                 <!-- Comment for name in Estonian -->
@@ -84,7 +84,7 @@
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
                     <p><label for="name_en">{{ trans('project.name') }} *</label></p>
-                    <input class="form-control" type="text" name="name_en" required>
+                    <input class="form-control" type="text" name="name_en">
                 </div>
 
                 <!-- Comment for name in English -->
@@ -107,7 +107,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_et" required></textarea>
+                    <textarea class="mceSimple" name="description_et"></textarea>
                 </div>
 
                 <!-- Comment for description in Estonian -->
@@ -125,7 +125,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_en" required></textarea>
+                    <textarea class="mceSimple" name="description_en"></textarea>
                 </div>
 
                 <!-- Comment for description in English -->
@@ -148,7 +148,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_et" required></textarea>
+                    <textarea class="mceSimple" name="project_outcomes_et"></textarea>
                 </div>
 
                 <!-- Comment for outcome in Estonian -->
@@ -166,7 +166,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_en" required></textarea>
+                    <textarea class="mceSimple" name="project_outcomes_en"></textarea>
                 </div>
 
                 <!-- Comment for outcome in English -->
@@ -189,7 +189,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_et" required></textarea>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_et"></textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in Estonian -->
@@ -207,7 +207,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_en" required></textarea>
+                    <textarea class="mceSimple" name="interdisciplinary_approach_en"></textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in English -->
@@ -237,7 +237,7 @@
                 <div id="tags_et_output" class="form-group"></div>
 
                 <!-- To save the tags -->
-                <input type="hidden" name="keywords_et" id="keywords_et" required>
+                <input type="hidden" name="keywords_et" id="keywords_et">
 
                 <!-- Comment for tags in Estonian -->
                 <div id="comment_tags_et"></div>
@@ -261,7 +261,7 @@
                 <div id="tags_en_output" class="form-group row"></div>
                 
                 <!-- To save the tags -->
-                <input type="hidden" name="keywords_en" id="keywords_en" required>
+                <input type="hidden" name="keywords_en" id="keywords_en">
 
                 <!-- Comment for tags in English -->
                 <div id="comment_tags_en"></div>
@@ -422,7 +422,7 @@
                     <label for="meetings_info_et">
                         {{ trans('project.meetings_info') }} *
                     </label>
-                    <textarea rows="5" name="meetings_info_et" style="width: 100%;" required></textarea>
+                    <textarea rows="5" name="meetings_info_et" style="width: 100%;"></textarea>
                 </div>
 
 
@@ -445,7 +445,7 @@
                     </div>
                     <div id='other_meetings_et'>
                     </div>
-                    <input id="meetings_et" type="hidden" name="meetings_et" required>
+                    <input id="meetings_et" type="hidden" name="meetings_et">
                 </div>
 
                 <!-- Icons for adding/removing another Estonian meeting input field -->
@@ -469,7 +469,7 @@
                     <label for="meetings_info_en">
                         {{ trans('project.meetings_info') }} *
                     </label>
-                    <textarea rows="5" name="meetings_info_en" style="width: 100%;" required></textarea>
+                    <textarea rows="5" name="meetings_info_en" style="width: 100%;"></textarea>
                 </div>
 
 
@@ -492,7 +492,7 @@
                     </div>
                     <div id='other_meetings_en'>
                     </div>
-                    <input id="meetings_en" type="hidden" name="meetings_en" required>
+                    <input id="meetings_en" type="hidden" name="meetings_en">
                 </div>
 
                 <!-- Icons for adding/removing another English meeting input field -->

@@ -24,6 +24,9 @@ gulp.task("copyfiles", function() {
     gulp.src("resources/assets/css/*")
       .pipe(gulp.dest("public/css"));
 
+    gulp.src("resources/assets/bower/pickadate/lib/compressed/themes/classic.*")
+      .pipe(gulp.dest("public/css"));
+
     gulp.src("resources/assets/js/scripts.js")
       .pipe(gulp.dest("public/js"));
 
@@ -54,7 +57,8 @@ elixir(function(mix) {
 
     mix.scripts([
         '../bower/jquery/dist/jquery.min.js',
-        '../bower/jquery-ui/ui/jquery-1-7.js',
+        '../bower/pickadate/lib/picker.js',
+        '../bower/pickadate/lib/picker.date.js',
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.min.js',
         '../bower/sweetalert/dist/sweetalert.min.js',

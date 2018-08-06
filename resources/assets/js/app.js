@@ -218,10 +218,14 @@ jQuery(document).ready(function($) {
   //Form/Project language selection
   $('#project_in_english').children('input').on('click', function () {
     $('.form_english').toggleClass("disabledForm");
+    $('.form_english').find('input').attr('disabled', 'true');
+    $('.form_english').find('textarea').attr('disabled', 'true');
     //$('#project_in_english').children('input').trigger('click');
   });
   $('#project_in_estonian').children('input').on('click', function () {
     $('.form_estonian').toggleClass("disabledForm");
+    $('.form_estonian').find('input').attr('disabled', 'true');
+    $('.form_estonian').find('textarea').attr('disabled', 'true');
     //$('#project_in_estonian').children('input').trigger('click');
   });
 
@@ -308,7 +312,7 @@ jQuery(document).ready(function($) {
   });
 
   // Adding datepicker to initial date inputs in new project form
-  $($('.glyphicon-calendar').parent().siblings().children('input')[0]).pickadate({format: 'dd/mm/yyyy'});
+  $('.glyphicon-calendar').parent().siblings().children('input').pickadate({format: 'dd/mm/yyyy'});
   $('.glyphicon-calendar').on('click', function (event) {
     event.stopPropagation();
     $($(this).parent().siblings().children('input')[0]).pickadate('open');

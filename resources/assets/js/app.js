@@ -241,6 +241,19 @@ jQuery(document).ready(function($) {
 
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
+
+    // Adding tags from div to an input field, to send the data
+    var tags_et = [];
+    for (var i=0;i<$('#tags_et_output').children().length;i++) {
+      tags_et.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
+    }
+    $('#tags_et').val(JSON.stringify(tags_et));
+
+    var tags_en = [];
+    for (var i=0;i<$('#tags_en_output').children().length;i++) {
+      tags_en.push($('#tags_en_output').children()[i].innerHTML.split('<')[0]);
+    }
+    $('#tags_en').val(JSON.stringify(tags_en));
     
     // Adding meeting dates from different fields to one, to send all data with one parameter
     var meetings_et = [];

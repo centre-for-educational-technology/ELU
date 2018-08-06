@@ -8,6 +8,7 @@ return [
     'my_projects' => 'Minu projektid',
     'add' => 'Lisa',
     'adding' => 'Projekti idee esitamine',
+    'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
     'name' => 'Projekti nimi',
     'description' => 'Projekti kirjeldus',
@@ -17,6 +18,7 @@ return [
     'interdisciplinary_desc' => 'Interdistsiplinaarsus',
 		'interdisciplinary_desc_desc' => 'Tuua välja, milliseid erialasid, teadmisi ja oskusi projekti interdistsiplinaarsuseks on vajalikud.',
     'keywords' => 'Märksõnad',
+    'keywords_desc' => 'Märksõna lisamiseks vajuta "Enter" klahvi',
     'extra_info' => 'Lisainfo',
     //
     'comment_for_coordinators' => 'Märkus ELU kordinaatoritele',
@@ -30,7 +32,7 @@ return [
 		'spring_autumn' => 'Kevad+sügis',
     //
     'meetings_info' => 'Täiendav info kohtumiste kohta',
-    'meetings_dates' => 'Kohtumiste ajad',
+    'meeting_dates' => 'Kohtumiste ajad',
     'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt.',
     //
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',

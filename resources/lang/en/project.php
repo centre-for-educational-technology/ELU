@@ -8,6 +8,7 @@ return [
     'my_projects' => 'My projects',
     'add' => 'Add',
     'adding' => 'Adding new project idea',
+    'active_language_selection' => 'Choose languages for the project',
     //
     'name' => 'Project name',
     'description' => 'Description',
@@ -17,6 +18,7 @@ return [
     'interdisciplinary_desc' => 'Interdisciplinary approach',
 		'interdisciplinary_desc_desc' => 'Bring out which subject fields, knowledge and skills are necessary for project interdisciplinarity.',
     'keywords' => 'Keywords',
+    'keywords_desc' => 'Press enter to add keyword',
     'extra_info' => 'Additional information',
     //
     'comment_for_coordinators' => 'Comment for LIFE coordinators',
@@ -30,7 +32,7 @@ return [
 		'spring_autumn' => 'Spring+autumn',
     //
     'meetings_info' => 'Additional information about the meetings',
-    'meetings_dates' => 'Dates for meetings',
+    'meeting_dates' => 'Dates for meetings',
     'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites.',
     //
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',

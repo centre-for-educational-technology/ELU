@@ -229,8 +229,8 @@ jQuery(document).ready(function($) {
   
   try {
     var meetings_et = JSON.parse($('#meetings_et').val());
-    $($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
-    $($($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
+    $($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[0][0]);
+    $($($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[0][1]);
     for (var i=1;i<meetings_et.length;i++) {
       $('#other_meetings_et').append(getMeetingFieldToAdd('et'));
       $($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[i][0]);

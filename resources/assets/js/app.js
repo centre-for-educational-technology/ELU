@@ -330,6 +330,7 @@ jQuery(document).ready(function($) {
 
   function addTag (language) {
     $('input.tags_'+language+'').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
       newTag = document.createElement('span');
       newTag.className = 'tag_output';
       newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';

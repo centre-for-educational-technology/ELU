@@ -225,13 +225,12 @@ jQuery(document).ready(function($) {
     //$('#project_in_estonian').children('input').trigger('click');
   });
 
-  $('#project_duration').children('div').children('button').on('click', function () {
-    console.log($(this).siblings());
-    console.log($(this).parents().siblings().children('button'));
-    $(this).siblings().removeClass('btn-info');
-    $(this).parents().siblings().children('button').removeClass('btn-info');
+  $('.study_term_button').on('click', function () {
+    $('.study_term_button').removeClass('btn-info');
+    $('.study_term_button').removeClass('btn-default');
     $(this).removeClass('btn-default');
     $(this).addClass('btn-info');
+    $('#'+$(this).attr('id')+'_radio').prop('checked', true);
   });
 
   //Learning outcomes show/hide

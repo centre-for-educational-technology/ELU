@@ -435,13 +435,13 @@
                                 <div class="col-lg-12"><input type="text" class="form-control meeting_date_et"></div>
                             </div>
                             <div class="col-lg-7">
-                                <textarea rows="5" style="width: 100%;"></textarea>
+                                <textarea rows="5" style="width: 100%;" class="meeting_info_et"></textarea>
                             </div>
                         </div>
                     </div>
                     <div id='other_meetings_et'>
                     </div>
-                    <input type="hidden" name="meetings_et">
+                    <input id="meetings_et" type="hidden" name="meetings_et">
                 </div>
 
                 <!-- Icons for adding/removing another Estonian meeting input field -->
@@ -482,13 +482,13 @@
                                 <div class="col-lg-12"><input type="text" class="form-control meeting_date_en"></div>
                             </div>
                             <div class="col-lg-7">
-                                <textarea rows="5" style="width: 100%;"></textarea>
+                                <textarea rows="5" style="width: 100%;" class="meeting_info_en"></textarea>
                             </div>
                         </div>
                     </div>
                     <div id='other_meetings_en'>
                     </div>
-                    <input type="hidden" name="meetings_en">
+                    <input id="meetings_en" type="hidden" name="meetings_en">
                 </div>
 
                 <!-- Icons for adding/removing another English meeting input field -->

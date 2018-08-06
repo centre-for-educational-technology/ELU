@@ -227,12 +227,35 @@ jQuery(document).ready(function($) {
 
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
+    
+    // Adding meeting dates from different fields to one, to send all data with one parameter
+    var meetings_et = [];
+    var meetings_en = [];
+    for (var i=0;i<$('.meeting_date_et').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_et')[i]).val());
+      meeting.push($($('.meeting_info_et')[i]).val());
+      meetings_et.push(meeting);
+    }
+    for (var i=0;i<$('.meeting_date_en').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_en')[i]).val());
+      meeting.push($($('.meeting_info_en')[i]).val());
+      meetings_en.push(meeting);
+    }
+    $('#meetings_et').val(JSON.stringify(meetings_et));
+    $('#meetings_en').val(JSON.stringify(meetings_en));
+
+    // Adding cosupervisors from different fields to one, to send all data with one parameter
     var co_supervisors = []
     for (var i=0;i<$('.co_supervisor').length;i++)
     {
       co_supervisors.push($($('.co_supervisor')[i]).val());
     }
     $('#co_supervisors').val(JSON.stringify(co_supervisors));
+    
     $('#project_form').submit();
   });
 
@@ -284,6 +307,12 @@ jQuery(document).ready(function($) {
     $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
   });
 
+  // Adding datepicker to initial date inputs in new project form
+  $('.glyphicon-calendar').on('click', function (event) {
+    event.stopPropagation();
+    $($(this).parent().siblings().children('input')[0]).pickadate('open');
+  });
+
   function addTag (language) {
     $('input[name=tags_'+language+']').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
       newTag = document.createElement('span');
@@ -326,7 +355,7 @@ jQuery(document).ready(function($) {
     textareaDiv = document.createElement('div');
     textareaDiv.className = 'col-lg-7';
     textarea = document.createElement('textarea');
-    textarea.className = 'meetings_'+language;
+    textarea.className = 'meeting_info_'+language;
     textarea.style = 'width: 100%;';
     textarea.rows = '5';
     iconDiv.append(iconCalendarDiv);
@@ -340,7 +369,7 @@ jQuery(document).ready(function($) {
     $(iconCalendar).on('click', function (event) {
       event.stopPropagation();
       $($(this).parent().siblings().children('input')[0]).pickadate('open');
-    })
+    });
     return outerDiv;
   }
 

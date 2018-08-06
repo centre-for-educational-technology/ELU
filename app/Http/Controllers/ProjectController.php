@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\NewProjectRequest;
 use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;

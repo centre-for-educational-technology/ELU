@@ -329,10 +329,10 @@ jQuery(document).ready(function($) {
   });
 
   function addTag (language) {
-    $('input[name=tags_'+language+']').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+    $('input.tags_'+language+'').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
       newTag = document.createElement('span');
       newTag.className = 'tag_output';
-      newTag.innerHTML = $('input[name=tags_'+language+']').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
+      newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
       $(newTag).children('span.glyphicon-remove').on('click', function () {
         $(this).parent().remove();
       });

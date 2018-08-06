@@ -226,7 +226,7 @@
                         {{ trans('project.keywords') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.keywords_desc')}}"></i>
                     </label></p>
-                    <input class="form-control" type="text">
+                    <input class="form-control tags_et" type="text">
                 </div>
 
                 <!-- Div to show the selected tags_et to the user -->
@@ -250,7 +250,7 @@
                         {{ trans('project.keywords') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.keywords_desc')}}"></i>
                     </label></p>
-                    <input class="form-control" type="text">
+                    <input class="form-control tags_en" type="text">
                 </div>
 
                 <!-- Div to show the selected tags_en to the user -->

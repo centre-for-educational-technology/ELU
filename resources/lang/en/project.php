@@ -6,7 +6,9 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'my_projects' => 'My projects',
-    'add' => '',
+    'add' => 'Add',
+    'adding' => 'Adding new project idea',
+    //
     'name' => 'Project name',
     'description' => 'Description',
     'description_desc' => 'Tuua välja, mida projekti idee endast kujutab, mis tegevusi hõlmab, milline on probleemi püstitus ja mis on eesmärk. Millistele teaduslikele allikatele, teooriatele projekti teema või probleem tugineb? Milles seisneb projekti olulisus?',

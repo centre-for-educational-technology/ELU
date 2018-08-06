@@ -6,7 +6,8 @@ return [
     'edit' => 'Muuda',
     'delete' => 'Kustuta',
     'my_projects' => 'Minu projektid',
-    'add' => 'Projekti idee esitamine',
+    'add' => 'Lisa',
+    'adding' => 'Projekti idee esitamine',
     //
     'name' => 'Projekti nimi',
     'description' => 'Projekti kirjeldus',

@@ -218,14 +218,24 @@ jQuery(document).ready(function($) {
   //Form/Project language selection
   $('#project_in_english').children('input').on('click', function () {
     $('.form_english').toggleClass("disabledForm");
-    $('.form_english').find('input').attr('disabled', 'true');
-    $('.form_english').find('textarea').attr('disabled', 'true');
+    if ($('.form_english').hasClass('disabledForm')) {
+      $('.form_english').find('input').removeAttr('disabled');
+      $('.form_english').find('textarea').removeAttr('disabled');
+    } else {
+      $('.form_english').find('input').attr('disabled', 'true');
+      $('.form_english').find('textarea').attr('disabled', 'true');
+    }
     //$('#project_in_english').children('input').trigger('click');
   });
   $('#project_in_estonian').children('input').on('click', function () {
     $('.form_estonian').toggleClass("disabledForm");
-    $('.form_estonian').find('input').attr('disabled', 'true');
-    $('.form_estonian').find('textarea').attr('disabled', 'true');
+    if ($('.form_estonian').hasClass('disabledForm')) {
+      $('.form_estonian').find('input').removeAttr('disabled');
+      $('.form_estonian').find('textarea').removeAttr('disabled');
+    } else {
+      $('.form_estonian').find('input').attr('disabled', 'true');
+      $('.form_estonian').find('textarea').attr('disabled', 'true');
+    }
     //$('#project_in_estonian').children('input').trigger('click');
   });
 

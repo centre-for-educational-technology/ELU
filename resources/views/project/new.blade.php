@@ -107,7 +107,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_et">{!! old('description_et') !!}</textarea>
+                    <textarea class="mceSimple" id="description_et" name="description_et">{!! old('description_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for description in Estonian -->
@@ -125,7 +125,7 @@
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="description_en">{!! old('description_en') !!}</textarea>
+                    <textarea class="mceSimple" id="description_en" name="description_en">{!! old('description_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for description in English -->
@@ -148,7 +148,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_et">{!! old('project_outcomes_et') !!}</textarea>
+                    <textarea class="mceSimple" id="project_outcomes_et" name="project_outcomes_et">{!! old('project_outcomes_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for outcome in Estonian -->
@@ -166,7 +166,7 @@
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="project_outcomes_en">{!! old('project_outcomes_en') !!}</textarea>
+                    <textarea class="mceSimple" id="project_outcomes_en" name="project_outcomes_en">{!! old('project_outcomes_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for outcome in English -->
@@ -189,7 +189,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_et">{!! old('interdisciplinary_approach_et') !!}</textarea>
+                    <textarea class="mceSimple" id="interdisciplinary_approach_et" name="interdisciplinary_approach_et">{!! old('interdisciplinary_approach_et') !!}</textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in Estonian -->
@@ -207,7 +207,7 @@
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
-                    <textarea class="mceSimple" name="interdisciplinary_approach_en">{!! old('interdisciplinary_approach_en') !!}</textarea>
+                    <textarea class="mceSimple" id="interdisciplinary_approach_en" name="interdisciplinary_approach_en">{!! old('interdisciplinary_approach_en') !!}</textarea>
                 </div>
 
                 <!-- Comment for interdisciplinary approach in English -->

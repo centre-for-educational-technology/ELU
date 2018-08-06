@@ -259,6 +259,7 @@ jQuery(document).ready(function($) {
       $('.tags_et').val(tags_et[i]);
       addTag('et');
     }
+    $('.tags_et').val('');
   } catch (err) {
     console.log('No previous values for tags_et');
   }
@@ -269,6 +270,7 @@ jQuery(document).ready(function($) {
       $('.tags_en').val(tags_en[i]);
       addTag('en');
     }
+    $('.tags_en').val('');
   } catch (err) {
     console.log('No previous values for tags_en');
   }
@@ -397,10 +399,12 @@ jQuery(document).ready(function($) {
     $('input.tags_et').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
       event.preventDefault();
       addTag('et');
+      $(this).val('');
     }});
     $('input.tags_en').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
       event.preventDefault();
       addTag('en');
+      $(this).val('');
     }});
     $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
     $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
@@ -421,7 +425,6 @@ jQuery(document).ready(function($) {
       $(this).parent().remove();
     });
     $('#tags_'+language+'_output').append(newTag);
-    $(this).val('');
   }
   
 

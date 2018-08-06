@@ -224,7 +224,7 @@ jQuery(document).ready(function($) {
       $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
     }
   } catch (err) {
-    consol.log('No previous values');
+    console.log('No previous values');
   }
   
   try {
@@ -237,7 +237,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
     }
   } catch (err) {
-    consol.log('No previous values');
+    console.log('No previous values');
   }
 
   try {
@@ -250,7 +250,7 @@ jQuery(document).ready(function($) {
       $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
     }
   } catch (err) {
-    consol.log('No previous values');
+    console.log('No previous values');
   }
 
   try {
@@ -260,7 +260,7 @@ jQuery(document).ready(function($) {
       addTag('et');
     }
   } catch (err) {
-    consol.log('No previous values');
+    console.log('No previous values');
   }
   
   try {
@@ -270,7 +270,7 @@ jQuery(document).ready(function($) {
       addTag('en');
     }
   } catch (err) {
-    consol.log('No previous values');
+    console.log('No previous values');
   }
 
 

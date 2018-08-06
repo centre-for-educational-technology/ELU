@@ -125,6 +125,44 @@ class ProjectController extends Controller
   public function add(Request $request)
   {
 
+    $projects = Project::where('deleted', NULL)->whereHas('users', function($q)
+    {
+      $q->where('id', Auth::user()->id);
+    })->get();
+
+
+
+    $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+    {
+      $q->where('name', 'oppejoud');
+    })->get();
+
+    /*
+	  if(\App::getLocale() == 'en'){
+		  $courses = Course::select('id','oppekava_eng')->get();
+	  }else{
+		  $courses = Course::select('id','oppekava_est')->get();
+	  }
+    */
+
+
+	  $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+
+
+    $author =  Auth::user()->id;
+
+    return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
+
+
+  }
+
+
+  /*
+  * Old function for adding new project form
+  */
+  public function add_old(Request $request)
+  {
+
 	  $lang = $request->lang;
 
 	  $project_language = 'et';

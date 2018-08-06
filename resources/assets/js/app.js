@@ -346,10 +346,10 @@ jQuery(document).ready(function($) {
       meeting.push($($('.meeting_info_en')[i]).val());
       meetings_en.push(meeting);
     }
-    if (meetings_et[0].length != 0) {
+    if (meetings_et[0][0] != '') {
       $('#meetings_et').val(JSON.stringify(meetings_et));
     }
-    if (meetings_en[0].length != 0) {
+    if (meetings_en[0][0] != '') {
       $('#meetings_en').val(JSON.stringify(meetings_en));
     }
 

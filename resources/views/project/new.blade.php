@@ -8,6 +8,9 @@
 
 <div class="container">
 
+    <form action="{{ url('project/new') }}" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+        {{ csrf_field() }}
+
     <div class="row">
     <div class=col-lg-6>
         <!-- Description about project language selection -->
@@ -25,7 +28,7 @@
             <span id="project_in_english"><input type="checkbox" checked><span>English</span></span>
         </div>
 
-        <!-- Reminder about fujlfilling learning outcomes -->
+        <!-- Reminder about fulfilling learning outcomes -->
         <p>
             <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:
         </p>
@@ -552,11 +555,11 @@
 
     <!-- Submit options -->
     <div class="col-lg-12">
-        {{--
         <div class="col-lg-4">
+        {{--
             <buttontype="button" class="btn btn-default btn-lg btn-block">Salvesta</button>
-        </div>
         --}}
+        </div>
         <div class="col-lg-4">
             <buttontype="button" class="btn btn-info btn-lg btn-block">Esita</button>
         </div>
@@ -568,5 +571,7 @@
             --}}
         </div>
     </div>
+
+    </form>
 
 @endsection

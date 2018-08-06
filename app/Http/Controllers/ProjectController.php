@@ -286,20 +286,23 @@ class ProjectController extends Controller
 
     /**
      * Status
-     * 1 - to be checked out by coordinators, no changes allowed
-     * 2 - needs significant changes, coordinators comment, author gets to change => to 1 again
-     * 3 - to be checked by council, idea is locked
-     * 4 - publishing and joining dates added
+     * 1 - saved to fill in later
+     * 2 - to be checked out by coordinators, no changes allowed
+     * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
+     * 4 - to be checked by council, idea is locked
+     * 5 - publishing and joining dates added
      */
-    $project->status = 1;
+    $project->status = 2;
 
     $project->save();
    
     //Attach users with teacher role
+    /*
     $supervisors = $request->input('supervisors');
     foreach ($supervisors as $supervisor){
       $project->users()->attach($supervisor, ['participation_role' => 'author']);
     }
+    */
 
     $projects = Project::whereHas('users', function($q)
     {

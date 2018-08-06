@@ -242,6 +242,15 @@ jQuery(document).ready(function($) {
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
 
+    // To stop tinyMCE inputs be accepted with just spaces
+    tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('description_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
+
     // Adding tags from div to an input field, to send the data
     var tags_estonian = [];
     for (var i=0;i<$('#tags_et_output').children().length;i++) {
@@ -351,6 +360,7 @@ jQuery(document).ready(function($) {
         $(this).parent().remove();
       });
       $('#tags_'+language+'_output').append(newTag);
+      $(this).val('');
     }});
   }
 

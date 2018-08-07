@@ -24,7 +24,7 @@ class OutsideProjectRequest extends Request
     public function rules()
     {
         $rules = [
-            'name_et' => 'required|max:255',
+            'name_et' => 'required|uniqe|max:255',
             'description_et' => 'required|max:9000',
             'project_outcomes_et' => 'required|max:9000',
             'keywords_et' => 'required|max:9000',

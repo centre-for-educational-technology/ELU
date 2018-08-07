@@ -228,9 +228,9 @@
                 <div class="form-group">
                     <p><label for="tags_et">
                         {{ trans('project.keywords') }} *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.keywords_desc')}}"></i>
                     </label></p>
                     <input class="form-control tags_et" type="text">
+                    <span>{{ trans('project.keywords_desc') }}</span>
                 </div>
 
                 <!-- Div to show the selected tags_et to the user -->
@@ -252,9 +252,9 @@
                 <div class="form-group">
                     <p><label for="tags_en">
                         {{ trans('project.keywords') }} *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.keywords_desc')}}"></i>
                     </label></p>
                     <input class="form-control tags_en" type="text">
+                    <span>{{ trans('project.keywords_desc') }}</span>
                 </div>
 
                 <!-- Div to show the selected tags_en to the user -->

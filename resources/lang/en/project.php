@@ -25,8 +25,8 @@ return [
     'outcomes_desc' => 'Research, practical and creative outcome, data collection and/or -analysis, theme day, app etc.',
     'interdisciplinary_desc' => 'Interdisciplinary approach',
 		'interdisciplinary_desc_desc' => 'Bring out which subject fields, knowledge and skills are necessary for project interdisciplinarity.',
-    'keywords' => 'Keywords',
-    'keywords_desc' => 'Press enter to add keyword',
+    'keywords' => 'Tags',
+    'keywords_desc' => 'Press enter to add tag',
     'extra_info' => 'Additional information',
     //
     'comment_for_coordinators' => 'Comment for LIFE coordinators',

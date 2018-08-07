@@ -239,7 +239,7 @@ class ProjectController extends Controller
 
     
     if (!getUserByEmail($project->email)) {
-      $url = URL::to('/').'/register';
+      $url = \URL::to('/').'/register';
       $ch = curl_init($url);
   
       curl_setopt($ch, CURLOPT_POST, 1);
@@ -1737,7 +1737,7 @@ class ProjectController extends Controller
 
 
 		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus ettevõtte projekti idee');
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), $author)->subject('Uus ettevõtte projekti idee');
 			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 

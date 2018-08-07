@@ -3,7 +3,9 @@
 @section('content')
 <!-- Pealkiri -->
 <div class="col-log-6 col-lg-offset-3">
-    <h2 class="h2 class-uppercase"><b>{{trans('project.outside_adding')}}</b></h2>
+    <div class="col-lg-12">
+        <h2 class="h2 class-uppercase"><b>{{trans('project.outside_adding')}}</b></h2>
+    </div>
 </div>
 
 <div class="container">
@@ -68,7 +70,7 @@
 
             <!-- RECAPTCHA -->
             <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                <div class="col-md-6 col-md-offset-4">
+                <div class="col-md-6 col-md-offset-3">
                     {!! app('captcha')->display() !!}
                     @if ($errors->has('g-recaptcha-response'))
                         <span class="help-block">

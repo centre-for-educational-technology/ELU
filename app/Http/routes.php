@@ -62,6 +62,8 @@ Route::group(['middleware' =>['web']], function () {
         return view('project.new_outside_idea');
       });
 
+      Route::post('/project/new/outside', 'ProjectController@storeOutside');
+
 
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {

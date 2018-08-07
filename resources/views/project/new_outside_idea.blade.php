@@ -66,7 +66,21 @@
                 <input class="form-control" type="text" name="university_contact" value="{{ old('university_contact') }}">
             </div>
 
+            <!-- RECAPTCHA -->
+            <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                <div class="col-md-6 col-md-offset-4">
+                    {!! app('captcha')->display() !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
         </div>
+
+        <!-- SUBMIT BUTTON -->
         <div class="col-lg-8 col-lg-offset-2" style="padding-left: 7vw; padding-right: 7vw; padding-bottom:15vh;">
             <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
         </div>

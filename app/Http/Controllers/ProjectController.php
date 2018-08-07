@@ -12,10 +12,13 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\NewProjectRequest;
+use App\Http\Requests\OutsideProjectRequest;
+
 use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;
 use App\NewProject;
+use App\OutsideProject;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -206,6 +209,16 @@ class ProjectController extends Controller
     return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
+  }
+
+
+  /**
+   * Save new project from an outside business
+   */
+  public function storeOutside(OutsideProjectRequest $request)
+  {
+    $project = new OutsideProject;
+    $this->validate($request, $request->rules());
   }
 
 

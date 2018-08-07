@@ -316,20 +316,6 @@ jQuery(document).ready(function($) {
       $('#keywords_et').val(JSON.stringify(tags_estonian));
     }
 
-    $.ajax({
-      url: 'https://www.google.com/recaptcha/api/siteverify',
-      method: 'POST',
-      data: {
-        response: $('[name=g-recaptcha-response').val(),
-        secret: '<?php echo Config::get(\'captcha.secret\') ?>',
-      }
-    }).done(function (ajax_response) {
-      console.log(ajax_response);
-      $('[name=g-recaptcha-response').val(ajax_response)
-    });
-    console.log('Väärtus: '+$('[name=g-recaptcha-response').val());
-    console.log('<?php echo Config::get(\'captcha.secret\') ?>');
-
     $('#outside_project_form').submit();
 
   });

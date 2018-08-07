@@ -218,7 +218,7 @@ class ProjectController extends Controller
   public function storeOutside(OutsideProjectRequest $request)
   {
     $project = new OutsideProject;
-    $this->validate($request, $request->rules());
+    $this->validate($request->all(), $request->rules());
     $project->name = $request->name_et;
     $project->description = $request->description_et;
     $project->project_outcomes = $request->project_outcomes_et;

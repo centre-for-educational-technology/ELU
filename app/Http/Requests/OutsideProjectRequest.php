@@ -28,8 +28,8 @@ class OutsideProjectRequest extends Request
             'description_et' => 'required|max:9000',
             'project_outcomes_et' => 'required|max:9000',
             'keywords_et' => 'required|max:9000',
-            'email_et' => 'required',
-            'g-recaptcha-response' => 'required',
+            'email_et' => 'required|email',
+            'g-recaptcha-response' => 'required|captcha',
         ];
         
         return $rules;

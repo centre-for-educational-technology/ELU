@@ -10580,5 +10580,8 @@ form.contact-email {
 .tags_en:focus + span {
   visibility: show;
 }
+.hidden {
+  visibility: hidden;
+}
 
 /*# sourceMappingURL=app.css.map */

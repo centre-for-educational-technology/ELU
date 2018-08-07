@@ -230,7 +230,7 @@
                         {{ trans('project.keywords') }} *
                     </label></p>
                     <input class="form-control tags_et" type="text">
-                    <span>{{ trans('project.keywords_desc') }}</span>
+                    <span class="hidden">{{ trans('project.keywords_desc') }}</span>
                 </div>
 
                 <!-- Div to show the selected tags_et to the user -->
@@ -254,7 +254,7 @@
                         {{ trans('project.keywords') }} *
                     </label></p>
                     <input class="form-control tags_en" type="text">
-                    <span>{{ trans('project.keywords_desc') }}</span>
+                    <span class="hidden">{{ trans('project.keywords_desc') }}</span>
                 </div>
 
                 <!-- Div to show the selected tags_en to the user -->

@@ -21,6 +21,7 @@ class TableForOutsideProjectsAdded extends Migration
             $table->text('tags');
             $table->string('email');
             $table->string('tlu_contact')->nullable();
+            $table->string('view_hash');
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('deleted')->nullable();
         });

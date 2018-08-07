@@ -219,6 +219,45 @@ class ProjectController extends Controller
   {
     $project = new OutsideProject;
     $this->validate($request, $request->rules());
+    $project->name = $request->name_et;
+    $project->description = $request->description_et;
+    $project->project_outcomes = $request->project_outcomes_et;
+    $project->tags = $request->keywords_et;
+    $project->email = $request->email_et;
+    $project->tlu_contact = $request->university_contact;
+    $project->view_hash = hash('sha512', $request->name_et);
+    $project->save();
+
+    
+    $user_data = [];
+    $user_data['name'] = 'Business idea';
+    $user_data['email'] = $project->email;
+    $user_data['password'] = bcrypt(substr(bcrypt($project->name), 0, 16));
+    $user_data['institution'] = 'Outside Business';
+    $user_data['recaptcha'] = $request->g-recaptcha-response;
+
+
+    
+    if (!getUserByEmail($project->email)) {
+      $url = URL::to('/').'/register';
+      $ch = curl_init($url);
+  
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $user_data);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  
+      $response = curl_exec($ch);
+      curl_close($ch);
+
+      $this->newUserAccountEmailNotification($project->email, $user_data['password']);
+    }
+    $this->newBusinessIdeaAddedEmailNotification($project->name, $project->email, url('outside-project/'.$project->view_hash));
+
+    return \Redirect::to('projects/open')
+        ->with('message', [
+            'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
+            'type' => 'proposal'
+        ]);
   }
 
 
@@ -1657,8 +1696,69 @@ class ProjectController extends Controller
 		});
 
 
+  }
+  
+
+  public function newBusinessIdeaAddedEmailNotification($project, $author, $url)
+	{
+
+		$data = [
+				'project_name' => $project,
+        'project_author_email' => $author,
+				'project_url' => $url,
+		];
+
+		$admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+
+		$superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
+
+		$admins_emails = array();
+
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+
+
+		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus ettevõtte projekti idee');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+
+
 	}
 
+
+  public function newUserAccountEmailNotification($email, $password)
+	{
+
+		$data = [
+				'user_email' => $project,
+        'user_password' => $author
+		];
+
+		Mail::send('emails.new_user_email', ['data' => $data], function ($m) use ($email) {
+      $m->to($email)->replyTo(getUserEmail(Auth::user()), 'test')->subject('Kasutaja loodud // Account created');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+
+	}
 
   /**
    * Admin analytics of projects view

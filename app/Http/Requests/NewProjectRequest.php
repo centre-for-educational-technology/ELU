@@ -26,8 +26,8 @@ class NewProjectRequest extends Request
         $rules = [
             'project_in_estonian' => 'required_if:project_in_english,!=,true',
             'project_in_english' => 'required_if:project_in_estonian,!=,true',
-            'name_et' => 'required_if:project_in_estonian,==,true|max:255',
-            'name_en' => 'required_if:project_in_english,==,true|max:255',
+            'name_et' => 'required_if:project_in_english,==,true|max:255',
+            'name_en' => 'required_if:project_in_estonian,==,true|max:255',
             'description_et' => 'required_if:project_in_estonian,==,true|max:9000',
             'description_en' => 'required_if:project_in_english,==,true|max:9000',
             'project_outcomes_et' => 'required_if:project_in_estonian,==,true|max:9000',

@@ -313,15 +313,12 @@ class ProjectController extends Controller
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
-    foreach ($new_projects as $project) {
-      array_push($projects, $project);
-    }
-
 	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
 
     return \Redirect::to('teacher/my-projects')
         ->with('message', trans('project.new_project_added_notification'))
-        ->with('projects', $projects);
+        ->with('projects', $projects)
+        ->with('new_projects', $new_projects);
 
   }
 

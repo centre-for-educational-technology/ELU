@@ -218,7 +218,7 @@ class ProjectController extends Controller
   public function storeOutside(OutsideProjectRequest $request)
   {
     $project = new OutsideProject;
-    $validator = Validator::make($request->all(), $request->rules());
+    $validate = Validator::make(Input::all(), $request->rules());
     $project->name = $request->name_et;
     $project->description = $request->description_et;
     $project->project_outcomes = $request->project_outcomes_et;
@@ -228,42 +228,17 @@ class ProjectController extends Controller
     $project->view_hash = hash('sha512', $request->name_et);
     $project->save();
 
-    
-    $user_data = [];
-    $user_data['name'] = 'Business idea';
-    $user_data['email'] = $project->email;
-    $user_data['password'] = bcrypt(substr(bcrypt($project->name), 0, 16));
-    $user_data['institution'] = 'Outside Business';
-    $user_data['recaptcha'] = $request->{'g-recaptcha-response'};
-
-    /*
-    $recaptcha_data = [];
-    $recaptcha_data['secret'] = 
-    $recaptcha_data['response'] = $request->g-recaptcha-response;
-    
-    $url = 'https://www.google.com/recaptcha/api/siteverify';
-    $ch = curl_init($url);
-    
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $recaptcha_data);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
-    $response = curl_exec($ch);
-    curl_close($ch);
-    */
-    
     if (!getUserByEmail($project->email)) {
-      $url = \URL::to('/').'/register';
-      $ch = curl_init($url);
-  
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $user_data);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  
-      $response = curl_exec($ch);
-      curl_close($ch);
+      $new_user = User::create([
+        'name' => 'Business idea',
+        'email' => $project->email,
+        'password' => bcrypt(substr(bcrypt($project->name), 0, 16)),
+        'institution' => 'Outside Business',
+        'course' => null,
+      ]);
+    $new_user->roles()->attach(3);
 
-      $this->newUserAccountEmailNotification($project->email, $user_data['password']);
+      $this->newUserAccountEmailNotification($project->email, substr(bcrypt($project->name), 0, 16));
     }
     $this->newBusinessIdeaAddedEmailNotification($project->name, $project->email, url('outside-project/'.$project->view_hash));
 

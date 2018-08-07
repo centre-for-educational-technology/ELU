@@ -456,11 +456,16 @@ jQuery(document).ready(function($) {
   function getCosupervisorFieldToAdd (selected) {
     newCosupervisorSelect = document.createElement('select');
     newCosupervisorSelect.className ="form-control co_supervisor";
+    cosupervisorOption = document.createElement('option');
+    cosupervisorOption.value = '-1';
+    cosupervisorOption.innerHTML = '';
+    newCosupervisorSelect.append(cosupervisorOption);
     $.ajax ({
       url: window.Laravel.base_path+'/api/teachers/get',
       dataType: 'json',
       method: 'POST',
     }).done (function (teachers) {
+
       for (var i=0;i<teachers.length;i++) {
         cosupervisorOption = document.createElement('option');
         cosupervisorOption.value = teachers[i].id;

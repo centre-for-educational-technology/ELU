@@ -558,6 +558,7 @@
             <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
             <div id="co_supervisor_div">
                 <select class="form-control co_supervisor">
+                    <option value='-1'></option>
                     @if ($teachers->count())
                         @foreach($teachers as $teacher)
                             <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>

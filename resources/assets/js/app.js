@@ -107,6 +107,8 @@ jQuery(document).ready(function($) {
 
   // Select2
   $(".js-example-basic-multiple").select2();
+  $("#supervisor").select2();
+  $(".co_supervisor").select2();
 
 
 
@@ -213,6 +215,314 @@ jQuery(document).ready(function($) {
 
     return false;
   });
+
+  // Show helpers for fields
+  $('.tags_et').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
+  $('.tags_en').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
+  $('.tags_et').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
+  $('.tags_en').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
+
+  // Populating fields after a failed submit/refresh
+  try {
+    var cosupervisors = JSON.parse($('#co_supervisors').val());
+    $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
+    for (var i=1;i<cosupervisors.length;i++) {
+      $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
+      $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
+    }
+  } catch (err) {
+    console.log('No previous values for cosupervisors: '+err);
+  }
+  
+  try {
+    var meetings_et = JSON.parse($('#meetings_et').val());
+    $($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[0][0]);
+    $($($($($($('#first_meeting_et').children()[$('#first_meeting_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[0][1]);
+    for (var i=1;i<meetings_et.length;i++) {
+      $('#other_meetings_et').append(getMeetingFieldToAdd('et'));
+      $($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_et[i][0]);
+      $($($($($($('#other_meetings_et').children()[$('#other_meetings_et').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_et[i][1]);
+    }
+  } catch (err) {
+    console.log('No previous values for meetings_et: '+err);
+  }
+
+  try {
+    var meetings_en = JSON.parse($('#meetings_en').val());
+    $($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[0][0]);
+    $($($($($($('#first_meeting_en').children()[$('#first_meeting_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[0][1]);
+    for (var i=1;i<meetings_en.length;i++) {
+      $('#other_meetings_en').append(getMeetingFieldToAdd('en'));
+      $($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[0]).children()[1]).children()[0]).val(meetings_en[i][0]);
+      $($($($($($('#other_meetings_en').children()[$('#other_meetings_en').children().length-1]).children()[1]).children()[0])[0])[0]).val(meetings_en[i][1]);
+    }
+  } catch (err) {
+    console.log('No previous values for meetings_en: '+err);
+  }
+
+  try {
+    var tags_et = JSON.parse($('#keywords_et').val());
+    for (var i=0;i<tags_et.length;i++) {
+      $('.tags_et').val(tags_et[i]);
+      addTag('et');
+    }
+    $('.tags_et').val('');
+  } catch (err) {
+    console.log('No previous values for tags_et: '+err);
+  }
+  
+  try {
+    var tags_en = JSON.parse($('#keywords_en').val());
+    for (var i=0;i<tags_en.length;i++) {
+      $('.tags_en').val(tags_en[i]);
+      addTag('en');
+    }
+    $('.tags_en').val('');
+  } catch (err) {
+    console.log('No previous values for tags_en: '+err);
+  }
+
+
+  // Form/Project language selection
+  $('#project_in_english').children('input').on('click', function () {
+    $('.form_english').toggleClass("disabledForm");
+    if ($('.form_english').hasClass('disabledForm')) {
+      $('.form_english').find('input').attr('disabled', 'true');
+      $('.form_english').find('textarea').attr('disabled', 'true');
+    } else {
+      $('.form_english').find('input').removeAttr('disabled');
+      $('.form_english').find('textarea').removeAttr('disabled');
+    }
+  });
+  $('#project_in_estonian').children('input').on('click', function () {
+    $('.form_estonian').toggleClass("disabledForm");
+    if ($('.form_estonian').hasClass('disabledForm')) {
+      $('.form_estonian').find('input').attr('disabled', 'true');
+      $('.form_estonian').find('textarea').attr('disabled', 'true');
+    } else {
+      $('.form_estonian').find('input').removeAttr('disabled');
+      $('.form_estonian').find('textarea').removeAttr('disabled');
+    }
+  });
+
+  $('#submit_project').on('click', function (e) {
+    e.preventDefault();
+
+    // To stop tinyMCE inputs be accepted with just spaces
+    /*
+    tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('description_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
+    */
+
+    // Adding tags from div to an input field, to send the data
+    var tags_estonian = [];
+    for (var i=0;i<$('#tags_et_output').children().length;i++) {
+      tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_estonian.length != 0) {
+      $('#keywords_et').val(JSON.stringify(tags_estonian));
+    }
+
+    var tags_english = [];
+    for (var i=0;i<$('#tags_en_output').children().length;i++) {
+      tags_english.push($('#tags_en_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_english.length != 0) {
+      $('#keywords_en').val(JSON.stringify(tags_english));
+    }
+    
+    // Adding meeting dates from different fields to one, to send all data with one parameter
+    var meetings_et = [];
+    var meetings_en = [];
+    for (var i=0;i<$('.meeting_date_et').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_et')[i]).val());
+      meeting.push($($('.meeting_info_et')[i]).val());
+      meetings_et.push(meeting);
+    }
+    for (var i=0;i<$('.meeting_date_en').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_en')[i]).val());
+      meeting.push($($('.meeting_info_en')[i]).val());
+      meetings_en.push(meeting);
+    }
+    if (meetings_et[0][0] != '') {
+      $('#meetings_et').val(JSON.stringify(meetings_et));
+    }
+    if (meetings_en[0][0] != '') {
+      $('#meetings_en').val(JSON.stringify(meetings_en));
+    }
+
+    // Adding cosupervisors from different fields to one, to send all data with one parameter
+    var co_supervisors = []
+    for (var i=0;i<$('.co_supervisor').length;i++)
+    {
+      if ($($('.co_supervisor')[i]).val() != '-1') {
+        co_supervisors.push($($('.co_supervisor')[i]).val());
+      }
+    }
+    if ($($('.co_supervisor')[0]).val() != '') {
+      $('#co_supervisors').val(JSON.stringify(co_supervisors));
+    }
+    
+    $('#hidden_project_form_submit').trigger('click');
+  });
+
+  $('.study_term_button').on('click', function () {
+    $('.study_term_button').removeClass('btn-info');
+    $('.study_term_button').removeClass('btn-default');
+    $(this).removeClass('btn-default');
+    $(this).addClass('btn-info');
+    $('#'+$(this).attr('id')+'_radio').prop('checked', true);
+  });
+
+  // Learning outcomes show/hide
+  $('#open_learning_outcomes').on('click', function () {
+    $('#learning_outcomes').toggle(100);
+    $('#open_learning_outcomes').toggle(1);
+    $('#close_learning_outcomes').toggle(1);
+  });
+
+  $('#close_learning_outcomes').on('click', function () {
+    $('#learning_outcomes').toggle(100);
+    $('#close_learning_outcomes').toggle(1);
+    $('#open_learning_outcomes').toggle(1);
+  });
+
+
+  // Typeahead styling
+  $('body').on("mouseover", ".tt-suggestion", function () {
+    $('.tt-suggestion').removeClass('tt-cursor');
+    $(this).addClass('tt-cursor');
+  });
+
+  // Adding Typeahead to tags input in new project form
+  $.ajax({
+    url: window.Laravel.base_path+'/all_tags'
+  }).done(function (tags) {
+    var list_of_tags_et = new Bloodhound({
+      local: tags['et'],
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: Bloodhound.tokenizers.whitespace
+    });
+    var list_of_tags_en = new Bloodhound({
+      local: tags['en'],
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      datumTokenizer: Bloodhound.tokenizers.whitespace
+    });
+    $('input.tags_et').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
+      addTag('et');
+      $(this).val('');
+    }});
+    $('input.tags_en').on('keypress', function (event) {if (event.keyCode == 13 || event.which == 13) {
+      event.preventDefault();
+      addTag('en');
+      $(this).val('');
+    }});
+    $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
+    $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
+  });
+
+  // Adding datepicker to initial date inputs in new project form
+  $('.glyphicon-calendar').parent().siblings().children('input').pickadate({format: 'dd/mm/yyyy'});
+  $('.glyphicon-calendar').on('click', function (event) {
+    event.stopPropagation();
+    $($(this).parent().siblings().children('input')[0]).pickadate('open');
+  });
+
+  function addTag (language) {
+    newTag = document.createElement('span');
+    newTag.className = 'tag_output';
+    newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
+    $(newTag).children('span.glyphicon-remove').on('click', function () {
+      $(this).parent().remove();
+    });
+    $('#tags_'+language+'_output').append(newTag);
+  }
+  
+
+  $('#add_meeting_et').on('click', function () {$('#other_meetings_et').append(getMeetingFieldToAdd('et'));});
+  $('#add_meeting_en').on('click', function () {$('#other_meetings_en').append(getMeetingFieldToAdd('en'));});
+  $('#remove_meeting_et').on('click', function () {$('#other_meetings_et').children(':last-child').remove();});
+  $('#remove_meeting_en').on('click', function () {$('#other_meetings_en').children(':last-child').remove();});
+  $('#add_cosupervisor').on('click', function () {
+    $(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));
+    $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
+  });
+  $('#remove_cosupervisor').on('click', function () {
+    $(this).parent().prev('#co_supervisor_div').children(':last-child').remove();
+    $(this).parent().prev('#co_supervisor_div').children(':last-child').remove();
+  });
+
+  function getCosupervisorFieldToAdd (selected) {
+    newCosupervisorSelect = document.createElement('select');
+    newCosupervisorSelect.className ="form-control co_supervisor";
+    cosupervisorOption = document.createElement('option');
+    cosupervisorOption.value = '-1';
+    cosupervisorOption.innerHTML = ' ';
+    newCosupervisorSelect.append(cosupervisorOption);
+    $.ajax ({
+      url: window.Laravel.base_path+'/api/teachers/get',
+      dataType: 'json',
+      method: 'POST',
+    }).done (function (teachers) {
+
+      for (var i=0;i<teachers.length;i++) {
+        cosupervisorOption = document.createElement('option');
+        cosupervisorOption.value = teachers[i].id;
+        if (selected != null && teachers[i].id == selected) {
+          cosupervisorOption.selected = true;
+        }
+        cosupervisorOption.innerHTML = teachers[i].full_name;
+        newCosupervisorSelect.append(cosupervisorOption);
+      }
+    });
+    return newCosupervisorSelect;
+  }
+
+  function getMeetingFieldToAdd (language) {
+    outerDiv = document.createElement('div');
+    outerDiv.className = 'row';
+    iconDiv = document.createElement('div');
+    iconDiv.className = 'col-lg-4';
+    iconCalendarDiv = document.createElement('div');
+    iconCalendarDiv.className = 'col-lg-12';
+    iconCalendar = document.createElement('span');
+    iconCalendar.className = 'glyphicon glyphicon-calendar';
+    iconCalendar.style = 'font-size:75px;';
+    iconSubCalendarInputDiv = document.createElement('div');
+    iconSubCalendarInputDiv.className = 'col-lg-12';
+    iconSubCalendarInput = document.createElement('input');
+    iconSubCalendarInput.className = 'form-control meeting_date_'+language;
+    iconSubCalendarInput.type = 'text';
+    textareaDiv = document.createElement('div');
+    textareaDiv.className = 'col-lg-7';
+    textarea = document.createElement('textarea');
+    textarea.className = 'meeting_info_'+language;
+    textarea.style = 'width: 100%;';
+    textarea.rows = '5';
+    iconDiv.append(iconCalendarDiv);
+    iconCalendarDiv.append(iconCalendar);
+    iconDiv.append(iconSubCalendarInputDiv);
+    iconSubCalendarInputDiv.append(iconSubCalendarInput);
+    textareaDiv.append(textarea);
+    outerDiv.append(iconDiv);
+    outerDiv.append(textareaDiv);
+    $(iconSubCalendarInput).pickadate({format: 'dd/mm/yyyy'});
+    $(iconCalendar).on('click', function (event) {
+      event.stopPropagation();
+      $($(this).parent().siblings().children('input')[0]).pickadate('open');
+    });
+    return outerDiv;
+  }
 
 
   //TinyMC

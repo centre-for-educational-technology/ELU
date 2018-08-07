@@ -12,6 +12,7 @@
 */
 
 use App\Project;
+use App\NewProject;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Course;
 use App\Group;
 use App\EvaluationDate;
+use App\Tag;
 
 
 
@@ -33,7 +35,27 @@ Route::group(['middleware' =>['web']], function () {
 
       Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
 
+      Route::get('all_tags', function () {
+        $tags['en'] = [];
+        $tags['et'] = [];
+        $tags_data = Tag::all();
+        foreach ($tags_data as $tag_data) {
+          if ($tag_data['language'] == 'en') {
+            array_push($tags['en'], $tag_data['tag']);
+          } elseif ($tag_data['language'] == 'et') {
+            array_push($tags['et'], $tag_data['tag']);
+          }
+        }
+        return $tags;
+      });
 
+      Route::post('api/teachers/get', function () {
+        $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+        {
+          $q->where('name', 'oppejoud');
+        })->get();
+        return $teachers;
+      });
 
 
 //    Teacher section
@@ -55,20 +77,33 @@ Route::group(['middleware' =>['web']], function () {
           return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
+        Route::delete('/new-project/{id}/delete', function ($id) {
+          $project = NewProject::findOrFail($id);
+
+          $name = $project->name;
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
+
+          return redirect('teacher/my-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
+        });
+
 
         Route::get('/teacher/my-projects', function () {
           $projects = Project::where('deleted', NULL)->whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->orderBy('created_at', 'desc')->paginate(5);
+          $new_projects = NewProject::where('deleted', NULL)->whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->orderBy('created_at', 'desc')->paginate(5);
 
 
           return view('user.teacher.my_projects', [
-              'projects' => $projects]);
+              'projects' => $projects,
+              'new_projects' => $new_projects]);
         });
 
         Route::post('/project/{project}/unlink/{user}', 'ProjectController@unlinkMember');
-
-
 
 	      Route::get('/project/{id}/calculate-load', 'ProjectController@getSupervisorsLoadForProject');
 
@@ -80,6 +115,74 @@ Route::group(['middleware' =>['web']], function () {
 
       //Teacher can do all these as well
       Route::group(['middleware' =>['project_moderator']], function ($id) {
+
+        Route::get('new-project/{id}/edit', array('as' => 'project_edit', function ($id) {
+
+
+          $current_project = NewProject::find($id);
+
+
+          if ($current_project->embedded != null) {
+            preg_match('/src="([^"]+)"/', $current_project->embedded, $match);
+
+            $current_project->embedded = $match[1];
+          }
+
+
+          //Supervisors field
+          $teachers = User::select('id','name', 'full_name')->whereHas('roles', function ($q) {
+            $q->where('name', 'oppejoud');
+          })->get();
+
+          $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	        $authors_ids = array();
+	        foreach ($authors as $author){
+	        	array_push($authors_ids, $author->id);
+	        }
+
+
+          //Study areas field
+//	        if(\App::getLocale() == 'en'){
+//		        $courses = Course::select('id','oppekava_eng')->get();
+//	        }else{
+//		        $courses = Course::select('id','oppekava_est')->get();
+//	        }
+//
+
+
+          $linked_courses = $current_project->getCourses()->select('id')->get();
+	        $linked_courses_ids = array();
+          foreach ($linked_courses as $linked_course){
+            array_push($linked_courses_ids, $linked_course->id);
+          }
+
+
+
+	        $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+
+
+
+          $projects = NewProject::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->get();
+
+//          if ($project->start) {
+//            $project->start = date("m/d/Y", strtotime($project->start));
+//          }
+//
+//          if ($project->end) {
+//            $project->end = date("m/d/Y", strtotime($project->end));
+//          }
+
+
+          if ($current_project->join_deadline) {
+            $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
+          }
+
+          return view('project.edit', compact('teachers','authors_ids', 'current_project', 'projects', 'linked_courses_ids', 'evaluation_dates'));
+
+
+        }));
 
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
 
@@ -272,6 +375,17 @@ Route::group(['middleware' =>['web']], function () {
           return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
+        Route::delete('admin/new-projects/{id}/delete', function ($id) {
+          $project = NewProject::findOrFail($id);
+
+          $name = $project->name;
+          // $project->delete();
+          $project->deleted = 1;
+          $project->save();
+
+          return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
+        });
+
 
         Route::get('admin/student-projects', function () {
 
@@ -346,11 +460,26 @@ Route::group(['middleware' =>['web']], function () {
 //		        $courses = Course::select('id','oppekava_est')->get();
 //	        }
 //
-	        return view('project.stopped_until');
-//          return view('user.student.new_project');
+//          return view('user.project.new');
+
+            $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+            {
+              $q->where('name', 'oppejoud');
+            })->get();
+
+            $projects = Project::where('deleted', NULL)->whereHas('users', function($q)
+            {
+              $q->where('id', Auth::user()->id);
+            })->get();
+
+            $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+
+            $author =  Auth::user()->id;
+
+            return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
         });
 
-        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
+        Route::post('student/project/new', 'ProjectController@storeNewProjectByStudent');
 
       });
 
@@ -407,6 +536,32 @@ Route::group(['middleware' => ['web']], function () {
 
 
     $project = Project::find($id);
+
+    if($project){
+	    if(Auth::user()){
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', Auth::user()->is('oppejoud'));
+	    }else{
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', false);
+	    }
+
+    }else{
+    	return view('errors.404');
+    }
+
+
+
+
+  }));
+
+
+  Route::get('new-project/{id}', array('as' => 'project', function ($id) {
+
+
+    $project = NewProject::find($id);
 
     if($project){
 	    if(Auth::user()){

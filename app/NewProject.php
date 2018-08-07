@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-
-
-class Project extends Model
+class NewProject extends Model
 {
   use LogsActivity;
 
@@ -49,5 +47,6 @@ class Project extends Model
   {
     return $this->hasMany('App\Tag');
   }
+
 
 }

@@ -12,6 +12,8 @@
                 @endif
             @elseif(($project->status == 0) && ($project->study_year < 2017))
                 @include('project.old_finished_project')
+            @elseif ($project->status == 2)
+                @include('project.being_reviewed')
             @else
                 @include('project.active_project')
             @endif

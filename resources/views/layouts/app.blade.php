@@ -36,6 +36,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/classic.css')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/classic.date.css')) }}" rel="stylesheet">
+
 
     <style>
         .fa-btn {
@@ -190,15 +193,15 @@
                             @endif
 
 
-                            {{--<li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"></a></li>--}}
+                            <li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{ trans('front.add') }}</a></li>
 
-                            <li class="dropdown">
+                            {{--<li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> {{trans('front.add')}} <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ url('/project/new?lang=et') }}">Eesti keeles</a></li>
                                     <li><a href="{{ url('/project/new?lang=en') }}">In english</a></li>
                                 </ul>
-                            </li>
+                            </li>--}}
                         @endif
 
                         @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))

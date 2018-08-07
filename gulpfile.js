@@ -24,6 +24,9 @@ gulp.task("copyfiles", function() {
     gulp.src("resources/assets/css/*")
       .pipe(gulp.dest("public/css"));
 
+    gulp.src("resources/assets/bower/pickadate/lib/compressed/themes/classic.*")
+      .pipe(gulp.dest("public/css"));
+
     gulp.src("resources/assets/js/scripts.js")
       .pipe(gulp.dest("public/js"));
 
@@ -54,6 +57,8 @@ elixir(function(mix) {
 
     mix.scripts([
         '../bower/jquery/dist/jquery.min.js',
+        '../bower/pickadate/lib/picker.js',
+        '../bower/pickadate/lib/picker.date.js',
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.min.js',
         '../bower/sweetalert/dist/sweetalert.min.js',
@@ -65,7 +70,8 @@ elixir(function(mix) {
         '../bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
         '../bower/Sortable/Sortable.js',
         '../bower/fancybox/dist/jquery.fancybox.js',
-        '../bower/dropzone/dist/dropzone.js'
+        '../bower/dropzone/dist/dropzone.js',
+        '../bower/typeahead.js/dist/typeahead.bundle.js'
     ], 'public/js/vendor.js');
 
   //mix.scripts('app.js');

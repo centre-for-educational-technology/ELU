@@ -35,28 +35,6 @@ Route::group(['middleware' =>['web']], function () {
 
       Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
 
-      Route::get('all_tags', function () {
-        $tags['en'] = [];
-        $tags['et'] = [];
-        $tags_data = Tag::all();
-        foreach ($tags_data as $tag_data) {
-          if ($tag_data['language'] == 'en') {
-            array_push($tags['en'], $tag_data['tag']);
-          } elseif ($tag_data['language'] == 'et') {
-            array_push($tags['et'], $tag_data['tag']);
-          }
-        }
-        return $tags;
-      });
-
-      Route::post('api/teachers/get', function () {
-        $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
-        {
-          $q->where('name', 'oppejoud');
-        })->get();
-        return $teachers;
-      });
-
 
 
 //    Teacher section
@@ -584,6 +562,28 @@ Route::group(['middleware' => ['web']], function () {
     }else{
     	return view('errors.404');
     }
+
+    Route::get('all_tags', function () {
+      $tags['en'] = [];
+      $tags['et'] = [];
+      $tags_data = Tag::all();
+      foreach ($tags_data as $tag_data) {
+        if ($tag_data['language'] == 'en') {
+          array_push($tags['en'], $tag_data['tag']);
+        } elseif ($tag_data['language'] == 'et') {
+          array_push($tags['et'], $tag_data['tag']);
+        }
+      }
+      return $tags;
+    });
+
+    Route::post('api/teachers/get', function () {
+      $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+      {
+        $q->where('name', 'oppejoud');
+      })->get();
+      return $teachers;
+    });
 
 
 

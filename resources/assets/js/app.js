@@ -410,7 +410,7 @@ jQuery(document).ready(function($) {
     $('#close_learning_outcomes').toggle(1);
     $('#open_learning_outcomes').toggle(1);
   });
-console.log('Tere');
+
 
   // Typeahead styling
   $('body').on("mouseover", ".tt-suggestion", function () {
@@ -445,6 +445,8 @@ console.log('Tere');
     $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
     $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
   });
+
+  console.log('Tere');
 
   // Adding datepicker to initial date inputs in new project form
   $('.glyphicon-calendar').parent().siblings().children('input').pickadate({format: 'dd/mm/yyyy'});

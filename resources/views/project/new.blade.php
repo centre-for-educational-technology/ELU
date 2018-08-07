@@ -534,6 +534,7 @@
         <!-- Supervisor -->
         <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
         <select id="supervisor" class="form-control" name="supervisor">
+            <option value='-1'> </option>
             @if ($teachers->count())
                 @foreach($teachers as $teacher)
                     @if (old('supervisor')!='')
@@ -554,8 +555,12 @@
         </select>
 
         <!-- Supervising student -->
-        <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
-        <input class="form-control" type="text" name="supervising_student" value="{{ old('supervising_student') }}">
+        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+            <!--
+            <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
+            -->
+            <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
+        @endif
 
         <!-- Cosupervisor -->
         <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>

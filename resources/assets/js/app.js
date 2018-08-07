@@ -463,7 +463,7 @@ jQuery(document).ready(function($) {
         newCosupervisorSelect.append(cosupervisorOption);
       }
     });
-    newCosupervisorSelect.select2({
+    $(newCosupervisorSelect).select2({
       minimumInputLength: 3,
       placeholder: window.Laravel.name_or_email_placeholder,
       language: { inputTooShort: function () { return window.Laravel.three_or_more_char; } },

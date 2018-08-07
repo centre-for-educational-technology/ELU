@@ -545,7 +545,7 @@ Route::group(['middleware' => ['web']], function () {
 
   Route::get('outside-project/{view_hash}', array('as' => 'project', function ($view_hash) {
     $project = OutsideProject::find($view_hash);
-    return view('project.view_outside_project')
+    return view('project.view_outside_idea')
       ->with('project', $project);
   }));
 

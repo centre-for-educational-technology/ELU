@@ -221,7 +221,7 @@ jQuery(document).ready(function($) {
     $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
     for (var i=1;i<cosupervisors.length;i++) {
       $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
-      $('.search_teacher').select2({
+      $('.co_supervisor').select2({
         minimumInputLength: 3,
         placeholder: window.Laravel.name_or_email_placeholder,
         language: { inputTooShort: function () { return window.Laravel.three_or_more_char; } },
@@ -477,7 +477,7 @@ jQuery(document).ready(function($) {
 
   function getCosupervisorFieldToAdd (selected) {
     newCosupervisorSelect = document.createElement('select');
-    newCosupervisorSelect.className ="search_teacher form-control co_supervisor";
+    newCosupervisorSelect.className ="js-example-basic-multiple form-control co_supervisor";
     $.ajax ({
       url: window.Laravel.base_path+'/api/teachers/get',
       dataType: 'json',

@@ -29,7 +29,7 @@ return [
     'keywords_desc' => 'Märksõna lisamiseks vajuta "Enter" klahvi',
     'extra_info' => 'Lisainfo',
     //
-    'comment_for_coordinators' => 'Märkus ELU kordinaatoritele',
+    'comment_for_coordinators' => 'Märkus ELU koordinaatoritele',
     'partners' => 'Partner(id) e Juhendaja ettevõttest',
     //
     'duration' => 'Projekti kestus semestrites',

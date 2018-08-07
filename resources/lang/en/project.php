@@ -179,7 +179,7 @@ return [
 		'declined_project_join_notification_max_members_limit' => 'Unfortunately, all the slots are taken for this project',
 		'declined_project_join_notification_max_courses_limit' => 'Unfortunately, all the slots for your course are taken',
 		'find_something_else_notification' => 'Find something else',
-		'new_project_added_notification' => 'New project has been added!',
+		'new_project_added_notification' => 'Project idea will be reviewed and you will be contacted!',
 		'presentation_of_results_december' => 'December/January',
 		'presentation_of_results_may' => 'May/June',
 		'changes_saved' => 'Changes saved',

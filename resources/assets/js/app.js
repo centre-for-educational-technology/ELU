@@ -364,9 +364,13 @@ jQuery(document).ready(function($) {
     var co_supervisors = []
     for (var i=0;i<$('.co_supervisor').length;i++)
     {
-      co_supervisors.push($($('.co_supervisor')[i]).val());
+      if ($($('.co_supervisor')[i]).val() != '-1') {
+        co_supervisors.push($($('.co_supervisor')[i]).val());
+      }
     }
-    $('#co_supervisors').val(JSON.stringify(co_supervisors));
+    if ($($('.co_supervisor')[0]).val() != '') {
+      $('#co_supervisors').val(JSON.stringify(co_supervisors));
+    }
     
     $('#hidden_project_form_submit').trigger('click');
   });

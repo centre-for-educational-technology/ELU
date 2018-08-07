@@ -297,17 +297,25 @@ class ProjectController extends Controller
     $project->save();
    
     //Attach users with teacher role
-    /*
-    $supervisors = $request->input('supervisors');
-    foreach ($supervisors as $supervisor){
-      $project->users()->attach($supervisor, ['participation_role' => 'author']);
+    $project->users()->attach($request->supervisor, ['participation_role' => 'author']);
+    $cosupervisors = json_decode($request->co_supervisors);
+    foreach ($cosupervisors as $cosupervisor){
+      $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
     }
-    */
 
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+
+    $new_projects = NewProject::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+
+    foreach ($new_projects as $project) {
+      array_push($projects, $project);
+    }
 
 	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
 

@@ -72,7 +72,6 @@
             <!-- RECAPTCHA -->
             <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
                 <div class="col-md-6 col-md-offset-3">
-                    {!! NoCaptcha::renderJs() !!}
                     {!! app('captcha')->display() !!}
                     @if ($errors->has('g-recaptcha-response'))
                         <span class="help-block">

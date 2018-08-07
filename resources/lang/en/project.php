@@ -195,4 +195,5 @@ return [
     'group_links_heading' => 'Links',
     'adding_projects_stopped_until' => 'Adding projects will continue through a new application form in August!',
     'being_reviewed' => 'No changes are allowed while project is being reviewed.',
+    'university_contact' => 'Your contact form the university (if exists)',
 ];

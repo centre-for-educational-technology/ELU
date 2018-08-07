@@ -8,6 +8,7 @@ return [
     'my_projects' => 'My projects',
     'add' => 'Add',
     'adding' => 'Adding new project idea',
+    'outside_adding' => 'Adding a new LIFE project idea by a Business',
     'active_language_selection' => 'Choose languages for the project',
     //
     'about_fulfilling_expectations' => 'The following learning outcomes are to be guaranteed:',

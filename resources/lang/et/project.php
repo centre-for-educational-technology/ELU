@@ -8,6 +8,7 @@ return [
     'my_projects' => 'Minu projektid',
     'add' => 'Lisa',
     'adding' => 'Projekti idee esitamine',
+    'outside_adding' => 'Ettevõtja ELU projekti idee esitamine',
     'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
     'about_fulfilling_expectations' => 'ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:',

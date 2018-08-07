@@ -58,6 +58,11 @@ Route::group(['middleware' =>['web']], function () {
       });
 
 
+      Route::get('project/new/outside', function () {
+        return view('project.new_outside_idea');
+      });
+
+
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {
 

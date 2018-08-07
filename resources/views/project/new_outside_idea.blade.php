@@ -13,7 +13,7 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
 
-    <form action="{{ url('project/new/outside') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+    <form action="{{ url('project/new/outside') }}" id="outside_project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="col-lg-6 col-lg-offset-3 panel panel-heading">

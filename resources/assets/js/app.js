@@ -305,6 +305,21 @@ jQuery(document).ready(function($) {
     }
   });
 
+  $('#submit_outside_project').on('click', function (e) {
+    e.preventDefault();
+    
+    var tags_estonian = [];
+    for (var i=0;i<$('#tags_et_output').children().length;i++) {
+      tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_estonian.length != 0) {
+      $('#keywords_et').val(JSON.stringify(tags_estonian));
+    }
+
+    $('#outside_project_form').submit();
+
+  });
+
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
 

@@ -530,7 +530,7 @@
             <!-- Supervisor -->
             <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
             <input class="form-control" value="{{ old('supervisor') }}">
-            <select class="form-control co_supervisor" name="supervisor">
+            <select id="supervisor" class="form-control" name="supervisor">
                 @if ($teachers->count())
                     @foreach($teachers as $teacher)
                         @if (old('supervisor')!='')

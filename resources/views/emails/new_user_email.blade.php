@@ -142,7 +142,7 @@
                         <h2>Tere</h2>
 
                         <p>
-                            Teile on loodud kasutaja lehel <?php echo \URL::to('/');; ?>, kuna esitasite projekti idee Tallinna Ülikooli ELU raames <?php echo $data['project_author']; ?> poolt.
+                            Teile on loodud kasutaja lehel <?php echo \URL::to('/');; ?>, kuna esitasite projekti idee Tallinna Ülikooli ELU raames.
                         </p>
                         <p>
                             Kasutajanimi: <?php echo $data['user_email']; ?>

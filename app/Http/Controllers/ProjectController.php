@@ -258,7 +258,7 @@ class ProjectController extends Controller
   
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $user_data);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   
       $response = curl_exec($ch);
       curl_close($ch);
@@ -1718,7 +1718,7 @@ class ProjectController extends Controller
 
 		$data = [
 				'project_name' => $project,
-        'project_author_email' => $author,
+        'project_author' => $author,
 				'project_url' => $url,
 		];
 
@@ -1751,7 +1751,7 @@ class ProjectController extends Controller
 
 
 		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), $author)->subject('Uus ettevõtte projekti idee');
+      $m->to($admins_emails)->replyTo($author, 'test')->subject('Uus ettevõtte projekti idee');
 			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 
@@ -1763,12 +1763,12 @@ class ProjectController extends Controller
 	{
 
 		$data = [
-				'user_email' => $project,
-        'user_password' => $author
+				'user_email' => $email,
+        'user_password' => $password
 		];
 
 		Mail::send('emails.new_user_email', ['data' => $data], function ($m) use ($email) {
-      $m->to($email)->replyTo(getUserEmail(Auth::user()), 'test')->subject('Kasutaja loodud // Account created');
+      $m->to($email)->subject('Kasutaja loodud // Account created');
 			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 

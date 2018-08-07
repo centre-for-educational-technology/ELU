@@ -216,6 +216,11 @@ jQuery(document).ready(function($) {
     return false;
   });
 
+  // Show helpers for fields
+  $('.tags_et').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
+  $('.tags_en').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
+  $('.tags_et').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
+  $('.tags_en').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
 
   // Populating fields after a failed submit/refresh
   try {

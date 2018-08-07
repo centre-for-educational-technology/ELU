@@ -48,7 +48,7 @@ Route::group(['middleware' =>['web']], function () {
         return $tags;
       });
 
-      Route::get('teachers', function () {
+      Route::post('api/teachers/get', function () {
         $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
         {
           $q->where('name', 'oppejoud');

@@ -220,7 +220,7 @@ jQuery(document).ready(function($) {
     var cosupervisors = JSON.parse($('#co_supervisors').val());
     $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
     for (var i=1;i<cosupervisors.length;i++) {
-      $('#co_supervisor_div').append(getCosupervisorFieldToAdd());
+      $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
       $($('#co_supervisor_div').children()[$('#co_supervisor_div').children().length-1]).val(cosupervisors[i]);
     }
   } catch (err) {
@@ -442,27 +442,59 @@ jQuery(document).ready(function($) {
   $('#add_meeting_en').on('click', function () {$('#other_meetings_en').append(getMeetingFieldToAdd('en'));});
   $('#remove_meeting_et').on('click', function () {$('#other_meetings_et').children(':last-child').remove();});
   $('#remove_meeting_en').on('click', function () {$('#other_meetings_en').children(':last-child').remove();});
-  $('#add_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd());});
+  $('#add_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));});
   $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove();});
 
-  function getCosupervisorFieldToAdd () {
-    /*
-    newCosupervisor = document.createElement('input');
-    newCosupervisor.className ="form-control co_supervisor";
-    newCosupervisor.type="text";
-    */
+  function getCosupervisorFieldToAdd (selected) {
     newCosupervisorSelect = document.createElement('select');
     newCosupervisorSelect.className ="js-example-basic-multiple form-control co_supervisor";
     $.ajax ({
-      url: window.Laravel.base_path+'/teachers'
+      url: window.Laravel.base_path+'/api/teachers/get',
+      dataType: 'json',
+      method: 'POST',
     }).done (function (teachers) {
       for (var i=0;i<teachers.length;i++) {
         cosupervisorOption = document.createElement('option');
         cosupervisorOption.value = teachers[i].id;
+        if (selected != null && teachers[i].id == selected) {
+          cosupervisorOption.selected = true;
+        }
         cosupervisorOption.innerHTML = teachers[i].full_name;
         newCosupervisorSelect.append(cosupervisorOption);
       }
     });
+    newCosupervisorSelect.select2({
+      minimumInputLength: 3,
+      placeholder: window.Laravel.name_or_email_placeholder,
+      language: { inputTooShort: function () { return window.Laravel.three_or_more_char; } },
+      allowClear: true,
+      ajax: {
+        url: window.Laravel.search_user_api_url,
+        dataType: 'json',
+        delay: 250,
+        method: 'POST',
+        data: function (params) {
+          return {
+            q: params.term, // search term
+            project_id: $('.js-users-data-ajax').attr("project-id"),
+            page: params.page
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: $.map(data, function (item) {
+              return {
+                text: (item.full_name ? item.full_name : item.name) + ' ('+(item.contact_email? item.contact_email : item.email)+')',
+                id: item.id
+              }
+            })
+          };
+        },
+        cache: false
+      },
+      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    });
+  
     return newCosupervisorSelect;
   }
 

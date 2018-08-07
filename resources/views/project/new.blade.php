@@ -21,7 +21,7 @@
         <p></p>
 
         <!-- Project language selection -->
-        <div class="col-lg-12 panel">
+        <div class="col-lg-12 panel panel-heading">
             <p>
                 {{ trans('project.active_language_selection') }}
             </p>
@@ -56,7 +56,7 @@
 
     <?php $startingLanguage = App::getLocale(); ?>
     <!-- Start of the first block -->
-    <div class="col-lg-12 panel">
+    <div class="col-lg-12 panel panel-heading">
 
 
         <!-- PROJECT NAME -->
@@ -375,211 +375,209 @@
         </div>
 
 
-        <!-- End of the first block -->
-        </div>
+    <!-- End of the first block -->
+    </div>
 
 
-        <!-- Start of the second block -->
-        <div class="col-lg-12 panel">
+    <!-- Start of the second block -->
+    <div class="col-lg-12 panel panel-heading">
 
-            <!-- Project semester(s) -->
-            <?php App::setLocale($startingLanguage); ?>
-            <label for="project_duration">
-                {{ trans('project.duration') }}
-                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
-            </label>
-            <div class="col-lg-12" id="project_duration">
-                <div class="col-lg-6">
-                    <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                    <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                </div>
-
-                <div class="col-lg-6">
-                    <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                    <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                </div>
-            </div>
-            <div style="display:none">
-                <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
-                <input id="duration_1_radio" name="study_term" type="radio" value="1">
-                <input id="duration_2_radio" name="study_term" type="radio" value="2">
-                <input id="duration_3_radio" name="study_term" type="radio" value="3">
-            </div>
-
-        <!-- End of the second block -->
-        </div>
-
-
-        <!-- Start of the third block -->
-        <div class="col-lg-12 panel">
-
-            <!-- Meetings in Estonian start -->
-            <div class="col-lg-6 form_estonian">
-
-                <!-- Additional info about the meetings in Estonian -->
-                <?php App::setLocale('et'); ?>
-                <div class="col-lg-12">
-                    <label for="meetings_info_et">
-                        {{ trans('project.meetings_info') }} *
-                    </label>
-                    <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! old('meetings_info_et') !!}</textarea>
-                </div>
-
-
-                <!-- Meetings info in Estonian -->
-                <div class="col-lg-12">
-                    <label for="first_meeting_et">
-                        {{ trans('project.meeting_dates') }} *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
-                    </label>
-                    <div id='first_meeting_et'>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
-                                <div class="col-lg-12"><input type="text" class="form-control meeting_date_et"></div>
-                            </div>
-                            <div class="col-lg-7">
-                                <textarea rows="5" style="width: 100%;" class="meeting_info_et"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='other_meetings_et'>
-                    </div>
-                    <input id="meetings_et" type="hidden" name="meetings_et" value="{{ old('meetings_et') }}">
-                </div>
-
-                <!-- Icons for adding/removing another Estonian meeting input field -->
-                <div class="col-lg-12">
-                    <div class="pull-right">
-                        <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
-                        <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
-                    </div>
-                </div>
-
-            <!-- Meetings in Estonian end -->
-            </div>
-
-
-            <!-- Meetings in English start -->
-            <div class="col-lg-6 form_english">
-
-                <!-- Additional info about the meetings in English -->
-                <?php App::setLocale('en'); ?>
-                <div class="col-lg-12">
-                    <label for="meetings_info_en">
-                        {{ trans('project.meetings_info') }} *
-                    </label>
-                    <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! old('meetings_info_en') !!}</textarea>
-                </div>
-
-
-                <!-- Meetings info in English -->
-                <div class="col-lg-12">
-                    <label for="first_meeting_en">
-                        {{ trans('project.meeting_dates') }} *
-                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
-                    </label>
-                    <div id='first_meeting_en'>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
-                                <div class="col-lg-12"><input type="text" class="form-control meeting_date_en"></div>
-                            </div>
-                            <div class="col-lg-7">
-                                <textarea rows="5" style="width: 100%;" class="meeting_info_en"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='other_meetings_en'>
-                    </div>
-                    <input id="meetings_en" type="hidden" name="meetings_en" value="{{ old('meetings_en') }}">
-                </div>
-
-                <!-- Icons for adding/removing another English meeting input field -->
-                <div class="col-lg-12">
-                    <div class="pull-right">
-                        <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
-                        <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
-                    </div>
-                </div>
-
-            <!-- Meetings in English end -->
-            </div>
-
-        <!-- End of the third block -->
-        </div>
-
-
-        <!-- Start of the fourth block -->
-        <div class="col-lg-12 panel">
+        <!-- Project semester(s) -->
+        <?php App::setLocale($startingLanguage); ?>
+        <label for="project_duration">
+            {{ trans('project.duration') }}
+            <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
+        </label>
+        <div class="col-lg-12" id="project_duration">
             <div class="col-lg-6">
-            <?php App::setLocale($startingLanguage); ?>
-
-            <!-- Featured video link -->
-            <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
-            <input class="form-control" type="text" name="featured_video_link" value="{{ old('featured_video_link') }}">
-
-            <!-- Featured image -->
-            <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
-<!--            <input class="form-control" type="text" name="thumbnail">-->
-            <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
-
+                <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
             </div>
 
             <div class="col-lg-6">
-            <!-- Supervisor -->
-            <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
-            <select id="supervisor" class="form-control" name="supervisor">
+                <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+            </div>
+        </div>
+        <div style="display:none">
+            <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
+            <input id="duration_1_radio" name="study_term" type="radio" value="1">
+            <input id="duration_2_radio" name="study_term" type="radio" value="2">
+            <input id="duration_3_radio" name="study_term" type="radio" value="3">
+        </div>
+
+    <!-- End of the second block -->
+    </div>
+
+
+    <!-- Start of the third block -->
+    <div class="col-lg-12 panel panel-heading">
+
+        <!-- Meetings in Estonian start -->
+        <div class="col-lg-6 form_estonian">
+
+            <!-- Additional info about the meetings in Estonian -->
+            <?php App::setLocale('et'); ?>
+            <div class="col-lg-12">
+                <label for="meetings_info_et">
+                    {{ trans('project.meetings_info') }} *
+                </label>
+                <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! old('meetings_info_et') !!}</textarea>
+            </div>
+
+
+            <!-- Meetings info in Estonian -->
+            <div class="col-lg-12">
+                <label for="first_meeting_et">
+                    {{ trans('project.meeting_dates') }} *
+                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
+                </label>
+                <div id='first_meeting_et'>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                            <div class="col-lg-12"><input type="text" class="form-control meeting_date_et"></div>
+                        </div>
+                        <div class="col-lg-7">
+                            <textarea rows="5" style="width: 100%;" class="meeting_info_et"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id='other_meetings_et'>
+                </div>
+                <input id="meetings_et" type="hidden" name="meetings_et" value="{{ old('meetings_et') }}">
+            </div>
+
+            <!-- Icons for adding/removing another Estonian meeting input field -->
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
+                    <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
+                </div>
+            </div>
+
+        <!-- Meetings in Estonian end -->
+        </div>
+
+
+        <!-- Meetings in English start -->
+        <div class="col-lg-6 form_english">
+
+            <!-- Additional info about the meetings in English -->
+            <?php App::setLocale('en'); ?>
+            <div class="col-lg-12">
+                <label for="meetings_info_en">
+                    {{ trans('project.meetings_info') }} *
+                </label>
+                <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! old('meetings_info_en') !!}</textarea>
+            </div>
+
+
+            <!-- Meetings info in English -->
+            <div class="col-lg-12">
+                <label for="first_meeting_en">
+                    {{ trans('project.meeting_dates') }} *
+                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
+                </label>
+                <div id='first_meeting_en'>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="col-lg-12"><span class="glyphicon glyphicon-calendar" style="font-size:75px;"></span></div>
+                            <div class="col-lg-12"><input type="text" class="form-control meeting_date_en"></div>
+                        </div>
+                        <div class="col-lg-7">
+                            <textarea rows="5" style="width: 100%;" class="meeting_info_en"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id='other_meetings_en'>
+                </div>
+                <input id="meetings_en" type="hidden" name="meetings_en" value="{{ old('meetings_en') }}">
+            </div>
+
+            <!-- Icons for adding/removing another English meeting input field -->
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
+                    <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
+                </div>
+            </div>
+
+        <!-- Meetings in English end -->
+        </div>
+
+    <!-- End of the third block -->
+    </div>
+
+
+    <!-- Start of the fourth block -->
+    <div class="col-lg-12 panel panel-heading">
+        <div class="col-lg-6">
+        <?php App::setLocale($startingLanguage); ?>
+
+        <!-- Featured video link -->
+        <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
+        <input class="form-control" type="text" name="featured_video_link" value="{{ old('featured_video_link') }}">
+
+        <!-- Featured image -->
+        <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
+
+        <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
+
+        </div>
+
+        <div class="col-lg-6">
+        <!-- Supervisor -->
+        <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
+        <select id="supervisor" class="form-control" name="supervisor">
+            @if ($teachers->count())
+                @foreach($teachers as $teacher)
+                    @if (old('supervisor')!='')
+                        @if (old('supervisor')==$teacher->id)
+                            <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                        @else
+                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                        @endif
+                    @else
+                        @if ($author == $teacher->id)
+                            <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                        @else
+                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                        @endif
+                    @endif
+                @endforeach
+            @endif
+        </select>
+
+        <!-- Supervising student -->
+        <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
+        <input class="form-control" type="text" name="supervising_student" value="{{ old('supervising_student') }}">
+
+        <!-- Cosupervisor -->
+        <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
+        <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
+        <div id="co_supervisor_div">
+            <select class="form-control co_supervisor">
+                <option value='-1'> </option>
                 @if ($teachers->count())
                     @foreach($teachers as $teacher)
-                        @if (old('supervisor')!='')
-                            @if (old('supervisor')==$teacher->id)
-                                <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                            @else
-                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                            @endif
-                        @else
-                            @if ($author == $teacher->id)
-                                <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                            @else
-                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                            @endif
-                        @endif
+                        <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
                     @endforeach
                 @endif
             </select>
-
-            <!-- Supervising student -->
-            <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
-            <input class="form-control" type="text" name="supervising_student" value="{{ old('supervising_student') }}">
-
-            <!-- Cosupervisor -->
-            <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
-            <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
-            <div id="co_supervisor_div">
-                <select class="form-control co_supervisor">
-                    <option value='-1'> </option>
-                    @if ($teachers->count())
-                        @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                        @endforeach
-                    @endif
-                </select>
-                <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ old('co_supervisors') }}">
-            </div>
-
-            <!-- Icons for adding/removing cosupervisor input -->
-            <div class="pull-right">
-                <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
-                <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
-            </div>
-
-            </div>
-        <!-- End of the fourth block -->
+            <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ old('co_supervisors') }}">
         </div>
 
-    <!-- Ankeet lõpp -->
-    <!--</div>-->
+        <!-- Icons for adding/removing cosupervisor input -->
+        <div class="pull-right">
+            <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
+            <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
+        </div>
+
+        </div>
+    <!-- End of the fourth block -->
+    </div>
+
 
     <!-- Submit options -->
     <div class="col-lg-12">

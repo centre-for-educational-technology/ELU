@@ -458,7 +458,7 @@ jQuery(document).ready(function($) {
     newCosupervisorSelect.className ="form-control co_supervisor";
     cosupervisorOption = document.createElement('option');
     cosupervisorOption.value = '-1';
-    cosupervisorOption.innerHTML = '';
+    cosupervisorOption.innerHTML = ' ';
     newCosupervisorSelect.append(cosupervisorOption);
     $.ajax ({
       url: window.Laravel.base_path+'/api/teachers/get',

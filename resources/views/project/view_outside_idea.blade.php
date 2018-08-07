@@ -44,7 +44,6 @@
                 {{ trans('project.keywords') }} *
             </label></p>
             <input class="form-control tags_et" type="text" style="display:none;">
-            <p>{{ trans('project.keywords_desc') }}</p>
         </div>
 
         <!-- Div to show the selected tags_et to the user -->
@@ -63,18 +62,6 @@
         <div class="col-lg-12 form-group">
             <p><label for="university_contact">{{ trans('project.university_contact') }}</label><p>
             <p>{{ $project->tlu_contact }}</p>
-        </div>
-
-        <!-- RECAPTCHA -->
-        <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-            <div class="col-md-6 col-md-offset-3">
-                {!! app('captcha')->display() !!}
-                @if ($errors->has('g-recaptcha-response'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                    </span>
-                @endif
-            </div>
         </div>
 
     </div>

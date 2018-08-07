@@ -529,7 +529,26 @@
             <div class="col-lg-6">
             <!-- Supervisor -->
             <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
-            <input class="form-control" type="text" name="supervisor" value="{{ old('supervisor') }}">
+            <input class="form-control" value="{{ old('supervisor') }}">
+            <select class="form-control co_supervisor" name="supervisor">
+                @if ($teachers->count())
+                    @foreach($teachers as $teacher)
+                        @if (old('supervisor')!='')
+                            @if (old('supervisor')==$teacher->id)
+                                <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                            @else
+                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                            @endif
+                        @else
+                            @if ($author == $teacher->id)
+                                <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                            @else
+                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                            @endif
+                        @endif
+                    @endforeach
+                @endif
+            </select>
 
             <!-- Supervising student -->
             <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
@@ -542,11 +561,10 @@
                 <select class="form-control co_supervisor">
                     @if ($teachers->count())
                         @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ getUserName($teacher) }}</option>
+                            <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
                         @endforeach
                     @endif
                 </select>
-                <!-- <input class="js-example-basic-multiple form-control co_supervisor" type="text"> -->
                 <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ old('co_supervisors') }}">
             </div>
 

@@ -216,7 +216,7 @@ jQuery(document).ready(function($) {
   });
 
 
-  // Populateing fields after a failed submit/refresh
+  // Populating fields after a failed submit/refresh
   try {
     var cosupervisors = JSON.parse($('#co_supervisors').val());
     $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
@@ -447,7 +447,10 @@ jQuery(document).ready(function($) {
     $(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));
     $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
   });
-  $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove();});
+  $('#remove_cosupervisor').on('click', function () {
+    $(this).parent().prev('#co_supervisor_div').children(':last-child').remove();
+    $(this).parent().prev('#co_supervisor_div').children(':last-child').remove();
+  });
 
   function getCosupervisorFieldToAdd (selected) {
     newCosupervisorSelect = document.createElement('select');

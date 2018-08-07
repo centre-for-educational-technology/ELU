@@ -221,37 +221,7 @@ jQuery(document).ready(function($) {
     $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
     for (var i=1;i<cosupervisors.length;i++) {
       $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
-      $('.co_supervisor').select2({
-        minimumInputLength: 3,
-        placeholder: window.Laravel.name_or_email_placeholder,
-        language: { inputTooShort: function () { return window.Laravel.three_or_more_char; } },
-        allowClear: true,
-        ajax: {
-          url: window.Laravel.search_user_api_url,
-          dataType: 'json',
-          delay: 250,
-          method: 'POST',
-          data: function (params) {
-            return {
-              q: params.term, // search term
-              project_id: $('.js-users-data-ajax').attr("project-id"),
-              page: params.page
-            };
-          },
-          processResults: function (data) {
-            return {
-              results: $.map(data, function (item) {
-                return {
-                  text: (item.full_name ? item.full_name : item.name) + ' ('+(item.contact_email? item.contact_email : item.email)+')',
-                  id: item.id
-                }
-              })
-            };
-          },
-          cache: false
-        },
-        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-      });
+      $('.co_supervisor').select2();
     }
   } catch (err) {
     console.log('No previous values for cosupervisors: '+err);

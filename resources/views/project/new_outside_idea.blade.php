@@ -14,7 +14,7 @@
     <form action="{{ url('project/new/outside') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 
-        <div class="col-lg-12 panel panel-heading">
+        <div class="col-lg-6 col-lg-offset-3 panel panel-heading">
             <!-- PROJECT NAME -->
             <div class="col-lg-12 form-group">
                 <p><label for="name_et">{{ trans('project.name') }} *</label><p>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- EXPECTED OUTCOMES -->
-            <div class="form-group">
+            <div class="col-lg-12 form-group">
                 <p><label for="project_outcomes_et">
                     {{ trans('project.outcomes') }} *
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
@@ -40,7 +40,7 @@
             </div>
 
             <!-- TAGS -->
-            <div class="form-group">
+            <div class="col-lg-12 form-group">
                 <p><label for="tags_et">
                     {{ trans('project.keywords') }} *
                 </label></p>
@@ -66,6 +66,11 @@
                 <input class="form-control" type="text" name="university_contact" value="{{ old('university_contact') }}">
             </div>
 
+        </div>
+        <div class="colg-lg-6 col-lg-offset-3">
+            <div class="col-lg-12">
+                <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
+            </div>
         </div>
 
     </form>

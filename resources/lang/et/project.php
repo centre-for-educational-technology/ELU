@@ -194,4 +194,5 @@ return [
     'adding_projects_stopped_until' => 'Projektide lisamine jätkub augustikuus uue vormi kaudu!',
     'being_reviewed' => 'Kuni projekt on ülevaatamisel, ei ole võimalik muudatusi teha.',
     'university_contact' => 'TLÜ poolne kontaktisik (juhul kui on)',
+    'submit_button' => 'Esita',
 ];

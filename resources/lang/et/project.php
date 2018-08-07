@@ -190,5 +190,6 @@ return [
     'reminder_for_poster' => 'NB! Jälgi, et poster oleks PDF formaadis ja peal oleksid kohustuslikud logod ja suurus ei ületaks 30 MB!',
     'supervisor_has_not_ended_project_yet' => 'Materjalide lisamiseks peab juhendaja kõigepealt projekti lõpetama',
     'group_links_heading' => 'Lingid',
-    'adding_projects_stopped_until' => 'Projektide lisamine jätkub augustikuus uue vormi kaudu!'
+    'adding_projects_stopped_until' => 'Projektide lisamine jätkub augustikuus uue vormi kaudu!',
+    'being_reviewed' => 'Kuni projekt on ülevaatamisel, ei ole võimalik muudatusi teha.',
 ];

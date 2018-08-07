@@ -1373,6 +1373,112 @@ class ProjectController extends Controller
    * Store project proposal by student
    * This goes to moderation
    */
+  public function storeNewProjectByStudent(NewProjectRequest $request)
+  {
+
+    $project = new NewProject;
+    $project->created_by = Auth::user()->id;
+    $project->updated_by = Auth::user()->id;
+    $project->languages = '';
+
+    $this->validate($request, $request->rules());
+    
+    if ($request->project_in_estonian == "true") {
+      $project->languages .= "et";
+      $project->name_et = $request->name_et;
+      $project->description_et = $request->description_et;
+	    $project->project_outcomes_et = $request->project_outcomes_et;
+      $project->interdisciplinary_approach_et = $request->interdisciplinary_approach_et;
+      $project->tags_et = $request->keywords_et;
+      $project->additional_info_et = $request->additional_info_et;
+      $project->comment_for_coordinators_et = $request->comment_for_coordinators_et;
+      $project->partners_et = $request->partners_et;
+      $project->meetings_info_et = $request->meetings_info_et;
+      $project->meetings_et = $request->meetings_et;
+    }
+
+    if ($request->project_in_english == "true") {
+      $project->languages .= "en";
+      $project->name_en = $request->name_en;
+      $project->description_en = $request->description_en;
+	    $project->project_outcomes_en = $request->project_outcomes_en;
+      $project->interdisciplinary_approach_en = $request->interdisciplinary_approach_en;
+      $project->tags_en = $request->keywords_en;
+      $project->additional_info_en = $request->additional_info_en;
+      $project->comment_for_coordinators_en = $request->comment_for_coordinators_en;
+      $project->partners_en = $request->partners_en;
+      $project->meetings_info_en = $request->meetings_info_en;
+      $project->meetings_en = $request->meetings_en;
+    }
+    
+
+    $project->study_term = $request->study_term;
+    if (date("m")>7) {
+      $project->project_year = (date("Y")).'/'.(date("Y")+1);
+    } else {
+      $project->project_year = (date("Y")-1).'/'.(date("Y"));
+    }
+
+
+    $project->supervisor = $request->supervisor;
+    $project->supervising_student = $request->supervising_student;
+    $project->co_supervisors = $request->co_supervisors;
+
+
+    $project->available_to_join = 0;
+    $project->see_hidden_tokken = hash('sha512', $project->id);
+
+
+    // Saving needed to get id to upload featured image to a folder with projectID
+    $project->save();
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+
+    if($request->featured_video_link != null){
+      $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
+      if ($featured_video_url) {
+        // Set width of the embed
+        $featured_video_url->setAttribute(['width' => 600]);
+      }
+      $featured_video_html = $featured_video_url->getHtml();
+      $project->featured_video_link = $featured_video_html;
+    }
+
+    /**
+     * Status
+     * 1 - saved to fill in later
+     * 2 - to be checked out by coordinators, no changes allowed
+     * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
+     * 4 - to be checked by council, idea is locked
+     * 5 - publishing and joining dates added
+     */
+    $project->status = 2;
+
+    $project->save();
+   
+    //Attach users with teacher role
+    $project->users()->attach($request->supervisor, ['participation_role' => 'author']);
+    $cosupervisors = json_decode($request->co_supervisors);
+    foreach ($cosupervisors as $cosupervisor){
+      $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
+    }
+
+
+    $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
+
+
+	  $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id.'/edit'));
+
+
+    return \Redirect::to('projects/open')
+        ->with('message', [
+            'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
+            'type' => 'proposal'
+        ]);
+
+  }
+
   public function storeProjectByStudent(ProjectByStudentRequest $request)
   {
 

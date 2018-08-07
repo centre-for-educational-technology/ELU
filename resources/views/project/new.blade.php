@@ -11,9 +11,13 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
 
-
+    @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+    <form action="{{ url('student/project/new') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
+        {{ csrf_field() }}
+    @else
     <form action="{{ url('project/new') }}" id="project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
+    @endif
 
     <div class="row">
     <div class=col-lg-6>

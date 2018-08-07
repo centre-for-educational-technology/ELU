@@ -107,6 +107,7 @@ jQuery(document).ready(function($) {
 
   // Select2
   $(".js-example-basic-multiple").select2();
+  $(".co_supervisor").select2();
 
 
 
@@ -442,7 +443,10 @@ jQuery(document).ready(function($) {
   $('#add_meeting_en').on('click', function () {$('#other_meetings_en').append(getMeetingFieldToAdd('en'));});
   $('#remove_meeting_et').on('click', function () {$('#other_meetings_et').children(':last-child').remove();});
   $('#remove_meeting_en').on('click', function () {$('#other_meetings_en').children(':last-child').remove();});
-  $('#add_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));});
+  $('#add_cosupervisor').on('click', function () {
+    $(this).parent().prev('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));
+    $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
+  });
   $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove();});
 
   function getCosupervisorFieldToAdd (selected) {

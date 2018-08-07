@@ -446,9 +446,19 @@ jQuery(document).ready(function($) {
   $('#remove_cosupervisor').on('click', function () {$(this).parent().prev('#co_supervisor_div').children(':last-child').remove();});
 
   function getCosupervisorFieldToAdd () {
+    /*
     newCosupervisor = document.createElement('input');
     newCosupervisor.className ="form-control co_supervisor";
     newCosupervisor.type="text";
+    */
+    newCosupervisorSelect = document.createElement('select');
+    newCosupervisorSelect.className ="js-example-basic-multiple form-control co_supervisor";
+    var teachers = JSON.parse('<?php echo $teachers; ?>');
+    for (var i=0;i<teachers.length;i++) {
+      cosupervisorOption = document.createElement('option');
+      cosupervisorOption.value = teachers[i].id
+      cosupervisorOption.innerHTML = teachers[i].full_name
+    }
     return newCosupervisor;
   }
 

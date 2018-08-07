@@ -410,7 +410,7 @@ jQuery(document).ready(function($) {
     $('#close_learning_outcomes').toggle(1);
     $('#open_learning_outcomes').toggle(1);
   });
-
+console.log('Tere');
 
   // Typeahead styling
   $('body').on("mouseover", ".tt-suggestion", function () {
@@ -418,7 +418,7 @@ jQuery(document).ready(function($) {
     $(this).addClass('tt-cursor');
   });
 
-  // Adding Typeahead to tags input in new project form
+  // Adding Typeahead to tags input in new & outside project form
   $.ajax({
     url: window.Laravel.base_path+'/all_tags'
   }).done(function (tags) {

@@ -10,13 +10,14 @@
 
 <div class="container">
 
-    <!-- Display Validation Errors -->
-    @include('common.errors')
 
     <form action="{{ url('project/new/outside') }}" id="outside_project_form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="col-lg-6 col-lg-offset-3 panel panel-heading">
+            <!-- Display Validation Errors -->
+            @include('common.errors')
+    
             <!-- PROJECT NAME -->
             <div class="col-lg-12 form-group">
                 <p><label for="name_et">{{ trans('project.name') }} *</label><p>

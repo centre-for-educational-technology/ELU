@@ -236,7 +236,21 @@ class ProjectController extends Controller
     $user_data['institution'] = 'Outside Business';
     $user_data['recaptcha'] = $request->g-recaptcha-response;
 
-
+    /*
+    $recaptcha_data = [];
+    $recaptcha_data['secret'] = 
+    $recaptcha_data['response'] = $request->g-recaptcha-response;
+    
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $ch = curl_init($url);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $recaptcha_data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    */
     
     if (!getUserByEmail($project->email)) {
       $url = \URL::to('/').'/register';

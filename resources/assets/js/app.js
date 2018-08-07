@@ -107,6 +107,7 @@ jQuery(document).ready(function($) {
 
   // Select2
   $(".js-example-basic-multiple").select2();
+  $("#supervisor").select2();
   $(".co_supervisor").select2();
 
 

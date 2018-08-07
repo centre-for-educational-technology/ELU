@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Pealkiri -->
-<div class="col-log-12 col-lg-offset-2">
+<div class="col-log-6 col-lg-offset-3">
     <h2 class="h2 class-uppercase"><b>{{trans('project.outside_adding')}}</b></h2>
 </div>
 

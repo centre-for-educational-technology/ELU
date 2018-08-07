@@ -592,11 +592,11 @@
     <div class="col-lg-12">
         <div class="col-lg-4">
         {{--
-            <button type="button" class="btn btn-default btn-lg btn-block">Salvesta</button>
+            <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.save_button') }}</button>
         --}}
         </div>
         <div class="col-lg-4">
-            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">Esita</button>
+            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
         </div>
         <div class="col-lg-4">
             {{--

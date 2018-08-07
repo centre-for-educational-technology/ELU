@@ -13,6 +13,7 @@
 
 use App\Project;
 use App\NewProject;
+use App\OutsideProject;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;
@@ -26,7 +27,7 @@ use App\Tag;
 
 Route::group(['middleware' =>['web']], function () {
 
-
+  
     Route::group(['middleware' =>['auth']], function () {
 
       Route::get('profile', 'UserController@index');
@@ -35,27 +36,6 @@ Route::group(['middleware' =>['web']], function () {
 
       Route::post('profile/update-contact-email', 'UserController@updateContactEmail');
 
-      Route::get('all_tags', function () {
-        $tags['en'] = [];
-        $tags['et'] = [];
-        $tags_data = Tag::all();
-        foreach ($tags_data as $tag_data) {
-          if ($tag_data['language'] == 'en') {
-            array_push($tags['en'], $tag_data['tag']);
-          } elseif ($tag_data['language'] == 'et') {
-            array_push($tags['et'], $tag_data['tag']);
-          }
-        }
-        return $tags;
-      });
-
-      Route::post('api/teachers/get', function () {
-        $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
-        {
-          $q->where('name', 'oppejoud');
-        })->get();
-        return $teachers;
-      });
 
 
 //    Teacher section
@@ -557,6 +537,18 @@ Route::group(['middleware' => ['web']], function () {
 
   }));
 
+  Route::get('project/new/outside', function () {
+    return view('project.new_outside_idea');
+  });
+
+  Route::post('/project/new/outside', 'ProjectController@storeOutside');
+
+  Route::get('outside-project/{view_hash}', array('as' => 'project', function ($view_hash) {
+    $project = OutsideProject::where('view_hash', $view_hash)->first();
+    return view('project.view_outside_idea')
+      ->with('project', $project);
+  }));
+
 
   Route::get('new-project/{id}', array('as' => 'project', function ($id) {
 
@@ -578,10 +570,30 @@ Route::group(['middleware' => ['web']], function () {
     	return view('errors.404');
     }
 
-
-
-
   }));
+
+
+  Route::get('all_tags', function () {
+    $tags['en'] = [];
+    $tags['et'] = [];
+    $tags_data = Tag::all();
+    foreach ($tags_data as $tag_data) {
+      if ($tag_data['language'] == 'en') {
+        array_push($tags['en'], $tag_data['tag']);
+      } elseif ($tag_data['language'] == 'et') {
+        array_push($tags['et'], $tag_data['tag']);
+      }
+    }
+    return $tags;
+  });
+
+  Route::post('api/teachers/get', function () {
+    $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+    {
+      $q->where('name', 'oppejoud');
+    })->get();
+    return $teachers;
+  });
 
 
   // ===============================================

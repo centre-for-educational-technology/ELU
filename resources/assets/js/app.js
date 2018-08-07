@@ -305,6 +305,21 @@ jQuery(document).ready(function($) {
     }
   });
 
+  $('#submit_outside_project').on('click', function (e) {
+    e.preventDefault();
+    
+    var tags_estonian = [];
+    for (var i=0;i<$('#tags_et_output').children().length;i++) {
+      tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_estonian.length != 0) {
+      $('#keywords_et').val(JSON.stringify(tags_estonian));
+    }
+
+    $('#outside_project_form').submit();
+
+  });
+
   $('#submit_project').on('click', function (e) {
     e.preventDefault();
 
@@ -403,7 +418,7 @@ jQuery(document).ready(function($) {
     $(this).addClass('tt-cursor');
   });
 
-  // Adding Typeahead to tags input in new project form
+  // Adding Typeahead to tags input in new & outside project form
   $.ajax({
     url: window.Laravel.base_path+'/all_tags'
   }).done(function (tags) {
@@ -430,6 +445,7 @@ jQuery(document).ready(function($) {
     $('input[name=tags_et]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_et',source:list_of_tags_et});
     $('input[name=tags_en]').typeahead({hint:false,minLength:1,highlight:true},{name:'tags_en',source:list_of_tags_en});
   });
+
 
   // Adding datepicker to initial date inputs in new project form
   $('.glyphicon-calendar').parent().siblings().children('input').pickadate({format: 'dd/mm/yyyy'});

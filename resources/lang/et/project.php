@@ -8,6 +8,7 @@ return [
     'my_projects' => 'Minu projektid',
     'add' => 'Lisa',
     'adding' => 'Projekti idee esitamine',
+    'outside_adding' => 'Ettevõtja ELU projekti idee esitamine',
     'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
     'about_fulfilling_expectations' => 'ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:',
@@ -192,4 +193,6 @@ return [
     'group_links_heading' => 'Lingid',
     'adding_projects_stopped_until' => 'Projektide lisamine jätkub augustikuus uue vormi kaudu!',
     'being_reviewed' => 'Kuni projekt on ülevaatamisel, ei ole võimalik muudatusi teha.',
+    'university_contact' => 'TLÜ poolne kontaktisik (juhul kui on)',
+    'submit_button' => 'Esita',
 ];

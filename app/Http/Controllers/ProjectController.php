@@ -234,7 +234,7 @@ class ProjectController extends Controller
     $user_data['email'] = $project->email;
     $user_data['password'] = bcrypt(substr(bcrypt($project->name), 0, 16));
     $user_data['institution'] = 'Outside Business';
-    $user_data['recaptcha'] = $request->g-recaptcha-response;
+    $user_data['recaptcha'] = $request->{'g-recaptcha-response'};
 
     /*
     $recaptcha_data = [];

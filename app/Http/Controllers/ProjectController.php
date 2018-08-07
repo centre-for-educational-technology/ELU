@@ -232,14 +232,17 @@ class ProjectController extends Controller
       $new_user = User::create([
         'name' => 'Business idea',
         'email' => $project->email,
-        'password' => bcrypt(substr(bcrypt($project->name), 0, 16)),
+        'password' => bcrypt(substr(hash('sha512', $project->name), 0, 16)),
         'institution' => 'Outside Business',
         'course' => null,
       ]);
-    $new_user->roles()->attach(3);
+      $new_user->roles()->attach(2);
 
-      $this->newUserAccountEmailNotification($project->email, substr(bcrypt($project->name), 0, 16));
+      $this->newUserAccountEmailNotification($project->email, substr(hash('sha512', $project->name), 0, 16));
     }
+    
+    $project->users()->attach(getUserByEmail($project->email)->id, ['participation_role' => 'author']);
+
     $this->newBusinessIdeaAddedEmailNotification($project->name, $project->email, url('outside-project/'.$project->view_hash));
 
     return \Redirect::to('projects/open')

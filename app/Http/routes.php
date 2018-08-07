@@ -13,6 +13,7 @@
 
 use App\Project;
 use App\NewProject;
+use App\OutsideProject;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;
@@ -541,6 +542,12 @@ Route::group(['middleware' => ['web']], function () {
   });
 
   Route::post('/project/new/outside', 'ProjectController@storeOutside');
+
+  Route::get('outside-project/{view_hash}', array('as' => 'project', function ($view_hash) {
+    $project = OutsideProject::find($view_hash);
+    return view('project.view_outside_project')
+      ->with('project', $project);
+  }));
 
 
   Route::get('new-project/{id}', array('as' => 'project', function ($id) {

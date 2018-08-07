@@ -557,6 +557,32 @@ Route::group(['middleware' => ['web']], function () {
   }));
 
 
+  Route::get('new-project/{id}', array('as' => 'project', function ($id) {
+
+
+    $project = NewProject::find($id);
+
+    if($project){
+	    if(Auth::user()){
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', Auth::user()->is('oppejoud'));
+	    }else{
+		    return view('project.project')
+				    ->with('project', $project)
+				    ->with('isTeacher', false);
+	    }
+
+    }else{
+    	return view('errors.404');
+    }
+
+
+
+
+  }));
+
+
   // ===============================================
   // 404 ===========================================
   // ===============================================

@@ -313,7 +313,7 @@ class ProjectController extends Controller
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
-	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
+	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
 
     return \Redirect::to('teacher/my-projects')
         ->with('message', trans('project.new_project_added_notification'))
@@ -1468,7 +1468,7 @@ class ProjectController extends Controller
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
 
-	  $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id.'/edit'));
+	  $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id.'/edit'));
 
 
     return \Redirect::to('projects/open')

@@ -67,10 +67,8 @@
             </div>
 
         </div>
-        <div class="colg-lg-6 col-lg-offset-3">
-            <div class="col-lg-12">
-                <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
-            </div>
+        <div class="col-lg-8 col-lg-offset-2" style="padding-left: 7vw; padding-right: 7vw;">
+            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
         </div>
 
     </form>

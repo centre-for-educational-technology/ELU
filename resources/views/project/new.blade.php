@@ -539,7 +539,7 @@
             <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
             <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
             <div id="co_supervisor_div">
-                <select class="js-example-basic-multiple form-control co_supervisor">
+                <select class="form-control co_supervisor">
                     @if ($teachers->count())
                         @foreach($teachers as $teacher)
                             <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ getUserName($teacher) }}</option>

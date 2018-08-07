@@ -221,7 +221,7 @@ jQuery(document).ready(function($) {
     $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
     for (var i=1;i<cosupervisors.length;i++) {
       $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
-      $('.co_supervisor').select2();
+      $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
     }
   } catch (err) {
     console.log('No previous values for cosupervisors: '+err);
@@ -447,7 +447,7 @@ jQuery(document).ready(function($) {
 
   function getCosupervisorFieldToAdd (selected) {
     newCosupervisorSelect = document.createElement('select');
-    newCosupervisorSelect.className ="js-example-basic-multiple form-control co_supervisor";
+    newCosupervisorSelect.className ="form-control co_supervisor";
     $.ajax ({
       url: window.Laravel.base_path+'/api/teachers/get',
       dataType: 'json',

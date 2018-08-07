@@ -453,13 +453,17 @@ jQuery(document).ready(function($) {
     */
     newCosupervisorSelect = document.createElement('select');
     newCosupervisorSelect.className ="js-example-basic-multiple form-control co_supervisor";
-    var teachers = JSON.parse('<?php echo $teachers; ?>');
-    for (var i=0;i<teachers.length;i++) {
-      cosupervisorOption = document.createElement('option');
-      cosupervisorOption.value = teachers[i].id
-      cosupervisorOption.innerHTML = teachers[i].full_name
-    }
-    return newCosupervisor;
+    $.ajax ({
+      url: window.Laravel.base_path+'/teachers'
+    }).done (function (teachers) {
+      for (var i=0;i<teachers.length;i++) {
+        cosupervisorOption = document.createElement('option');
+        cosupervisorOption.value = teachers[i].id;
+        cosupervisorOption.innerHTML = teachers[i].full_name;
+        newCosupervisorSelect.append(cosupervisorOption);
+      }
+    });
+    return newCosupervisorSelect;
   }
 
   function getMeetingFieldToAdd (language) {

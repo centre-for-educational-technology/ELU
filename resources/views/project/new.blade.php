@@ -542,11 +542,7 @@
                 <select class="js-example-basic-multiple form-control co_supervisor">
                     @if ($teachers->count())
                         @foreach($teachers as $teacher)
-                            @if(!empty(old('supervisors')))
-                                <option {{ in_array( $teacher->id, old('supervisors')) ? "selected":"" }} value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                            @else
-                                <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ getUserName($teacher) }}</option>
-                            @endif
+                            <option value="{{ $teacher->id }}" {{ $author == $teacher->id ? 'selected="selected"' : '' }}>{{ getUserName($teacher) }}</option>
                         @endforeach
                     @endif
                 </select>

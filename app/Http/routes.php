@@ -48,6 +48,14 @@ Route::group(['middleware' =>['web']], function () {
         return $tags;
       });
 
+      Route::get('teachers', function () {
+        $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+        {
+          $q->where('name', 'oppejoud');
+        })->get();
+        return $teachers;
+      });
+
 
 //    Teacher section
       Route::group(['middleware' =>['teacher']], function () {

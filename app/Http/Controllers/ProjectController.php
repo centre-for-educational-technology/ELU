@@ -12,10 +12,13 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\NewProjectRequest;
+use App\Http\Requests\OutsideProjectRequest;
+
 use App\Http\Requests\ProjectByStudentRequest;
 
 use App\Project;
 use App\NewProject;
+use App\OutsideProject;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -206,6 +209,47 @@ class ProjectController extends Controller
     return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
+  }
+
+
+  /**
+   * Save new project from an outside business
+   */
+  public function storeOutside(OutsideProjectRequest $request)
+  {
+    $project = new OutsideProject;
+    $validate = Validator::make(Input::all(), $request->rules());
+    $project->name = $request->name_et;
+    $project->description = $request->description_et;
+    $project->project_outcomes = $request->project_outcomes_et;
+    $project->tags = $request->keywords_et;
+    $project->email = $request->email_et;
+    $project->tlu_contact = $request->university_contact;
+    $project->view_hash = hash('sha512', $request->name_et);
+    $project->save();
+
+    if (!getUserByEmail($project->email)) {
+      $new_user = User::create([
+        'name' => 'Business idea',
+        'email' => $project->email,
+        'password' => bcrypt(substr(hash('sha512', $project->name), 0, 16)),
+        'institution' => 'Outside Business',
+        'course' => null,
+      ]);
+      $new_user->roles()->attach(2);
+
+      $this->newUserAccountEmailNotification($project->email, substr(hash('sha512', $project->name), 0, 16));
+    }
+    
+    $project->users()->attach(getUserByEmail($project->email)->id, ['participation_role' => 'author']);
+
+    $this->newBusinessIdeaAddedEmailNotification($project->name, $project->email, url('outside-project/'.$project->view_hash));
+
+    return \Redirect::to('projects/open')
+        ->with('message', [
+            'text' => trans('project.project_sent_to_moderation_notification', ['name' => $project->name]),
+            'type' => 'proposal'
+        ]);
   }
 
 
@@ -1644,8 +1688,69 @@ class ProjectController extends Controller
 		});
 
 
+  }
+  
+
+  public function newBusinessIdeaAddedEmailNotification($project, $author, $url)
+	{
+
+		$data = [
+				'project_name' => $project,
+        'project_author' => $author,
+				'project_url' => $url,
+		];
+
+		$admins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'admin');
+		}
+		)->get();
+
+		$superadmins =  User::whereHas(
+				'roles', function($q){
+			$q->where('name', 'superadmin');
+		}
+		)->get();
+
+		//Remove superadmins from the list
+		foreach ($admins as $key=>$admin){
+			foreach ($superadmins as $superadmin){
+				if($admin->id == $superadmin->id){
+					unset($admins[$key]);
+				}
+			}
+		}
+
+		$admins_emails = array();
+
+		foreach ($admins as $admin){
+			array_push($admins_emails, getUserEmail($admin));
+		}
+
+
+		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails, $author) {
+      $m->to($admins_emails)->replyTo($author)->subject('Uus ettevõtte projekti idee');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+
+
 	}
 
+
+  public function newUserAccountEmailNotification($email, $password)
+	{
+
+		$data = [
+				'user_email' => $email,
+        'user_password' => $password
+		];
+
+		Mail::send('emails.new_user_email', ['data' => $data], function ($m) use ($email) {
+      $m->to($email)->subject('Kasutaja loodud // Account created');
+			//$m->cc($admins_emails)->subject('Uus projektiidee');
+		});
+
+	}
 
   /**
    * Admin analytics of projects view

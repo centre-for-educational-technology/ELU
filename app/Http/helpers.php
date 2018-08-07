@@ -369,6 +369,9 @@ function getUserEmail(\App\User $user){
   return $user->contact_email ? $user->contact_email : $user->email;
 }
 
+function getUserByEmail($email) {
+	return \DB::table('users')->where('email', $email)->first();
+}
 
 
 function getProjectSemester(\App\Project $project)

@@ -324,8 +324,11 @@ jQuery(document).ready(function($) {
         secret: '<?php echo Config::get(\'captcha.secret\') ?>',
       }
     }).done(function (ajax_response) {
+      console.log(ajax_response);
       $('[name=g-recaptcha-response').val(ajax_response)
     });
+    console.log('Väärtus: '+$('[name=g-recaptcha-response').val());
+    console.log('<?php echo Config::get(\'captcha.secret\') ?>');
 
     $('#outside_project_form').submit();
 

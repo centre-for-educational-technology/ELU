@@ -1750,8 +1750,8 @@ class ProjectController extends Controller
 		}
 
 
-		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      $m->to($admins_emails)->replyTo($author, 'test')->subject('Uus ettevõtte projekti idee');
+		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails, $author) {
+      $m->to($admins_emails)->replyTo($author)->subject('Uus ettevõtte projekti idee');
 			//$m->cc($admins_emails)->subject('Uus projektiidee');
 		});
 

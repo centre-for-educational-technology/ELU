@@ -13,7 +13,7 @@ class NewProjectUserTableCreated extends Migration
     public function up()
     {
         Schema::create('new_project_user', function (Blueprint $table) {
-            $table->integer('project_id');
+            $table->integer('new_project_id');
             $table->integer('user_id');
             $table->string('participation_role');
             $table->float('points', 8, 1);

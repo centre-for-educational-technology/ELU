@@ -12,6 +12,7 @@
 */
 
 use App\Project;
+use App\NewProject;
 use Illuminate\Http\Request;
 use App\Page;
 use App\User;

@@ -26,13 +26,7 @@ use App\Tag;
 
 Route::group(['middleware' =>['web']], function () {
 
-  Route::get('project/new/outside', function () {
-    return view('project.new_outside_idea');
-  });
-
-  Route::post('/project/new/outside', 'ProjectController@storeOutside');
-
-
+  
     Route::group(['middleware' =>['auth']], function () {
 
       Route::get('profile', 'UserController@index');
@@ -563,6 +557,12 @@ Route::group(['middleware' => ['web']], function () {
 
 
   }));
+
+  Route::get('project/new/outside', function () {
+    return view('project.new_outside_idea');
+  });
+
+  Route::post('/project/new/outside', 'ProjectController@storeOutside');
 
 
   Route::get('new-project/{id}', array('as' => 'project', function ($id) {

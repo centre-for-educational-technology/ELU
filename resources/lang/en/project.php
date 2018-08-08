@@ -21,7 +21,7 @@ return [
     //
     'name' => 'Project name',
     'description' => 'Description',
-    'description_desc' => 'Tuua välja, mida projekti idee endast kujutab, mis tegevusi hõlmab, milline on probleemi püstitus ja mis on eesmärk. Millistele teaduslikele allikatele, teooriatele projekti teema või probleem tugineb? Milles seisneb projekti olulisus?',
+    'description_desc' => 'Bring out, what is the project idea about, what activities are necessary. What is the issue about and what is the aim of the project. What kind of scientific literature or theories support the project issue? Why and how is this issue important?',
     'outcomes' => 'Project outcomes',
     'outcomes_desc' => 'Research, practical and creative outcome, data collection and/or -analysis, theme day, app etc.',
     'interdisciplinary_desc' => 'Interdisciplinary approach',

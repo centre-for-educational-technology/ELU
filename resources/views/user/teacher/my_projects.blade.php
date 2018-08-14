@@ -24,8 +24,8 @@
                                 <th>{{trans('project.project')}}</th>
                                 <!--
                                 <th>{{trans('project.publishing_status')}}</th>
-                                -->
                                 <th>&nbsp;</th>
+                                -->
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
@@ -53,9 +53,10 @@
 
                                             @endif
 
+                                        <!--
                                         <td>
 
-                                            <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
+                                            <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
@@ -64,6 +65,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        -->
                                         <td>
                                             @if(newProjectHasUsers($project))
                                                 @if (newProjectHasGroupsWithMembers($project))

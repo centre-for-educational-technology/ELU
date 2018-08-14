@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Project;
+use App\NewProject;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class ProjectModerator
     {
       if(Auth::check()){
       	
-        if ( canChangeTheProject(Auth::user(), Project::find( $request->id)))
+        if ( canChangeTheProject(Auth::user(), NewProject::find( $request->id)))
         {
           return $next($request);
         }

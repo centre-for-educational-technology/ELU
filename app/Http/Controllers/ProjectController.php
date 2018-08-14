@@ -264,13 +264,27 @@ class ProjectController extends Controller
     $project->updated_by = Auth::user()->id;
     $project->languages = '';
 
-    $this->validate($request, $request->rules());
+    if ($request->submit_project) {
+      $this->validate($request, $request->rules());
+
+      /**
+       * Status
+       * 1 - saved to fill in later
+       * 2 - to be checked out by coordinators, no changes allowed
+       * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
+       * 4 - to be checked by council, idea is locked
+       * 5 - publishing and joining dates added
+       */
+      $project->status = 2;
+    } elseif ($request->save_project) {
+      $project->status = 1;
+    }
     
     if ($request->project_in_estonian == "true") {
       $project->languages .= "et";
       $project->name_et = $request->name_et;
       $project->description_et = $request->description_et;
-	    $project->project_outcomes_et = $request->project_outcomes_et;
+      $project->project_outcomes_et = $request->project_outcomes_et;
       $project->interdisciplinary_approach_et = $request->interdisciplinary_approach_et;
       $project->tags_et = $request->keywords_et;
       $project->additional_info_et = $request->additional_info_et;
@@ -284,7 +298,7 @@ class ProjectController extends Controller
       $project->languages .= "en";
       $project->name_en = $request->name_en;
       $project->description_en = $request->description_en;
-	    $project->project_outcomes_en = $request->project_outcomes_en;
+      $project->project_outcomes_en = $request->project_outcomes_en;
       $project->interdisciplinary_approach_en = $request->interdisciplinary_approach_en;
       $project->tags_en = $request->keywords_en;
       $project->additional_info_en = $request->additional_info_en;
@@ -294,7 +308,6 @@ class ProjectController extends Controller
       $project->meetings_en = $request->meetings_en;
     }
     
-
     $project->study_term = $request->study_term;
     if (date("m")>7) {
       $project->project_year = (date("Y")).'/'.(date("Y")+1);
@@ -325,16 +338,6 @@ class ProjectController extends Controller
       $project->featured_video_link = $featured_video_html;
     }
 
-    /**
-     * Status
-     * 1 - saved to fill in later
-     * 2 - to be checked out by coordinators, no changes allowed
-     * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
-     * 4 - to be checked by council, idea is locked
-     * 5 - publishing and joining dates added
-     */
-    $project->status = 2;
-
     $project->save();
    
     //Attach users with teacher role
@@ -344,7 +347,9 @@ class ProjectController extends Controller
       $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
     }
 
-    $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+    if ($request->submit_project) {
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+    }
 
     // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
     if($request->featured_image != null){
@@ -361,10 +366,17 @@ class ProjectController extends Controller
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
-    return \Redirect::to('teacher/my-projects')
-        ->with('message', trans('project.new_project_added_notification'))
-        ->with('projects', $projects)
-        ->with('new_projects', $new_projects);
+    if ($request->submit_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.new_project_added_notification'))
+          ->with('projects', $projects)
+          ->with('new_projects', $new_projects);
+    } elseif ($request->save_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.new_project_saved_notification'))
+          ->with('projects', $projects)
+          ->with('new_projects', $new_projects);
+    }
 
   }
 

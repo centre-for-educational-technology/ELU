@@ -390,6 +390,77 @@ jQuery(document).ready(function($) {
     $('#hidden_project_form_submit').trigger('click');
   });
 
+
+  $('#save_project').on('click', function (e) {
+    e.preventDefault();
+
+    // To stop tinyMCE inputs be accepted with just spaces
+    /*
+    tinyMCE.get('description_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('description_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('project_outcomes_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_et').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_et').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.get('interdisciplinary_approach_en').setContent(removeExcessWhitespaceFromString(tinyMCE.get('interdisciplinary_approach_en').getContent().split('&nbsp;').join(' ')));
+    tinyMCE.triggerSave();
+    */
+
+    // Adding tags from div to an input field, to send the data
+    var tags_estonian = [];
+    for (var i=0;i<$('#tags_et_output').children().length;i++) {
+      tags_estonian.push($('#tags_et_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_estonian.length != 0) {
+      $('#keywords_et').val(JSON.stringify(tags_estonian));
+    }
+
+    var tags_english = [];
+    for (var i=0;i<$('#tags_en_output').children().length;i++) {
+      tags_english.push($('#tags_en_output').children()[i].innerHTML.split('<')[0]);
+    }
+    if (tags_english.length != 0) {
+      $('#keywords_en').val(JSON.stringify(tags_english));
+    }
+    
+    // Adding meeting dates from different fields to one, to send all data with one parameter
+    var meetings_et = [];
+    var meetings_en = [];
+    for (var i=0;i<$('.meeting_date_et').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_et')[i]).val());
+      meeting.push($($('.meeting_info_et')[i]).val());
+      meetings_et.push(meeting);
+    }
+    for (var i=0;i<$('.meeting_date_en').length;i++)
+    {
+      var meeting = []
+      meeting.push($($('.meeting_date_en')[i]).val());
+      meeting.push($($('.meeting_info_en')[i]).val());
+      meetings_en.push(meeting);
+    }
+    if (meetings_et[0][0] != '') {
+      $('#meetings_et').val(JSON.stringify(meetings_et));
+    }
+    if (meetings_en[0][0] != '') {
+      $('#meetings_en').val(JSON.stringify(meetings_en));
+    }
+
+    // Adding cosupervisors from different fields to one, to send all data with one parameter
+    var co_supervisors = []
+    for (var i=0;i<$('.co_supervisor').length;i++)
+    {
+      if ($($('.co_supervisor')[i]).val() != '-1') {
+        co_supervisors.push($($('.co_supervisor')[i]).val());
+      }
+    }
+    if ($($('.co_supervisor')[0]).val() != '') {
+      $('#co_supervisors').val(JSON.stringify(co_supervisors));
+    }
+    
+    $('#hidden_project_form_save').trigger('click');
+  });
+
   $('.study_term_button').on('click', function () {
     $('.study_term_button').removeClass('btn-info');
     $('.study_term_button').removeClass('btn-default');

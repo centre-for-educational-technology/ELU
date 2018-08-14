@@ -592,11 +592,8 @@
     <div class="col-lg-12">
         <div class="col-lg-4">
         {{--
-            <button type="button" class="btn btn-default btn-lg btn-block">{{ trans('project.save_button') }}</button>
         --}}
-        </div>
-        <div class="col-lg-4">
-            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
+            <button type="submit" id="save_project" class="btn btn-default btn-lg btn-block">{{ trans('project.save_button') }}</button>
         </div>
         <div class="col-lg-4">
             {{--
@@ -605,10 +602,16 @@
             </button>
             --}}
         </div>
+        <div class="col-lg-4">
+            <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
+        </div>
         
         <!-- hidden submit button to trigger form validation after using preventDefault() -->
         <div style="display:none">
-            <button id="hidden_project_form_submit" type="submit"></button>
+            <button id="hidden_project_form_submit" type="submit" name="submit_project" value="true"></button>
+        </div>
+        <div style="display:none">
+            <button id="hidden_project_form_save" type="submit" name="save_project" value="true"></button>
         </div>
     </div>
 

@@ -22,7 +22,9 @@
                             <table class="table table-responsive table-striped project-table">
                                 <thead>
                                 <th>{{trans('project.project')}}</th>
+                                <!--
                                 <th>{{trans('project.publishing_status')}}</th>
+                                -->
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
@@ -34,12 +36,20 @@
                                 <tbody>
                                 @foreach ($new_projects as $project)
                                     <tr>
-                                        <td class="table-text"><div>{{ $project->name }}</div></td>
+                                        @if ($project->name_et)
+                                            <td class="table-text"><div>{{ $project->name_et }}</div></td>
+                                        @else
+                                            <td class="table-text"><div>{{ $project->name_en }}</div></td>
+                                        @endif
 
                                             @if($project->publishing_status == 1)
+                                                <!--
                                                 <td class="table-text green"><div><i class="fa fa-eye"></i> {{trans('project.published')}}</div></td>
+                                                -->
                                             @else
+                                                <!--
                                                 <td class="table-text red"><div><i class="fa fa-eye-slash"></i> {{trans('project.hidden')}}</div></td>
+                                                -->
 
                                             @endif
 
@@ -112,6 +122,8 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <?php
+                                            /*
                                             @if(newProjectHasGroupsWithMembers($project) && $project->status == 0)
                                                 @if(isProjectResultsFilledIn($project))
                                                     <span class="label label-success">{{trans('project.summary_completed_status')}}</span>
@@ -121,6 +133,19 @@
 
                                             @else
                                                 <span class="label label-info">{{trans('project.active_status')}}</span>
+                                            @endif
+                                            */
+                                            ?>
+                                            @if ($project->status == 1)
+                                                <span class="label label-default">{{trans('project.status_saved')}}</span>
+                                            @elseif ($project->status == 2)
+                                                <span class="label label-info">{{trans('project.status_to_be_checked')}}</span>
+                                            @elseif ($project->status == 3)
+                                                <span class="label label-danger">{{trans('project.status_needs_change')}}</span>
+                                            @elseif ($project->status == 4)
+                                                <span class="label label-info">{{trans('project.status_council_check')}}</span>
+                                            @elseif ($project->status == 5)
+                                                <span class="label label-success">{{trans('project.status_active')}}</span>
                                             @endif
                                         </td>
                                         <!--

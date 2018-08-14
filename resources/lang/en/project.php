@@ -197,4 +197,10 @@ return [
     'being_reviewed' => 'No changes are allowed while project is being reviewed.',
     'university_contact' => 'Your contact form the university (if exists)',
     'submit_button' => 'Submit',
+    // Project statuses
+    'status_saved' => 'Saved',
+    'status_to_be_checked' => 'To be checked',
+    'status_needs_change' => 'Needs changes',
+    'status_council_check' => 'To be checked by council',
+    'status_active' => 'Active',
 ];

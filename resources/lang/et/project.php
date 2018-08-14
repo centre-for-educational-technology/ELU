@@ -195,4 +195,10 @@ return [
     'being_reviewed' => 'Kuni projekt on ülevaatamisel, ei ole võimalik muudatusi teha.',
     'university_contact' => 'TLÜ poolne kontaktisik (juhul kui on)',
     'submit_button' => 'Esita',
+    // Project statuses
+    'status_saved' => 'Salvestatud',
+    'status_to_be_checked' => 'Ülevaatusel',
+    'status_needs_change' => 'Vajab muudatusi',
+    'status_council_check' => 'Nõukogus ülevaatusel',
+    'status_active' => 'Aktiivne',
 ];

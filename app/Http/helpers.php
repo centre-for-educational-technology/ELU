@@ -170,6 +170,22 @@ function projectHasGroupsWithMembers(\App\Project $project){
 }
 
 /**
+ * Return true if project has groups with at least one member
+ * @param \App\NewProject $project
+ * @return bool
+ */
+function newProjectHasGroupsWithMembers(\App\NewProject $project){
+  if(count($project->groups) > 0){
+    foreach ($project->groups as $group){
+      if(count($group->users) > 0){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/**
  * Return true if
  * project has summary field filled in and
  * all the groups related to that project have Results, Activities and Reflection fields filled in
@@ -210,6 +226,19 @@ function projectHasUsers(\App\Project $project){
 	return false;
 }
 
+/**
+ * Return true if project has at least on member
+ * @param \App\NewProject $project
+ * @return bool
+ */
+function newProjectHasUsers(\App\NewProject $project){
+	foreach ($project->users as $user){
+		if($user->pivot->participation_role == 'member'){
+			return true;
+		}
+	}
+	return false;
+}
 
 /**
  * Return projects this teacher is author of

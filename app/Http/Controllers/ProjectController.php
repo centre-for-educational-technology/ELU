@@ -314,9 +314,6 @@ class ProjectController extends Controller
 
     // Saving needed to get id to upload featured image to a folder with projectID
     $project->save();
-    if($request->featured_image != null){
-      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
-    }
 
     if($request->featured_video_link != null){
       $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
@@ -347,6 +344,13 @@ class ProjectController extends Controller
       $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
     }
 
+    $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+
+    // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
@@ -356,8 +360,6 @@ class ProjectController extends Controller
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
-
-	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
 
     return \Redirect::to('teacher/my-projects')
         ->with('message', trans('project.new_project_added_notification'))

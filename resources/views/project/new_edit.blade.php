@@ -441,7 +441,7 @@
                     <?php App::setLocale('et'); ?>
                     <div class="col-lg-12">
                         <label for="meetings_info_et">
-                            {{ trans('project.meetings_info') }} *
+                            {{ trans('project.meetings_info') }}
                         </label>
                         <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! (empty(old('meetings_info_et')) ? $current_project->meetings_info_et :  old('meetings_info_et')) !!}</textarea>
                     </div>
@@ -460,7 +460,7 @@
                                     <div class="col-lg-12"><input type="text" class="form-control meeting_date_et"></div>
                                 </div>
                                 <div class="col-lg-7">
-                                    <textarea rows="5" style="width: 100%;" class="meeting_info_et"></textarea>
+                                    <textarea rows="5" style="width: 100%;" class="meeting_info_et" placeholder="{{ trans('project.meeting_additional_info') }}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +471,7 @@
 
                     <!-- Icons for adding/removing another Estonian meeting input field -->
                     <div class="col-lg-12">
-                        <div class="pull-right">
+                        <div class="pull-left">
                             <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
                             <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
                         </div>
@@ -488,7 +488,7 @@
                     <?php App::setLocale('en'); ?>
                     <div class="col-lg-12">
                         <label for="meetings_info_en">
-                            {{ trans('project.meetings_info') }} *
+                            {{ trans('project.meetings_info') }}
                         </label>
                         <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! (empty(old('meetings_info_en')) ? $current_project->meetings_info_en :  old('meetings_info_en')) !!}</textarea>
                     </div>
@@ -507,7 +507,7 @@
                                     <div class="col-lg-12"><input type="text" class="form-control meeting_date_en"></div>
                                 </div>
                                 <div class="col-lg-7">
-                                    <textarea rows="5" style="width: 100%;" class="meeting_info_en"></textarea>
+                                    <textarea rows="5" style="width: 100%;" class="meeting_info_en" placeholder="{{ trans('project.meeting_additional_info') }}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -518,7 +518,7 @@
 
                     <!-- Icons for adding/removing another English meeting input field -->
                     <div class="col-lg-12">
-                        <div class="pull-right">
+                        <div class="pull-left">
                             <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
                             <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
                         </div>

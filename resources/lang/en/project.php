@@ -43,6 +43,7 @@ return [
     'meetings_info' => 'Additional information about the meetings',
     'meeting_dates' => 'Dates for meetings',
     'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites.',
+    'meeting_additional_info' => 'Additional info about this particular meeting',
     //
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',
     'featured_image' => 'Featured Image',

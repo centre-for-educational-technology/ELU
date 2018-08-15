@@ -43,6 +43,7 @@ return [
     'meetings_info' => 'Täiendav info kohtumiste kohta',
     'meeting_dates' => 'Kohtumiste ajad',
     'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt.',
+    'meeting_additional_info' => 'Täiendav info selle kohtumise kohta',
     //
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'featured_image' => 'Pisipilt',

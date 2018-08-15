@@ -596,6 +596,11 @@ jQuery(document).ready(function($) {
     textarea.className = 'meeting_info_'+language;
     textarea.style = 'width: 100%;';
     textarea.rows = '5';
+    if (language == 'et') {
+      textarea.placeholder = 'Täiendav info selle kohtumise kohta';
+    } else {
+      textarea.placeholder = 'Additional info about this particular meeting';
+    }
     iconDiv.append(iconCalendarDiv);
     iconCalendarDiv.append(iconCalendar);
     iconDiv.append(iconSubCalendarInputDiv);

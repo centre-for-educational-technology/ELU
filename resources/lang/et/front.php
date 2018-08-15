@@ -32,5 +32,5 @@ return [
     'academic_calendar' => 'ELU kalender',
     'seminaries' => 'Töötoad',
     'materials' => 'Materjalid',
-    'add_business_idea' => 'Ettevõtte idee',
+    'add_business_idea' => 'Ettevõttele',
 ];

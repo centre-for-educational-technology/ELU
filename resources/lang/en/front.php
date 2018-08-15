@@ -32,5 +32,5 @@ return [
     'academic_calendar' => 'LIFE calendar',
     'seminaries' => 'Workshops',
     'materials' => 'Materials',
-    'add_business_idea' => 'Business idea'
+    'add_business_idea' => 'For Business'
 ];

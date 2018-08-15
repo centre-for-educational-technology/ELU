@@ -424,7 +424,7 @@
             <?php App::setLocale('et'); ?>
             <div class="col-lg-12">
                 <label for="meetings_info_et">
-                    {{ trans('project.meetings_info') }} *
+                    {{ trans('project.meetings_info') }}
                 </label>
                 <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! old('meetings_info_et') !!}</textarea>
             </div>
@@ -471,7 +471,7 @@
             <?php App::setLocale('en'); ?>
             <div class="col-lg-12">
                 <label for="meetings_info_en">
-                    {{ trans('project.meetings_info') }} *
+                    {{ trans('project.meetings_info') }}
                 </label>
                 <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! old('meetings_info_en') !!}</textarea>
             </div>

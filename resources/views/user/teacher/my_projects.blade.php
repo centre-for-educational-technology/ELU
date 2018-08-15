@@ -55,14 +55,18 @@
 
                                         <td>
 
-                                            <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
-                                                {{ csrf_field() }}
-                                                {{--{{ method_field('PATCH') }}--}}
+                                            @if($project->publishing_status == 1)
 
-                                                <button type="submit" class="btn btn-warning pull-right btn-sm">
-                                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
-                                                </button>
-                                            </form>
+                                                <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
+                                                    {{ csrf_field() }}
+                                                    {{--{{ method_field('PATCH') }}--}}
+
+                                                    <button type="submit" class="btn btn-warning pull-right btn-sm">
+                                                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
+                                                    </button>
+                                                </form>
+
+                                            @endif
                                         </td>
                                         <!--
                                         -->

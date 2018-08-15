@@ -702,7 +702,7 @@ class ProjectController extends Controller
     }
 
 
-    if ($request->submit_project) {
+    if ($request->submit_project == "true") {
       $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
     }
 

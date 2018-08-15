@@ -102,10 +102,9 @@ Route::group(['middleware' =>['web']], function () {
           $current_project = NewProject::find($id);
 
 
-          if ($current_project->embedded != null) {
-            preg_match('/src="([^"]+)"/', $current_project->embedded, $match);
-
-            $current_project->embedded = $match[1];
+          if ($current_project->featured_video_link != null) {
+            preg_match('/src="([^"]+)"/', $current_project->featured_video_link, $match);
+            $current_project->featured_video_link = $match[1];
           }
 
 
@@ -114,52 +113,18 @@ Route::group(['middleware' =>['web']], function () {
             $q->where('name', 'oppejoud');
           })->get();
 
+
           $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
 	        $authors_ids = array();
 	        foreach ($authors as $author){
 	        	array_push($authors_ids, $author->id);
 	        }
 
-
-          //Study areas field
-//	        if(\App::getLocale() == 'en'){
-//		        $courses = Course::select('id','oppekava_eng')->get();
-//	        }else{
-//		        $courses = Course::select('id','oppekava_est')->get();
-//	        }
-//
-
-
-          $linked_courses = $current_project->getCourses()->select('id')->get();
-	        $linked_courses_ids = array();
-          foreach ($linked_courses as $linked_course){
-            array_push($linked_courses_ids, $linked_course->id);
-          }
-
-
-
-	        $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
-
-
-
           $projects = NewProject::whereHas('users', function ($q) {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->get();
 
-//          if ($project->start) {
-//            $project->start = date("m/d/Y", strtotime($project->start));
-//          }
-//
-//          if ($project->end) {
-//            $project->end = date("m/d/Y", strtotime($project->end));
-//          }
-
-
-          if ($current_project->join_deadline) {
-            $current_project->join_deadline = date("m/d/Y", strtotime($current_project->join_deadline));
-          }
-
-          return view('project.edit', compact('teachers','authors_ids', 'current_project', 'projects', 'linked_courses_ids', 'evaluation_dates'));
+          return view('project.new_edit', compact('teachers', 'current_project', 'projects'));
 
 
         }));

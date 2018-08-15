@@ -24,8 +24,8 @@
                                 <th>{{trans('project.project')}}</th>
                                 <!--
                                 <th>{{trans('project.publishing_status')}}</th>
-                                <th>&nbsp;</th>
                                 -->
+                                <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
@@ -53,7 +53,6 @@
 
                                             @endif
 
-                                        <!--
                                         <td>
 
                                             <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
@@ -65,6 +64,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        <!--
                                         -->
                                         <td>
                                             @if(newProjectHasUsers($project))

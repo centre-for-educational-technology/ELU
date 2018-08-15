@@ -55,7 +55,7 @@
 
                                         <td>
 
-                                            @if($project->publishing_status == 1)
+                                            @if($project->status == 1)
 
                                                 <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
                                                     {{ csrf_field() }}

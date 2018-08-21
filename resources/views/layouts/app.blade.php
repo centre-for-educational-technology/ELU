@@ -275,6 +275,7 @@
                                     <li><a href="{{ url('news/edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
                                     <li><a href="{{ url('faq/edit') }}"><i class="fa fa-btn fa-file-text"></i>Muuda KKK</a></li>
                                     <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
+                                    <li><a href="{{ url('admin/all-new-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Uute Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
                                     <li><a href="{{ url('admin/evaluation-dates') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Vahenädala kuupäevad</a></li>

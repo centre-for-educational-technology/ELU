@@ -55,7 +55,7 @@
 
                                         <td>
 
-                                            @if($project->status == 1)
+                                            @if($project->status == 1 || $project->status == 3)
 
                                                 <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
                                                     {{ csrf_field() }}

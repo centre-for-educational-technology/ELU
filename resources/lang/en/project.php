@@ -42,7 +42,7 @@ return [
     //
     'meetings_info' => 'Additional information about the meetings',
     'meeting_dates' => 'Dates for meetings',
-    'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites.',
+    'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites. Setting a date is required!',
     'meeting_additional_info' => 'Additional info about this particular meeting',
     //
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',
@@ -111,7 +111,6 @@ return [
     'summary_title' => 'Summary',
     'group_members' => 'Group members',
     'impressions' => 'Impressions',
-    'save_button' => 'Save',
     'finished_and_saved_notification' => 'Project ":name" is finished and results are saved',
     'can_upload_multiple' => 'You can choose multiple files',
     'see_results' => 'See results',
@@ -199,6 +198,9 @@ return [
     'being_reviewed' => 'No changes are allowed while project is being reviewed.',
     'university_contact' => 'Your contact form the university (if exists)',
     'submit_button' => 'Submit',
+    'save_button' => 'Save',
+    'turn_down_button' => 'Needs changes',
+    'accept_button' => 'Accept',
     // Project statuses
     'status_saved' => 'Saved',
     'status_to_be_checked' => 'To be checked',

@@ -42,7 +42,7 @@ return [
     //
     'meetings_info' => 'Täiendav info kohtumiste kohta',
     'meeting_dates' => 'Kohtumiste ajad',
-    'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt.',
+    'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt. Kohtumise kuupäeva valimine on kohustuslik!',
     'meeting_additional_info' => 'Täiendav info selle kohtumise kohta',
     //
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
@@ -108,7 +108,6 @@ return [
     'finish_project_button' => 'Lõpeta projekt',
     'summary_title' => 'Kokkuvõtted',
     'group_members' => 'Rühma liikmed',
-    'save_button' => 'Salvesta',
     'finished_and_saved_notification' => 'Projekt ":name" on lõppenud ja tulemused salvestatud',
     'can_upload_multiple' => 'Saab lisada mitu',
     'see_results' => 'Näita tulemusi',
@@ -197,10 +196,14 @@ return [
     'being_reviewed' => 'Kuni projekt on ülevaatamisel, ei ole võimalik muudatusi teha.',
     'university_contact' => 'TLÜ poolne kontaktisik (juhul kui on)',
     'submit_button' => 'Esita',
+    'save_button' => 'Salvesta',
+    'turn_down_button' => 'Vajab muudatusi',
+    'accept_button' => 'Kinnita',
     // Project statuses
     'status_saved' => 'Salvestatud',
     'status_to_be_checked' => 'Ülevaatusel',
     'status_needs_change' => 'Vajab muudatusi',
     'status_council_check' => 'Nõukogus ülevaatusel',
     'status_active' => 'Aktiivne',
-];
+  ];
+  

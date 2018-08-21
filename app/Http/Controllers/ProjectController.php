@@ -592,6 +592,10 @@ class ProjectController extends Controller
         'project_in_english' => 'required_without:project_in_estonian',
       ]);
       $project->status = 1;
+    } elseif ($request->accept_project == "true") {
+      $project->status = 5;
+    } elseif ($request->turn_down_project == "true") {
+      $project->status = 3;
     }
     
     if ($request->project_in_estonian == "true") {

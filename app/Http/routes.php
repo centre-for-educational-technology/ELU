@@ -560,6 +560,10 @@ Route::group(['middleware' => ['web']], function () {
     return $teachers;
   });
 
+  Route::post('api/lang/get', function () {
+    return App::getLocale();
+  });
+
 
   // ===============================================
   // 404 ===========================================

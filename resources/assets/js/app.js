@@ -489,6 +489,19 @@ jQuery(document).ready(function($) {
     $(this).addClass('tt-cursor');
   });
 
+  if (['/project/new', '/student/project/new'].includes(window.location.pathname)) {
+    $.ajax({
+    url: window.Laravel.base_path+'/api/lang/get',
+      method: 'POST'
+    }).done(function (language) {
+      if (language == 'et' && $('input[name=name_en]').val() == '') {
+        $('#project_in_english').children('input').trigger('click');
+      } else if (language == 'en' && $('input[name=name_et]').val() == '') {
+        $('#project_in_estonian').children('input').trigger('click')
+      }
+    });
+  }
+
   // Adding Typeahead to tags input in new & outside project form
   $.ajax({
     url: window.Laravel.base_path+'/all_tags'

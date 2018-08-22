@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\NewProject;
+use App\Project;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 

@@ -815,7 +815,7 @@
 
 
             @if($members_count>0)
-                    @if (projectHasGroupsWithMembers($current_project))
+                    @if (newProjectHasGroupsWithMembers($current_project))
 
                     <div class="col-lg-12 text-center">
                         <div class="btn-group">

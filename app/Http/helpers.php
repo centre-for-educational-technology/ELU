@@ -303,7 +303,7 @@ function isAuthorOfProject(\App\User $current_user, \App\Project $project){
 }
 
 
-function canChangeTheProject(\App\User $user, \App\NewProject $project){
+function canChangeTheProject(\App\User $user, \App\Project $project){
 	
 	if($user->is('project_moderator') && isMemberOfProject($user, $project)) {
 		return true;
@@ -315,6 +315,20 @@ function canChangeTheProject(\App\User $user, \App\NewProject $project){
 	
 	return false;
 }
+
+function canChangeTheNewProject(\App\User $user, \App\NewProject $project){
+	
+	if($user->is('project_moderator') && isMemberOfProject($user, $project)) {
+		return true;
+	}elseif ($user->is('admin')){
+		return true;
+	}elseif ($user->is('oppejoud') && isAuthorOfProject($user, $project)){
+		return true;
+	}
+	
+	return false;
+}
+
 
 function canChangeTheNotNewProject(\App\User $user, \App\Project $project){
 	

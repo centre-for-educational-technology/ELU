@@ -19,7 +19,12 @@ class ProjectModerator
     {
       if(Auth::check()){
       	
-        if ( canChangeTheProject(Auth::user(), NewProject::find( $request->id)))
+        if ( canChangeTheProject(Auth::user(), Project::find( $request->id)))
+        {
+          return $next($request);
+        }
+
+        if ( canChangeTheNewProject(Auth::user(), NewProject::find( $request->id)))
         {
           return $next($request);
         }

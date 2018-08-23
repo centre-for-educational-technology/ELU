@@ -1268,6 +1268,65 @@ class ProjectController extends Controller
 
 
   /**
+   * Search published and unpublished new-projects by
+   * author
+   * member
+   * title, description, extra info
+   *
+   * @param Request $request
+   * @return mixed
+   */
+  private function searchAllNewProjects(Request $request)
+  {
+    $name = $request->search;
+    $param = $request->search_param;
+
+    /*
+    if($param == 'author'){
+
+      $projects = NewProject::where(function ($query) use ($name) {
+	      $query->whereHas('users', function($q) use ($name)
+	      {
+		      $q->where(function($subq) use ($name) {
+			      $subq->where('name', 'LIKE', '%'.$name.'%')
+					      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+		      })->where('participation_role','LIKE','%author%');
+	      });
+	      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+      })->where('deleted', NULL)->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }elseif ($param == 'member'){
+
+      $projects = NewProject::whereHas('users', function($q) use ($name)
+      {
+        $q->where(function($subq) use ($name) {
+          $subq->where('name', 'LIKE', '%'.$name.'%')
+              ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+        })->where('participation_role','LIKE','%member%');
+      })->where('deleted', NULL)->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    }else{
+    }
+    */
+    $projects = NewProject::where(function ($query) use ($name) {
+      $query->where('name_et', 'LIKE', '%'.$name.'%');
+      $query->orWhere('name_en', 'LIKE', '%'.$name.'%');
+      $query->orWhere('tags_et', 'LIKE', '%'.$name.'%');
+      $query->orWhere('tags_en', 'LIKE', '%'.$name.'%');
+      $query->orWhere('description_et', 'LIKE', '%'.$name.'%');
+      $query->orWhere('description_en', 'LIKE', '%'.$name.'%');
+      // $query->orWhere('extra_info', 'LIKE', '%'.$name.'%');
+    })->where('deleted', NULL)->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
+
+
+    return $projects;
+
+  }
+
+
+  /**
    * Search published and unpublished projects by
    * author
    * member
@@ -1276,7 +1335,7 @@ class ProjectController extends Controller
    * @param Request $request
    * @return mixed
    */
-  private function searchAllProjects(Request &$request)
+  private function searchAllProjects(Request $request)
   {
     $name = $request->search;
     $param = $request->search_param;
@@ -1331,6 +1390,15 @@ class ProjectController extends Controller
         ->with('name', $request->search)
         ->with('param', $request->search_param)
         ->with('projects', $this->searchAllProjects($request));
+  }
+
+  public function getAllNewProjectsSearch(Request $request)
+  {
+
+    return view('admin.all_new_projects')
+        ->with('name', $request->search)
+        ->with('param', $request->search_param)
+        ->with('projects', $this->searchAllNewProjects($request));
   }
 
 

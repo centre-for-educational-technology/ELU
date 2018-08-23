@@ -306,6 +306,8 @@ Route::group(['middleware' =>['web']], function () {
         Route::post('/faq/edit', 'PageController@storeFaq');
 
         Route::get('admin/all-projects/search', 'ProjectController@getAllProjectsSearch');
+        
+        Route::get('admin/all-new-projects/search', 'ProjectController@getAllNewProjectsSearch');
 
         Route::get('admin/analytics', 'ProjectController@indexAnalytics');
 
@@ -345,7 +347,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('admin/all-new-projects', function () {
 
 
-          $projects = NewProject::orderBy('created_at', 'desc')->paginate(10);
+          $projects = NewProject::orderBy('created_at', 'desc')->where('deleted', NULL)->paginate(10);
 
 
           return view('admin.all_new_projects', [
@@ -371,7 +373,7 @@ Route::group(['middleware' =>['web']], function () {
           $project->deleted = 1;
           $project->save();
 
-          return redirect('admin/all-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
+          return redirect('admin/all-new-projects')->with('message', trans('project.project_deleted_notification', ['name' => $name]));
         });
 
 

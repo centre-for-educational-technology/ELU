@@ -7,7 +7,7 @@
         <div class="col-sm-12">
 
             {{--Search form--}}
-            @include('admin.search_projects_form', ['url_data' => '/admin/all-projects/search'])
+            @include('admin.search_projects_form', ['url_data' => '/admin/all-new-projects/search'])
 
             @if(\Session::has('message'))
                 <div class="alert alert-info">
@@ -29,6 +29,7 @@
                                 <thead>
                                 <th>Projekt</th>
                                 <th>Staatus</th>
+                                <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
@@ -121,9 +122,8 @@
 
                                             @endif
                                         </td>
-                                        <!--
                                         <td>
-                                            <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id.'/delete') }}" method="POST">
+                                            <form class="delete-project" action="{{ url('admin/new-projects/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
 
@@ -133,6 +133,7 @@
                                                 <i class="fa fa-btn fa-trash"></i>{{trans('project.delete')}}
                                             </button>
 
+                                        <!--
                                         </td>
                                         -->
                                     </tr>

@@ -19,15 +19,19 @@ class ProjectModerator
     public function handle($request, Closure $next)
     {
       if(Auth::check()){
-      	
-        if ( canChangeTheProject(Auth::user(), Project::find( $request->id)))
-        {
-          return $next($request);
+        
+        if (Project::find( $request->id)) {
+          if ( canChangeTheProject(Auth::user(), Project::find($request->id)))
+          {
+            return $next($request);
+          }
         }
 
-        if ( canChangeTheNewProject(Auth::user(), NewProject::find( $request->id)))
-        {
-          return $next($request);
+        if (NewProject::find( $request->id)) {
+          if ( canChangeTheNewProject(Auth::user(), NewProject::find($request->id)))
+          {
+            return $next($request);
+          }
         }
 
       }

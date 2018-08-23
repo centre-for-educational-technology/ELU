@@ -426,15 +426,25 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('finishv2/{id}', 'ProjectController@saveFinishedProjectv2');
 
-//        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
-//          $projects = Project::whereHas('users', function ($q) {
-//            $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
-//          })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
-//
-//
-//          return view('user.student.my_projects', [
-//              'projects' => $projects]);
-//        }));
+        /*
+        Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
+          $projects = NewProject::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
+          })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
+
+
+          return view('user.student.my_projects', [
+              'projects' => $projects]);
+        }));
+        */
+        Route::get('student/projects', function () {
+          $projects = NewProject::where('supervising_student', Auth::user()->id)->
+          where('deleted', null)->paginate(5);
+
+          return view ('user.teacher.my_projects', [
+            'new_projects' => $projects,
+            'projects' => $projects]);
+        });
 
         Route::post('join/{id}', 'ProjectController@joinProject');
 

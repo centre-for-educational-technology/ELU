@@ -11,7 +11,7 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    @if($current_project->submitted_by_student == 1)
+<!--                    @if($current_project->submitted_by_student == 1)
 
                         @if($current_project->requires_review == 1)
                             <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}} <span class='label label-info'>{{trans('project.student_idea_label')}}</span> <span class='label label-danger'>{{trans('project.idea_not_in_use_label')}}</span></h3>
@@ -22,7 +22,7 @@
                     @else
                         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
                     @endif
-
+-->
 
 
                 </div>
@@ -835,4 +835,9 @@
             @endif
         </div>
     </div>
+    <script>
+        window.setTimeout(
+            function () {$('.panel-body').css('display', 'block');}, 2000
+        );
+    </script>
 @endsection

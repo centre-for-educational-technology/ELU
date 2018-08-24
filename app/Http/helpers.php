@@ -302,6 +302,20 @@ function isAuthorOfProject(\App\User $current_user, \App\Project $project){
 	
 }
 
+function isAuthorOfNewProject(\App\User $current_user, \App\NewProject $project){
+	if(count($project->users)>0){
+		foreach ($project->users as $user){
+			if($user->pivot->participation_role == 'author'){
+				if($user->id == $current_user->id){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+	
+}
+
 
 function canChangeTheProject(\App\User $user, \App\Project $project){
 	
@@ -318,11 +332,11 @@ function canChangeTheProject(\App\User $user, \App\Project $project){
 
 function canChangeTheNewProject(\App\User $user, \App\NewProject $project){
 	
-	if($user->is('project_moderator') && isMemberOfProject($user, $project)) {
+	if($user->is('project_moderator') && isMemberOfNewProject($user, $project)) {
 		return true;
 	}elseif ($user->is('admin')){
 		return true;
-	}elseif ($user->is('oppejoud') && isAuthorOfProject($user, $project)){
+	}elseif ($user->is('oppejoud') && isAuthorOfNewProject($user, $project)){
 		return true;
 	}
 	

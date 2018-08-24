@@ -66,6 +66,17 @@
                                                     </button>
                                                 </form>
 
+                                            @elseif ($project->status == 5)
+
+                                                <form action="{{ url('new-project/'.$project->id.'/termporary-view') }}" method="GET">
+                                                    {{ csrf_field() }}
+                                                    {{--{{ method_field('PATCH') }}--}}
+
+                                                    <button type="submit" class="btn btn-warning pull-right btn-sm">
+                                                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.final_view')}}
+                                                    </button>
+                                                </form>
+
                                             @endif
                                         </td>
                                         <!--

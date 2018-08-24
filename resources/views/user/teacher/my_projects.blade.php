@@ -36,10 +36,12 @@
                                 <tbody>
                                 @foreach ($new_projects as $project)
                                     <tr>
-                                        @if ($project->name_et)
+                                        @if ($project->languages == 'et')
                                             <td class="table-text"><div>{{ $project->name_et }}</div></td>
-                                        @else
+                                        @elseif ($project->languages == 'en')
                                             <td class="table-text"><div>{{ $project->name_en }}</div></td>
+                                        @else
+                                            <td class="table-text"><div>{{ $project->name_et }}</div></td>
                                         @endif
 
                                             @if($project->publishing_status == 1)

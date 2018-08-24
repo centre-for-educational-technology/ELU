@@ -207,4 +207,5 @@ return [
     'status_needs_change' => 'Needs changes',
     'status_council_check' => 'To be checked by council',
     'status_active' => 'Active',
+    'final_view' => 'View submission',
 ];

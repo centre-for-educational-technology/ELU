@@ -205,5 +205,6 @@ return [
     'status_needs_change' => 'Vajab muudatusi',
     'status_council_check' => 'Nõukogus ülevaatusel',
     'status_active' => 'Aktiivne',
+    'final_view' => 'Vaata üle',
   ];
   

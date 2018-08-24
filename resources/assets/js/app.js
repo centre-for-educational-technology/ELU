@@ -489,7 +489,7 @@ jQuery(document).ready(function($) {
     $(this).addClass('tt-cursor');
   });
 
-  if (['/project/new', '/student/project/new'].includes(window.location.pathname) || ['edit', 'heck'].includes(window.location.pathname.slice(-4)) || ['termporary-view'].includes(window.location.pathname.slice(-14))) {
+  if (['/project/new', '/student/project/new'].includes(window.location.pathname) || ['edit', 'heck'].includes(window.location.pathname.slice(-4)) || ['temporary-view'].includes(window.location.pathname.slice(-14))) {
     $.ajax({
     url: window.Laravel.base_path+'/api/lang/get',
       method: 'POST'

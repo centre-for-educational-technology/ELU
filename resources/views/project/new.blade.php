@@ -454,7 +454,7 @@
 
             <!-- Icons for adding/removing another Estonian meeting input field -->
             <div class="col-lg-12">
-                <div class="pull-right">
+                <div class="pull-left">
                     <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
                     <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
                 </div>
@@ -501,7 +501,7 @@
 
             <!-- Icons for adding/removing another English meeting input field -->
             <div class="col-lg-12">
-                <div class="pull-right">
+                <div class="pull-left">
                     <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
                     <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
                 </div>
@@ -566,6 +566,7 @@
         <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
         <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
         <div id="co_supervisor_div">
+            <!--
             <select class="form-control co_supervisor">
                 <option value='-1'> </option>
                 @if ($teachers->count())
@@ -574,6 +575,7 @@
                     @endforeach
                 @endif
             </select>
+            -->
             <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ old('co_supervisors') }}">
         </div>
 

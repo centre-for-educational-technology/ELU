@@ -582,7 +582,8 @@
                 <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
                 <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
                 <div id="co_supervisor_div">
-                    <select class="form-control co_supervisor">
+                    <!--
+                        <select class="form-control co_supervisor">
                         <option value='-1'> </option>
                         @if ($teachers->count())
                             @foreach($teachers as $teacher)
@@ -590,6 +591,7 @@
                             @endforeach
                         @endif
                     </select>
+                    -->
                     <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
                 </div>
 

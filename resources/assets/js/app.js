@@ -225,13 +225,14 @@ jQuery(document).ready(function($) {
   // Populating fields after a failed submit/refresh
   try {
     var cosupervisors = JSON.parse($('#co_supervisors').val());
-    $($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
-    for (var i=1;i<cosupervisors.length;i++) {
+    //$($('#co_supervisor_div').children()[0]).val(cosupervisors[0]);  
+    for (var i=0;i<cosupervisors.length;i++) {
       $('#co_supervisor_div').append(getCosupervisorFieldToAdd(cosupervisors[i]));
       $($('.co_supervisor')[$('.co_supervisor').length-1]).select2();
     }
   } catch (err) {
     console.log('No previous values for cosupervisors: '+err);
+    $('#co_supervisor_div').append(getCosupervisorFieldToAdd(null));
   }
   
   try {
@@ -578,7 +579,7 @@ jQuery(document).ready(function($) {
       dataType: 'json',
       method: 'POST',
     }).done (function (teachers) {
-
+      
       for (var i=0;i<teachers.length;i++) {
         cosupervisorOption = document.createElement('option');
         cosupervisorOption.value = teachers[i].id;

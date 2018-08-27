@@ -57,7 +57,7 @@
 
                                         <td>
 
-                                            @if($project->status == 1 || $project->status == 3)
+                                            @if($project->status == 1 || $project->status == 3 || $project->status == NULL)
 
                                                 <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
                                                     {{ csrf_field() }}
@@ -155,7 +155,7 @@
                                             @endif
                                             */
                                             ?>
-                                            @if ($project->status == 1)
+                                            @if ($project->status == 1 || $project->status == NULL)
                                                 <span class="label label-default">{{trans('project.status_saved')}}</span>
                                             @elseif ($project->status == 2)
                                                 <span class="label label-info">{{trans('project.status_to_be_checked')}}</span>

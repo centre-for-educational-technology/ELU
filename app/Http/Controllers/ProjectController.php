@@ -195,11 +195,18 @@ class ProjectController extends Controller
 
     }
 
-	  $project->aim = $request->aim;
-
+    if ($request->aim != '<p>undefined</p>') {
+	    $project->aim = $request->aim;
+    } else {
+      $project->aim = ' ';
+    }
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
-	  $project->novelty_desc = $request->novelty_desc;
+    if ($request->novelty_desc != '<p>undefined</p>') {
+      $project->novelty_desc = $request->novelty_desc;
+    } else {
+      $project->novelty_desc = ' ';
+    }
 
 	  $project->project_outcomes = $request->project_outcomes;
 

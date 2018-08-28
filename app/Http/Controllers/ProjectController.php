@@ -178,7 +178,13 @@ class ProjectController extends Controller
 
     $project = new Project;
     $project->name = $request->name;
-    $project->description = $request->description;
+    //$project->description = $request->description;
+
+    if ($request->description != '<p>undefined</p>') {
+	    $project->description = $request->description;
+    } else {
+      $project->description = ' ';
+    }
 
 
     if($request->embedded != null){
@@ -195,11 +201,8 @@ class ProjectController extends Controller
 
     }
 
-    if ($request->aim != '<p>undefined</p>') {
-	    $project->aim = $request->aim;
-    } else {
-      $project->aim = ' ';
-    }
+    $project->aim = $request->aim;
+      
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
     if ($request->novelty_desc != '<p>undefined</p>') {

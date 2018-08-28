@@ -254,10 +254,18 @@ jQuery(document).ready(function($) {
   $('#submit-project-button').on('click', function (e) {
     e.preventDefault();
     tinyMCE.triggerSave();
-    tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
-    tinyMCE.get('description').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description').getContent().split('&nbsp;').join(' ')));
+    if (tinyMCE.get('project_outcomes').getContent() != '') {
+      tinyMCE.get('project_outcomes').setContent(removeExcessWhitespaceFromString(tinyMCE.get('project_outcomes').getContent().split('&nbsp;').join(' ')));
+    }
+    if (tinyMCE.get('novelty_desc').getContent() != '') {
+      tinyMCE.get('novelty_desc').setContent(removeExcessWhitespaceFromString(tinyMCE.get('novelty_desc').getContent().split('&nbsp;').join(' ')));
+    }
+    if (tinyMCE.get('aim').getContent() != '') {
+      tinyMCE.get('aim').setContent(removeExcessWhitespaceFromString(tinyMCE.get('aim').getContent().split('&nbsp;').join(' ')));
+    }
+    if (tinyMCE.get('description').getContent() != '') {
+      tinyMCE.get('description').setContent(removeExcessWhitespaceFromString(tinyMCE.get('description').getContent().split('&nbsp;').join(' ')));
+    }
     tinyMCE.triggerSave();
     $('#project-form').submit();
   });

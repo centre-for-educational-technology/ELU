@@ -29,8 +29,8 @@ class ProjectRequest extends Request
                 'required',
                 'max:9000'
             ),
-		        'aim' => 'required|max:9000',
-		        'novelty_desc' => 'required|max:9000',
+		        // 'aim' => 'required|max:9000',
+		        // 'novelty_desc' => 'required|max:9000',
 		        'project_outcomes' => 'required|max:9000',
 	        
 //          XXX to be removed

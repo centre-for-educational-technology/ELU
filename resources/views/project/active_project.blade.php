@@ -320,7 +320,7 @@
         <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
 
         {{--Check for join deadline--}}
-        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
+        @if (Carbon\Carbon::today()->format('Y-m-d') > '2018-08-02')
         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
             <p class="red"><i class="fa fa-btn fa-frown-o"></i>{{trans('project.deadline_over')}}</p>
             @if (!Auth::guest() && $project->currentUserIs('member'))
@@ -372,6 +372,7 @@
             @endif
 
 
+        @endif
         @endif
 
 

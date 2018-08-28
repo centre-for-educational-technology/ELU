@@ -42,7 +42,7 @@ return [
     'no_project_found_desc_logged' => 'Lisa projekt või projektiidee',
 		'no_project_found_desc_not_logged' => 'Logi sisse ja lisa projekt või projektiidee',
     'language' => 'Keel',
-    'deadline_over' => 'Projektiga liitumine on lõppenud',
+    'deadline_over' => 'Projektiga saab liituda alates 3.septembrist!',
     'share_fb' => 'Jaga Facebookis',
     'share_twitter' => 'Jaga Twitteris',
     'joined_project_notification' => 'Oled liitunud projektiga (ÕISis registreerimist ei toimu)',

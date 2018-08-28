@@ -25,11 +25,13 @@ class ProjectRequest extends Request
     {
         return [
             'name' => 'required|max:255',
+            /*
             'description' => array(
                 'required',
                 'max:9000'
             ),
-		        // 'aim' => 'required|max:9000',
+            */
+		        'aim' => 'required|max:9000',
 		        // 'novelty_desc' => 'required|max:9000',
 		        'project_outcomes' => 'required|max:9000',
 	        

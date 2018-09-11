@@ -105,16 +105,18 @@ class SimpleSamlController extends Controller
 
           }else if(in_array('student', $attrs['eduPersonAffiliation'])){
 
-            if (count($attrs['tluStudentID']) > 0) {
-              $tluStudentIdString = "[";
-              for ($i=0;$i<count($attrs['tluStudentID']);$i++) {
-                $tluStudentIdString .= "{\"".$i."\":\"".$attrs['tluStudentID'][$i]."\"}";
-                if ($i != count($attrs['tluStudentID'])-1) {
-                  $tluStudentIdString .= ",";
+            if (isset($attrs['tluStudentID'])) {
+              if (count($attrs['tluStudentID']) > 0) {
+                $tluStudentIdString = "[";
+                for ($i=0;$i<count($attrs['tluStudentID']);$i++) {
+                  $tluStudentIdString .= "{\"".$i."\":\"".$attrs['tluStudentID'][$i]."\"}";
+                  if ($i != count($attrs['tluStudentID'])-1) {
+                    $tluStudentIdString .= ",";
+                  }
                 }
+                $tluStudentIdString .= "]";
+                $user->tlu_student_id = $tluStudentIdString;
               }
-              $tluStudentIdString .= "]";
-              $user->tlu_student_id = $tluStudentIdString;
             }
             
             if (count($attrs['tluStudy']) > 0) {

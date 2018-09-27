@@ -98,7 +98,7 @@
                         @if (Auth::user()->is('oppejoud'))
 
                             @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/1UWFJriyZFxJMX6bA0MZzjO0cQxTNJu23" target="_blank">{{trans('front.materials')}}</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @elseif(App::getLocale() == 'et')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @endif
@@ -118,7 +118,7 @@
 
                             <!-- Same as for the teacher, but putting it here, so when there come different materials for teachers and students, it's ready for a change. -->
                             @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/1UWFJriyZFxJMX6bA0MZzjO0cQxTNJu23" target="_blank">{{trans('front.materials')}}</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @elseif(App::getLocale() == 'et')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @endif

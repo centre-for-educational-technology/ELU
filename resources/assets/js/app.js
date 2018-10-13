@@ -568,7 +568,7 @@ jQuery(document).ready(function($) {
   });
 
   function getCosupervisorFieldToAdd (selected) {
-    newCosupervisorSelect = document.createElement('select');
+    let newCosupervisorSelect = document.createElement('select');
     newCosupervisorSelect.className ="form-control co_supervisor";
     cosupervisorOption = document.createElement('option');
     cosupervisorOption.value = '-1';

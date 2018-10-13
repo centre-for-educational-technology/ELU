@@ -31,5 +31,6 @@ return [
     'tallinn_university' => 'Tallinna Ülikool',
     'academic_calendar' => 'ELU kalender',
     'seminaries' => 'Töötoad',
-    'materials' => 'Materjalid'
+    'materials' => 'Materjalid',
+    'add_business_idea' => 'Ettevõttele',
 ];

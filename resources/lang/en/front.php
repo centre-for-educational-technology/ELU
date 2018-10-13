@@ -31,5 +31,6 @@ return [
     'tallinn_university' => 'Tallinn University',
     'academic_calendar' => 'LIFE calendar',
     'seminaries' => 'Workshops',
-    'materials' => 'Materials'
+    'materials' => 'Materials',
+    'add_business_idea' => 'For Business'
 ];

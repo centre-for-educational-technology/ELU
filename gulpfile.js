@@ -24,7 +24,7 @@ gulp.task("copyfiles", function() {
     gulp.src("resources/assets/css/*")
       .pipe(gulp.dest("public/css"));
 
-    gulp.src("resources/assets/bower/pickadate/lib/compressed/themes/classic.*")
+    gulp.src("resources/assets/bower/pickadate/lib/compressed/themes/default.*")
       .pipe(gulp.dest("public/css"));
 
     gulp.src("resources/assets/js/scripts.js")

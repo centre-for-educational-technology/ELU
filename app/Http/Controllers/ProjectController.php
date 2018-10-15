@@ -1891,7 +1891,7 @@ class ProjectController extends Controller
 
 
 		foreach ($supervisors as $supervisor){
-			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
+			if(count(getActiveTeacherProjects(User::find($supervisor['id'])))==1){
 				$isFirstTimeSupervisor = true;
 			}
 		}
@@ -1957,7 +1957,7 @@ class ProjectController extends Controller
 		}
 
 		foreach ($supervisors as $supervisor){
-			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
+			if(count(getActiveTeacherProjects(User::find($supervisor['id'])))==1){
 				$isFirstTimeSupervisor = true;
 			}
 		}

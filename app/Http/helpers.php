@@ -236,6 +236,32 @@ function getTeacherProjects(\App\User $user){
 }
 
 /**
+ * Return projects that are active and this teacher is author of
+ * @param \App\User $user
+ * @return array
+ */
+function getActiveTeacherProjects(\App\User $user){
+
+  $projects = array();
+
+  if($user->is('oppejoud')){
+
+    if(count($user->projects)>0){
+      foreach ($user->projects as $project){
+        if($project->pivot->participation_role == 'author' ){
+          if ($project->publishing_status == 1) {
+						array_push($projects, $project);
+					}
+        }
+      }
+    }
+
+  }
+  return $projects;
+
+}
+
+/**
  * Check if this user is a member of that project
  * @param $user_id
  * @param $project_id

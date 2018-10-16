@@ -23,7 +23,7 @@ class ProjectRequest extends Request
      */
     public function rules()
     {
-        return [
+        $old_check = [
             'name' => 'required|max:255',
             /*
             'description' => array(
@@ -60,5 +60,7 @@ class ProjectRequest extends Request
             'featured_image' => 'image',
             'study_year' => 'required',
         ];
+
+        return [];
     }
 }

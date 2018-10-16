@@ -50,8 +50,11 @@
 
 
     <p class="col-md-10 margt content col-md-offset-1">
-
-        <h1>{{ $project->name }}</h1>
+        @if ($project->languages == 'et' || $project->languages == 'eten')
+            <h1>{{ $project->name_et }}</h1>
+        @else
+            <h1>{{ $project->name_en }}</h1>
+        @endif
         @if(!(Auth::guest()))
             @if(canChangeTheProject(Auth::user(), $project))
                 <p>

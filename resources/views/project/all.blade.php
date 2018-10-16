@@ -5,9 +5,17 @@
                 @foreach($projects as $index =>$project)
 
                     @if($index == 0)
-                        <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
+                        @if ($project->languages == 'et' || $project->languages == 'eten')
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
+                        @else
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @endif
                     @else
-                        <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name}}</a></li>
+                        @if ($project->languages == 'et' || $project->languages == 'eten')
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
+                        @else
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @endif
                     @endif
                 @endforeach
 
@@ -31,8 +39,11 @@
                 @endif
 
 
-                    <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name }} <i class="fa fa-external-link title-link"></i></h2></a>
-
+                    @if ($project->languages == 'et' || $project->languages == 'eten')
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    @else
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_en }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    @endif
 
                     <div class="row">
                         <div class="col-xs-7">
@@ -46,38 +57,25 @@
                         <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
                     @endif
 
-                    @if (!empty($project->embedded))
+                    @if (!empty($project->featured_video_link))
                         <div class="embed-responsive embed-responsive-16by9">
-                            {!! $project->embedded !!}
+                            {!! $project->featured_video_link !!}
                         </div>
                     @endif
 
 
-                    <p>{!! $project->description !!}</p>
+                    <p>{!! $project->description_et !!}</p>
 
-                    @if (!empty($project->aim))
-                        <h3>{{trans('project.aim')}}</h3>
-                        <p>{!! $project->aim !!}</p>
-                    @endif
 
-                    @if (!empty($project->interdisciplinary_desc))
+                    @if (!empty($project->interdisciplinary_approach_et))
                         <h3>{{trans('project.interdisciplinary_desc')}}</h3>
-                        <p>{!! $project->interdisciplinary_desc !!}</p>
+                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
                     @endif
 
-                    @if (!empty($project->novelty_desc))
-                        <h3>{{trans('project.novelty_desc')}}</h3>
-                        <p>{!! $project->novelty_desc !!}</p>
-                    @endif
 
-                    @if (!empty($project->project_outcomes))
+                    @if (!empty($project->project_outcomes_et))
                         <h3>{{trans('project.outcomes')}}</h3>
-                        <p>{!! $project->project_outcomes !!}</p>
-                    @endif
-
-                    @if (!empty($project->student_expectations))
-                        <h3>{{trans('project.student_expectations')}}</h3>
-                        <p>{!! $project->student_expectations !!}</p>
+                        <p>{!! $project->project_outcomes_et !!}</p>
                     @endif
 
                     <div class="row mt2em">
@@ -197,7 +195,7 @@
 
                             <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
                             <ul class="list-unstyled list01 tags keywords">
-                                @foreach (explode(',', $project->tags) as $tag)
+                                @foreach (explode(',', $project->tags_et) as $tag)
                                     <li><span class="label label-primary">{{ $tag }}</span></li>
                                 @endforeach
                             </ul>

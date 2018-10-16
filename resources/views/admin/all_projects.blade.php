@@ -40,14 +40,25 @@
                                 @foreach ($projects as $project)
 
                                     <tr>
-                                        <td class="table-text"><div><a href="{{ url('project/'.$project->id) }}">{{ $project->name }}</a></div></td>
-
-                                        @if($project->publishing_status == 1)
-                                            <td class="table-text green"><div><i class="fa fa-eye"></i> Avaldatud</div></td>
+                                        @if ($project->languages == 'et' || $project->languages == 'eten')
+                                            <td class="table-text"><div><a href="{{ url('project/'.$project->id) }}">{{ $project->name_et }}</a></div></td>
                                         @else
-                                            <td class="table-text red"><div><i class="fa fa-eye-slash"></i> Peidetud</div></td>
-
+                                            <td class="table-text"><div><a href="{{ url('project/'.$project->id) }}">{{ $project->name_et }}</a></div></td>
                                         @endif
+
+                                        <td>
+                                            @if ($project->status == 1 || $project->status == NULL)
+                                                <span class="label label-default">{{trans('project.status_saved')}}</span>
+                                            @elseif ($project->status == 2)
+                                                <span class="label label-info">{{trans('project.status_to_be_checked')}}</span>
+                                            @elseif ($project->status == 3)
+                                                <span class="label label-danger">{{trans('project.status_needs_change')}}</span>
+                                            @elseif ($project->status == 4)
+                                                <span class="label label-info">{{trans('project.status_council_check')}}</span>
+                                            @elseif ($project->status == 5)
+                                                <span class="label label-success">{{trans('project.status_active')}}</span>
+                                            @endif
+                                        </td>
 
                                         @if($project->submitted_by_student == 1)
                                             <td class="table-text green"><span class="label label-info">tudengi projektiidee</span></td>
@@ -57,12 +68,12 @@
 
                                         <td>
 
-                                            <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
+                                            <form action="{{ url('project/'.$project->id.'/check') }}" method="GET">
                                                 {{ csrf_field() }}
                                                 {{--{{ method_field('PATCH') }}--}}
 
                                                 <button type="submit" class="btn btn-warning pull-right">
-                                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.edit')}}
+                                                    <i class="fa fa-btn fa-pencil"></i>{{trans('project.final_view')}}
                                                 </button>
                                             </form>
                                         </td>
@@ -92,6 +103,7 @@
 
                                             @endif
                                         </td>
+                                        <!--
                                         <td>
                                             <form class="delete-project" action="{{ url('admin/all-projects/'.$project->id.'/delete') }}" method="POST">
                                                 {{ csrf_field() }}
@@ -104,7 +116,6 @@
                                             </button>
 
                                         </td>
-                                        <!--
                                         -->
                                     </tr>
                                 @endforeach

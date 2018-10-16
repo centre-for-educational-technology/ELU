@@ -395,11 +395,11 @@
         <div class="col-lg-12" id="project_duration">
             <div class="col-lg-6">
                 <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
             </div>
 
             <div class="col-lg-6">
-                <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
                 <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
             </div>
         </div>

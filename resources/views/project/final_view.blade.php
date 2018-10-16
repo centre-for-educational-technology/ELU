@@ -30,50 +30,52 @@
                 <div class="panel-body">
 
                     <!-- Display Validation Errors -->
-                @include('common.errors')
+                    @include('common.errors')
 
-                <!-- New Project Form -->
+                    <!-- New Project Form -->
+                    <!--
                     <form action="{{ url('/project/'.$current_project->id) }}" id="project-form" method="POST" class="form-horizontal new-project" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    -->
 
                     <div class="row">
-            <div class=col-lg-6>
-                <!-- Description about project language selection -->
-                <p></p>
+                        <div class=col-lg-6>
+                            <!-- Description about project language selection -->
+                            <p></p>
 
-                <!-- Project language selection -->
-                <div class="col-lg-12 panel panel-heading">
-                    <p>
-                        {{ trans('project.active_language_selection') }}
-                    </p>
-                    <span id="project_in_estonian"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
-                    <span id="project_in_english"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
-                </div>
+                            <!-- Project language selection -->
+                            <div class="col-lg-12 panel panel-heading">
+                                <p>
+                                    {{ trans('project.active_language_selection') }}
+                                </p>
+                                <span id="project_in_estonian"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
+                                <span id="project_in_english"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
+                            </div>
 
-                <!-- Reminder about fulfilling learning outcomes -->
-                <p>
-                    <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
-                </p>
+                            <!-- Reminder about fulfilling learning outcomes -->
+                            <p>
+                                <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
+                            </p>
 
-                <!-- Course's learning outcomes  -->
-                <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}</p>
-                <p>
-                    <ul>
-                        <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
-                        <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
-                        <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
-                        <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
-                        <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
-                    </ul>
-                </p>
-                </div>
+                            <!-- Course's learning outcomes  -->
+                            <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}</p>
+                            <p>
+                                <ul>
+                                    <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
+                                    <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
+                                    <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
+                                    <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
+                                    <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
+                                </ul>
+                            </p>
+                            </div>
 
-            </div>
-            <div class=col-lg-6>
-                <!-- General comments about the project from LIFE coordinators -->
-                <p></p>
-            </div>
-            </div>
+                        </div>
+                        <div class=col-lg-6>
+                            <!-- General comments about the project from LIFE coordinators -->
+                            <p></p>
+                        </div>
+                    </div>
 
             <?php $startingLanguage = App::getLocale(); ?>
             <!-- Start of the first block -->
@@ -410,70 +412,21 @@
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
                 </label>
                 <div class="col-lg-12" id="project_duration">
-                    @if ($current_project->study_term == 0)
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                        </div>
-                    @elseif ($current_project->study_term == 1)
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                        </div>
+                    <div class="col-lg-6">
+                        <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                        <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                    </div>
 
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_1" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                        </div>
-                    @elseif ($current_project->study_term == 2)
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                            <button type="button" id="duration_2" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                        </div>
-                    @else
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                            <button type="button" id="duration_3" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                        </div>
-                    @endif
+                    <div class="col-lg-6">
+                        <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                        <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+                    </div>
                 </div>
                 <div style="display:none">
-                    @if ($current_project->study_term == 0)
-                        <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
-                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
-                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
-                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
-                    @elseif ($current_project->study_term == 1)
-                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
-                        <input id="duration_1_radio" name="study_term" type="radio" value="1" checked>
-                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
-                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
-                    @elseif ($current_project->study_term == 2)
-                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
-                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
-                        <input id="duration_2_radio" name="study_term" type="radio" value="2" checked>
-                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
-                    @else
-                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
-                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
-                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
-                        <input id="duration_3_radio" name="study_term" type="radio" value="3" checked>
-                    @endif
+                    <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
+                    <input id="duration_1_radio" name="study_term" type="radio" value="1">
+                    <input id="duration_2_radio" name="study_term" type="radio" value="2">
+                    <input id="duration_3_radio" name="study_term" type="radio" value="3">
                 </div>
 
             <!-- End of the second block -->
@@ -631,8 +584,7 @@
                 <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
                 <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
                 <div id="co_supervisor_div">
-                    <!--
-                        <select class="form-control co_supervisor">
+                    <select class="form-control co_supervisor">
                         <option value='-1'> </option>
                         @if ($teachers->count())
                             @foreach($teachers as $teacher)
@@ -640,7 +592,6 @@
                             @endforeach
                         @endif
                     </select>
-                    -->
                     <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
                 </div>
 
@@ -655,32 +606,7 @@
             </div>
 
 
-            <!-- Submit options -->
-            <div class="col-lg-12">
-                <div class="col-lg-4">
-                {{--
-                --}}
-                    <button type="submit" id="save_project" class="btn btn-default btn-lg btn-block">{{ trans('project.save_button') }}</button>
-                </div>
-                <div class="col-lg-4">
-                    {{--
-                    <button type="button" class="btn btn-default btn-lg btn-block">
-                        <span class="glyphicon glyphicon-share-alt" style="font-size:15px;" aria-hidden="true"></span> Jaga teistega
-                    </button>
-                    --}}
-                </div>
-                <div class="col-lg-4">
-                    <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
-                </div>
-                
-                <!-- hidden submit button to trigger form validation after using preventDefault() -->
-                <div style="display:none">
-                    <button id="hidden_project_form_submit" type="submit" name="submit_project" value="true"></button>
-                </div>
-                <div style="display:none">
-                    <button id="hidden_project_form_save" type="submit" name="save_project" value="true"></button>
-                </div>
-            </div>
+            
 
 
     
@@ -866,7 +792,7 @@
 
 
             @if($members_count>0)
-                    @if (projectHasGroupsWithMembers($current_project))
+                    @if (newProjectHasGroupsWithMembers($current_project))
 
                     <div class="col-lg-12 text-center">
                         <div class="btn-group">

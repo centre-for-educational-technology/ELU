@@ -82,6 +82,72 @@ Route::group(['middleware' =>['web']], function () {
       //Teacher can do all these as well
       Route::group(['middleware' =>['project_moderator']], function ($id) {
 
+        Route::get('project/{id}/check', array('as' => 'project_edit', function ($id) {
+
+
+          $current_project = Project::find($id);
+
+
+          if ($current_project->featured_video_link != null) {
+            preg_match('/src="([^"]+)"/', $current_project->featured_video_link, $match);
+            $current_project->featured_video_link = $match[1];
+          }
+
+
+          //Supervisors field
+          $teachers = User::select('id','name', 'full_name')->whereHas('roles', function ($q) {
+            $q->where('name', 'oppejoud');
+          })->get();
+
+
+          $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	        $authors_ids = array();
+	        foreach ($authors as $author){
+	        	array_push($authors_ids, $author->id);
+	        }
+
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->get();
+
+          return view('project.check_project', compact('teachers', 'current_project', 'projects'));
+
+
+        }));
+
+        Route::get('new-project/{id}/temporary-view', array('as' => 'project_edit', function ($id) {
+
+
+          $current_project = Project::find($id);
+
+
+          if ($current_project->featured_video_link != null) {
+            preg_match('/src="([^"]+)"/', $current_project->featured_video_link, $match);
+            $current_project->featured_video_link = $match[1];
+          }
+
+
+          //Supervisors field
+          $teachers = User::select('id','name', 'full_name')->whereHas('roles', function ($q) {
+            $q->where('name', 'oppejoud');
+          })->get();
+
+
+          $authors = $current_project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	        $authors_ids = array();
+	        foreach ($authors as $author){
+	        	array_push($authors_ids, $author->id);
+	        }
+
+          $projects = Project::whereHas('users', function ($q) {
+            $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
+          })->get();
+
+          return view('project.final_view', compact('teachers', 'current_project', 'projects'));
+
+
+        }));
+
         Route::get('project/{id}/edit', array('as' => 'project_edit', function ($id) {
 
 

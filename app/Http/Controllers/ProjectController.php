@@ -52,7 +52,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '5')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -77,7 +77,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '5')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -102,7 +102,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -168,11 +168,140 @@ class ProjectController extends Controller
 
   }
 
-
   /**
    * Save new project
    */
   public function store(ProjectRequest $request)
+  {
+    $project = new Project;
+    $project->created_by = Auth::user()->id;
+    $project->updated_by = Auth::user()->id;
+    $project->languages = '';
+    if ($request->submit_project == "true") {
+      $this->validate($request, [
+        'project_in_estonian' => 'required_without:project_in_english',
+        'project_in_english' => 'required_without:project_in_estonian',
+        'name_et' => 'required_if:project_in_estonian,==,true|max:255',
+        'name_en' => 'required_if:project_in_english,==,true|max:255',
+        'description_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'description_en' => 'required_if:project_in_english,==,true|max:9000',
+        'project_outcomes_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'project_outcomes_en' => 'required_if:project_in_english,==,true|max:9000',
+        'interdisciplinary_approach_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'interdisciplinary_approach_en' => 'required_if:project_in_english,==,true|max:9000',
+        'keywords_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'keywords_en' => 'required_if:project_in_english,==,true|max:9000',
+        'meetings_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'meetings_en' => 'required_if:project_in_english,==,true|max:9000',
+        'study_term' => 'required',
+      ]);
+      /**
+       * Status
+       * 1 - saved to fill in later
+       * 2 - to be checked out by coordinators, no changes allowed
+       * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
+       * 4 - to be checked by council, idea is locked
+       * 5 - publishing and joining dates added
+       */
+      $project->status = 2;
+    } elseif ($request->save_project == "true") {
+      $this->validate($request, [
+        'project_in_estonian' => 'required_without:project_in_english',
+        'project_in_english' => 'required_without:project_in_estonian',
+      ]);
+      $project->status = 1;
+    }
+    
+    if ($request->project_in_estonian == "true") {
+      $project->languages .= "et";
+      $project->name_et = $request->name_et;
+      $project->description_et = $request->description_et;
+      $project->project_outcomes_et = $request->project_outcomes_et;
+      $project->interdisciplinary_approach_et = $request->interdisciplinary_approach_et;
+      $project->tags_et = $request->keywords_et;
+      $project->additional_info_et = $request->additional_info_et;
+      $project->comment_for_coordinators_et = $request->comment_for_coordinators_et;
+      $project->partners_et = $request->partners_et;
+      $project->meetings_info_et = $request->meetings_info_et;
+      $project->meetings_et = $request->meetings_et;
+    }
+    if ($request->project_in_english == "true") {
+      $project->languages .= "en";
+      $project->name_en = $request->name_en;
+      $project->description_en = $request->description_en;
+      $project->project_outcomes_en = $request->project_outcomes_en;
+      $project->interdisciplinary_approach_en = $request->interdisciplinary_approach_en;
+      $project->tags_en = $request->keywords_en;
+      $project->additional_info_en = $request->additional_info_en;
+      $project->comment_for_coordinators_en = $request->comment_for_coordinators_en;
+      $project->partners_en = $request->partners_en;
+      $project->meetings_info_en = $request->meetings_info_en;
+      $project->meetings_en = $request->meetings_en;
+    }
+    
+    $project->study_term = $request->study_term;
+    if (date("m")>7) {
+      $project->project_year = (date("Y")).'/'.(date("Y")+1);
+    } else {
+      $project->project_year = (date("Y")-1).'/'.(date("Y"));
+    }
+    $project->supervisor = $request->supervisor;
+    $project->supervising_student = $request->supervising_student;
+    $project->co_supervisors = $request->co_supervisors;
+    $project->available_to_join = 0;
+    $project->see_hidden_tokken = hash('sha512', $project->id);
+    // Saving needed to get id to upload featured image to a folder with projectID
+    $project->save();
+    if($request->featured_video_link != null){
+      $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
+      if ($featured_video_url) {
+        // Set width of the embed
+        $featured_video_url->setAttribute(['width' => 600]);
+      }
+      $featured_video_html = $featured_video_url->getHtml();
+      $project->featured_video_link = $featured_video_html;
+    }
+    $project->save();
+   
+    //Attach users with teacher role
+    $project->users()->attach($request->supervisor, ['participation_role' => 'author']);
+    $cosupervisors = json_decode($request->co_supervisors);
+    foreach ($cosupervisors as $cosupervisor){
+      $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
+    }
+    if ($request->submit_project) {
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+    }
+    // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+    $new_projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+    if ($request->submit_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.new_project_added_notification'))
+          ->with('projects', $projects)
+          ->with('new_projects', $new_projects);
+    } elseif ($request->save_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.new_project_saved_notification'))
+          ->with('projects', $projects)
+          ->with('new_projects', $new_projects);
+    }
+  }
+
+
+  /**
+   * Save new project
+   */
+  public function old_store(ProjectRequest $request)
   {
 
 
@@ -327,11 +456,198 @@ class ProjectController extends Controller
   }
 
 
-
   /**
    * Update project info
    */
   public function update(ProjectRequest $request, $id)
+  {
+    
+    $project = Project::find($id);
+    $project->languages = '';
+
+    if ($request->submit_project == "true") {
+      $this->validate($request, [
+        'project_in_estonian' => 'required_without:project_in_english',
+        'project_in_english' => 'required_without:project_in_estonian',
+        'name_et' => 'required_if:project_in_estonian,==,true|max:255',
+        'name_en' => 'required_if:project_in_english,==,true|max:255',
+        'description_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'description_en' => 'required_if:project_in_english,==,true|max:9000',
+        'project_outcomes_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'project_outcomes_en' => 'required_if:project_in_english,==,true|max:9000',
+        'interdisciplinary_approach_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'interdisciplinary_approach_en' => 'required_if:project_in_english,==,true|max:9000',
+        'keywords_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'keywords_en' => 'required_if:project_in_english,==,true|max:9000',
+        'meetings_et' => 'required_if:project_in_estonian,==,true|max:9000',
+        'meetings_en' => 'required_if:project_in_english,==,true|max:9000',
+        'study_term' => 'required',
+      ]);
+
+      /**
+       * Status
+       * 1 - saved to fill in later
+       * 2 - to be checked out by coordinators, no changes allowed
+       * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
+       * 4 - to be checked by council, idea is locked
+       * 5 - publishing and joining dates added
+       */
+      $project->status = 2;
+    } elseif ($request->save_project == "true") {
+      $this->validate($request, [
+        'project_in_estonian' => 'required_without:project_in_english',
+        'project_in_english' => 'required_without:project_in_estonian',
+      ]);
+      $project->status = 1;
+    } elseif ($request->accept_project == "true") {
+      $project->status = 5;
+    } elseif ($request->turn_down_project == "true") {
+      $project->status = 3;
+    }
+    
+    if ($request->project_in_estonian == "true") {
+      $project->languages .= "et";
+      $project->name_et = $request->name_et;
+      $project->description_et = $request->description_et;
+      $project->project_outcomes_et = $request->project_outcomes_et;
+      $project->interdisciplinary_approach_et = $request->interdisciplinary_approach_et;
+      $project->tags_et = $request->keywords_et;
+      $project->additional_info_et = $request->additional_info_et;
+      $project->comment_for_coordinators_et = $request->comment_for_coordinators_et;
+      $project->partners_et = $request->partners_et;
+      $project->meetings_info_et = $request->meetings_info_et;
+      $project->meetings_et = $request->meetings_et;
+    }
+
+    if ($request->project_in_english == "true") {
+      $project->languages .= "en";
+      $project->name_en = $request->name_en;
+      $project->description_en = $request->description_en;
+      $project->project_outcomes_en = $request->project_outcomes_en;
+      $project->interdisciplinary_approach_en = $request->interdisciplinary_approach_en;
+      $project->tags_en = $request->keywords_en;
+      $project->additional_info_en = $request->additional_info_en;
+      $project->comment_for_coordinators_en = $request->comment_for_coordinators_en;
+      $project->partners_en = $request->partners_en;
+      $project->meetings_info_en = $request->meetings_info_en;
+      $project->meetings_en = $request->meetings_en;
+    }
+    
+    $project->study_term = $request->study_term;
+
+
+    $project->supervisor = $request->supervisor;
+    $project->supervising_student = $request->supervising_student;
+    $project->co_supervisors = $request->co_supervisors;
+
+
+    $project->available_to_join = 0;
+    $project->see_hidden_tokken = hash('sha512', $project->id);
+
+
+    // Saving needed to get id to upload featured image to a folder with projectID
+    $project->save();
+
+    if($request->featured_video_link != null){
+      $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
+      if ($featured_video_url) {
+        // Set width of the embed
+        $featured_video_url->setAttribute(['width' => 600]);
+      }
+      $featured_video_html = $featured_video_url->getHtml();
+      $project->featured_video_link = $featured_video_html;
+    } else {
+      $project->featured_video_link = null;
+    }
+
+    $project->save();
+   
+    //Attach users with teacher role    
+    $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+	  $teachers_ids = array();
+	  if(count($teachers)>0){
+      foreach ($teachers as $teacher){
+        array_push($teachers_ids, $teacher->id);
+		  }
+	  }
+    
+    $supervisors = array();
+    array_push($supervisors, $project->supervisor);
+    $cosupervisors = json_decode($request->co_supervisors);
+    foreach ($cosupervisors as $cosupervisor){
+      array_push($supervisors, $cosupervisor);
+    }
+
+	  $diff1 = array_diff($supervisors, $teachers_ids);
+	  $diff2 = array_diff($teachers_ids, $supervisors);
+	  $different_users = array_merge($diff1, $diff2);
+
+	  foreach ($different_users as $different_user){
+	  	if(in_array($different_user, $teachers_ids)){
+			  //This user was in list but now removed
+			  $project->users()->detach($different_user);
+		  }else{
+	  		//This user was not in list but now added
+			  $project->users()->attach($different_user, ['participation_role' => 'author']);
+		  }
+    }
+    
+
+	  $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+
+	  if(count($project_cosupervisors_points)>0){
+		  foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+
+			  $remains = false;
+
+			  foreach (json_decode($request->co_supervisors) as $single_cosupervisor) {
+				  if($project_cosupervisor_points->name == $single_cosupervisor){
+					  $remains = true;
+				  }
+			  }
+
+			  if($remains == false){
+				  $project_cosupervisor_points->delete();
+			  }
+		  }
+    }
+
+
+    if ($request->submit_project == "true") {
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+    }
+
+
+    // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
+    if($request->featured_image != null){
+      if($project->featured_image !=null){
+        File::delete(public_path('storage/projects_featured_images/') .$project->featured_image);
+      }
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    } else {
+      $project->featured_image == null;
+    }
+
+
+    $project->save();
+
+
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+
+
+    return \Redirect::to('teacher/my-projects')
+		    ->with('message', trans('project.project_changed_notification', ['name' => $project->name_et]))
+        ->with('projects', $projects);
+
+  }
+
+  /**
+   * Update project info
+   */
+  public function old_update(ProjectRequest $request, $id)
   {
 
 

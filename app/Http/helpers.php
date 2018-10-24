@@ -249,7 +249,7 @@ function getActiveTeacherProjects(\App\User $user){
     if(count($user->projects)>0){
       foreach ($user->projects as $project){
         if($project->pivot->participation_role == 'author' ){
-          if ($project->publishing_status==1) {
+          if ($project->publishing_status==1 && $project->submitted_by_student==0) {
 						array_push($projects, $project);
 					}
         }

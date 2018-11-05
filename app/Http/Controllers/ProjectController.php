@@ -1890,11 +1890,11 @@ class ProjectController extends Controller
 
 
 
-		foreach ($supervisors as $supervisor){
-			if(count(getActiveTeacherProjects(User::find($supervisor['id'])))==1){
+		//foreach ($supervisors as $supervisor){
+			if(count(getActiveTeacherProjects(User::find($supervisors[0]['id'])))==1){
 				$isFirstTimeSupervisor = true;
 			}
-		}
+		//}
 
 
 		if($members_count <= 8){
@@ -1956,11 +1956,11 @@ class ProjectController extends Controller
 			}
 		}
 
-		foreach ($supervisors as $supervisor){
-			if(count(getActiveTeacherProjects(User::find($supervisor['id'])))==1){
+		//foreach ($supervisors as $supervisor){
+			if(count(getActiveTeacherProjects(User::find($supervisors[0]['id'])))==1){
 				$isFirstTimeSupervisor = true;
 			}
-		}
+		//}
 
 
 		if($members_count <= 8){

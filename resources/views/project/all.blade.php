@@ -172,7 +172,7 @@
                             <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                             <ul class="list-unstyled list01 tags">
                                 @foreach ($project->users as $user)
-                                    @if ( $user->pivot->participation_role == 'author' )
+                                    @if ( $user->pivot->participation_role == 'author' && $user->id == $project->supervisor )
                                         <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
                                     @endif
                                 @endforeach
@@ -185,9 +185,11 @@
 
                                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                                 <ul class="list-unstyled list01 tags">
-                                    @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                                        <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
-                                    @endforeach
+                                @foreach ($project->users as $user)
+                                    @if ( $user->pivot->participation_role == 'author' && $user->id != $project->supervisor )
+                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
+                                    @endif
+                                @endforeach
                                 </ul>
 
                             @endif

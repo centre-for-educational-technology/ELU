@@ -410,21 +410,70 @@
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
                 </label>
                 <div class="col-lg-12" id="project_duration">
-                    <div class="col-lg-6">
-                        <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
-                        <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
-                    </div>
+                @if ($current_project->study_term == 0)
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+                        </div>
+                    @elseif ($current_project->study_term == 1)
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                        </div>
 
-                    <div class="col-lg-6">
-                        <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
-                        <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
-                    </div>
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_1" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+                        </div>
+                    @elseif ($current_project->study_term == 2)
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                            <button type="button" id="duration_2" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                            <button type="button" id="duration_3" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+                        </div>
+                    @else
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_0" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
+                            <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <button type="button" id="duration_1" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.spring_semester') }}</button>
+                            <button type="button" id="duration_3" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.spring_autumn') }}</button>
+                        </div>
+                    @endif
                 </div>
                 <div style="display:none">
-                    <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
-                    <input id="duration_1_radio" name="study_term" type="radio" value="1">
-                    <input id="duration_2_radio" name="study_term" type="radio" value="2">
-                    <input id="duration_3_radio" name="study_term" type="radio" value="3">
+                    @if ($current_project->study_term == 0)
+                        <input id="duration_0_radio" name="study_term" type="radio" value="0" checked>
+                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
+                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
+                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
+                    @elseif ($current_project->study_term == 1)
+                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
+                        <input id="duration_1_radio" name="study_term" type="radio" value="1" checked>
+                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
+                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
+                    @elseif ($current_project->study_term == 2)
+                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
+                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
+                        <input id="duration_2_radio" name="study_term" type="radio" value="2" checked>
+                        <input id="duration_3_radio" name="study_term" type="radio" value="3">
+                    @else
+                        <input id="duration_0_radio" name="study_term" type="radio" value="0">
+                        <input id="duration_1_radio" name="study_term" type="radio" value="1">
+                        <input id="duration_2_radio" name="study_term" type="radio" value="2">
+                        <input id="duration_3_radio" name="study_term" type="radio" value="3" checked>
+                    @endif
                 </div>
 
             <!-- End of the second block -->

@@ -269,31 +269,27 @@ class ProjectController extends Controller
     foreach ($cosupervisors as $cosupervisor){
       $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
     }
-    if ($request->submit_project) {
-      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
-    }
     // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
     if($request->featured_image != null){
       $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
+    $project->save();
+    if ($request->submit_project) {
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
     }
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
-    $new_projects = Project::whereHas('users', function($q)
-    {
-      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
-    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+    
     if ($request->submit_project) {
       return \Redirect::to('teacher/my-projects')
           ->with('message', trans('project.new_project_added_notification'))
-          ->with('projects', $projects)
-          ->with('new_projects', $new_projects);
+          ->with('projects', $projects);
     } elseif ($request->save_project) {
       return \Redirect::to('teacher/my-projects')
           ->with('message', trans('project.new_project_saved_notification'))
-          ->with('projects', $projects)
-          ->with('new_projects', $new_projects);
+          ->with('projects', $projects);
     }
   }
 

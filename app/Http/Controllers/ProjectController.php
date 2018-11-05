@@ -1903,7 +1903,7 @@ class ProjectController extends Controller
 		}else if($members_count <= 17){
 			$total_points = 6;
 			$limit_per_one = 4;
-		}else if($members_count <= 24){
+    }else/* if($members_count <= 24)*/{
 			$total_points = 9;
 			$limit_per_one = 6;
     }/*else if($members_count <= 32){
@@ -1969,7 +1969,7 @@ class ProjectController extends Controller
 		}else if($members_count <= 17){
 			$total_points = 6;
 			$limit_per_one = 4;
-		}else if($members_count <= 24){
+    }else/* if($members_count <= 24)*/{
 			$total_points = 9;
 			$limit_per_one = 6;
     }/*else if($members_count <= 32){

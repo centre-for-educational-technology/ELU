@@ -27,6 +27,18 @@ function isPath($path)
 
 
 /**
+ * Get user
+ * Used in blade templates
+ * @param $user_id
+ * @return \App\User $user
+ */
+function getUserById( $user_id)
+{
+	$user = App\User::where('id', $user_id)->first();
+  return $user;
+}
+
+/**
  * Get user full name or just name
  * Used in blade templates
  * @param \App\User $user
@@ -453,7 +465,7 @@ function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user)
  * @return bool
  */
 function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
-	if(count($project->groups) < 3){
+	if(count($project->groups) < $project->max_members/8){
 		return true;
 	}else{
 		foreach ($project->groups as $group){

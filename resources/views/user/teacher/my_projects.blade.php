@@ -28,6 +28,7 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
                                 <!--
                                 <th>&nbsp;</th>
@@ -44,22 +45,33 @@
                                             <td class="table-text"><div>{{ $project->name_et }}</div></td>
                                         @endif
 
-                                            @if($project->publishing_status == 1)
-                                                <!--
-                                                <td class="table-text green"><div><i class="fa fa-eye"></i> {{trans('project.published')}}</div></td>
-                                                -->
-                                            @else
-                                                <!--
-                                                <td class="table-text red"><div><i class="fa fa-eye-slash"></i> {{trans('project.hidden')}}</div></td>
-                                                -->
+                                        @if($project->publishing_status == 1)
+                                            <!--
+                                            <td class="table-text green"><div><i class="fa fa-eye"></i> {{trans('project.published')}}</div></td>
+                                            -->
+                                        @else
+                                            <!--
+                                            <td class="table-text red"><div><i class="fa fa-eye-slash"></i> {{trans('project.hidden')}}</div></td>
+                                            -->
+                                        @endif
 
+                                        <td>
+                                            @if($project->status == 1 || $project->status == 3 || $project->status == NULL)
+                                                <form action="{{ url('project/'.$project->id.'/administrate') }}" method="GET">
+                                                    {{ csrf_field() }}
+
+                                                    <button type="submit" class="btn btn-warning pull-right btn-sm">
+                                                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.administrate_button')}}
+                                                    </button>
+                                                </form>
                                             @endif
+                                        </td>
 
                                         <td>
 
                                             @if($project->status == 1 || $project->status == 3 || $project->status == NULL)
 
-                                                <form action="{{ url('new-project/'.$project->id.'/edit') }}" method="GET">
+                                                <form action="{{ url('project/'.$project->id.'/edit') }}" method="GET">
                                                     {{ csrf_field() }}
                                                     {{--{{ method_field('PATCH') }}--}}
 
@@ -70,12 +82,12 @@
 
                                             @elseif ($project->status == 5)
 
-                                                <form action="{{ url('new-project/'.$project->id.'/temporary-view') }}" method="GET">
+                                                <form action="{{ url('project/'.$project->id) }}" method="GET">
                                                     {{ csrf_field() }}
                                                     {{--{{ method_field('PATCH') }}--}}
 
                                                     <button type="submit" class="btn btn-warning pull-right btn-sm">
-                                                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.final_view')}}
+                                                        <i class="fa fa-btn fa-pencil"></i>{{trans('project.to_project')}}
                                                     </button>
                                                 </form>
 

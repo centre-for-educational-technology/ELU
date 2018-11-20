@@ -29,6 +29,8 @@ return [
     'keywords' => 'Märksõnad',
     'keywords_desc' => 'Märksõna lisamiseks vajuta "Enter" klahvi',
     'extra_info' => 'Lisainfo',
+    'extra_info_et' => 'Lisainfo',
+    'extra_info_en' => 'Additional information',
     //
     'comment_for_coordinators' => 'Märkus ELU koordinaatoritele',
     'partners' => 'Partner(id) e Juhendaja ettevõttest',
@@ -42,6 +44,8 @@ return [
     //
     'meetings_info' => 'Täiendav info kohtumiste kohta',
     'meeting_dates' => 'Kohtumiste ajad',
+    'meeting_dates_et' => 'Kohtumiste ajad',
+    'meeting_dates_en' => 'Dates for meetings',
     'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt. Kohtumise kuupäeva valimine on kohustuslik!',
     'meeting_additional_info' => 'Täiendav info selle kohtumise kohta',
     //
@@ -199,6 +203,12 @@ return [
     'save_button' => 'Salvesta',
     'turn_down_button' => 'Vajab muudatusi',
     'accept_button' => 'Kinnita',
+    //
+    'administrate' => 'Administreeri projekti',
+    'administrate_button' => 'Administreeri',
+    'max_members' => 'Maksimaalne osalejate arv',
+    'allow_join' => 'Liitumiseks avatud',
+    'administration_saved_notification' => 'Projekt uuendatud.',
     // Project statuses
     'status_saved' => 'Salvestatud',
     'status_to_be_checked' => 'Ülevaatusel',
@@ -206,5 +216,6 @@ return [
     'status_council_check' => 'Nõukogus ülevaatusel',
     'status_active' => 'Aktiivne',
     'final_view' => 'Vaata üle',
+    'to_project' => 'Vaata',
   ];
   

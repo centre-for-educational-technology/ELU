@@ -120,6 +120,35 @@ class ProjectController extends Controller
 
 
   /**
+   * Open projects for joining
+   */
+  public function openJoinForProjects(Request $request) {
+    $projects = Project::where('status', 5)->where('study_term', $request->study_term)->where('project_year', $request->project_year);
+
+    foreach ($projects->get() as $project) {
+      $project->available_to_join = 1;
+      $project->save();
+    }
+    return \Redirect::to('teacher/my-projects')
+      ->with('message', trans('project.new_project_saved_notification'));
+  }
+
+  /**
+   * Open projects for joining
+   */
+  public function closeJoinForProjects(Request $request) {
+    $projects = Project::where('status', 5)->where('study_term', $request->study_term)->where('project_year', $request->project_year);
+
+    foreach ($projects->get() as $project) {
+      $project->available_to_join = 0;
+      $project->save();
+    }
+    return \Redirect::to('teacher/my-projects')
+      ->with('message', trans('project.new_project_saved_notification'));
+  }
+
+
+  /**
    * Add new project form
    */
   public function add(Request $request)
@@ -166,6 +195,29 @@ class ProjectController extends Controller
     return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
 
 
+  }
+
+  /**
+   * Administrate project
+   */
+  public function administrate(ProjectRequest $request, $id)
+  {
+
+    $project = Project::find($id);
+
+    $project->max_members = $request->max_members;
+    $project->project_year = $request->project_year;
+    
+    $project->save();
+    
+    $projects = Project::whereHas('users', function($q)
+    {
+      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
+    
+    return \Redirect::to('teacher/my-projects')
+        ->with('message', trans('project.administration_saved_notification'))
+        ->with('projects', $projects);
   }
 
   /**
@@ -275,7 +327,7 @@ class ProjectController extends Controller
     }
     $project->save();
     if ($request->submit_project) {
-      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
     $projects = Project::whereHas('users', function($q)
     {
@@ -610,7 +662,7 @@ class ProjectController extends Controller
 
 
     if ($request->submit_project == "true") {
-      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('new-project/'.$project->id));
+      $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
 
 

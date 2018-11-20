@@ -537,10 +537,10 @@ jQuery(document).ready(function($) {
 
 
   // Adding datepicker to initial date inputs in new project form
-  $('.glyphicon-calendar').parent().siblings().children('input').pickadate({format: 'dd/mm/yyyy'});
+  $('.glyphicon-calendar').parent().siblings().children('input').datetimepicker({format: 'L'});//pickadate({format: 'dd/mm/yyyy'});
   $('.glyphicon-calendar').on('click', function (event) {
     event.stopPropagation();
-    $($(this).parent().siblings().children('input')[0]).pickadate('open');
+    //$($(this).parent().siblings().children('input')[0]).pickadate('open');
   });
 
   function addTag (language) {
@@ -626,10 +626,10 @@ jQuery(document).ready(function($) {
     textareaDiv.append(textarea);
     outerDiv.append(iconDiv);
     outerDiv.append(textareaDiv);
-    $(iconSubCalendarInput).pickadate({format: 'dd/mm/yyyy'});
+    $(iconSubCalendarInput).datetimepicker({format: 'L'})//pickadate({format: 'dd/mm/yyyy'});
     $(iconCalendar).on('click', function (event) {
       event.stopPropagation();
-      $($(this).parent().siblings().children('input')[0]).pickadate('open');
+      //$($(this).parent().siblings().children('input')[0]).pickadate('open');
     });
     return outerDiv;
   }

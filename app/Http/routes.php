@@ -82,7 +82,28 @@ Route::group(['middleware' =>['web']], function () {
       //Teacher can do all these as well
       Route::group(['middleware' =>['project_moderator']], function ($id) {
 
-        Route::get('project/{id}/check', array('as' => 'project_edit', function ($id) {
+        Route::get('project/{id}/administrate', array('as' => 'project', function ($id) {
+
+          $project = Project::find($id);
+      
+          if($project){
+            if(Auth::user()){
+              return view('project.administrate')
+                  ->with('current_project', $project)
+                  ->with('isTeacher', Auth::user()->is('oppejoud'));
+            }else{
+              return view('project.administrate')
+                  ->with('current_project', $project)
+                  ->with('isTeacher', false);
+            }
+      
+          }else{
+            return view('errors.404');
+          }
+
+        }));
+
+        Route::get('project/{id}/check', array('as' => 'project_administrate', function ($id) {
 
 
           $current_project = Project::find($id);
@@ -115,7 +136,7 @@ Route::group(['middleware' =>['web']], function () {
 
         }));
 
-        Route::get('new-project/{id}/temporary-view', array('as' => 'project_edit', function ($id) {
+        Route::get('new-project/{id}/temporary-view', array('as' => 'project_temp_view', function ($id) {
 
 
           $current_project = Project::find($id);
@@ -173,15 +194,6 @@ Route::group(['middleware' =>['web']], function () {
 	        }
 
 
-          //Study areas field
-//	        if(\App::getLocale() == 'en'){
-//		        $courses = Course::select('id','oppekava_eng')->get();
-//	        }else{
-//		        $courses = Course::select('id','oppekava_est')->get();
-//	        }
-//
-
-
           $linked_courses = $current_project->getCourses()->select('id')->get();
 	        $linked_courses_ids = array();
           foreach ($linked_courses as $linked_course){
@@ -198,13 +210,6 @@ Route::group(['middleware' =>['web']], function () {
             $q->where('participation_role', 'LIKE', '%author%')->where('id', Auth::user()->id);
           })->get();
 
-//          if ($project->start) {
-//            $project->start = date("m/d/Y", strtotime($project->start));
-//          }
-//
-//          if ($project->end) {
-//            $project->end = date("m/d/Y", strtotime($project->end));
-//          }
 
 
           if ($current_project->join_deadline) {
@@ -217,6 +222,8 @@ Route::group(['middleware' =>['web']], function () {
         }));
 
         Route::post('/project/{id}', 'ProjectController@update');
+
+        Route::post('/project/{id}/administrate', 'ProjectController@administrate');
 
 
         Route::post('project/{id}/add-group', 'ProjectController@addNewProjectGroup');
@@ -263,6 +270,18 @@ Route::group(['middleware' =>['web']], function () {
       Route::group(['middleware' => ['admin']], function () {
 
         Route::get('folders', 'ProjectController@makeFolders');
+
+        Route::get('/admin/open-projects', function () {
+          return view('project.open_projects_for_joining');
+        });
+
+        Route::post('/admin/open-projects', 'ProjectController@openJoinForProjects');
+
+        Route::get('/admin/close-projects', function () {
+          return view('project.close_projects_for_joining');
+        });
+
+        Route::post('/admin/close-projects', 'ProjectController@closeJoinForProjects');
 
         Route::get('/admin/users', 'AdminController@index');
 

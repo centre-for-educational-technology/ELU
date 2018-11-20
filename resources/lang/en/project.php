@@ -29,6 +29,8 @@ return [
     'keywords' => 'Tags',
     'keywords_desc' => 'Press enter to add tag',
     'extra_info' => 'Additional information',
+    'extra_info_et' => 'Lisainfo',
+    'extra_info_en' => 'Additional information',
     //
     'comment_for_coordinators' => 'Comment for LIFE coordinators',
     'partners' => 'Partners(s)',
@@ -42,6 +44,8 @@ return [
     //
     'meetings_info' => 'Additional information about the meetings',
     'meeting_dates' => 'Dates for meetings',
+    'meeting_dates_et' => 'Kohtumiste ajad',
+    'meeting_dates_en' => 'Dates for meetings',
     'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites. Setting a date is required!',
     'meeting_additional_info' => 'Additional info about this particular meeting',
     //
@@ -201,6 +205,12 @@ return [
     'save_button' => 'Save',
     'turn_down_button' => 'Needs changes',
     'accept_button' => 'Accept',
+    //
+    'administrate' => 'Administrate project',
+    'administrate_button' => 'Administrate',
+    'max_members' => 'Max number of members',
+    'allow_join' => 'Allow joining',
+    'administration_saved_notification' => 'Project updated.',
     // Project statuses
     'status_saved' => 'Saved',
     'status_to_be_checked' => 'To be checked',
@@ -208,4 +218,5 @@ return [
     'status_council_check' => 'To be checked by council',
     'status_active' => 'Active',
     'final_view' => 'View submission',
+    'to_project' => 'To project',
 ];

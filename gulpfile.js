@@ -23,10 +23,10 @@ gulp.task("copyfiles", function() {
 
     gulp.src("resources/assets/css/*")
       .pipe(gulp.dest("public/css"));
-
+/*
     gulp.src("resources/assets/bower/pickadate/lib/compressed/themes/default.*")
       .pipe(gulp.dest("public/css"));
-
+*/
     gulp.src("resources/assets/js/scripts.js")
       .pipe(gulp.dest("public/js"));
 
@@ -57,8 +57,8 @@ elixir(function(mix) {
 
     mix.scripts([
         '../bower/jquery/dist/jquery.min.js',
-        '../bower/pickadate/lib/compressed/picker.js',
-        '../bower/pickadate/lib/compressed/picker.date.js',
+        //'../bower/pickadate/lib/compressed/picker.js',
+        //'../bower/pickadate/lib/compressed/picker.date.js',
         '../bower/moment/min/moment.min.js',
         '../bower/bootstrap/dist/js/bootstrap.min.js',
         '../bower/sweetalert/dist/sweetalert.min.js',
@@ -71,7 +71,8 @@ elixir(function(mix) {
         '../bower/Sortable/Sortable.js',
         '../bower/fancybox/dist/jquery.fancybox.js',
         '../bower/dropzone/dist/dropzone.js',
-        '../bower/typeahead.js/dist/typeahead.bundle.min.js'
+        '../bower/typeahead.js/dist/typeahead.bundle.min.js',
+        '../bower/typeahead.js/dist/bloodhound.min.js',
     ], 'public/js/vendor.js');
 
   //mix.scripts('app.js');

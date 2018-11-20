@@ -5,16 +5,20 @@
                 @foreach($projects as $index =>$project)
 
                     @if($index == 0)
-                        @if ($project->languages == 'et' || $project->languages == 'eten')
+                        @if ($project->languages == 'et')
                             <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
-                        @else
+                        @elseif ($project->languages == 'en')
                             <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @else
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{ $project->name_et }} // {{ $project->name_en }}</a></li>
                         @endif
                     @else
-                        @if ($project->languages == 'et' || $project->languages == 'eten')
+                        @if ($project->languages == 'et')
                             <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
-                        @else
+                        @elseif ($project->languages == 'en')
                             <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @else
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{ $project->name_et }} // {{ $project->name_en }}</a></li>
                         @endif
                     @endif
                 @endforeach
@@ -38,12 +42,14 @@
                     <div id="project{{$index}}" class="tab-pane fade">
                 @endif
 
-
-                    @if ($project->languages == 'et' || $project->languages == 'eten')
-                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }} <i class="fa fa-external-link title-link"></i></h2></a>
+                    @if ($project->languages == 'et')
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }}  <i class="fa fa-external-link title-link"></i></h2></a>
+                    @elseif ($project->languages == 'en')
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_en }}  <i class="fa fa-external-link title-link"></i></h2></a>
                     @else
-                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_en }} <i class="fa fa-external-link title-link"></i></h2></a>
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }} // {{ $project->name_en }}  <i class="fa fa-external-link title-link"></i></h2></a>
                     @endif
+                    
 
                     <div class="row">
                         <div class="col-xs-7">
@@ -64,18 +70,39 @@
                     @endif
 
 
-                    <p>{!! $project->description_et !!}</p>
-
-
-                    @if (!empty($project->interdisciplinary_approach_et))
-                        <h3>{{trans('project.interdisciplinary_desc')}}</h3>
-                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
+                    <h3>{{trans('project.description')}}</h3>
+                    @if ($project->languages == 'et')
+                        <p>{!! $project->description_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->description_en !!}</p>
+                    @else
+                        <p>{!! $project->description_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->description_en !!}</p>
                     @endif
 
 
-                    @if (!empty($project->project_outcomes_et))
-                        <h3>{{trans('project.outcomes')}}</h3>
+                    <h3>{{trans('project.interdisciplinary_desc')}}</h3>
+                    @if ($project->languages == 'et')
+                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->interdisciplinary_approach_en !!}</p>
+                    @else
+                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->interdisciplinary_approach_en !!}</p>
+                    @endif
+
+
+                    <h3>{{trans('project.outcomes')}}</h3>
+                    @if ($project->languages == 'et')
                         <p>{!! $project->project_outcomes_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->project_outcomes_en !!}</p>
+                    @else
+                        <p>{!! $project->project_outcomes_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->project_outcomes_en !!}</p>
                     @endif
 
                     <div class="row mt2em">
@@ -88,9 +115,12 @@
                             @endif
 
                             <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
-                            @if ( $project->language == 'et' )
+                            @if ( $project->languages == 'et' )
                                 <p>Eesti</p>
-                            @elseif ( $project->language == 'en' )
+                            @elseif ( $project->languages == 'en' )
+                                <p>English</p>
+                            @else
+                                <p>Eesti</p>
                                 <p>English</p>
                             @endif
 
@@ -124,6 +154,28 @@
                             @endif
 
 
+                            @if ( $project->languages == 'et' )
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                                @foreach (json_decode($project->meetings_et) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @elseif ( $project->languages == 'en' )
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                                @foreach (json_decode($project->meetings_en) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @else
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_et')}}</h3>
+                                @foreach (json_decode($project->meetings_et) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_en')}}</h3>
+                                @foreach (json_decode($project->meetings_en) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @endif
+
+
                             @if (!empty($project->presentation_results))
                                 <h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>
                                 @if($project->presentation_results == 0)
@@ -139,21 +191,6 @@
                                 <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                             @endif
 
-                            {{--<div class="row share">--}}
-                                {{--<div class="col-sm-8">--}}
-
-                                    {{--<a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit(strip_tags($project->description), 150) }}" class="btnShare btn btn-block btn-social btn-facebook">--}}
-                                        {{--<span class="fa fa-facebook"></span> {{trans('project.share_fb')}}--}}
-                                    {{--</a>--}}
-
-                                    {{--<a class="btn btn-block btn-social btn-twitter"--}}
-                                       {{--href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"--}}
-                                       {{--hashtags="elu,tlu">--}}
-                                        {{--<span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}--}}
-                                    {{--</a>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
 
 
                         </div>
@@ -163,36 +200,44 @@
                         <div class="col-md-6">
 
 
-                            @if (!empty($project->extra_info))
-                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                                <p>{!! $project->extra_info !!}</p>
+
+                            @if ( $project->languages == 'et' && !empty($project->additional_info_et))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                                <p>{{$project->additional_info_et}}</p>
+                            @elseif ( $project->languages == 'en' && !empty($project->additional_info_en))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                                <p>{{$project->additional_info_en}}</p>
+                            @else
+                                @if (!empty($project->additional_info_et))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                                <p>{{$project->additional_info_et}}</p>
+                                @endif
+                                @if (!empty($project->additional_info_en))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                                <p>{{$project->additional_info_en}}</p>
+                                @endif
                             @endif
+
 
 
                             <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                             <ul class="list-unstyled list01 tags">
-                                @foreach ($project->users as $user)
-                                    @if ( $user->pivot->participation_role == 'author' && $user->id == $project->supervisor )
-                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
-                                    @endif
-                                @endforeach
+                                <li><span class="label label-primary">{{ getUserName(getUserById($project->supervisor)) }} ({{ getUserEmail(getUserById($project->supervisor)) }})</span></li>
                             </ul>
 
 
 
-
-                            @if(!empty($project->supervisor))
+                            @if(!empty($project->co_supervisors))
 
                                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                                 <ul class="list-unstyled list01 tags">
-                                @foreach ($project->users as $user)
-                                    @if ( $user->pivot->participation_role == 'author' && $user->id != $project->supervisor )
-                                        <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
-                                    @endif
+                                @foreach (json_decode($project->co_supervisors) as $co_supervisor)
+                                    <li><span class="label label-primary">{{ getUserName(getUserById($co_supervisor)) }} ({{ getUserEmail(getUserById($co_supervisor)) }})</span></li>
                                 @endforeach
                                 </ul>
 
                             @endif
+
 
 
                             <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
@@ -213,8 +258,11 @@
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                     @if(empty($isStudentMyProjectsView))
                     {{--Check for join deadline--}}
+                        {{--
                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                        --}}
                         {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
+                        @if ($project->available_to_join == 0)
                             <p class="red">{{trans('project.deadline_over')}}</p>
                             @if (!Auth::guest() && $project->currentUserIs('member'))
                             <form action="{{ url('finish/'.$project->id) }}">

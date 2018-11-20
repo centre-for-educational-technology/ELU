@@ -50,10 +50,12 @@
 
 
     <p class="col-md-10 margt content col-md-offset-1">
-        @if ($project->languages == 'et' || $project->languages == 'eten')
+        @if ($project->languages == 'et')
             <h1>{{ $project->name_et }}</h1>
-        @else
+        @elseif ($project->languages == 'en')
             <h1>{{ $project->name_en }}</h1>
+        @else
+            <h1>{{ $project->name_et }} // {{ $project->name_en }}</h1>
         @endif
         @if(!(Auth::guest()))
             @if(canChangeTheProject(Auth::user(), $project))
@@ -89,32 +91,39 @@
         @endif
 
 
-        <p>{!! $project->description !!}</p>
-
-
-        @if (!empty($project->aim))
-            <h3>{{trans('project.aim')}}</h3>
-            <p>{!! $project->aim !!}</p>
+        <h3>{{trans('project.description')}}</h3>
+        @if ($project->languages == 'et')
+            <p>{!! $project->description_et !!}</p>
+        @elseif ($project->languages == 'en')
+            <p>{!! $project->description_en !!}</p>
+        @else
+            <p>{!! $project->description_et !!}</p>
+            <p>//</p>
+            <p>{!! $project->description_en !!}</p>
         @endif
 
-        @if (!empty($project->interdisciplinary_desc))
-            <h3>{{trans('project.interdisciplinary_desc')}}</h3>
-            <p>{!! $project->interdisciplinary_desc !!}</p>
+
+        <h3>{{trans('project.interdisciplinary_desc')}}</h3>
+        @if ($project->languages == 'et')
+            <p>{!! $project->interdisciplinary_approach_et !!}</p>
+        @elseif ($project->languages == 'en')
+            <p>{!! $project->interdisciplinary_approach_en !!}</p>
+        @else
+            <p>{!! $project->interdisciplinary_approach_et !!}</p>
+            <p>//</p>
+            <p>{!! $project->interdisciplinary_approach_en !!}</p>
         @endif
 
-        @if (!empty($project->novelty_desc))
-            <h3>{{trans('project.novelty_desc')}}</h3>
-            <p>{!! $project->novelty_desc !!}</p>
-        @endif
 
-        @if (!empty($project->project_outcomes))
-            <h3>{{trans('project.outcomes')}}</h3>
-            <p>{!! $project->project_outcomes !!}</p>
-        @endif
-
-        @if (!empty($project->student_expectations))
-            <h3>{{trans('project.student_expectations')}}</h3>
-            <p>{!! $project->student_expectations !!}</p>
+        <h3>{{trans('project.outcomes')}}</h3>
+        @if ($project->languages == 'et')
+            <p>{!! $project->project_outcomes_et !!}</p>
+        @elseif ($project->languages == 'en')
+            <p>{!! $project->project_outcomes_en !!}</p>
+        @else
+            <p>{!! $project->project_outcomes_et !!}</p>
+            <p>//</p>
+            <p>{!! $project->project_outcomes_en !!}</p>
         @endif
 
 
@@ -123,48 +132,18 @@
             <div class="col-md-6">
 
 
-                {{--XXX to be removed--}}
-                {{--@if(!empty($project->integrated_areas))--}}
-
-                    {{--<h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01">--}}
-                        {{--@foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)--}}
-                            {{--<li>{{ $integrated_area }}</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-
-                {{--@endif--}}
-
-                {{--XXX to be removed--}}
-                {{--@if(!empty($project->courses))--}}
-                    {{--<h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01">--}}
-                        {{--@foreach (explode(PHP_EOL, $project->courses) as $course)--}}
-                            {{--<li>{{ $course }}</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--@endif--}}
-
-
-                {{--@if(count($project->getCourses)>0)--}}
-                    {{--<h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01 tags keywords">--}}
-                        {{--@foreach ($project->getCourses as $course)--}}
-                            {{--<li><span class="label label-primary">{{ getCourseName($course) }}</span></li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--@endif--}}
-
-
                 @if(!empty($project->meeting_info))
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
                     <p>{{$project->meeting_info}}</p>
                 @endif
 
                 <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
-                @if ( $project->language == 'et' )
+                @if ( $project->languages == 'et' )
                     <p>Eesti</p>
-                @elseif ( $project->language == 'en' )
+                @elseif ( $project->languages == 'en' )
+                    <p>English</p>
+                @else
+                    <p>Eesti</p>
                     <p>English</p>
                 @endif
 
@@ -180,20 +159,30 @@
                         <li>{{trans('project.spring_autumn')}}</li>
                     @endif
 
-                    @if(!empty($project->study_year))
-                        <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
-                    @endif
+                    <p>{{$project->project_year}}</p>
 
                 </ul>
 
-                @if (!empty($project->meeting_dates))
-                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meetings_dates')}}</h3>
-                    @if($project->meeting_dates == 'NONE')
-                        <p>{{trans('project.to_be_arranged')}}</p>
-                    @else
-                        <p>{{$project->meeting_dates}}</p>
-                    @endif
 
+                @if ( $project->languages == 'et' )
+                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                    @foreach (json_decode($project->meetings_et) as $meeting)
+                        <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                    @endforeach
+                @elseif ( $project->languages == 'en' )
+                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                    @foreach (json_decode($project->meetings_en) as $meeting)
+                        <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                    @endforeach
+                @else
+                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_et')}}</h3>
+                    @foreach (json_decode($project->meetings_et) as $meeting)
+                        <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                    @endforeach
+                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_en')}}</h3>
+                    @foreach (json_decode($project->meetings_en) as $meeting)
+                        <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                    @endforeach
                 @endif
 
 
@@ -212,42 +201,6 @@
                     <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
                     <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                 @endif
-
-
-
-                {{--<h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>--}}
-                {{--<ul class="list-unstyled list01">--}}
-                {{--@if ( $project->status == 0 )--}}
-                {{--<li>{{trans('project.finished')}}</li>--}}
-                {{--@elseif ( $project->status == 1 )--}}
-                {{--<li>{{trans('project.active')}}</li>--}}
-                {{--@endif--}}
-                {{--</ul>--}}
-
-
-
-
-                {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}
-                {{--<ul class="list-unstyled list01">--}}
-                {{--@if ( $project->institute == 0 )--}}
-                {{--<li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>--}}
-                {{--@elseif ( $project->institute == 1 )--}}
-                {{--<li>Digitehnoloogiate instituut</li>--}}
-                {{--@elseif ( $project->institute == 2 )--}}
-                {{--<li>Humanitaarteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 3 )--}}
-                {{--<li>Haridusteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 4 )--}}
-                {{--<li>Loodus- ja terviseteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 5 )--}}
-                {{--<li>Rakvere kolledž</li>--}}
-                {{--@elseif ( $project->institute == 6 )--}}
-                {{--<li>Haapsalu kolledž</li>--}}
-                {{--@elseif ( $project->institute == 7 )--}}
-                {{--<li>Ühiskonnateaduste instituut</li>--}}
-                {{--@endif--}}
-                {{--</ul>--}}
-
 
 
 
@@ -273,35 +226,45 @@
 
             <div class="col-md-6">
 
-                @if (!empty($project->extra_info))
-                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info')}}</h3>
-                    <p>{!! $project->extra_info !!}</p>
+
+
+                @if ( $project->languages == 'et' && !empty($project->additional_info_et))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                    <p>{{$project->additional_info_et}}</p>
+                @elseif ( $project->languages == 'en' && !empty($project->additional_info_en))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                    <p>{{$project->additional_info_en}}</p>
+                @else
+                    @if (!empty($project->additional_info_et))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                    <p>{{$project->additional_info_et}}</p>
+                    @endif
+                    @if (!empty($project->additional_info_en))
+                    <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                    <p>{{$project->additional_info_en}}</p>
+                    @endif
                 @endif
 
 
 
                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                 <ul class="list-unstyled list01 tags">
-                    @foreach ($project->users as $user)
-                        @if ( $user->pivot->participation_role == 'author' )
-                            <li><span class="label label-primary">{{ getUserName($user) }} ({{ getUserEmail($user) }})</span></li>
-                        @endif
-                    @endforeach
+                    <li><span class="label label-primary">{{ getUserName(getUserById($project->supervisor)) }} ({{ getUserEmail(getUserById($project->supervisor)) }})</span></li>
                 </ul>
 
 
 
-
-                @if(!empty($project->supervisor))
+                @if(!empty($project->co_supervisors))
 
                     <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
                     <ul class="list-unstyled list01 tags">
-                        @foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor)
-                            <li><span class="label label-primary">{{ $single_cosupervisor }}</span></li>
-                        @endforeach
+                    @foreach (json_decode($project->co_supervisors) as $co_supervisor)
+                        <li><span class="label label-primary">{{ getUserName(getUserById($co_supervisor)) }} ({{ getUserEmail(getUserById($co_supervisor)) }})</span></li>
+                    @endforeach
                     </ul>
 
                 @endif
+
 
 
                 <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
@@ -324,7 +287,10 @@
 
         {{--Check for join deadline--}}
         {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
+        {{--
         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+        --}}
+        @if ($project->available_to_join == 0)
             <p class="red">{{trans('project.deadline_over')}}</p>
             @if (!Auth::guest() && $project->currentUserIs('member'))
             <form action="{{ url('finish/'.$project->id) }}">

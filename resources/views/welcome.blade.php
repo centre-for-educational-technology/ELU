@@ -190,6 +190,8 @@
                                     <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
                                     <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
                                     <li><a href="{{ url('admin/evaluation-dates') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Vahenädala kuupäevad</a></li>
+                                    <li><a href="{{ url('admin/open-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Ava projektid liitumiseks</a></li>
+                                    <li><a href="{{ url('admin/close-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Sulge liitumine projektidess</a></li>
                                 @endif
 
                                 @if (Auth::user()->is('oppejoud'))

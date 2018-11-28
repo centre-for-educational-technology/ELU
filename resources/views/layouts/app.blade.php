@@ -36,6 +36,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style.css')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -325,10 +326,14 @@
     @endif
 @endif
 
-@yield('content')
+<div class="life-pink-background">
+    <div class="pink-offset">
+        @yield('content')
 
-@yield('footer-scripts')
-@include('layouts.footer')
+        @yield('footer-scripts')
+        @include('layouts.footer')
+    </div>
+</div>
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">

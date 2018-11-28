@@ -1,0 +1,25 @@
+:root {
+    --life-pink: #ff4385;
+    --life-orange: #ff8033;
+    --life--pink-orange-left: linear-gradient(to right, var(--life-pink) 0%, var(--life-orange) 100%);
+    --life--pink-orange-bottom: linear-gradient(to bottom, var(--life-pink) 0%, var(--life-orange) 100%);
+}
+
+.life-pink-background {
+    background: var(--life--pink-orange-bottom);
+}
+
+.pink-offset {
+    margin-left: 4vw;
+    background: white;
+}
+
+body {
+    background-color: white;
+}
+
+/*
+1366 - kogulaius
+300 - esimene tulp, salvestatud, projekti eesmärgid
+50 - roosa äära
+*/

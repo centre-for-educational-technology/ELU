@@ -197,6 +197,8 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::get('folders', 'ProjectController@makeFolders');
 
+        Route::get('get-folders', 'ProjectController@getFolderNames');
+
         Route::get('/admin/users', 'AdminController@index');
 
         Route::post('/admin/users/{id}/add-admin', 'AdminController@addAdmin');

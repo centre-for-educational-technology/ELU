@@ -2161,6 +2161,54 @@ class ProjectController extends Controller
     }
   }
 
+  public function getFolderNames(Request $request) {
+    $ending_year = $request->year;
+    $ending_semester = $request->semester;
+    if (is_null($request->year) || is_null($request->semester)) {
+      return "Missing required parameter(s)";
+    }
+    $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
+    $existing_folders = array();
+    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\'', $gdrive_list_output);
+    foreach ($gdrive_list_output as $folder) {
+      $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
+        $existing_folders[$helper[0]] = $helper[1];
+      if (count($helper) != 5) {
+        for ($i=0;$i<count($helper)-5;$i++) {
+          $existing_folders[$helper[0]] .= ' '.$helper[2+$i];
+        }
+      }
+    }
+
+    if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
+      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\'', $semester_folder);
+      $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
+    } else {
+      $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
+    }
+
+    $projects = Project::where('publishing_status', '=', '1')->where(function ($query) use ($request) {
+      if ($request->semester == 's') {
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '0')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '3')->where('study_year', '=', $request->year-1);
+        });
+      } elseif ($request->semester == 'k') {
+        $query->where(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '1')->where('study_year', '=', $request->year);
+        })->orWhere(function ($subquery) use ($request) {
+          $subquery->where('study_term', '=', '2')->where('study_year', '=', $request->year);
+        });
+      } else {
+        exit();
+      }
+    })->get();
+    foreach ($projects as $p) {
+      echo $p->name."<br>";
+    }
+  }
+
   public function attachGroupPresentation(Request $request) {
 
     $group = Group::find($request->group_id);

@@ -312,7 +312,7 @@
 
                     @elseif(Auth::user()->isMemberOfProject())
 
-                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name_et' => Auth::user()->isMemberOfProject()]['name_et', 'name_en' => Auth::user()->isMemberOfProject()]['name_en'])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
+                        <p class="text-warning">{{trans('project.already_in_team_notification', [['name_et' => Auth::user()->isMemberOfProject()]['name_et'], ['name_en' => Auth::user()->isMemberOfProject()]['name_en']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                     @else
                         @if(checkIfThereIsSpaceInProjectGroups($project))

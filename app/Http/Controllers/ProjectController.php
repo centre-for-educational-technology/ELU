@@ -147,6 +147,35 @@ class ProjectController extends Controller
       ->with('message', trans('project.projects_closed'));
   }
 
+  /**
+   * Teacher open project for joining
+   */
+  public function openJoinForProject(Request $request) {
+    $project = Project::where('id', $request->id);
+
+    if ($project->closed_by_admin == 0) {
+      $project->available_to_join = 1;
+      $project->save();
+      return \Redirect::to('teacher/my-projects')
+        ->with('message', trans('project.projects_opened'));
+    }
+
+    return \Redirect::to('teacher/my-projects')
+        ->with('message', trans('project.project_close_by_admin'));
+
+  }
+
+  /**
+   * Teacher close project for joining
+   */
+  public function closeJoinForProject(Request $request) {
+    $projects = Project::where('id', $request->id);
+
+    $project->available_to_join = 0;
+    
+    return \Redirect::to('teacher/my-projects')
+      ->with('message', trans('project.projects_closed'));
+  }
 
   /**
    * Add new project form

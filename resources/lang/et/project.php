@@ -205,6 +205,7 @@ return [
     'accept_button' => 'Kinnita',
     //
     'projects_opened' => 'Projektid avatud',
+    'project_close_by_admin' => 'Projekti ei saa hetkel liitumiseks avada',
     'projects_closed' => 'Projektid suletud',
     //
     'administrate' => 'Administreeri projekti',

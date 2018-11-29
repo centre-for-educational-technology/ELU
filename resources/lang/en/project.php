@@ -207,6 +207,7 @@ return [
     'accept_button' => 'Accept',
     //
     'projects_opened' => 'Projects opened',
+    'project_close_by_admin' => 'Project cannot be opened for students to join',
     'projects_closed' => 'Projects closed',
     //
     'administrate' => 'Administrate project',

@@ -130,7 +130,7 @@ class ProjectController extends Controller
       $project->save();
     }
     return \Redirect::to('teacher/my-projects')
-      ->with('message', trans('project.new_project_saved_notification'));
+      ->with('message', trans('project.projects_opened'));
   }
 
   /**
@@ -144,7 +144,7 @@ class ProjectController extends Controller
       $project->save();
     }
     return \Redirect::to('teacher/my-projects')
-      ->with('message', trans('project.new_project_saved_notification'));
+      ->with('message', trans('project.projects_closed'));
   }
 
 

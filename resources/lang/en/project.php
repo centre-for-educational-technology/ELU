@@ -102,7 +102,7 @@ return [
     'log_in_and_join_notification' => 'Log in and join a project',
     'add_materials' => 'Add materials',
     'already_joined_this_notification' => 'You have already joined this project',
-    'already_in_team_notification' => 'You are already in ":name" project team',
+    'already_in_team_notification' => 'You are already in ":name_et" // ":name_en" project team',
     'group_created_notification' => 'You have added a new group ":name"',
     'group_deleted_notification' => 'Group ":name" has been deleted',
     'not_in_group' => 'Team members not belonging to group',
@@ -205,6 +205,9 @@ return [
     'save_button' => 'Save',
     'turn_down_button' => 'Needs changes',
     'accept_button' => 'Accept',
+    //
+    'projects_opened' => 'Projects opened',
+    'projects_closed' => 'Projects closed',
     //
     'administrate' => 'Administrate project',
     'administrate_button' => 'Administrate',

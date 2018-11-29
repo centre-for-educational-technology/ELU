@@ -101,7 +101,7 @@ return [
     'no_student_role_notification' => 'Sul ei ole tudengi rolli',
     'log_in_and_join_notification' => 'Logi sisse ja liitu projektiga',
     'already_joined_this_notification' => 'Oled juba liitunud selle projektiga',
-    'already_in_team_notification' => 'Oled juba ":name" projekti meeskonnas',
+    'already_in_team_notification' => 'Oled juba ":name_et" // ":name_en" projekti meeskonnas',
     'group_created_notification' => 'Grupp ":name" on loodud',
     'group_deleted_notification' => 'Grupp ":name" on kustutanud',
     'not_in_group' => 'Kasutajad mis ei kuulu rühmade',
@@ -203,6 +203,9 @@ return [
     'save_button' => 'Salvesta',
     'turn_down_button' => 'Vajab muudatusi',
     'accept_button' => 'Kinnita',
+    //
+    'projects_opened' => 'Projektid avatud',
+    'projects_closed' => 'Projektid suletud',
     //
     'administrate' => 'Administreeri projekti',
     'administrate_button' => 'Administreeri',

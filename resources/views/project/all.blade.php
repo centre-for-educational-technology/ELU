@@ -137,9 +137,7 @@
                                     <li>{{trans('project.spring_autumn')}}</li>
                                 @endif
 
-                                @if(!empty($project->study_year))
-                                    <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
-                                @endif
+                                <p>{{$project->project_year}}</p>
 
                             </ul>
 

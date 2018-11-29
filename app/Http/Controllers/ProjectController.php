@@ -52,7 +52,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('status', '=', '5')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '5')->where('available_to_join', '=', '1')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -77,7 +77,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('status', '=', '5')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '5')->where('available_to_join', '=', '0')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -102,7 +102,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '0')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -254,6 +254,7 @@ class ProjectController extends Controller
        * 3 - needs significant changes, coordinators comment, author gets to change => to 1 again
        * 4 - to be checked by council, idea is locked
        * 5 - publishing and joining dates added
+       * 0 - finished
        */
       $project->status = 2;
     } elseif ($request->save_project == "true") {

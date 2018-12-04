@@ -592,7 +592,9 @@
                 <!-- Featured image -->
                 <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
                 <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ (empty(old('featured_image')) ? $current_project->featured_image :  old('featured_image')) }}">
-
+                @if (!empty($current_project->featured_image))
+                    <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
+                @endif
                 </div>
 
                 <div class="col-lg-6">

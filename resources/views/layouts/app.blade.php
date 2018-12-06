@@ -327,7 +327,7 @@
 @endif
 
 <div class="life-pink-background">
-    <div class="pink-offset">
+    <div class="offset-to-show-pink">
         @yield('content')
 
         @yield('footer-scripts')

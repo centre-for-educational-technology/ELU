@@ -1,22 +1,109 @@
 :root {
     --life-pink: #ff4385;
     --life-orange: #ff8033;
-    --life--pink-orange-left: linear-gradient(to right, var(--life-pink) 0%, var(--life-orange) 100%);
-    --life--pink-orange-bottom: linear-gradient(to bottom, var(--life-pink) 0%, var(--life-orange) 100%);
+    --life-pink-orange-right: linear-gradient(to right, var(--life-pink) 0%, var(--life-orange) 100%);
+    --life-pink-orange-bottom: linear-gradient(to bottom, var(--life-pink) 0%, var(--life-orange) 100%);
 }
 
 .life-pink-background {
-    background: var(--life--pink-orange-bottom);
+    background: var(--life-pink-orange-bottom);
+    margin-top: -80px;
+    padding-top: 80px;
 }
 
-.pink-offset {
+.offset-to-show-pink {
     margin-left: 4vw;
+    margin-top: -80px;
+    padding-top: 80px;
     background: white;
 }
 
+@font-face {
+    font-family: 'Minion Pro';
+    font-stretch: condensed;
+    font-style: italic;
+    src: url('../fonts/MinionPro\ CnItDisp.otf')
+}
+
+@font-face {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    src: url('../fonts/MinionPro\ It.otf')
+}
+
+h1, .h1 {
+    font-size: 72pt;
+}
+h2, .h2 {
+    font-size: 48pt;
+}
+h3, .h3 {
+    font-size: 28pt;
+}
+h4, .h4 {
+    font-size: 24pt;
+}
+
+.mpci-uppercase {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    font-stretch: condensed;
+    text-transform: uppercase;
+}
+.control-label {
+    font-family: 'Minion Pro';
+    font-style: italic;
+}
+
+.navbar-content {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    font-size: 16pt;
+    text-transform: uppercase;
+}
+
+p {
+    font-family: 'Arial';
+    font-size: 16pt;
+}
+input {
+    font-family: 'Arial';
+    font-size: 14pt;
+}
+
+.small-button {
+    font-family: 'Arial';
+    font-size: 14pt;
+}
+.big-button {
+    font-family: 'Arial';
+    font-size: 18pt;
+}
+.filter-sort {
+    font-family: 'Arial';
+    font-size: 14pt;
+}
+
+button.active {
+    background-image: var(--life-pink-orange-right);
+    color: white;
+    border: none;
+}
+
+.language-select {
+    border: 1px solid black;
+    color: black;
+    background-color: white; 
+    width: 10vw;
+    height: 6vh;
+}
+
+/*
 body {
     background-color: white;
 }
+*/
+
 
 /*
 1366 - kogulaius

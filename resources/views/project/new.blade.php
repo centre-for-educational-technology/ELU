@@ -3,7 +3,7 @@
 @section('content')
 <!-- Pealkiri -->
 <div class="col-lg-12 col-lg-offset-2">
-    <h2 class="h2 class-uppercase"><b>{{trans('project.adding')}}</b></h2>
+    <h1 class="mpci-uppercase">{{trans('project.adding')}}</h1>
 </div>
 
 <div class="container">
@@ -29,6 +29,8 @@
             <p>
                 {{ trans('project.active_language_selection') }}
             </p>
+            <button id="project_in_estonian_button" class="language-select small-button active">Eesti keel</button>
+            <button id="project_in_english_button" class="language-select small-button">English</button>
             <span id="project_in_estonian"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
             <span id="project_in_english"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
         </div>
@@ -72,7 +74,7 @@
                 <!-- Project name input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="name_et">{{ trans('project.name') }} *</label></p>
+                    <p><label for="name_et" class="h4 control-label">{{ trans('project.name') }} *</label></p>
                     <input class="form-control" type="text" name="name_et" value="{{ old('name_et') }}">
                 </div>
 
@@ -87,7 +89,7 @@
                 <!-- Project name input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="name_en">{{ trans('project.name') }} *</label></p>
+                    <p><label for="name_en" class="h4 control-label">{{ trans('project.name') }} *</label></p>
                     <input class="form-control" type="text" name="name_en" value="{{ old('name_en') }}">
                 </div>
 
@@ -107,7 +109,7 @@
                 <!-- Project description input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="description_et">
+                    <p><label for="description_et" class="h4 control-label">
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
                     </label></p>
@@ -125,7 +127,7 @@
                 <!-- Project description input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="description_en">
+                    <p><label for="description_en" class="h4 control-label">
                         {{ trans('project.description') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
                     </label></p>
@@ -148,7 +150,7 @@
                 <!-- Project outcome input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="project_outcomes_et">
+                    <p><label for="project_outcomes_et" class="h4 control-label">
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
@@ -166,7 +168,7 @@
                 <!-- Project outcome input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="project_outcomes_en">
+                    <p><label for="project_outcomes_en" class="h4 control-label">
                         {{ trans('project.outcomes') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.outcomes_desc')}}"></i>
                     </label></p>
@@ -189,7 +191,7 @@
                 <!-- Interdisciplinary approach input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="interdisciplinary_approach_et">
+                    <p><label for="interdisciplinary_approach_et" class="h4 control-label">
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
@@ -207,7 +209,7 @@
                 <!-- Interdisciplinary approach input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="interdisciplinary_approach_en">
+                    <p><label for="interdisciplinary_approach_en" class="h4 control-label">
                         {{ trans('project.interdisciplinary_desc') }} *
                         <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.interdisciplinary_desc_desc')}}"></i>
                     </label></p>
@@ -230,7 +232,7 @@
                 <!-- Tags input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="tags_et">
+                    <p><label for="tags_et" class="h4 control-label">
                         {{ trans('project.keywords') }} *
                     </label></p>
                     <input class="form-control tags_et" type="text">
@@ -254,7 +256,7 @@
                 <!-- Tags input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="tags_en">
+                    <p><label for="tags_en" class="h4 control-label">
                         {{ trans('project.keywords') }} *
                     </label></p>
                     <input class="form-control tags_en" type="text">
@@ -283,7 +285,7 @@
                 <!-- Additional information input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="additional_info_et">{{ trans('project.extra_info') }}</label></p>
+                    <p><label for="additional_info_et" class="h4 control-label">{{ trans('project.extra_info') }}</label></p>
                     <textarea class="mceSimple" name="additional_info_et" >{!! old('additional_info_et') !!}</textarea>
                 </div>
 
@@ -298,7 +300,7 @@
                 <!-- Additional information input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="additional_info_en">{{ trans('project.extra_info') }}</label></p>
+                    <p><label for="additional_info_en" class="h4 control-label">{{ trans('project.extra_info') }}</label></p>
                     <textarea class="mceSimple" name="additional_info_en">{!! old('additional_info_en') !!}</textarea>
                 </div>
 
@@ -318,7 +320,7 @@
                 <!-- Comment for LIFE coordinators input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="comment_for_coordinators_et">{{ trans('project.comment_for_coordinators') }}</label></p>
+                    <p><label for="comment_for_coordinators_et" class="h4 control-label">{{ trans('project.comment_for_coordinators') }}</label></p>
                     <textarea class="mceSimple" name="comment_for_coordinators_et">{!! old('comment_for_coordinators_et') !!}</textarea>
                 </div>
 
@@ -333,7 +335,7 @@
                 <!-- Comment for LIFE coordinators input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="comment_for_coordinators_en">{{ trans('project.comment_for_coordinators') }}</label></p>
+                    <p><label for="comment_for_coordinators_en" class="h4 control-label">{{ trans('project.comment_for_coordinators') }}</label></p>
                     <textarea class="mceSimple" name="comment_for_coordinators_en">{!! old('comment_for_coordinators_en') !!}</textarea>
                 </div>
 
@@ -353,7 +355,7 @@
                 <!-- Partner(s) input in Estonian -->
                 <?php App::setLocale('et'); ?>
                 <div class="form-group">
-                    <p><label for="partners_et">{{ trans('project.partners') }}</label></p>
+                    <p><label for="partners_et" class="h4 control-label">{{ trans('project.partners') }}</label></p>
                     <input class="form-control" type="text" name="partners_et" value="{{ old('partners_et') }}">
                 </div>
 
@@ -368,7 +370,7 @@
                 <!-- Partner(s) input in English -->
                 <?php App::setLocale('en'); ?>
                 <div class="form-group">
-                    <p><label for="partners_en">{{ trans('project.partners') }}</label></p>
+                    <p><label for="partners_en" class="h4 control-label">{{ trans('project.partners') }}</label></p>
                     <input class="form-control" type="text" name="partners_en" value="{{ old('partners_en') }}">
                 </div>
 
@@ -388,7 +390,7 @@
 
         <!-- Project semester(s) -->
         <?php App::setLocale($startingLanguage); ?>
-        <label for="project_duration">
+        <label for="project_duration" class="h4 control-label">
             {{ trans('project.duration') }}
             <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
         </label>
@@ -423,7 +425,7 @@
             <!-- Additional info about the meetings in Estonian -->
             <?php App::setLocale('et'); ?>
             <div class="col-lg-12">
-                <label for="meetings_info_et">
+                <label for="meetings_info_et" class="h4 control-label">
                     {{ trans('project.meetings_info') }}
                 </label>
                 <textarea rows="5" name="meetings_info_et" style="width: 100%;">{!! old('meetings_info_et') !!}</textarea>
@@ -432,7 +434,7 @@
 
             <!-- Meetings info in Estonian -->
             <div class="col-lg-12">
-                <label for="first_meeting_et">
+                <label for="first_meeting_et" class="h4 control-label">
                     {{ trans('project.meeting_dates') }} *
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
                 </label>
@@ -470,7 +472,7 @@
             <!-- Additional info about the meetings in English -->
             <?php App::setLocale('en'); ?>
             <div class="col-lg-12">
-                <label for="meetings_info_en">
+                <label for="meetings_info_en" class="h4 control-label">
                     {{ trans('project.meetings_info') }}
                 </label>
                 <textarea rows="5" name="meetings_info_en" style="width: 100%;">{!! old('meetings_info_en') !!}</textarea>
@@ -479,7 +481,7 @@
 
             <!-- Meetings info in English -->
             <div class="col-lg-12">
-                <label for="first_meeting_en">
+                <label for="first_meeting_en" class="h4 control-label">
                     {{ trans('project.meeting_dates') }} *
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.meeting_dates_desc') }}"></i>
                 </label>
@@ -520,11 +522,11 @@
         <?php App::setLocale($startingLanguage); ?>
 
         <!-- Featured video link -->
-        <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
+        <p><label for="featured_video_link" class="h4 control-label">{{ trans('project.video_link') }}</label></p>
         <input class="form-control" type="text" name="featured_video_link" value="{{ old('featured_video_link') }}">
 
         <!-- Featured image -->
-        <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
+        <p><label for="featured_image" class="h4 control-label">{{ trans('project.featured_image') }}</label></p>
 
         <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ old('featured_image') }}">
 
@@ -532,7 +534,7 @@
 
         <div class="col-lg-6">
         <!-- Supervisor -->
-        <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
+        <p><label for="supervisor" class="h4 control-label">{{ trans('project.supervisor') }} *</label></p>
         <select id="supervisor" class="form-control" name="supervisor">
             <option value='-1'> </option>
             @if ($teachers->count())
@@ -557,13 +559,13 @@
         <!-- Supervising student -->
         @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
             <!--
-            <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
+            <p><label for="supervising_student" class="h4 control-label">{{ trans('project.supervising_student') }}</label></p>
             -->
             <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
         @endif
 
         <!-- Cosupervisor -->
-        <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
+        <p><label for="co_supervisor" class="h4 control-label">{{ trans('project.cosupervisor') }}</label></p>
         <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
         <div id="co_supervisor_div">
             <!--

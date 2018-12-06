@@ -3,14 +3,15 @@
 
 return [
     'project' => 'Projekt',
+    'add' => 'Lisa',
     'edit' => 'Muuda',
     'delete' => 'Kustuta',
     'my_projects' => 'Minu projektid',
-    'add' => 'Lisa',
-    'adding' => 'Projekti idee esitamine',
     'outside_adding' => 'Ettevõtja ELU projekti idee esitamine',
-    'active_language_selection' => 'Projekti töökeel(t)e valik',
     //
+    'adding' => 'Projekti idee esitamine',
+    'active_language_selection' => 'Projekti töökeel(t)e valik',
+    // Learning outcomes
     'about_fulfilling_expectations' => 'ELU projekti juhtides tuleb tagada õppeaine õpiväljundid:',
     'expectations_to_meet_for' => 'Üliõpilane:',
     'expectations_to_meet_for_student_1' => 'Oskab luua seoseid ja analüüsida ELU projektis seatud eesmärke ja nende lahendusvõimalusi nii enda kui teiste erialade perspektiividest lähtudes;',
@@ -18,7 +19,7 @@ return [
     'expectations_to_meet_for_student_3' => 'Teab ja oskab rakendada projekti- ja meeskonnatöö toimimise põhimõtteid, sh rollide jaotamine, vastutuse võtmine, panustamine grupitöösse ning on omandanud ajajuhtimise oskused;',
     'expectations_to_meet_for_student_4' => 'Analüüsib projekti edenemist ja selle tulemuslikkust, hinnates oma tegevusi kriitiliselt ja kavandades parendusmeetmeid;',
     'expectations_to_meet_for_student_5' => 'Oskab eneserefleksioonis analüüsida oma ja teiste rolli ja vastutust projekti tegevuste ja eesmärkide elluviimisel.',
-    //
+    // Form fields area 1
     'name' => 'Projekti nimi',
     'description' => 'Projekti kirjeldus',
     'description_desc' => 'Tuua välja, mida projekti idee endast kujutab, mis tegevusi hõlmab, milline on probleemi püstitus ja mis on eesmärk. Millistele teaduslikele allikatele, teooriatele projekti teema või probleem tugineb? Milles seisneb projekti olulisus?',
@@ -29,31 +30,31 @@ return [
     'keywords' => 'Märksõnad',
     'keywords_desc' => 'Märksõna lisamiseks vajuta "Enter" klahvi',
     'extra_info' => 'Lisainfo',
-    'extra_info_et' => 'Lisainfo',
-    'extra_info_en' => 'Additional information',
-    //
     'comment_for_coordinators' => 'Märkus ELU koordinaatoritele',
     'partners' => 'Partner(id) e Juhendaja ettevõttest',
-    //
+    // Form fields area 2
     'duration' => 'Projekti kestus semestrites',
     'duration_desc' => 'Mitu semestrit kestva projekti korral tuleb see ankeedis välja tuua, et üliõpilased oskaksid sellega arvestada. EAP-d saadakse teise semestri lõpus.',
     'autumn_semester' => 'Sügissemester',
     'autumn_spring' => 'Sügis+kevad',
     'spring_semester' => 'Kevadsemester',
 		'spring_autumn' => 'Kevad+sügis',
-    //
+    // Form fields area 3
     'meetings_info' => 'Täiendav info kohtumiste kohta',
     'meeting_dates' => 'Kohtumiste ajad',
     'meeting_dates_et' => 'Kohtumiste ajad',
     'meeting_dates_en' => 'Dates for meetings',
     'meeting_dates_desc' => 'Eelnevalt paika pandud kohtumisajad aitavad üliõpilastel varakult nendega arvestada ja planeerida oma aega teiste õppeainete ja/või töö kõrvalt. Kohtumise kuupäeva valimine on kohustuslik!',
     'meeting_additional_info' => 'Täiendav info selle kohtumise kohta',
-    //
+    // Form fields area 4
     'video_link' => 'Tutvustav video link (YouTube, Vimeo, etc.)',
     'featured_image' => 'Pisipilt',
     'supervisor' => 'Juhendaja(d)',
     'cosupervisor' => 'Kaasjuhendaja(d)',
     'supervising_student' => 'Juhendav üliõpilane',
+    //
+    'extra_info_et' => 'Lisainfo',
+    'extra_info_en' => 'Additional information',
     //
 		'novelty_desc' => 'Teaduspõhisus ja uudsus',
     'integrated_study_areas' => 'Lõimitud valdkonnad',

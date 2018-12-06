@@ -2,12 +2,21 @@
 
 @section('content')
 <!-- Pealkiri -->
+<div class="col-lg-12">
+    <div class="col-lg-4 pull-right">
+        <div class="col-lg-6">
+            <p class="comment">Hetkel avatud KASUTAJANIMI poolt</p>
+        </div>
+        <div class="col-lg-6">
+            <p class="comment">Salvestatud: 06-12-2018 16:00 KASUTAJANIMI poolt</p>
+        </div>
+    </div>
+</div>
 <div class="col-lg-12 col-lg-offset-2">
     <h1 class="mpci-uppercase">{{trans('project.adding')}}</h1>
 </div>
 
 <div class="container">
-
     <!-- Display Validation Errors -->
     @include('common.errors')
 

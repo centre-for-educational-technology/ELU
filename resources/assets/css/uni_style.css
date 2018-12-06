@@ -5,16 +5,25 @@
     --life-pink-orange-bottom: linear-gradient(to bottom, var(--life-pink) 0%, var(--life-orange) 100%);
 }
 
+.comment {
+    color: lightgray;
+    font-size: 10pt;
+}
+
 .life-pink-background {
     background: var(--life-pink-orange-bottom);
+    /*
     margin-top: -80px;
     padding-top: 80px;
+    */
 }
 
 .offset-to-show-pink {
     margin-left: 4vw;
+    /*
     margin-top: -80px;
     padding-top: 80px;
+    */
     background: white;
 }
 

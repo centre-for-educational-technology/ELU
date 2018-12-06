@@ -4,13 +4,14 @@
 return [
     'project' => 'Project',
     'edit' => 'Edit',
+    'add' => 'Add',
     'delete' => 'Delete',
     'my_projects' => 'My projects',
-    'add' => 'Add',
-    'adding' => 'Adding new project idea',
     'outside_adding' => 'Adding a new LIFE project idea by a Business',
-    'active_language_selection' => 'Choose languages for the project',
     //
+    'adding' => 'Adding new project idea',
+    'active_language_selection' => 'Choose languages for the project',
+    // Learning outcomes
     'about_fulfilling_expectations' => 'The following learning outcomes are to be guaranteed:',
     'expectations_to_meet_for' => 'Student:',
     'expectations_to_meet_for_student_1' => 'Can make connections and can analyse the goals of the project and their possible solutions from the perspective of one’s own as well as that of other fields;',
@@ -18,7 +19,7 @@ return [
     'expectations_to_meet_for_student_3' => 'Has knowledge and skills of applying principles of teamwork, including the division of roles, taking responsibility and contribution to group work and has acquired time management skills;',
     'expectations_to_meet_for_student_4' => 'Can analyse the performance and effectiveness of the project by critically assessing one’s own activities and suggesting improvement measures;',
     'expectations_to_meet_for_student_5' => 'Can analyse his/her own, as well as team members’, role and responsibilities when implementing the activities and goals of the project.',
-    //
+    // Form fields area 1
     'name' => 'Project name',
     'description' => 'Description',
     'description_desc' => 'Bring out, what is the project idea about, what activities are necessary. What is the issue about and what is the aim of the project. What kind of scientific literature or theories support the project issue? Why and how is this issue important?',
@@ -29,31 +30,31 @@ return [
     'keywords' => 'Tags',
     'keywords_desc' => 'Press enter to add tag',
     'extra_info' => 'Additional information',
-    'extra_info_et' => 'Lisainfo',
-    'extra_info_en' => 'Additional information',
-    //
     'comment_for_coordinators' => 'Comment for LIFE coordinators',
     'partners' => 'Partners(s)',
-    //
+    // Form fields area 2
     'duration' => 'Duration in semesters',
     'duration_desc' => 'If project lasts more than one semester it is very important to highlight this fact in project form, because students will get their ECTS points in the second semester. ',
     'autumn_semester' => 'Autumn semester',
   	'autumn_spring' => 'Autumn+spring',
     'spring_semester' => 'Spring semester',
 		'spring_autumn' => 'Spring+autumn',
-    //
+    // Form fields area 3
     'meetings_info' => 'Additional information about the meetings',
     'meeting_dates' => 'Dates for meetings',
     'meeting_dates_et' => 'Kohtumiste ajad',
     'meeting_dates_en' => 'Dates for meetings',
     'meeting_dates_desc' => 'Previously set meeting dates will help students to plan their time better within other school and work activites. Setting a date is required!',
     'meeting_additional_info' => 'Additional info about this particular meeting',
-    //
+    // Form fields area 4
     'video_link' => 'Video link (YouTube, Vimeo, etc.)',
     'featured_image' => 'Featured Image',
     'supervisor' => 'Supervisor(s)',
     'cosupervisor' => 'Co-supervisor(s)',
     'supervising_student' => 'Supervising student',
+    //
+    'extra_info_et' => 'Lisainfo',
+    'extra_info_en' => 'Additional information',
     //
 		'novelty_desc' => 'Research base and innovation',
     'integrated_study_areas' => 'Integrated study areas',

@@ -1183,7 +1183,7 @@ class ProjectController extends Controller
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%member%')->where('id', Auth::user()->id);
-    })->orderBy('created_at', 'desc')->paginate(5);
+    })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
 
     return \Redirect::to('projects/open')

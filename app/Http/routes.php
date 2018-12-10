@@ -256,7 +256,7 @@ Route::group(['middleware' =>['web']], function () {
         Route::get('admin/all-projects', function () {
 
 
-          $projects = Project::orderBy('created_at', 'desc')->paginate(10);
+          $projects = Project::where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(10);
 
 
           return view('admin.all_projects', [

@@ -94,7 +94,9 @@
                         </div>
 
                         <!-- Comment for name in Estonian -->
-                        <div id="comment_name_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_name_et" value="{{ (empty(old('comment_name_et')) ? $current_project->comment_name_et :  old('comment_name_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -109,7 +111,9 @@
                         </div>
 
                         <!-- Comment for name in English -->
-                        <div id="comment_name_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_name_en" value="{{ (empty(old('comment_name_en')) ? $current_project->comment_name_en :  old('comment_name_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -132,7 +136,9 @@
                         </div>
 
                         <!-- Comment for description in Estonian -->
-                        <div id="comment_description_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_description_et" value="{{ (empty(old('comment_description_et')) ? $current_project->comment_description_et :  old('comment_description_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -150,7 +156,9 @@
                         </div>
 
                         <!-- Comment for description in English -->
-                        <div id="comment_description_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_description_en" value="{{ (empty(old('comment_description_en')) ? $current_project->comment_description_en :  old('comment_description_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -173,7 +181,9 @@
                         </div>
 
                         <!-- Comment for outcome in Estonian -->
-                        <div id="comment_project_outcome_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_project_outcome_et" value="{{ (empty(old('comment_project_outcome_et')) ? $current_project->comment_project_outcome_et :  old('comment_project_outcome_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -191,7 +201,9 @@
                         </div>
 
                         <!-- Comment for outcome in English -->
-                        <div id="comment_project_outcome_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_project_outcome_en" value="{{ (empty(old('comment_project_outcome_en')) ? $current_project->comment_project_outcome_en :  old('comment_project_outcome_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -214,7 +226,9 @@
                         </div>
 
                         <!-- Comment for interdisciplinary approach in Estonian -->
-                        <div id="comment_interdisciplinary_approach_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_interdisciplinary_approach_et" value="{{ (empty(old('comment_interdisciplinary_approach_et')) ? $current_project->comment_interdisciplinary_approach_et :  old('comment_interdisciplinary_approach_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -232,7 +246,9 @@
                         </div>
 
                         <!-- Comment for interdisciplinary approach in English -->
-                        <div id="comment_interdisciplinary_approach_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_interdisciplinary_approach_en" value="{{ (empty(old('comment_interdisciplinary_approach_en')) ? $current_project->comment_interdisciplinary_approach_en :  old('comment_interdisciplinary_approach_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -261,7 +277,9 @@
                         <input type="hidden" name="keywords_et" id="keywords_et" value="{{ (empty(old('tags_et')) ? $current_project->tags_et :  old('tags_et')) }}">
 
                         <!-- Comment for tags in Estonian -->
-                        <div id="comment_tags_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_tags_et" value="{{ (empty(old('comment_tags_et')) ? $current_project->comment_tags_et :  old('comment_tags_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -285,7 +303,9 @@
                         <input type="hidden" name="keywords_en" id="keywords_en" value="{{ (empty(old('tags_en')) ? $current_project->tags_en :  old('tags_en')) }}">
 
                         <!-- Comment for tags in English -->
-                        <div id="comment_tags_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_tags_en" value="{{ (empty(old('comment_tags_en')) ? $current_project->comment_tags_en :  old('comment_tags_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -305,7 +325,9 @@
                         </div>
 
                         <!-- Comment for additional information in Estonian -->
-                        <div id="comment_additional_info_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_additional_info_et" value="{{ (empty(old('comment_additional_info_et')) ? $current_project->comment_additional_info_et :  old('comment_additional_info_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -320,7 +342,9 @@
                         </div>
 
                         <!-- Comment for additional information in English -->
-                        <div id="comment_additional_info_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_additional_info_en" value="{{ (empty(old('comment_additional_info_en')) ? $current_project->comment_additional_info_en :  old('comment_additional_info_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -340,7 +364,9 @@
                         </div>
 
                         <!-- Comment for comment for LIFE coordinators in Estonian -->
-                        <div id="comment_comment_for_coordinators_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_comment_for_coordinators_et" value="{{ (empty(old('comment_comment_for_coordinators_et')) ? $current_project->comment_comment_for_coordinators_et :  old('comment_comment_for_coordinators_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -355,7 +381,9 @@
                         </div>
 
                         <!-- Comment for comment for LIFE coordinators in  -->
-                        <div id="comment_comment_for_coordinators_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_comment_for_coordinators_en" value="{{ (empty(old('comment_comment_for_coordinators_en')) ? $current_project->comment_comment_for_coordinators_en :  old('comment_comment_for_coordinators_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -375,7 +403,9 @@
                         </div>
 
                         <!-- Comment for Partner(s) in Estonian -->
-                        <div id="comment_partners_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_partners_et" value="{{ (empty(old('comment_partners_et')) ? $current_project->comment_partners_et :  old('comment_partners_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -390,7 +420,9 @@
                         </div>
 
                         <!-- Comment for Partner(s) in English -->
-                        <div id="comment_partners_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_partners_en" value="{{ (empty(old('comment_partners_en')) ? $current_project->comment_partners_en :  old('comment_partners_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -526,6 +558,10 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_meetings_et" value="{{ (empty(old('comment_meetings_et')) ? $current_project->comment_meetings_et :  old('comment_meetings_et')) }}"></textarea>
+                    </div>
+
                 <!-- Meetings in Estonian end -->
                 </div>
 
@@ -573,6 +609,10 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_meetings_en" value="{{ (empty(old('comment_meetings_en')) ? $current_project->comment_meetings_en :  old('comment_meetings_en')) }}"></textarea>
+                    </div>
+
                 <!-- Meetings in English end -->
                 </div>
 
@@ -583,72 +623,82 @@
             <!-- Start of the fourth block -->
             <div class="col-lg-12 panel panel-heading">
                 <div class="col-lg-6">
-                <?php App::setLocale($startingLanguage); ?>
+                    <?php App::setLocale($startingLanguage); ?>
 
-                <!-- Featured video link -->
-                <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
-                <input class="form-control" type="text" name="featured_video_link" value="{{ (empty(old('featured_video_link')) ? $current_project->featured_video_link :  old('featured_video_link')) }}">
+                    <!-- Featured video link -->
+                    <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
+                    <input class="form-control" type="text" name="featured_video_link" value="{{ (empty(old('featured_video_link')) ? $current_project->featured_video_link :  old('featured_video_link')) }}">
 
-                <!-- Featured image -->
-                <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
-                <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ (empty(old('featured_image')) ? $current_project->featured_image :  old('featured_image')) }}">
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_featured_video_link" value="{{ (empty(old('comment_featured_video_link')) ? $current_project->comment_featured_video_link :  old('comment_featured_video_link')) }}"></textarea>
+                    </div>
 
+                    <!-- Featured image -->
+                    <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
+                    <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ (empty(old('featured_image')) ? $current_project->featured_image :  old('featured_image')) }}">
+                    @if (!empty($current_project->featured_image))
+                        <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$current_project->featured_image)}}"></p>
+                    @endif
+
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_featured_image" value="{{ (empty(old('comment_featured_image')) ? $current_project->comment_featured_image :  old('comment_featured_image')) }}"></textarea>
+                    </div>
                 </div>
 
                 <div class="col-lg-6">
-                <!-- Supervisor -->
-                <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
-                <select id="supervisor" class="form-control" name="supervisor">
-                    <option value='-1'> </option>
-                    @if ($teachers->count())
-                        @foreach($teachers as $teacher)
-                            @if (old('supervisor')!='')
-                                @if (old('supervisor')==$teacher->id)
-                                    <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                                @else
-                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                                @endif
-                            @else
-                                @if ($current_project->supervisor == $teacher->id)
-                                    <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                                @else
-                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                                @endif
-                            @endif
-                        @endforeach
-                    @endif
-                </select>
-
-                <!-- Supervising student -->
-                @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
-                    <!--
-                    <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
-                    -->
-                    <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
-                @endif
-
-                <!-- Cosupervisor -->
-                <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
-                <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
-                <div id="co_supervisor_div">
-                    <!--
-                    <select class="form-control co_supervisor">
+                    <!-- Supervisor -->
+                    <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
+                    <select id="supervisor" class="form-control" name="supervisor">
                         <option value='-1'> </option>
                         @if ($teachers->count())
                             @foreach($teachers as $teacher)
-                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                @if (old('supervisor')!='')
+                                    @if (old('supervisor')==$teacher->id)
+                                        <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                                    @else
+                                        <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                    @endif
+                                @else
+                                    @if ($current_project->supervisor == $teacher->id)
+                                        <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                                    @else
+                                        <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                    @endif
+                                @endif
                             @endforeach
                         @endif
                     </select>
-                    -->
-                    <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
-                </div>
 
-                <!-- Icons for adding/removing cosupervisor input -->
-                <div class="pull-right">
-                    <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
-                    <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
-                </div>
+                    <!-- Supervising student -->
+                    @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+                        <!--
+                        <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
+                        -->
+                        <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
+                    @endif
+
+                    <!-- Cosupervisor -->
+                    <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
+                    <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
+                    <div id="co_supervisor_div">
+                        <!--
+                        <select class="form-control co_supervisor">
+                            <option value='-1'> </option>
+                            @if ($teachers->count())
+                                @foreach($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        -->
+                        <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
+                    </div>
+
+                    <!-- Icons for adding/removing cosupervisor input -->
+                    <div class="pull-right">
+                        <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
+                    </div>
 
                 </div>
             <!-- End of the fourth block -->
@@ -866,7 +916,7 @@
 
 
             @if($members_count>0)
-                    @if (newProjectHasGroupsWithMembers($current_project))
+                    @if (ProjectHasGroupsWithMembers($current_project))
 
                     <div class="col-lg-12 text-center">
                         <div class="btn-group">

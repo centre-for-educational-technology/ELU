@@ -92,7 +92,7 @@ return [
     'twitter_share_joined_message' => 'Olen liitunud projektiga',
     //kustutada
     'project_sent_to_moderation_notification' => 'Sinu projekt ":name" suunati modereerimisele. Aitäh!',
-    'project_changed_notification' => 'Projekt ":name" on muudetud',
+    'project_changed_notification' => 'Projekt ":name_et//:name_en" on muudetud',
     'project_deleted_notification' => 'Projekt ":name" on kustutanud',
     'portrait_orientation' => 'Portree orientatsioon on soovituslik',
     'already_in_team_notification' => 'Oled juba ":name" projekti meeskonnas',
@@ -193,6 +193,8 @@ return [
 		'find_something_else_notification' => 'Otsi midagi veel',
     'new_project_added_notification' => 'Projekti idee läheb ülevaatamisele, teiega võetakse ühendust.',
     'new_project_saved_notification' => 'Projekti ankeedi hetkeseis salvestatud, võimalus hiljem edasi täita.',
+    'project_saved_notification' => 'Projekt ":name_et//:name_en" salvestatud (aga esitamata).',
+    'project_added_notification' => 'Projekt ":name_et//:name_en" esitatud, teiega võetakse ühendust.',
 		'presentation_of_results_december' => 'detsember/jaanuar',
 		'presentation_of_results_may' => 'mai/juuni',
 		'changes_saved' => 'Muudatused on salvestatud',
@@ -212,6 +214,10 @@ return [
     'save_button' => 'Salvesta',
     'turn_down_button' => 'Vajab muudatusi',
     'accept_button' => 'Kinnita',
+    //
+    'projects_opened' => 'Projektid avatud',
+    'project_close_by_admin' => 'Projekti ei saa hetkel liitumiseks avada',
+    'projects_closed' => 'Projektid suletud',
     //
     'administrate' => 'Administreeri projekti',
     'administrate_button' => 'Administreeri',

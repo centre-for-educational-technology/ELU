@@ -56,7 +56,7 @@
                                         @endif
 
                                         <td>
-                                            @if($project->status == 1 || $project->status == 3 || $project->status == NULL)
+                                            @if($project->status == 1 || $project->status == 3 || $project->status == NULL || $project->status == 5)
                                                 <form action="{{ url('project/'.$project->id.'/administrate') }}" method="GET">
                                                     {{ csrf_field() }}
 

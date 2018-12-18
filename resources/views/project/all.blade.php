@@ -137,9 +137,7 @@
                                     <li>{{trans('project.spring_autumn')}}</li>
                                 @endif
 
-                                @if(!empty($project->study_year))
-                                    <p>{{$project->study_year}}/{{$project->study_year+1}}</p>
-                                @endif
+                                <p>{{$project->project_year}}</p>
 
                             </ul>
 
@@ -258,16 +256,12 @@
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                     @if(empty($isStudentMyProjectsView))
                     {{--Check for join deadline--}}
-                        {{--
-                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
-                        --}}
-                        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
                         @if ($project->available_to_join == 0)
                             <p class="red">{{trans('project.deadline_over')}}</p>
                             @if (!Auth::guest() && $project->currentUserIs('member'))
-                            <form action="{{ url('finish/'.$project->id) }}">
-                                <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
-                            </form>
+                                <form action="{{ url('finish/'.$project->id) }}">
+                                    <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
+                                </form>
                             @endif
                         @else
                             @if(Auth::check())
@@ -284,10 +278,10 @@
 
                                     @elseif(Auth::user()->isMemberOfProject())
 
-                                        <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
+                                        <p class="text-warning">{{trans('project.already_in_team_notification')}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                                     @else
-                                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                                        @if(checkIfThereIsSpaceInProject($project))
                                                 <form action="{{ url('join/'.$project->id) }}" method="POST">
                                                     {{ csrf_field() }}
 

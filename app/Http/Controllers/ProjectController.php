@@ -50,8 +50,6 @@ class ProjectController extends Controller
    */
   public function indexOpenProjects()
   {
-
-
     $projects = Project::where('status', '=', '5')->where('available_to_join', '=', '1')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
@@ -63,9 +61,6 @@ class ProjectController extends Controller
           ->with('projects', $projects)
           ->with('isTeacher', false);
     }
-
-
-
   }
 
 
@@ -75,8 +70,6 @@ class ProjectController extends Controller
    */
   public function indexOngoingProjects()
   {
-
-
     $projects = Project::where('status', '=', '5')->where('available_to_join', '=', '0')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
@@ -88,9 +81,6 @@ class ProjectController extends Controller
           ->with('projects', $projects)
           ->with('isTeacher', false);
     }
-
-
-
   }
 
 
@@ -100,8 +90,6 @@ class ProjectController extends Controller
    */
   public function indexFinishedProjects()
   {
-
-
     $projects = Project::where('status', '=', '0')->where('deleted', NULL)->orderBy('name_et', 'asc')->paginate(20);
 
     if(Auth::user()){
@@ -113,16 +101,14 @@ class ProjectController extends Controller
           ->with('projects', $projects)
           ->with('isTeacher', false);
     }
-
-
-
   }
 
 
   /**
-   * Open projects for joining
+   * Open projects for joining (by admin)
    */
-  public function openJoinForProjects(Request $request) {
+  public function openJoinForProjects(Request $request)
+  {
     $projects = Project::where('status', 5)->where('study_term', $request->study_term)->where('project_year', $request->project_year);
 
     foreach ($projects->get() as $project) {
@@ -134,9 +120,10 @@ class ProjectController extends Controller
   }
 
   /**
-   * Open projects for joining
+   * Close joining to projects (by admin)
    */
-  public function closeJoinForProjects(Request $request) {
+  public function closeJoinForProjects(Request $request)
+  {
     $projects = Project::where('status', 5)->where('study_term', $request->study_term)->where('project_year', $request->project_year);
 
     foreach ($projects->get() as $project) {
@@ -150,7 +137,8 @@ class ProjectController extends Controller
   /**
    * Teacher open project for joining
    */
-  public function openJoinForProject(Request $request) {
+  public function openJoinForProject(Request $request)
+  {
     $project = Project::where('id', $request->id);
 
     if ($project->closed_by_admin == 0) {
@@ -168,7 +156,8 @@ class ProjectController extends Controller
   /**
    * Teacher close project for joining
    */
-  public function closeJoinForProject(Request $request) {
+  public function closeJoinForProject(Request $request)
+  {
     $projects = Project::where('id', $request->id);
 
     $project->available_to_join = 0;
@@ -182,16 +171,14 @@ class ProjectController extends Controller
    */
   public function add(Request $request)
   {
+    $lang = $request->lang;
 
-	  $lang = $request->lang;
-
-	  $project_language = 'et';
-	  if(!empty($lang)){
-		  $project_language = $lang;
-		  \App::setLocale($lang);
-		  session(['applocale' => $lang]);
-
-	  }
+    $project_language = 'et';
+    if(!empty($lang)){
+      $project_language = $lang;
+      \App::setLocale($lang);
+      session(['applocale' => $lang]);
+    }
 
 
     $projects = Project::where('deleted', NULL)->whereHas('users', function($q)
@@ -208,15 +195,15 @@ class ProjectController extends Controller
     })->get();
 
     /*
-	  if(\App::getLocale() == 'en'){
-		  $courses = Course::select('id','oppekava_eng')->get();
-	  }else{
-		  $courses = Course::select('id','oppekava_est')->get();
-	  }
+    if(\App::getLocale() == 'en'){
+      $courses = Course::select('id','oppekava_eng')->get();
+    }else{
+      $courses = Course::select('id','oppekava_est')->get();
+    }
     */
 
 
-	  $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
+    $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
 
 
     $author =  Auth::user()->id;
@@ -231,7 +218,6 @@ class ProjectController extends Controller
    */
   public function administrate(ProjectRequest $request, $id)
   {
-
     $project = Project::find($id);
 
     $project->max_members = $request->max_members;
@@ -332,8 +318,12 @@ class ProjectController extends Controller
     $project->co_supervisors = $request->co_supervisors;
     $project->available_to_join = 0;
     $project->see_hidden_tokken = hash('sha512', $project->id);
+    $project->max_members = 24;
     // Saving needed to get id to upload featured image to a folder with projectID
     $project->save();
+    if($request->featured_image != null){
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    }
     if($request->featured_video_link != null){
       $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
       if ($featured_video_url) {
@@ -343,22 +333,27 @@ class ProjectController extends Controller
       $featured_video_html = $featured_video_url->getHtml();
       $project->featured_video_link = $featured_video_html;
     }
+
     $project->save();
    
     //Attach users with teacher role
     $project->users()->attach($request->supervisor, ['participation_role' => 'author']);
     $cosupervisors = json_decode($request->co_supervisors);
     foreach ($cosupervisors as $cosupervisor){
-      $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
+      if ($cosupervisor != $request->supervisor) {
+        $project->users()->attach($cosupervisor, ['participation_role' => 'author']);
+      } else {
+        unset($cosupervisors[array_search($cosupervisor, $cosupervisors)]);
+      }
     }
-    // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
-    if($request->featured_image != null){
-      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
-    }
+    $project->co_supervisors = json_encode(array_values($cosupervisors));
+
     $project->save();
+    /*
     if ($request->submit_project) {
       $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
+    */
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
@@ -366,18 +361,18 @@ class ProjectController extends Controller
     
     if ($request->submit_project) {
       return \Redirect::to('teacher/my-projects')
-          ->with('message', trans('project.new_project_added_notification'))
+          ->with('message', trans('project.project_added_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
           ->with('projects', $projects);
     } elseif ($request->save_project) {
       return \Redirect::to('teacher/my-projects')
-          ->with('message', trans('project.new_project_saved_notification'))
+          ->with('message', trans('project.project_saved_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
           ->with('projects', $projects);
     }
   }
 
 
   /**
-   * Save new project
+   * Save new project (OLD)
    */
   public function old_store(ProjectRequest $request)
   {
@@ -388,7 +383,7 @@ class ProjectController extends Controller
     //$project->description = $request->description;
 
     if ($request->description != '<p>undefined</p>') {
-	    $project->description = $request->description;
+      $project->description = $request->description;
     } else {
       $project->description = ' ';
     }
@@ -410,7 +405,7 @@ class ProjectController extends Controller
 
     $project->aim = $request->aim;
       
-	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+    $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
     if ($request->novelty_desc != '<p>undefined</p>') {
       $project->novelty_desc = $request->novelty_desc;
@@ -418,19 +413,19 @@ class ProjectController extends Controller
       $project->novelty_desc = ' ';
     }
 
-	  $project->project_outcomes = $request->project_outcomes;
+    $project->project_outcomes = $request->project_outcomes;
 
-	  $project->student_expectations = $request->student_expectations;
+    $project->student_expectations = $request->student_expectations;
 
-	  if(!empty($request->meetings_dates_text)){
-		  $project->meeting_dates = $request->meetings_dates_text;
-	  }else{
-		  $project->meeting_dates = 'NONE';
-	  }
+    if(!empty($request->meetings_dates_text)){
+      $project->meeting_dates = $request->meetings_dates_text;
+    }else{
+      $project->meeting_dates = 'NONE';
+    }
 
-	  $project->evaluation_date_id = $request->evaluation_date;
+    $project->evaluation_date_id = $request->evaluation_date;
 
-	  $project->presentation_results = $request->presentation_results;
+    $project->presentation_results = $request->presentation_results;
 
 
     //$project->integrated_areas = $request->integrated_areas;
@@ -486,7 +481,7 @@ class ProjectController extends Controller
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
 
-	  $project->get_notifications = $request->get_notifications == "on"? true : false;
+    $project->get_notifications = $request->get_notifications == "on"? true : false;
 
 
     //Need that to get id
@@ -522,7 +517,7 @@ class ProjectController extends Controller
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
 
-	  $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
+    $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
 
 
     return \Redirect::to('teacher/my-projects')
@@ -617,14 +612,20 @@ class ProjectController extends Controller
     $project->supervisor = $request->supervisor;
     $project->supervising_student = $request->supervising_student;
     $project->co_supervisors = $request->co_supervisors;
-
-
+    
+    
     $project->available_to_join = 0;
     $project->see_hidden_tokken = hash('sha512', $project->id);
 
-
-    // Saving needed to get id to upload featured image to a folder with projectID
-    $project->save();
+    
+    if($request->featured_image != null){
+      if($project->featured_image !=null){
+        File::delete(public_path('storage/projects_featured_images/') .$project->featured_image);
+      }
+      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
+    } else {
+      $project->featured_image == null;
+    }
 
     if($request->featured_video_link != null){
       $featured_video_url = Embed::make($request->featured_video_link)->parseUrl();
@@ -642,12 +643,12 @@ class ProjectController extends Controller
    
     //Attach users with teacher role    
     $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
-	  $teachers_ids = array();
-	  if(count($teachers)>0){
+    $teachers_ids = array();
+    if(count($teachers)>0){
       foreach ($teachers as $teacher){
         array_push($teachers_ids, $teacher->id);
-		  }
-	  }
+      }
+    }
     
     $supervisors = array();
     array_push($supervisors, $project->supervisor);
@@ -656,74 +657,66 @@ class ProjectController extends Controller
       array_push($supervisors, $cosupervisor);
     }
 
-	  $diff1 = array_diff($supervisors, $teachers_ids);
-	  $diff2 = array_diff($teachers_ids, $supervisors);
-	  $different_users = array_merge($diff1, $diff2);
+    $diff1 = array_diff($supervisors, $teachers_ids);
+    $diff2 = array_diff($teachers_ids, $supervisors);
+    $different_users = array_merge($diff1, $diff2);
 
-	  foreach ($different_users as $different_user){
-	  	if(in_array($different_user, $teachers_ids)){
-			  //This user was in list but now removed
-			  $project->users()->detach($different_user);
-		  }else{
-	  		//This user was not in list but now added
-			  $project->users()->attach($different_user, ['participation_role' => 'author']);
-		  }
+    foreach ($different_users as $different_user){
+      if(in_array($different_user, $teachers_ids)){
+        //This user was in list but now removed
+        $project->users()->detach($different_user);
+      }else{
+        //This user was not in list but now added
+        $project->users()->attach($different_user, ['participation_role' => 'author']);
+      }
     }
     
 
-	  $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+    $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 
-	  if(count($project_cosupervisors_points)>0){
-		  foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+    if(count($project_cosupervisors_points)>0){
+      foreach ($project_cosupervisors_points as $project_cosupervisor_points){
 
-			  $remains = false;
+        $remains = false;
 
-			  foreach (json_decode($request->co_supervisors) as $single_cosupervisor) {
-				  if($project_cosupervisor_points->name == $single_cosupervisor){
-					  $remains = true;
-				  }
-			  }
+        foreach (json_decode($request->co_supervisors) as $single_cosupervisor) {
+          if($project_cosupervisor_points->name == $single_cosupervisor){
+            $remains = true;
+          }
+        }
 
-			  if($remains == false){
-				  $project_cosupervisor_points->delete();
-			  }
-		  }
+        if($remains == false){
+          $project_cosupervisor_points->delete();
+        }
+      }
     }
 
-
+/*
     if ($request->submit_project == "true") {
       $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
-
-
-    // As there have been problems with this, moving it to the bottom of the actions, so that all others would be done
-    if($request->featured_image != null){
-      if($project->featured_image !=null){
-        File::delete(public_path('storage/projects_featured_images/') .$project->featured_image);
-      }
-      $project->featured_image = $this->uploadFeaturedImage($request, $project->id);
-    } else {
-      $project->featured_image == null;
-    }
-
+*/
 
     $project->save();
-
 
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
 
-
-    return \Redirect::to('teacher/my-projects')
-		    ->with('message', trans('project.project_changed_notification', ['name' => $project->name_et]))
-        ->with('projects', $projects);
-
+    if ($request->submit_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.project_added_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
+          ->with('projects', $projects);
+    } elseif ($request->save_project) {
+      return \Redirect::to('teacher/my-projects')
+          ->with('message', trans('project.project_saved_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
+          ->with('projects', $projects);
+    }
   }
 
   /**
-   * Update project info
+   * Update project info (OLD)
    */
   public function old_update(ProjectRequest $request, $id)
   {
@@ -749,28 +742,28 @@ class ProjectController extends Controller
       $project->embedded = $embed_html;
 
     }else{
-	    $project->embedded = null;
+      $project->embedded = null;
     }
 
-	  $project->aim = $request->aim;
+    $project->aim = $request->aim;
 
-	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+    $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
-	  $project->novelty_desc = $request->novelty_desc;
+    $project->novelty_desc = $request->novelty_desc;
 
-	  $project->project_outcomes = $request->project_outcomes;
+    $project->project_outcomes = $request->project_outcomes;
 
-	  $project->student_expectations = $request->student_expectations;
+    $project->student_expectations = $request->student_expectations;
 
-	  if(!empty($request->meetings_dates_text)){
-		  $project->meeting_dates = $request->meetings_dates_text;
-	  }else{
-		  $project->meeting_dates = 'NONE';
-	  }
+    if(!empty($request->meetings_dates_text)){
+      $project->meeting_dates = $request->meetings_dates_text;
+    }else{
+      $project->meeting_dates = 'NONE';
+    }
 
-	  $project->evaluation_date_id = $request->evaluation_date;
+    $project->evaluation_date_id = $request->evaluation_date;
 
-	  $project->presentation_results = $request->presentation_results;
+    $project->presentation_results = $request->presentation_results;
 
 
     //XXX to be removed
@@ -817,28 +810,28 @@ class ProjectController extends Controller
 
     $project->supervisor = $request->cosupervisors;
 
-	  $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+    $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 
-	  if(count($project_cosupervisors_points)>0){
-		  foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+    if(count($project_cosupervisors_points)>0){
+      foreach ($project_cosupervisors_points as $project_cosupervisor_points){
 
-			  $remains = false;
+        $remains = false;
 
-			  foreach (preg_split("/\\r\\n|\\r|\\n/", $request->cosupervisors) as $single_cosupervisor) {
+        foreach (preg_split("/\\r\\n|\\r|\\n/", $request->cosupervisors) as $single_cosupervisor) {
 
 
-				  if($project_cosupervisor_points->name == $single_cosupervisor){
-					  $remains = true;
-				  }
-			  }
+          if($project_cosupervisor_points->name == $single_cosupervisor){
+            $remains = true;
+          }
+        }
 
-			  if($remains == false){
-				  $project_cosupervisor_points->delete();
-			  }
+        if($remains == false){
+          $project_cosupervisor_points->delete();
+        }
 
-		  }
+      }
 
-	  }
+    }
 
 
     $project->status = $request->status;
@@ -860,7 +853,7 @@ class ProjectController extends Controller
 
     $project->requires_review = false;
 
-	  $project->get_notifications = $request->get_notifications == "on"? true : false;
+    $project->get_notifications = $request->get_notifications == "on"? true : false;
 
 
 
@@ -875,32 +868,32 @@ class ProjectController extends Controller
     $project->save();
 
 
-	  $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
-	  $teachers_ids = array();
-	  if(count($teachers)>0){
-		  foreach ($teachers as $teacher){
-			  array_push($teachers_ids, $teacher->id);
-		  }
+    $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
+    $teachers_ids = array();
+    if(count($teachers)>0){
+      foreach ($teachers as $teacher){
+        array_push($teachers_ids, $teacher->id);
+      }
 
-	  }
+    }
 
     $supervisors = $request->input('supervisors');
 
-	  $diff1 = array_diff($supervisors, $teachers_ids);
-	  $diff2 = array_diff($teachers_ids, $supervisors);
-	  $different_users = array_merge($diff1, $diff2);
+    $diff1 = array_diff($supervisors, $teachers_ids);
+    $diff2 = array_diff($teachers_ids, $supervisors);
+    $different_users = array_merge($diff1, $diff2);
 
 
-	  foreach ($different_users as $different_user){
+    foreach ($different_users as $different_user){
 
-	  	if(in_array($different_user, $teachers_ids)){
-			  //This user was in list but now removed
-			  $project->users()->detach($different_user);
-		  }else{
-	  		//This user was not in list but now added
-			  $project->users()->attach($different_user, ['participation_role' => 'author']);
-		  }
-	  }
+      if(in_array($different_user, $teachers_ids)){
+        //This user was in list but now removed
+        $project->users()->detach($different_user);
+      }else{
+        //This user was not in list but now added
+        $project->users()->attach($different_user, ['participation_role' => 'author']);
+      }
+    }
 
 
 
@@ -911,10 +904,10 @@ class ProjectController extends Controller
 
 
     return \Redirect::to('project/'.$project->id)
-		    ->with('message', [
-				    'text' => trans('project.project_changed_notification', ['name' => $project->name]),
-				    'type' => 'changed'
-		    ])
+        ->with('message', [
+            'text' => trans('project.project_changed_notification', ['name' => $project->name]),
+            'type' => 'changed'
+        ])
         ->with('projects', $projects);
 
   }
@@ -938,16 +931,16 @@ class ProjectController extends Controller
     if($param == 'author'){
 
       $projects = Project::where('publishing_status', 1)
-		      ->where(function ($query) use ($name) {
-			      $query->whereHas('users', function($q) use ($name)
-			      {
-				      $q->where(function($subq) use ($name) {
-					      $subq->where('name', 'LIKE', '%'.$name.'%')
-							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-				      })->where('participation_role','LIKE','%author%');
-			      });
-			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-		      })
+          ->where(function ($query) use ($name) {
+            $query->whereHas('users', function($q) use ($name)
+            {
+              $q->where(function($subq) use ($name) {
+                $subq->where('name', 'LIKE', '%'.$name.'%')
+                    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+              })->where('participation_role','LIKE','%author%');
+            });
+            $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+          })
           ->where('deleted', NULL)
           ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
@@ -996,16 +989,16 @@ class ProjectController extends Controller
     if($param == 'author'){
 
       $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))
-		      ->where(function ($query) use ($name) {
-			      $query->whereHas('users', function($q) use ($name)
-			      {
-				      $q->where(function($subq) use ($name) {
-					      $subq->where('name', 'LIKE', '%'.$name.'%')
-							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-				      })->where('participation_role','LIKE','%author%');
-			      });
-			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-		      })
+          ->where(function ($query) use ($name) {
+            $query->whereHas('users', function($q) use ($name)
+            {
+              $q->where(function($subq) use ($name) {
+                $subq->where('name', 'LIKE', '%'.$name.'%')
+                    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+              })->where('participation_role','LIKE','%author%');
+            });
+            $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+          })
           ->where('deleted', NULL)
           ->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
@@ -1054,18 +1047,18 @@ class ProjectController extends Controller
 
     if($param == 'author'){
 
-	    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
-			    ->where(function ($query) use ($name) {
-				    $query->whereHas('users', function($q) use ($name)
-				    {
-					    $q->where(function($subq) use ($name) {
-						    $subq->where('name', 'LIKE', '%'.$name.'%')
-								    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-					    })->where('participation_role','LIKE','%author%');
-				    });
-				    $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-			    })
-			    ->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+      $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))
+          ->where(function ($query) use ($name) {
+            $query->whereHas('users', function($q) use ($name)
+            {
+              $q->where(function($subq) use ($name) {
+                $subq->where('name', 'LIKE', '%'.$name.'%')
+                    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+              })->where('participation_role','LIKE','%author%');
+            });
+            $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+          })
+          ->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
     }elseif ($param == 'member'){
 
@@ -1113,16 +1106,16 @@ class ProjectController extends Controller
     if($param == 'author'){
 
       $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
-		      ->where(function ($query) use ($name) {
-			      $query->whereHas('users', function($q) use ($name)
-			      {
-				      $q->where(function($subq) use ($name) {
-					      $subq->where('name', 'LIKE', '%'.$name.'%')
-							      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-				      })->where('participation_role','LIKE','%author%');
-			      });
-			      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
-		      })
+          ->where(function ($query) use ($name) {
+            $query->whereHas('users', function($q) use ($name)
+            {
+              $q->where(function($subq) use ($name) {
+                $subq->where('name', 'LIKE', '%'.$name.'%')
+                    ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+              })->where('participation_role','LIKE','%author%');
+            });
+            $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+          })
           ->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
 
 
@@ -1260,14 +1253,14 @@ class ProjectController extends Controller
     if($param == 'author'){
 
       $projects = Project::where(function ($query) use ($name) {
-	      $query->whereHas('users', function($q) use ($name)
-	      {
-		      $q->where(function($subq) use ($name) {
-			      $subq->where('name', 'LIKE', '%'.$name.'%')
-					      ->orWhere('full_name', 'LIKE', '%'.$name.'%');
-		      })->where('participation_role','LIKE','%author%');
-	      });
-	      $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
+        $query->whereHas('users', function($q) use ($name)
+        {
+          $q->where(function($subq) use ($name) {
+            $subq->where('name', 'LIKE', '%'.$name.'%')
+                ->orWhere('full_name', 'LIKE', '%'.$name.'%');
+          })->where('participation_role','LIKE','%author%');
+        });
+        $query->orWhere('supervisor', 'LIKE', '%'.$name.'%');
       })->where('deleted', NULL)->orderBy('name', 'asc')->paginate(10)->appends(['search' => $name, 'search_param' => $param]);
 
 
@@ -1319,111 +1312,111 @@ class ProjectController extends Controller
 
     $project = Project::find($id);
 
-	  if(Auth::user()->isMemberOfProject()){
+    if(Auth::user()->isMemberOfProject()){
 
-		  return \Redirect::to('project/'.$project->id)
-				  ->with('message', [
-						  'text' => trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name']),
-						  'type' => 'already_in_project'
-				  ])
-				  ->with('project', $project);
+      return \Redirect::to('project/'.$project->id)
+          ->with('message', [
+              'text' => trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name']),
+              'type' => 'already_in_project'
+          ])
+          ->with('project', $project);
 
-	  }
+    }
 
 
     if( count($project->groups) >= 3){
-    	//All groups created
+      //All groups created
 
-	    //Find a place
-    	foreach ($project->groups as $key=>$group){
-    		if(count($group->users) <= 7){
-    			if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
-
-
-				    $group->users()->syncWithoutDetaching([Auth::user()->id]);
-				    break;
-
-			    }else{
-    				if($key === count($project->groups)-1){
-    					//last group
-					    //cannot join
-					    return \Redirect::to('project/'.$project->id)
-							    ->with('message', [
-									    'text' => trans('project.declined_project_join_notification_max_courses_limit').': "'.$project->name.'"',
-									    'type' => 'declined'
-							    ])
-							    ->with('project', $project);
-				    }
-			    }
+      //Find a place
+      foreach ($project->groups as $key=>$group){
+        if(count($group->users) <= 7){
+          if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
 
 
-		    }else{
-			    if($key === count($project->groups)-1){
-			    	//last group
-				    //cannot join
-				    return \Redirect::to('project/'.$project->id)
-						    ->with('message', [
-								    'text' => trans('project.declined_project_join_notification_max_members_limit').': "'.$project->name.'"',
-								    'type' => 'declined'
-						    ])
-						    ->with('project', $project);
-			    }
-		    }
-	    }
+            $group->users()->syncWithoutDetaching([Auth::user()->id]);
+            break;
+
+          }else{
+            if($key === count($project->groups)-1){
+              //last group
+              //cannot join
+              return \Redirect::to('project/'.$project->id)
+                  ->with('message', [
+                      'text' => trans('project.declined_project_join_notification_max_courses_limit').': "'.$project->name.'"',
+                      'type' => 'declined'
+                  ])
+                  ->with('project', $project);
+            }
+          }
+
+
+        }else{
+          if($key === count($project->groups)-1){
+            //last group
+            //cannot join
+            return \Redirect::to('project/'.$project->id)
+                ->with('message', [
+                    'text' => trans('project.declined_project_join_notification_max_members_limit').': "'.$project->name.'"',
+                    'type' => 'declined'
+                ])
+                ->with('project', $project);
+          }
+        }
+      }
 
 
 
 
     }elseif (count($project->groups) > 0 && count($project->groups) <= 2){
-    	//1 or 2 groups
+      //1 or 2 groups
 
-	    //Find a place
-	    foreach ($project->groups as $key=>$group){
-	    	if(count($group->users) <= 7){
-			    if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
-				    $group->users()->syncWithoutDetaching([Auth::user()->id]);
-				    break;
-			    }else{
-				    if($key === count($project->groups)-1){
-				    	//last group
-					    //make a new one
-					    $new_group = new Group;
-					    $new_group->name = count($project->groups)+1;
-					    $new_group->project_id = $project->id;
-					    $new_group->save();
-					    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
-				    }
-
-
-			    }
+      //Find a place
+      foreach ($project->groups as $key=>$group){
+        if(count($group->users) <= 7){
+          if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
+            $group->users()->syncWithoutDetaching([Auth::user()->id]);
+            break;
+          }else{
+            if($key === count($project->groups)-1){
+              //last group
+              //make a new one
+              $new_group = new Group;
+              $new_group->name = count($project->groups)+1;
+              $new_group->project_id = $project->id;
+              $new_group->save();
+              $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+            }
 
 
-		    }else{
-	    		if($key === count($project->groups)-1){
-				    //last group
-				    //make a new one
-				    $new_group = new Group;
-				    $new_group->name = count($project->groups)+1;
-				    $new_group->project_id = $project->id;
-				    $new_group->save();
-				    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+          }
 
-			    }
-		    }
 
-	    }
+        }else{
+          if($key === count($project->groups)-1){
+            //last group
+            //make a new one
+            $new_group = new Group;
+            $new_group->name = count($project->groups)+1;
+            $new_group->project_id = $project->id;
+            $new_group->save();
+            $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+
+          }
+        }
+
+      }
 
 
 
     } else {
-    	//0 groups
-	    //make group
-	    $new_group = new Group;
-	    $new_group->name = 1;
-	    $new_group->project_id = $project->id;
-	    $new_group->save();
+      //0 groups
+      //make group
+      $new_group = new Group;
+      $new_group->name = 1;
+      $new_group->project_id = $project->id;
+      $new_group->save();
 
-	    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
+      $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
     }
 
 
@@ -1434,26 +1427,26 @@ class ProjectController extends Controller
     //Attach user with member role
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
-	  if($project->get_notifications){
-		  $data = [
-				  'new_member' => getUserNameAndCourse(Auth::user()),
-				  'project_name' => $project->name,
-				  'project_url' => url('project/'.$project->id),
-		  ];
-		  $project_authors_emails = array();
-		  foreach ($project->users as $user){
+    if($project->get_notifications){
+      $data = [
+          'new_member' => getUserNameAndCourse(Auth::user()),
+          'project_name' => $project->name,
+          'project_url' => url('project/'.$project->id),
+      ];
+      $project_authors_emails = array();
+      foreach ($project->users as $user){
 
-			  if($user->pivot->participation_role == 'author'){
-				  array_push($project_authors_emails, getUserEmail($user));
+        if($user->pivot->participation_role == 'author'){
+          array_push($project_authors_emails, getUserEmail($user));
 
-			  }
-		  }
+        }
+      }
 
-		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
-			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-			  //$m->cc($admins_emails)->subject('Uus projektiidee');
-		  });
-	  }
+      Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
+        $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
+        //$m->cc($admins_emails)->subject('Uus projektiidee');
+      });
+    }
 
 
 
@@ -1544,15 +1537,15 @@ class ProjectController extends Controller
   }
 
 
-	public function renameProjectGroup(Request $request)
-	{
-		$group = Group::findOrFail($request->pk);
+  public function renameProjectGroup(Request $request)
+  {
+    $group = Group::findOrFail($request->pk);
 
-		$group->name = $request->value;
-		$group->save();
+    $group->name = $request->value;
+    $group->save();
 
-		return Response::json('ok', 200);
-	}
+    return Response::json('ok', 200);
+  }
 
 
   /**
@@ -1564,10 +1557,10 @@ class ProjectController extends Controller
     $user = User::find(Auth::user()['id']);
 
 
-	  $user_group =  userBelongsToGroup($user);
+    $user_group =  userBelongsToGroup($user);
 
-	  if($user_group){
-		  $user_group->first()->users()->detach($user->id);
+    if($user_group){
+      $user_group->first()->users()->detach($user->id);
     }
 
     $project = Project::find($id);
@@ -1601,11 +1594,11 @@ class ProjectController extends Controller
     $user = User::find($userId);
 
 
-	  $user_group =  userBelongsToGroup($user);
+    $user_group =  userBelongsToGroup($user);
 
-	  if($user_group){
-		  $user_group->first()->users()->detach($user->id);
-	  }
+    if($user_group){
+      $user_group->first()->users()->detach($user->id);
+    }
 
 
     if(!empty($user->full_name)){
@@ -1631,17 +1624,17 @@ class ProjectController extends Controller
 
     $project->description = $request->description;
 
-	  $project->aim = $request->aim;
+    $project->aim = $request->aim;
 
-	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
+    $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
-	  $project->novelty_desc = $request->novelty_desc;
+    $project->novelty_desc = $request->novelty_desc;
 
-	  $project->project_outcomes = $request->project_outcomes;
+    $project->project_outcomes = $request->project_outcomes;
 
-	  $project->student_expectations = $request->student_expectations;
+    $project->student_expectations = $request->student_expectations;
 
-	  $project->author_management_skills = $request->author_management_skills;
+    $project->author_management_skills = $request->author_management_skills;
 
     //$project->integrated_areas = $request->integrated_areas;
 
@@ -1651,7 +1644,7 @@ class ProjectController extends Controller
 
     $project->supervisor = $request->cosupervisors;
 
-	  $project->tags = $request->tags;
+    $project->tags = $request->tags;
 
 
     $project->publishing_status = 0;
@@ -1660,11 +1653,11 @@ class ProjectController extends Controller
 
     $project->extra_info = $request->extra_info;
 
-	  $project->status = 1;
+    $project->status = 1;
 
     $project->submitted_by_student = true;
 
-	  $project->requires_review = true;
+    $project->requires_review = true;
 
 
     $project->save();
@@ -1681,7 +1674,7 @@ class ProjectController extends Controller
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
 
 
-	  $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id.'/edit'));
+    $this->newProjectIdeaAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id.'/edit'));
 
 
     return \Redirect::to('projects/open')
@@ -1693,102 +1686,102 @@ class ProjectController extends Controller
   }
 
 
-	public function newProjectIdeaAddedEmailNotification($project, $author, $url)
-	{
+  public function newProjectIdeaAddedEmailNotification($project, $author, $url)
+  {
 
-		$data = [
-				'project_name' => $project,
-				'project_author' => self::getUserName($author),
-				'project_url' => $url,
-		];
-
-		$admins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'admin');
-		}
-		)->get();
-
-		$superadmins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'superadmin');
-		}
-		)->get();
-
-		//Remove superadmins from the list
-		foreach ($admins as $key=>$admin){
-			foreach ($superadmins as $superadmin){
-				if($admin->id == $superadmin->id){
-					unset($admins[$key]);
-				}
-			}
-		}
-
-		$admins_emails = array();
-
-		foreach ($admins as $admin){
-			array_push($admins_emails, getUserEmail($admin));
-		}
-
-
-		Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
-			$m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
-			//$m->cc($admins_emails)->subject('Uus projektiidee');
-		});
-
-
-
-		Mail::send('emails.project_idea_student_confirmation', ['data' => $data], function ($m) use ($author) {
-			$m->to($author->email)->subject('Projektiidee on lisatud / Project idea has been added');
-		});
-
-
-	}
-
-
-	public function newProjectAddedEmailNotification($project, $author, $url)
-	{
-
-		$data = [
-				'project_name' => $project,
+    $data = [
+        'project_name' => $project,
         'project_author' => self::getUserName($author),
-				'project_url' => $url,
-		];
+        'project_url' => $url,
+    ];
 
-		$admins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'admin');
-		}
-		)->get();
+    $admins =  User::whereHas(
+        'roles', function($q){
+      $q->where('name', 'admin');
+    }
+    )->get();
 
-		$superadmins =  User::whereHas(
-				'roles', function($q){
-			$q->where('name', 'superadmin');
-		}
-		)->get();
+    $superadmins =  User::whereHas(
+        'roles', function($q){
+      $q->where('name', 'superadmin');
+    }
+    )->get();
 
-		//Remove superadmins from the list
-		foreach ($admins as $key=>$admin){
-			foreach ($superadmins as $superadmin){
-				if($admin->id == $superadmin->id){
-					unset($admins[$key]);
-				}
-			}
-		}
+    //Remove superadmins from the list
+    foreach ($admins as $key=>$admin){
+      foreach ($superadmins as $superadmin){
+        if($admin->id == $superadmin->id){
+          unset($admins[$key]);
+        }
+      }
+    }
 
-		$admins_emails = array();
+    $admins_emails = array();
 
-		foreach ($admins as $admin){
-			array_push($admins_emails, getUserEmail($admin));
-		}
+    foreach ($admins as $admin){
+      array_push($admins_emails, getUserEmail($admin));
+    }
 
 
-		Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
+    Mail::send('emails.project_idea_notification', ['data' => $data], function ($m) use ($admins_emails) {
+      $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projektiidee');
+      //$m->cc($admins_emails)->subject('Uus projektiidee');
+    });
+
+
+
+    Mail::send('emails.project_idea_student_confirmation', ['data' => $data], function ($m) use ($author) {
+      $m->to($author->email)->subject('Projektiidee on lisatud / Project idea has been added');
+    });
+
+
+  }
+
+
+  public function newProjectAddedEmailNotification($project, $author, $url)
+  {
+
+    $data = [
+        'project_name' => $project,
+        'project_author' => self::getUserName($author),
+        'project_url' => $url,
+    ];
+
+    $admins =  User::whereHas(
+        'roles', function($q){
+      $q->where('name', 'admin');
+    }
+    )->get();
+
+    $superadmins =  User::whereHas(
+        'roles', function($q){
+      $q->where('name', 'superadmin');
+    }
+    )->get();
+
+    //Remove superadmins from the list
+    foreach ($admins as $key=>$admin){
+      foreach ($superadmins as $superadmin){
+        if($admin->id == $superadmin->id){
+          unset($admins[$key]);
+        }
+      }
+    }
+
+    $admins_emails = array();
+
+    foreach ($admins as $admin){
+      array_push($admins_emails, getUserEmail($admin));
+    }
+
+
+    Mail::send('emails.new_project_notification', ['data' => $data], function ($m) use ($admins_emails) {
       $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus projekt');
-			//$m->cc($admins_emails)->subject('Uus projektiidee');
-		});
+      //$m->cc($admins_emails)->subject('Uus projektiidee');
+    });
 
 
-	}
+  }
 
 
   /**
@@ -1804,14 +1797,14 @@ class ProjectController extends Controller
 
     $ongoing_projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->count();
 
-	  $finished_projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->count();
+    $finished_projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->count();
 
     return view('admin.analytics')
         ->with('projects', $projects)
         ->with('published_projects_count', $open_projects+$ongoing_projects+$finished_projects)
-		    ->with('open_projects_count', $open_projects)
-		    ->with('ongoing_projects_count', $ongoing_projects)
-		    ->with('finished_projects_count', $finished_projects)
+        ->with('open_projects_count', $open_projects)
+        ->with('ongoing_projects_count', $ongoing_projects)
+        ->with('finished_projects_count', $finished_projects)
         ->with('users_count', User::count());
 
   }
@@ -1895,179 +1888,179 @@ class ProjectController extends Controller
     return implode(', ', $data);
   }
 
-	/**
-	 * Get teachers load in form of csv file
-	 */
-	public function exportAnalyticsToCSVOngoingProjectsTeachersLoad()
-	{
+  /**
+   * Get teachers load in form of csv file
+   */
+  public function exportAnalyticsToCSVOngoingProjectsTeachersLoad()
+  {
 
 
-		$headers = array(
-				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu_load.csv",
-				"Pragma" => "no-cache",
-				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-				"Expires" => "0"
-		);
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=elu_load.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
 
 
-		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
 
-		$columns = array(trans('project.project'), trans('auth.email'), trans('auth.name'), 'EAP');
+    $columns = array(trans('project.project'), trans('auth.email'), trans('auth.name'), 'EAP');
 
 
 
-		$callback = function() use ($projects, $columns)
-		{
-			$handle = fopen('php://output', 'w');
-			fputcsv($handle, $columns);
+    $callback = function() use ($projects, $columns)
+    {
+      $handle = fopen('php://output', 'w');
+      fputcsv($handle, $columns);
 
 
 
-			foreach($projects as $project) {
+      foreach($projects as $project) {
 
-				$teachers_ids = array();
+        $teachers_ids = array();
 
-				$teachers_with_points = $project->users()->select('id')->wherePivot('points', '!=', null)->get();
+        $teachers_with_points = $project->users()->select('id')->wherePivot('points', '!=', null)->get();
 
-				if(count($teachers_with_points)>0){
-					foreach ($teachers_with_points as $teacher_with_points){
-						array_push($teachers_ids, $teacher_with_points->id);
-					}
+        if(count($teachers_with_points)>0){
+          foreach ($teachers_with_points as $teacher_with_points){
+            array_push($teachers_ids, $teacher_with_points->id);
+          }
 
-				}
+        }
 
-				foreach ($teachers_ids as $teachers_id){
-					$teacher = User::find($teachers_id);
-					fputcsv($handle, array($project->name, getUserEmail($teacher), self::getUserName($teacher), $teacher->projects()->select('points')->where('project_id', $project->id)->first()->points), ',');
+        foreach ($teachers_ids as $teachers_id){
+          $teacher = User::find($teachers_id);
+          fputcsv($handle, array($project->name, getUserEmail($teacher), self::getUserName($teacher), $teacher->projects()->select('points')->where('project_id', $project->id)->first()->points), ',');
 
 
-				}
+        }
 
-				$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+        $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 
-				if(count($project_cosupervisors_points)>0){
-					foreach ($project_cosupervisors_points as $project_cosupervisor_points){
-						fputcsv($handle, array($project->name, 'n/a', $project_cosupervisor_points->name, $project_cosupervisor_points->points), ',');
+        if(count($project_cosupervisors_points)>0){
+          foreach ($project_cosupervisors_points as $project_cosupervisor_points){
+            fputcsv($handle, array($project->name, 'n/a', $project_cosupervisor_points->name, $project_cosupervisor_points->points), ',');
 
-					}
+          }
 
-				}
+        }
 
-			}
+      }
 
 
 
-			fclose($handle);
-		};
+      fclose($handle);
+    };
 
 
-		return Response::stream($callback, 200, $headers);
-	}
+    return Response::stream($callback, 200, $headers);
+  }
 
 
-	/**
-	 * Get ongoing projects statistics by student in form of csv file
-	 */
-	public function exportAnalyticsToCSVStudentsOngoingProjects()
-	{
+  /**
+   * Get ongoing projects statistics by student in form of csv file
+   */
+  public function exportAnalyticsToCSVStudentsOngoingProjects()
+  {
 
 
-		$headers = array(
-				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu_students_ongoing.csv",
-				"Pragma" => "no-cache",
-				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-				"Expires" => "0"
-		);
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=elu_students_ongoing.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
 
 
-		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$students_ids = array();
+    $students_ids = array();
 
-		foreach ($projects as $project){
-			$members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
-			if(count($members)>0){
-				foreach ($members as $member){
-					array_push($students_ids, $member->id);
-				}
+    foreach ($projects as $project){
+      $members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+      if(count($members)>0){
+        foreach ($members as $member){
+          array_push($students_ids, $member->id);
+        }
 
-			}
+      }
 
-		}
+    }
 
 
 
-		$columns = array(trans('auth.name'), trans('auth.email'), trans('project.course'), trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'));
+    $columns = array(trans('auth.name'), trans('auth.email'), trans('project.course'), trans('project.project'), trans('project.supervisor'), trans('project.cosupervisor'));
 
 
-		$callback = function() use ($students_ids, $columns)
-		{
-			$handle = fopen('php://output', 'w');
-			fputcsv($handle, $columns);
+    $callback = function() use ($students_ids, $columns)
+    {
+      $handle = fopen('php://output', 'w');
+      fputcsv($handle, $columns);
 
 
-			foreach ($students_ids as $student_id){
-				$user = User::find($student_id);
-				$project = Project::find($user->isMemberOfProject()['id']);
-				$authors = $this->getProjectAuthorsNamesAndEmails($project);
-				$cosupervisors = $this->getProjectCosupervisors($project);
+      foreach ($students_ids as $student_id){
+        $user = User::find($student_id);
+        $project = Project::find($user->isMemberOfProject()['id']);
+        $authors = $this->getProjectAuthorsNamesAndEmails($project);
+        $cosupervisors = $this->getProjectCosupervisors($project);
 
 
-				fputcsv($handle, array(self::getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors)), ',');
+        fputcsv($handle, array(self::getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors)), ',');
 
-			}
+      }
 
-		};
+    };
 
 
-		return Response::stream($callback, 200, $headers);
-	}
+    return Response::stream($callback, 200, $headers);
+  }
 
-	/**
-	 * Get open projects statistics in form of csv file
-	 */
-	public function exportAnalyticsToCSVOpenProjects()
-	{
+  /**
+   * Get open projects statistics in form of csv file
+   */
+  public function exportAnalyticsToCSVOpenProjects()
+  {
 
 
-		$headers = array(
-				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu_open.csv",
-				"Pragma" => "no-cache",
-				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-				"Expires" => "0"
-		);
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=elu_open.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
 
 
-		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+    $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
+    $columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
-		$callback = function() use ($projects, $columns)
-		{
-			$handle = fopen('php://output', 'w');
-			fputcsv($handle, $columns);
+    $callback = function() use ($projects, $columns)
+    {
+      $handle = fopen('php://output', 'w');
+      fputcsv($handle, $columns);
 
-			foreach($projects as $project) {
+      foreach($projects as $project) {
 
-				$authors = $this->getProjectAuthorsNamesAndEmails($project);
-				$members = $this->getProjectMembersData($project);
-				$cosupervisors = $this->getProjectCosupervisors($project);
+        $authors = $this->getProjectAuthorsNamesAndEmails($project);
+        $members = $this->getProjectMembersData($project);
+        $cosupervisors = $this->getProjectCosupervisors($project);
 
-				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
-			}
+        fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+      }
 
 
-			fclose($handle);
-		};
+      fclose($handle);
+    };
 
 
-		return Response::stream($callback, 200, $headers);
-	}
+    return Response::stream($callback, 200, $headers);
+  }
 
   /**
    * Get ongoing projects statistics in form of csv file
@@ -2113,48 +2106,48 @@ class ProjectController extends Controller
   }
 
 
-	/**
-	 * Get finished projects statistics in form of csv file
-	 */
-	public function exportAnalyticsToCSVFinishedProjects()
-	{
+  /**
+   * Get finished projects statistics in form of csv file
+   */
+  public function exportAnalyticsToCSVFinishedProjects()
+  {
 
 
-		$headers = array(
-				"Content-type" => "text/csv",
-				"Content-Disposition" => "attachment; filename=elu_finished.csv",
-				"Pragma" => "no-cache",
-				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-				"Expires" => "0"
-		);
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=elu_finished.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    );
 
 
-		$projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->get();
+    $projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->get();
 
-		$columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
-
-
-		$callback = function() use ($projects, $columns)
-		{
-			$handle = fopen('php://output', 'w');
-			fputcsv($handle, $columns);
-
-			foreach($projects as $project) {
-
-				$authors = $this->getProjectAuthorsNamesAndEmails($project);
-				$members = $this->getProjectMembersData($project);
-				$cosupervisors = $this->getProjectCosupervisors($project);
-
-				fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
-			}
+    $columns = array(trans('project.project'), trans('project.study_year'), trans('project.duration'), trans('project.supervisor'), trans('project.cosupervisor'), trans('search.team'), 'Ã•pilaste arv');
 
 
-			fclose($handle);
-		};
+    $callback = function() use ($projects, $columns)
+    {
+      $handle = fopen('php://output', 'w');
+      fputcsv($handle, $columns);
+
+      foreach($projects as $project) {
+
+        $authors = $this->getProjectAuthorsNamesAndEmails($project);
+        $members = $this->getProjectMembersData($project);
+        $cosupervisors = $this->getProjectCosupervisors($project);
+
+        fputcsv($handle, array($project->name, $project->study_year, getProjectSemester($project), self::arrayToImplodeString($authors), self::arrayToImplodeString($cosupervisors), self::arrayToImplodeString($members), count($members)), ',');
+      }
 
 
-		return Response::stream($callback, 200, $headers);
-	}
+      fclose($handle);
+    };
+
+
+    return Response::stream($callback, 200, $headers);
+  }
 
 
   /**
@@ -2194,14 +2187,14 @@ class ProjectController extends Controller
           })
       ;
     })->orWhere(function($query) use ($user, $project_id) {
-	    $query->where('contact_email', 'LIKE', '%'.$user.'%')
-			    ->whereNotIn('id', function ($query) use ($project_id)
-			    {
-				    $query->select('user_id')
-						    ->from('project_user')
-						    ->where('project_id', '=', $project_id);
-			    })
-	    ;
+      $query->where('contact_email', 'LIKE', '%'.$user.'%')
+          ->whereNotIn('id', function ($query) use ($project_id)
+          {
+            $query->select('user_id')
+                ->from('project_user')
+                ->where('project_id', '=', $project_id);
+          })
+      ;
     })->get();
 
 
@@ -2241,222 +2234,222 @@ class ProjectController extends Controller
   }
 
 
-	/**
-	 * Get supervisors load for project api
-	 */
-	public function getSupervisorsLoadForProject($id){
+  /**
+   * Get supervisors load for project api
+   */
+  public function getSupervisorsLoadForProject($id){
 
-		$project = Project::find($id);
+    $project = Project::find($id);
 
-		$supervisors = array();
-		$cosupervisors = array();
-		$members_count = 0;
-		$total_points = 0;
-		$limit_per_one = 0;
-		$isFirstTimeSupervisor = false;
-
-
-		foreach ($project->users as $user){
-			if($user->pivot->participation_role == 'author'){
-				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
-			}elseif ($user->pivot->participation_role == 'member'){
-				$members_count++;
-			}
-		}
-
-		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+    $supervisors = array();
+    $cosupervisors = array();
+    $members_count = 0;
+    $total_points = 0;
+    $limit_per_one = 0;
+    $isFirstTimeSupervisor = false;
 
 
-		if(!empty($project->supervisor)){
-			foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor){
-				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $single_cosupervisor)){
+    foreach ($project->users as $user){
+      if($user->pivot->participation_role == 'author'){
+        array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
+      }elseif ($user->pivot->participation_role == 'member'){
+        $members_count++;
+      }
+    }
 
-					$found_item = null;
-					$found_item = $project_cosupervisors_points->keyBy('name')->get($single_cosupervisor);
-					array_push($cosupervisors, ['name' => $found_item->name, 'points' => $found_item->points]);
-				}else{
-					array_push($cosupervisors, ['name' => $single_cosupervisor, 'points' => 0]);
-				}
-
-			}
-		}
+    $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 
 
+    if(!empty($project->supervisor)){
+      foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor){
+        if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $single_cosupervisor)){
 
+          $found_item = null;
+          $found_item = $project_cosupervisors_points->keyBy('name')->get($single_cosupervisor);
+          array_push($cosupervisors, ['name' => $found_item->name, 'points' => $found_item->points]);
+        }else{
+          array_push($cosupervisors, ['name' => $single_cosupervisor, 'points' => 0]);
+        }
 
-		foreach ($supervisors as $supervisor){
-			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
-				$isFirstTimeSupervisor = true;
-			}
-		}
-
-
-		if($members_count <= 8){
-			$total_points = 3;
-			$limit_per_one = 2;
-		}else if($members_count <= 17){
-			$total_points = 6;
-			$limit_per_one = 4;
-		}else if($members_count <= 24){
-			$total_points = 9;
-			$limit_per_one = 6;
-		}else if($members_count <= 32){
-			$total_points = 12;
-			$limit_per_one = 8;
-		}
-
-
-		if($isFirstTimeSupervisor && $members_count <= 8){
-			$total_points = 9;
-			$limit_per_one = 6;
-		} else if($isFirstTimeSupervisor && $members_count <= 16){
-			$total_points = 11;
-			$limit_per_one = 8;
-		} else if($isFirstTimeSupervisor) {
-			$total_points = 13;
-			$limit_per_one = 10;
-		}
-
-
-
-		return view('project.load_calc')
-				->with('total_points', $total_points)
-				->with('limit_per_one', $limit_per_one)
-				->with('supervisors', $supervisors)
-				->with('cosupervisors', $cosupervisors)
-				->with('project_id', $project->id);
-	}
-
-
-	/**
-	 * Set supervisors load for project api
-	 * @param Request $request
-	 * @return mixed
-	 */
-	public function setSupervisorsLoadForProject(Request $request){
-
-		$project = Project::find($request->project_id);
-
-		$members_count = 0;
-		$total_points = 0;
-		$limit_per_one = 0;
-		$supervisors = array();
-		$isFirstTimeSupervisor = false;
-		foreach ($project->users as $user){
-			if($user->pivot->participation_role == 'author'){
-				array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
-			}elseif ($user->pivot->participation_role == 'member'){
-				$members_count++;
-			}
-		}
-
-		foreach ($supervisors as $supervisor){
-			if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
-				$isFirstTimeSupervisor = true;
-			}
-		}
-
-
-		if($members_count <= 8){
-			$total_points = 3;
-			$limit_per_one = 2;
-		}else if($members_count <= 17){
-			$total_points = 6;
-			$limit_per_one = 4;
-		}else if($members_count <= 24){
-			$total_points = 9;
-			$limit_per_one = 6;
-		}else if($members_count <= 32){
-			$total_points = 12;
-			$limit_per_one = 8;
-		}
-
-
-		if($isFirstTimeSupervisor && $members_count <= 8){
-			$total_points = 9;
-			$limit_per_one = 6;
-		} else if($isFirstTimeSupervisor && $members_count <= 16){
-			$total_points = 11;
-			$limit_per_one = 8;
-		} else if($isFirstTimeSupervisor) {
-			$total_points = 13;
-			$limit_per_one = 10;
-		}
-
-
-		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
-		$data_cosupervisors = $request->data_cosupervisors;
-
-		$total_points_used = 0;
-
-		foreach ($request->data_supervisors as $d_item){
-			$total_points_used += $d_item['points'];
-		}
-
-		if(count($data_cosupervisors)>0){
-			foreach ($data_cosupervisors as $item){
-				$total_points_used += $item['points'];
-			}
-		}
-
-
-
-		if(intval($total_points_used) > $total_points){
-			\Debugbar::info($total_points_used.' '.$total_points);
-			return Response::json('Error with points', 409);
-		}
-
-
-
-		foreach ($request->data_supervisors as $d_item){
-
-			if($d_item['points'] <= $limit_per_one){
-
-				$project->users()->updateExistingPivot($d_item['id'], ['points' => $d_item['points']]);
-
-			}else{
-				return Response::json('Error with points', 409);
-			}
-
-		}
-
-
-		if(count($data_cosupervisors)>0){
-			foreach ($data_cosupervisors as $item){
-				if($item['points']<=$limit_per_one){
-					if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
-						\Debugbar::info($item['name']);
-						$item_to_update = null;
-						$item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);
-
-						$item_to_update->points = $item['points'];
-						$item_to_update->save();
-					}else{
-						$cosupervisor_points = new CosupervisorsPoints;
-						$cosupervisor_points->name = $item['name'];
-						$cosupervisor_points->points = $item['points'];
-						$cosupervisor_points->project_id = $project->id;
-
-						$cosupervisor_points->save();
-					}
-				}else{
-					return Response::json('Error with points', 409);
-				}
-
-
-
-			}
-		}
+      }
+    }
 
 
 
 
+    foreach ($supervisors as $supervisor){
+      if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
+        $isFirstTimeSupervisor = true;
+      }
+    }
 
-		return Response::json('ok', 200);
+
+    if($members_count <= 8){
+      $total_points = 3;
+      $limit_per_one = 2;
+    }else if($members_count <= 17){
+      $total_points = 6;
+      $limit_per_one = 4;
+    }else if($members_count <= 24){
+      $total_points = 9;
+      $limit_per_one = 6;
+    }else if($members_count <= 32){
+      $total_points = 12;
+      $limit_per_one = 8;
+    }
+
+
+    if($isFirstTimeSupervisor && $members_count <= 8){
+      $total_points = 9;
+      $limit_per_one = 6;
+    } else if($isFirstTimeSupervisor && $members_count <= 16){
+      $total_points = 11;
+      $limit_per_one = 8;
+    } else if($isFirstTimeSupervisor) {
+      $total_points = 13;
+      $limit_per_one = 10;
+    }
 
 
 
-	}
+    return view('project.load_calc')
+        ->with('total_points', $total_points)
+        ->with('limit_per_one', $limit_per_one)
+        ->with('supervisors', $supervisors)
+        ->with('cosupervisors', $cosupervisors)
+        ->with('project_id', $project->id);
+  }
+
+
+  /**
+   * Set supervisors load for project api
+   * @param Request $request
+   * @return mixed
+   */
+  public function setSupervisorsLoadForProject(Request $request){
+
+    $project = Project::find($request->project_id);
+
+    $members_count = 0;
+    $total_points = 0;
+    $limit_per_one = 0;
+    $supervisors = array();
+    $isFirstTimeSupervisor = false;
+    foreach ($project->users as $user){
+      if($user->pivot->participation_role == 'author'){
+        array_push($supervisors, ['id' => $user->id, 'name' => self::getUserName($user), 'points' => ($user->pivot->points != null)? $user->pivot->points : 0]);
+      }elseif ($user->pivot->participation_role == 'member'){
+        $members_count++;
+      }
+    }
+
+    foreach ($supervisors as $supervisor){
+      if(count(getTeacherProjects(User::find($supervisor['id'])))==1){
+        $isFirstTimeSupervisor = true;
+      }
+    }
+
+
+    if($members_count <= 8){
+      $total_points = 3;
+      $limit_per_one = 2;
+    }else if($members_count <= 17){
+      $total_points = 6;
+      $limit_per_one = 4;
+    }else if($members_count <= 24){
+      $total_points = 9;
+      $limit_per_one = 6;
+    }else if($members_count <= 32){
+      $total_points = 12;
+      $limit_per_one = 8;
+    }
+
+
+    if($isFirstTimeSupervisor && $members_count <= 8){
+      $total_points = 9;
+      $limit_per_one = 6;
+    } else if($isFirstTimeSupervisor && $members_count <= 16){
+      $total_points = 11;
+      $limit_per_one = 8;
+    } else if($isFirstTimeSupervisor) {
+      $total_points = 13;
+      $limit_per_one = 10;
+    }
+
+
+    $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
+    $data_cosupervisors = $request->data_cosupervisors;
+
+    $total_points_used = 0;
+
+    foreach ($request->data_supervisors as $d_item){
+      $total_points_used += $d_item['points'];
+    }
+
+    if(count($data_cosupervisors)>0){
+      foreach ($data_cosupervisors as $item){
+        $total_points_used += $item['points'];
+      }
+    }
+
+
+
+    if(intval($total_points_used) > $total_points){
+      \Debugbar::info($total_points_used.' '.$total_points);
+      return Response::json('Error with points', 409);
+    }
+
+
+
+    foreach ($request->data_supervisors as $d_item){
+
+      if($d_item['points'] <= $limit_per_one){
+
+        $project->users()->updateExistingPivot($d_item['id'], ['points' => $d_item['points']]);
+
+      }else{
+        return Response::json('Error with points', 409);
+      }
+
+    }
+
+
+    if(count($data_cosupervisors)>0){
+      foreach ($data_cosupervisors as $item){
+        if($item['points']<=$limit_per_one){
+          if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
+            \Debugbar::info($item['name']);
+            $item_to_update = null;
+            $item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);
+
+            $item_to_update->points = $item['points'];
+            $item_to_update->save();
+          }else{
+            $cosupervisor_points = new CosupervisorsPoints;
+            $cosupervisor_points->name = $item['name'];
+            $cosupervisor_points->points = $item['points'];
+            $cosupervisor_points->project_id = $project->id;
+
+            $cosupervisor_points->save();
+          }
+        }else{
+          return Response::json('Error with points', 409);
+        }
+
+
+
+      }
+    }
+
+
+
+
+
+    return Response::json('ok', 200);
+
+
+
+  }
 
 
   /**
@@ -2926,7 +2919,7 @@ class ProjectController extends Controller
           $embedded = $embed_html;
 
         }else{
-	        $embedded = null;
+          $embedded = null;
         }
 
 
@@ -2957,17 +2950,17 @@ class ProjectController extends Controller
         if(!empty($materials_names)){
 
           foreach ($materials_names as $key => $material_name){
-          	if(!empty($materials_names[$key])){
+            if(!empty($materials_names[$key])){
 
-		          $group_material = new GroupMaterial;
-		          $group_material->name = $materials_names[$key];
-		          $group_material->link = $materials_links[$key];
-		          $group_material->tags = $materials_tags[$key];
-		          $group_material->group_id = $group->id;
+              $group_material = new GroupMaterial;
+              $group_material->name = $materials_names[$key];
+              $group_material->link = $materials_links[$key];
+              $group_material->tags = $materials_tags[$key];
+              $group_material->group_id = $group->id;
 
-		          $group_material->save();
+              $group_material->save();
 
-	          }
+            }
 
             }
 
@@ -3022,7 +3015,7 @@ class ProjectController extends Controller
           $embedded = $embed_html;
 
         }else{
-	        $embedded = null;
+          $embedded = null;
         }
 
 
@@ -3047,17 +3040,17 @@ class ProjectController extends Controller
         if(!empty($materials_names)){
 
           foreach ($materials_names as $key => $material_name){
-          	if(!empty($materials_names[$key])){
+            if(!empty($materials_names[$key])){
 
-		          $group_material = new GroupMaterial;
-		          $group_material->name = $materials_names[$key];
-		          $group_material->link = $materials_links[$key];
-		          $group_material->tags = $materials_tags[$key];
-		          $group_material->group_id = $group->id;
+              $group_material = new GroupMaterial;
+              $group_material->name = $materials_names[$key];
+              $group_material->link = $materials_links[$key];
+              $group_material->tags = $materials_tags[$key];
+              $group_material->group_id = $group->id;
 
-		          $group_material->save();
+              $group_material->save();
 
-	          }
+            }
 
             }
 

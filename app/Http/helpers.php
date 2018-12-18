@@ -477,3 +477,22 @@ function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
 	
 	return false;
 }
+
+/**
+ * Return true if the amount of members in project is smaller than max_members
+ * @param \App\Project $project
+ * @return bool
+ */
+function checkIfThereIsSpaceInProject(\App\Project $project){
+	$members = 0;
+	foreach ($project->users as $user) {
+		if($user->pivot->participation_role == 'member'){
+			$members++;
+		}
+	}
+	if ($members < $project->max_members) {
+		return true;
+	} else {
+		return false;
+	}
+}

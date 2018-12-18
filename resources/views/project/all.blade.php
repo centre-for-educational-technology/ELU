@@ -256,16 +256,12 @@
                     <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
                     @if(empty($isStudentMyProjectsView))
                     {{--Check for join deadline--}}
-                        {{--
-                        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
-                        --}}
-                        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
                         @if ($project->available_to_join == 0)
                             <p class="red">{{trans('project.deadline_over')}}</p>
                             @if (!Auth::guest() && $project->currentUserIs('member'))
-                            <form action="{{ url('finish/'.$project->id) }}">
-                                <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
-                            </form>
+                                <form action="{{ url('finish/'.$project->id) }}">
+                                    <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
+                                </form>
                             @endif
                         @else
                             @if(Auth::check())
@@ -285,7 +281,7 @@
                                         <p class="text-warning">{{trans('project.already_in_team_notification')}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                                     @else
-                                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                                        @if(checkIfThereIsSpaceInProject($project))
                                                 <form action="{{ url('join/'.$project->id) }}" method="POST">
                                                     {{ csrf_field() }}
 

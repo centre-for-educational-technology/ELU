@@ -1,10 +1,10 @@
 @if(\Session::has('message'))
 
     @if(\Session::get('message')['type'] == 'joined')
+
         <div class="row">
             <div class="alert alert-info">
                 {{\Session::get('message')['text']}}
-
 
                 <a href="{{url('project/'.\Session::get('project')['id'])}}" class="btnShare btn btn-social btn-social-icon btn-facebook">
                     <span class="fa fa-facebook"></span>
@@ -19,7 +19,6 @@
             </div>
         </div>
 
-
     @elseif(\Session::get('message')['type'] == 'changed')
 
         <div class="row">
@@ -30,26 +29,30 @@
         </div>
 
     @elseif(\Session::get('message')['type'] == 'declined')
+        
         <div class="row">
             <div class="alert alert-warning">
                 {{\Session::get('message')['text']}}. <a href="{{url('projects/open')}}"> {{trans('project.find_something_else_notification')}}</a>
             </div>
         </div>
+    
     @elseif(\Session::get('message')['type'] == 'already_in_project')
+    
         <div class="row">
             <div class="alert alert-warning">
                 {{\Session::get('message')['text']}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a>
             </div>
         </div>
+    
     @endif
 
-
 @endif
+
 
 <div class="row">
 
 
-    <p class="col-md-10 margt content col-md-offset-1">
+    <div class="col-md-10 margt content col-md-offset-1">
         @if ($project->languages == 'et')
             <h1>{{ $project->name_et }}</h1>
         @elseif ($project->languages == 'en')
@@ -57,6 +60,7 @@
         @else
             <h1>{{ $project->name_et }} // {{ $project->name_en }}</h1>
         @endif
+
         @if(!(Auth::guest()))
             @if(canChangeTheProject(Auth::user(), $project))
                 <p>
@@ -70,7 +74,6 @@
                 </p>
             @endif
         @endif
-
 
         <div class="row">
             <div class="col-xs-7">
@@ -131,7 +134,6 @@
 
             <div class="col-md-6">
 
-
                 @if(!empty($project->meeting_info))
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
                     <p>{{$project->meeting_info}}</p>
@@ -160,9 +162,7 @@
                     @endif
 
                     <p>{{$project->project_year}}</p>
-
                 </ul>
-
 
                 @if ( $project->languages == 'et' )
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
@@ -185,7 +185,6 @@
                     @endforeach
                 @endif
 
-
                 @if (!empty($project->presentation_results))
                     <h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>
                     @if($project->presentation_results == 0)
@@ -195,14 +194,10 @@
                     @endif
                 @endif
 
-
-
                 @if (!empty($project->evaluation_date_id))
                     <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
                     <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
                 @endif
-
-
 
                 <div class="row share">
                     <div class="col-sm-6">
@@ -212,8 +207,8 @@
                         </a>
 
                         <a class="btn btn-block btn-social btn-twitter"
-                           href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"
-                           hashtags="elu,tlu">
+                            href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"
+                            hashtags="elu,tlu">
                             <span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}
                         </a>
 
@@ -223,10 +218,7 @@
             </div>
 
 
-
             <div class="col-md-6">
-
-
 
                 @if ( $project->languages == 'et' && !empty($project->additional_info_et))
                     <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
@@ -245,14 +237,10 @@
                     @endif
                 @endif
 
-
-
                 <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
                 <ul class="list-unstyled list01 tags">
                     <li><span class="label label-primary">{{ getUserName(getUserById($project->supervisor)) }} ({{ getUserEmail(getUserById($project->supervisor)) }})</span></li>
                 </ul>
-
-
 
                 @if(!empty($project->co_supervisors))
 
@@ -265,8 +253,6 @@
 
                 @endif
 
-
-
                 <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
                 <ul class="list-unstyled list01 tags keywords">
                     @foreach (explode(',', $project->tags) as $tag)
@@ -274,11 +260,7 @@
                     @endforeach
                 </ul>
 
-
-
-
             </div>
-
 
         </div>
 
@@ -286,10 +268,6 @@
         <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
 
         {{--Check for join deadline--}}
-        {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
-        {{--
-        @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
-        --}}
         @if ($project->available_to_join == 0)
             <p class="red">{{trans('project.deadline_over')}}</p>
             @if (!Auth::guest() && $project->currentUserIs('member'))
@@ -315,7 +293,7 @@
                         <p class="text-warning">{{trans('project.already_in_team_notification')}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                     @else
-                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                        @if(checkIfThereIsSpaceInProject($project))
                             <form action="{{ url('join/'.$project->id) }}" method="POST">
                                 {{ csrf_field() }}
 

@@ -41,14 +41,44 @@
                 <!-- Description about project language selection -->
                 <p></p>
 
+
                 <!-- Project language selection -->
+                <div class="row form-row">
+                    <div class="col-sm-1 col-lg-2"></div>
+                    <div class="col-sm-5 col-lg-5">
+                        <div class="input-element">
+                        <label class="h3 left">{{ trans('project.active_language_selection') }}
+                        </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-lg-5" ></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-1 col-lg-2"></div>
+                    <div class="col-sm-5 col-lg-5">
+                        <div class="input-element">
+                            <input type="checkbox" name="project_in_estonian" class="hidden" id="languageChoiceET" value="true" checked>
+                            <button class="btn-check full-col" id="btnLanguageET">Eesti keel</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-lg-5">
+                        <div class="input-element">
+                        <div></div>
+                            <input type="checkbox" name="project_in_english" class="hidden" id="languageChoiceEN" value="true" checked>
+                            <button class="btn-check full-col" id="btnLanguageEN">English</button>
+                        </div>
+                    </div>
+                </div>
+                <!--
                 <div class="col-lg-12 panel panel-heading">
                     <p>
                         {{ trans('project.active_language_selection') }}
                     </p>
-                    <span id="project_in_estonian"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
-                    <span id="project_in_english"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
+                    <span id="languageChoiceET"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
+                    <span id="languageChoiceEN"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
                 </div>
+                -->
 
                 <!-- Reminder about fulfilling learning outcomes -->
                 <p>

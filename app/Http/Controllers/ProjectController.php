@@ -240,6 +240,7 @@ class ProjectController extends Controller
    */
   public function store(ProjectRequest $request)
   {
+    //\dd($request);
     $project = new Project;
     $project->created_by = Auth::user()->id;
     $project->updated_by = Auth::user()->id;

@@ -216,11 +216,6 @@ jQuery(document).ready(function($) {
     return false;
   });
 
-  // Show helpers for fields
-  $('.tags_et').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
-  $('.tags_en').focus(function () {$(this).siblings('span').css('visibility', 'visible');});
-  $('.tags_et').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
-  $('.tags_en').blur(function () {$(this).siblings('span').css('visibility', 'hidden');});
 
   // Populating fields after a failed submit/refresh
   try {
@@ -285,7 +280,13 @@ jQuery(document).ready(function($) {
 
 
   // Form/Project language selection
-  $('#project_in_english').children('input').on('click', function () {
+  $('#btnLanguageEN').on('click', function (e) {
+    e.preventDefault();
+    if( document.getElementById("languageChoiceEN").checked==true ) {
+      document.getElementById("languageChoiceEN").checked=false 
+    } else {
+      document.getElementById("languageChoiceEN").checked=true 
+    }
     $('.form_english').toggleClass("disabledForm");
     if ($('.form_english').hasClass('disabledForm')) {
       $('.form_english').find('input').attr('disabled', 'true');
@@ -295,7 +296,13 @@ jQuery(document).ready(function($) {
       $('.form_english').find('textarea').removeAttr('disabled');
     }
   });
-  $('#project_in_estonian').children('input').on('click', function () {
+  $('#btnLanguageET').on('click', function (e) {
+    e.preventDefault();
+    if( document.getElementById("languageChoiceET").checked==true ) {
+      document.getElementById("languageChoiceET").checked=false 
+    } else {
+      document.getElementById("languageChoiceET").checked=true 
+    }
     $('.form_estonian').toggleClass("disabledForm");
     if ($('.form_estonian').hasClass('disabledForm')) {
       $('.form_estonian').find('input').attr('disabled', 'true');
@@ -463,24 +470,26 @@ jQuery(document).ready(function($) {
   });
 
   $('.study_term_button').on('click', function () {
+    /*
     $('.study_term_button').removeClass('btn-info');
     $('.study_term_button').removeClass('btn-default');
     $(this).removeClass('btn-default');
     $(this).addClass('btn-info');
+    */
     $('#'+$(this).attr('id')+'_radio').prop('checked', true);
   });
 
   // Learning outcomes show/hide
   $('#open_learning_outcomes').on('click', function () {
-    $('#learning_outcomes').toggle(100);
-    $('#open_learning_outcomes').toggle(1);
-    $('#close_learning_outcomes').toggle(1);
+    $('#learning_outcomes').removeClass('unseen');
+    $('#open_learning_outcomes').addClass('unseen');
+    $('#close_learning_outcomes').removeClass('unseen');
   });
-
+  
   $('#close_learning_outcomes').on('click', function () {
-    $('#learning_outcomes').toggle(100);
-    $('#close_learning_outcomes').toggle(1);
-    $('#open_learning_outcomes').toggle(1);
+    $('#learning_outcomes').addClass('unseen');
+    $('#open_learning_outcomes').removeClass('unseen');
+    $('#close_learning_outcomes').addClass('unseen');
   });
 
 
@@ -496,13 +505,13 @@ jQuery(document).ready(function($) {
       method: 'POST'
     }).done(function (language) {
       if (language == 'et' && $('input[name=name_en]').val() == '') {
-        $('#project_in_english').children('input').trigger('click');
+        $('#btnLanguageEN').trigger('click');
       } else if (language == 'en' && $('input[name=name_et]').val() == '') {
-        $('#project_in_estonian').children('input').trigger('click')
+        $('#btnLanguageET').trigger('click')
       } else if ($('input[name=name_en]').val() == '') {
-        $('#project_in_english').children('input').trigger('click');
+        $('#btnLanguageEN').trigger('click');
       } else if ($('input[name=name_et]').val() == '') {
-        $('#project_in_estonian').children('input').trigger('click');
+        $('#btnLanguageET').trigger('click');
       }
     });
   }
@@ -537,15 +546,13 @@ jQuery(document).ready(function($) {
 
 
   // Adding datepicker to initial date inputs in new project form
-  $('.glyphicon-calendar').parent().siblings().children('input').datetimepicker({format: 'L'});//pickadate({format: 'dd/mm/yyyy'});
-  $('.glyphicon-calendar').on('click', function (event) {
-    event.stopPropagation();
-    //$($(this).parent().siblings().children('input')[0]).pickadate('open');
-  });
+  $('#first_meeting_et').children('input').datetimepicker({format: 'L'});//pickadate({format: 'dd/mm/yyyy'});
+  $('#first_meeting_en').children('input').datetimepicker({format: 'L'});//pickadate({format: 'dd/mm/yyyy'});
+  
 
   function addTag (language) {
     newTag = document.createElement('span');
-    newTag.className = 'tag_output';
+    newTag.className = 'tag left';
     newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
     $(newTag).children('span.glyphicon-remove').on('click', function () {
       $(this).parent().remove();
@@ -595,42 +602,22 @@ jQuery(document).ready(function($) {
 
   function getMeetingFieldToAdd (language) {
     outerDiv = document.createElement('div');
-    outerDiv.className = 'row';
-    iconDiv = document.createElement('div');
-    iconDiv.className = 'col-lg-4';
-    iconCalendarDiv = document.createElement('div');
-    iconCalendarDiv.className = 'col-lg-12';
-    iconCalendar = document.createElement('span');
-    iconCalendar.className = 'glyphicon glyphicon-calendar';
-    iconCalendar.style = 'font-size:75px;';
-    iconSubCalendarInputDiv = document.createElement('div');
-    iconSubCalendarInputDiv.className = 'col-lg-12';
-    iconSubCalendarInput = document.createElement('input');
-    iconSubCalendarInput.className = 'form-control meeting_date_'+language;
-    iconSubCalendarInput.type = 'text';
-    textareaDiv = document.createElement('div');
-    textareaDiv.className = 'col-lg-7';
+    outerDiv.className = 'input-element';
     textarea = document.createElement('textarea');
     textarea.className = 'meeting_info_'+language;
-    textarea.style = 'width: 100%;';
-    textarea.rows = '5';
+    textarea.rows = '10';
+    textarea.cols = '30';
+    dateInput = document.createElement('input');
+    dateInput.className = 'date meeting_date_'+language;
+    dateInput.type = 'text';
     if (language == 'et') {
       textarea.placeholder = 'Täiendav info selle kohtumise kohta';
     } else {
       textarea.placeholder = 'Additional info about this particular meeting';
     }
-    iconDiv.append(iconCalendarDiv);
-    iconCalendarDiv.append(iconCalendar);
-    iconDiv.append(iconSubCalendarInputDiv);
-    iconSubCalendarInputDiv.append(iconSubCalendarInput);
-    textareaDiv.append(textarea);
-    outerDiv.append(iconDiv);
-    outerDiv.append(textareaDiv);
-    $(iconSubCalendarInput).datetimepicker({format: 'L'})//pickadate({format: 'dd/mm/yyyy'});
-    $(iconCalendar).on('click', function (event) {
-      event.stopPropagation();
-      //$($(this).parent().siblings().children('input')[0]).pickadate('open');
-    });
+    outerDiv.append(dateInput);
+    outerDiv.append(textarea);
+    $(dateInput).datetimepicker({format: 'L'})//pickadate({format: 'dd/mm/yyyy'});
     return outerDiv;
   }
 

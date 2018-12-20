@@ -36,7 +36,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
-    <link href="{{ url(asset('/css/uni_style.css')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style.css?bs')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {

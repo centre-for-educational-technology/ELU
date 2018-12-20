@@ -79,40 +79,73 @@
             <!-- Start of the first block -->
             <div class="col-lg-12 panel panel-heading">
 
-
+        <!-- PROJECT NAME -->
+        <div class="row form-row">
+            <div class="col-sm-1 col-lg-2"></div>
+            <!-- Project name in Estonian -->
+            <div class="col-sm-5 col-lg-5 form_estonian">
+                <?php App::setLocale('et'); ?>
+                <div class="input-element form-group">
+                    <label class="h3 left">{{ trans('project.name') }} *
+                        <span class="tooltiptext">{{ trans('project.name_hover') }}</span>
+                        <span class="red-light unseen"></span>
+                    </label>
+                    <!-- Project name input in Estonian -->
+                    <input type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}" class="input-field form-control">
+                    <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
+                    <div class="validation-error unseen">validation-error</div>
+                </div>
+            </div>
+            <!-- Project name in English -->
+            <div class="col-sm-5 col-lg-5 form_english">
+                <?php App::setLocale('en'); ?>
+                <div class="input-element">
+                    <label class="h3 left">{{ trans('project.name') }} *
+                        <span class="red-light unseen"></span>
+                    </label>
+                    <!-- Project name input in English -->
+                    <input type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}" class="input-field">
+                    <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
+                    <div class="validation-error unseen">validation-error</div>
+                </div>
+            </div>
+        
+        </div>
                 <!-- PROJECT NAME -->
+                <!-- Project name in Estonian -->
+                <!-- Project name input in Estonian -->
+                <!-- Comment for name in Estonian -->
+                <!--
                 <div class="col-lg-12">
 
-                    <!-- Project name in Estonian -->
-                    <div class="col-lg-6 form_estonian">
 
-                        <!-- Project name input in Estonian -->
+                    <div class="col-lg-6 form_estonian">
                         <?php App::setLocale('et'); ?>
                         <div class="form-group">
                             <p><label for="name_et">{{ trans('project.name') }} *</label></p>
                             <input class="form-control" type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}">
                         </div>
 
-                        <!-- Comment for name in Estonian -->
                         <div id="comment_name_et"></div>
 
                     </div>
 
-                    <!-- Project name in English -->
                     <div class="col-lg-6 form_english">
-
-                        <!-- Project name input in English -->
+                        
                         <?php App::setLocale('en'); ?>
                         <div class="form-group">
                             <p><label for="name_en">{{ trans('project.name') }} *</label></p>
                             <input class="form-control" type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}">
                         </div>
-
-                        <!-- Comment for name in English -->
+                        
                         <div id="comment_name_en"></div>
-
+                        
                     </div>
                 </div>
+            -->
+            <!-- Comment for name in English -->
+            <!-- Project name input in English -->
+                <!-- Project name in English -->
                 
 
                 <!-- DESCRIPTION -->

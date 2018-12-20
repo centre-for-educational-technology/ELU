@@ -78,14 +78,14 @@
             <div class="col-sm-1 col-lg-2"></div>
             <div class="col-sm-5 col-lg-5">
                 <div class="input-element">
-                    <input type="checkbox" name="project_in_estonian" class="hidden" id="languageChoiceET" checked>
+                    <input type="checkbox" name="project_in_estonian" class="hidden" id="languageChoiceET" value="true" checked>
                     <button class="btn-check full-col" id="btnLanguageET">Eesti keel</button>
                 </div>
             </div>
             <div class="col-sm-5 col-lg-5">
                 <div class="input-element">
                 <div></div>
-                    <input type="checkbox" name="project_in_english" class="hidden" id="languageChoiceEN" checked>
+                    <input type="checkbox" name="project_in_english" class="hidden" id="languageChoiceEN" value="true" checked>
                     <button class="btn-check full-col" id="btnLanguageEN">English</button>
                 </div>
             </div>

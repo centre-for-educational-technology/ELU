@@ -240,7 +240,6 @@ class ProjectController extends Controller
    */
   public function store(ProjectRequest $request)
   {
-    //\dd($request);
     $project = new Project;
     $project->created_by = Auth::user()->id;
     $project->updated_by = Auth::user()->id;
@@ -350,11 +349,11 @@ class ProjectController extends Controller
     $project->co_supervisors = json_encode(array_values($cosupervisors));
 
     $project->save();
-    /*
+
     if ($request->submit_project) {
       $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
-    */
+
     $projects = Project::whereHas('users', function($q)
     {
       $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
@@ -535,7 +534,6 @@ class ProjectController extends Controller
    */
   public function update(ProjectRequest $request, $id)
   {
-    
     $project = Project::find($id);
     $project->languages = '';
 
@@ -692,11 +690,10 @@ class ProjectController extends Controller
       }
     }
 
-/*
+
     if ($request->submit_project == "true") {
       $this->newProjectAddedEmailNotification($project->name, Auth::user(), url('project/'.$project->id));
     }
-*/
 
     $project->save();
 

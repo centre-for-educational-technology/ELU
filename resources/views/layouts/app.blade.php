@@ -34,9 +34,12 @@
     <!-- Styles -->
     {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
+    {{----}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
-    <link href="{{ url(asset('/css/uni_style.css?bs')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style.css?bb')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -124,207 +127,300 @@
 <script src="{{ url(asset('/js/vendor.js')) }}"></script>
 <script src="{{ url(asset('js/scripts.js')) }}"></script>
 
+<div class="header-container">
+    <!-- HEADER -->
+    <div class="header-navbar">
+      <nav class="navbar navbar-expand-sm right bg-light navbar-light navbar-header">
+        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
+        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
+        <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
+        <!--
+        <span class="navbar-text">
+          <a href="#" label="choose language EN">english</a>
+        </span>
+            <a href="{{ route('lang.switch', 'et') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['et'] }}</a>
+            <a href="{{ route('lang.switch', 'en') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['en'] }}</a>
+        -->
+        @if (App::getLocale() == 'en')
+            <span class="navbar-text">
+                <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
+            </span>
+        @elseif(App::getLocale() == 'et')
+            <span class="navbar-text">
+                <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
+            </span>
+        @endif
+        
+      </nav> 
+    </div>
+    
+    <!-- MAIN MENU -->
+    <div class="menu-positioning">
+      <nav class="navbar navbar-expand-lg bg-light navbar-light">
+        
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="{{ url(asset('/css/TLY_ELU.svg')) }}" alt="TLÜ ELU">
+        </a>
+        
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Links -->
+        <div class="collapse navbar-collapse right" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">PROJEKTID</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">TÖÖTOAD</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">MATERJALID</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">KALENDER</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">ETTEVÕTTELE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">KKK</a>
+            </li>
+          </ul>
+        </div>
+        
+      </nav>
+    </div>
+    
+    <!-------- SUBMENU -------->
+    <div class="menu-positioning">
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark" >
+        
+        <!-- Links -->
+        <ul class="navbar-nav sub-navbar">
+          <li class="nav-item">
+            <a class="nav-link sub-nav-link" href="#">esita idee</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link sub-nav-link" href="#">Minu projektid</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link sub-nav-link" href="#">vormista lõpparuanne</a>
+          </li>
+        </ul>
+        
+      </nav>
+    </div>
+    
+  </div>
 
+<html>
 
 <div class="jumbotron main">
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
+<nav class="navbar navbar-inverse">
+<div class="container">
+<div class="navbar-header">
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
-                <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
+<a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
 
-            </div>
-            <div id="navbar" class="navbar-collapse collapse pull-right">
+</div>
+<div id="navbar" class="navbar-collapse collapse pull-right">
 
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav menu01">
+<!-- Left Side Of Navbar -->
+<ul class="nav navbar-nav menu01">
 
-                    <li>
-                        @if (App::getLocale() == 'en')
-                            <a href="{{ route('lang.switch', 'et') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['et'] }}</a>
-                        @elseif(App::getLocale() == 'et')
-                            <a href="{{ route('lang.switch', 'en') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['en'] }}</a>
-                        @endif
+<li>
+@if (App::getLocale() == 'en')
+<a href="{{ route('lang.switch', 'et') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['et'] }}</a>
+@elseif(App::getLocale() == 'et')
+<a href="{{ route('lang.switch', 'en') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['en'] }}</a>
+@endif
 
-                    </li>
+</li>
 
-                    {{--Dropdown menu with more natural switch of languages--}}
-                    {{--<li class="dropdown" role="presentation">--}}
-                        {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">--}}
-                            {{--<i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}--}}
-                            {{--<span class="caret"></span>--}}
-                        {{--</a>--}}
+{{--Dropdown menu with more natural switch of languages--}}
+{{--<li class="dropdown" role="presentation">--}}
+{{--<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">--}}
+{{--<i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}--}}
+{{--<span class="caret"></span>--}}
+{{--</a>--}}
 
-                        {{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
-                            {{--@foreach (Config::get('languages') as $lang => $language)--}}
-                                {{--@if ($lang != App::getLocale())--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>--}}
-                                    {{--</li>--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-
-
-                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
-                    <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
-                    <li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li>
-
-                    @if (!Auth::guest())
-
-                    <li {{ setActive('seminaries') }}><a href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a></li>
-
-                        @if (Auth::user()->is('oppejoud'))
-                            
-                            @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @elseif(App::getLocale() == 'et')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
+{{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
+{{--@foreach (Config::get('languages') as $lang => $language)--}}
+{{--@if ($lang != App::getLocale())--}}
+{{--<li>--}}
+{{--<a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>--}}
+{{--</li>--}}
+{{--@endif--}}
+{{--@endforeach--}}
+{{--</ul>--}}
+{{--</li>--}}
 
 
-                            <li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
+<li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
+<li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
+<li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li>
 
-                            {{--
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> {{trans('front.add')}} <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url('/project/new?lang=et') }}">Eesti keeles</a></li>
-                                    <li><a href="{{ url('/project/new?lang=en') }}">In english</a></li>
-                                </ul>
-                            </li>
-                            --}}
-                        @endif
+@if (!Auth::guest())
 
-                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
-                            
-                            <!-- Same as for the teacher, but putting it here, so when there come different materials for teachers and students, it's ready for a change. -->
-                            @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @elseif(App::getLocale() == 'et')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
-                            
-                            
-                            <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
-                        @endif
+<li {{ setActive('seminaries') }}><a href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a></li>
 
-                    @endif
+@if (Auth::user()->is('oppejoud'))
 
-                </ul>
+@if (App::getLocale() == 'en')
+<li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
+@elseif(App::getLocale() == 'et')
+<li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
+@endif
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav menu01 navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
 
-                        <li {{ setActive('login') }}>
-                            <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('nav.login')}}</a>
-                            </p>
-                        </li>
-                        {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }}
+<li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
 
-                                @if (Auth::user()->is('oppejoud'))
-                                    <span class="badge">{{trans('nav.oppejoud')}}</span>
-                                @endif
+{{--
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> {{trans('front.add')}} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+    <li><a href="{{ url('/project/new?lang=et') }}">Eesti keeles</a></li>
+    <li><a href="{{ url('/project/new?lang=en') }}">In english</a></li>
+    </ul>
+    </li>
+    --}}
+@endif
 
-                                @if (Auth::user()->is('student'))
-                                    <span class="badge">{{trans('nav.student')}}</span>
-                                @endif
+@if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
 
-                                @if (Auth::user()->is('admin'))
-                                    <span class="badge">{{trans('nav.admin')}}</span>
-                                @endif
+<!-- Same as for the teacher, but putting it here, so when there come different materials for teachers and students, it's ready for a change. -->
+@if (App::getLocale() == 'en')
+<li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
+@elseif(App::getLocale() == 'et')
+<li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
+@endif
 
-                                @if (Auth::user()->is('superadmin'))
-                                    <span class="badge"><i class="fa fa-user-secret"></i> {{trans('nav.superadmin')}}</span>
-                                @endif
 
-                                @if (Auth::user()->is('project_moderator'))
-                                    <span class="badge"><i class="fa fa-star-o"></i> {{trans('nav.project_moderator')}}</span>
-                                @endif
+<li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
+@endif
 
-                                <span class="caret"></span>
+@endif
 
-                            </a>
+</ul>
 
-                            <ul class="dropdown-menu" role="menu">
-                                @if (Auth::user()->is('superadmin'))
-                                    <li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
-                                    <li><a href="{{ url('admin/courses/update') }}"><i class="fa fa-btn fa-refresh"></i>Kursuste uuendamine</a></li>
-                                @endif
+<!-- Right Side Of Navbar -->
+<ul class="nav navbar-nav menu01 navbar-right">
+<!-- Authentication Links -->
+@if (Auth::guest())
 
-                                @if (Auth::user()->is('admin'))
-                                    <li><a href="{{ url('admin/analytics') }}"><i class="fa fa-btn fa-dashboard"></i>Statistika</a></li>
-                                    <li><a href="{{ url('news/edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
-                                    <li><a href="{{ url('faq/edit') }}"><i class="fa fa-btn fa-file-text"></i>Muuda KKK</a></li>
-                                    <li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
-                                    <li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
-                                    <li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
-                                    <li><a href="{{ url('admin/evaluation-dates') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Vahenädala kuupäevad</a></li>
-                                    <li><a href="{{ url('admin/open-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Ava projektid liitumiseks</a></li>
-                                    <li><a href="{{ url('admin/close-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Sulge liitumine projektidess</a></li>
-                                @endif
+<li {{ setActive('login') }}>
+<p class="navbar-btn">
+<a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('nav.login')}}</a>
+</p>
+</li>
+{{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
+@else
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+{{ Auth::user()->name }}
 
-                                @if (Auth::user()->is('oppejoud'))
-                                    <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
-                                @endif
+@if (Auth::user()->is('oppejoud'))
+<span class="badge">{{trans('nav.oppejoud')}}</span>
+@endif
 
-                                {{--XXX Change to student--}}
-                                @if (Auth::user()->is('student'))
-                                    {{--<li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>--}}
+@if (Auth::user()->is('student'))
+<span class="badge">{{trans('nav.student')}}</span>
+@endif
 
-                                    @if(Auth::user()->isMemberOfProject()['id'])
-                                        <li><a href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+@if (Auth::user()->is('admin'))
+<span class="badge">{{trans('nav.admin')}}</span>
+@endif
 
-                                    @else
-                                        <li><a href="{{ url('projects/open') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+@if (Auth::user()->is('superadmin'))
+<span class="badge"><i class="fa fa-user-secret"></i> {{trans('nav.superadmin')}}</span>
+@endif
 
-                                    @endif
-                                @endif
-                                <li><a href="{{ url('profile') }}"><i class="fa fa-btn fa-user"></i>{{trans('nav.profile')}}</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
-                            </ul>
-                        </li>
-                    @endif
+@if (Auth::user()->is('project_moderator'))
+<span class="badge"><i class="fa fa-star-o"></i> {{trans('nav.project_moderator')}}</span>
+@endif
 
-                </ul>
+<span class="caret"></span>
 
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
+</a>
+
+<ul class="dropdown-menu" role="menu">
+@if (Auth::user()->is('superadmin'))
+<li><a href="{{ url('admin/log') }}"><i class="fa fa-btn fa-user-secret"></i>Activity log</a></li>
+<li><a href="{{ url('admin/courses/update') }}"><i class="fa fa-btn fa-refresh"></i>Kursuste uuendamine</a></li>
+@endif
+
+@if (Auth::user()->is('admin'))
+<li><a href="{{ url('admin/analytics') }}"><i class="fa fa-btn fa-dashboard"></i>Statistika</a></li>
+<li><a href="{{ url('news/edit') }}"><i class="fa fa-btn fa-file-text"></i>Esilehe Teated</a></li>
+<li><a href="{{ url('faq/edit') }}"><i class="fa fa-btn fa-file-text"></i>Muuda KKK</a></li>
+<li><a href="{{ url('admin/users') }}"><i class="fa fa-btn fa-users"></i>Kasutajate rollid</a></li>
+<li><a href="{{ url('admin/all-projects') }}"><i class="fa fa-btn fa-heartbeat"></i>Projektide haldus</a></li>
+<li><a href="{{ url('admin/student-projects') }}"><i class="fa fa-btn fa-paper-plane"></i>Projektiideed tudengite poolt</a></li>
+<li><a href="{{ url('admin/evaluation-dates') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Vahenädala kuupäevad</a></li>
+<li><a href="{{ url('admin/open-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Ava projektid liitumiseks</a></li>
+<li><a href="{{ url('admin/close-projects') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Sulge liitumine projektidess</a></li>
+@endif
+
+@if (Auth::user()->is('oppejoud'))
+<li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
+@endif
+
+{{--XXX Change to student--}}
+@if (Auth::user()->is('student'))
+{{--<li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>--}}
+
+@if(Auth::user()->isMemberOfProject()['id'])
+<li><a href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+
+@else
+<li><a href="{{ url('projects/open') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+
+@endif
+@endif
+<li><a href="{{ url('profile') }}"><i class="fa fa-btn fa-user"></i>{{trans('nav.profile')}}</a></li>
+<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{trans('nav.logout')}}</a></li>
+</ul>
+</li>
+@endif
+
+</ul>
+
+</div><!--/.navbar-collapse -->
+</div>
+</nav>
 </div>
 
 @if (!Auth::guest())
-    @if((Auth::user()->is('student')))
-        @if(isTLUUser(Auth::user()))
-            @if(empty(Auth::user()->contact_email))
-                <div class="container">
-                    <div class="row">
-                        <div class="alert alert-danger">
-                            {{trans('user.add_contact_email_notification')}} <a href="{{url('profile#contact-email-form')}}"><i class="fa fa-user"></i></a>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-        @endif
-
-    @endif
+@if((Auth::user()->is('student')))
+@if(isTLUUser(Auth::user()))
+@if(empty(Auth::user()->contact_email))
+<div class="container">
+<div class="row">
+<div class="alert alert-danger">
+{{trans('user.add_contact_email_notification')}} <a href="{{url('profile#contact-email-form')}}"><i class="fa fa-user"></i></a>
+</div>
+</div>
+</div>
 @endif
+
+@endif
+
+@endif
+@endif
+</html>
+
+
 
 <div class="life-pink-background">
     <div class="offset-to-show-pink">

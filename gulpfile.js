@@ -82,13 +82,14 @@ elixir(function(mix) {
        .webpack('calc-load.js');
 
 
-    mix.less(['app.less']);
+    //mix.less(['app.less']);
 
 
     mix.version(["css/app.css", "js/app.js", "js/calc-load.js"]);
 
 
-    mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
+    //mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
+    mix.copy('node_modules/bootstrap/assets/fonts/bootstrap/','public/fonts/bootstrap');
 
 
 });

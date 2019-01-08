@@ -1,0 +1,164 @@
+body {
+    background: url('file:///Users/tooams/Documents/TÖÖ/DTI/ELU/main_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+  .header-container {
+    background-color: white;
+  }
+  .left {
+    justify-content: flex-start;
+  }
+  .right {
+    justify-content: flex-end;
+  }
+  .center {
+    justify-content: center;
+  }
+  .menu-positioning{
+    width: 100% !important;
+  }
+  
+  /* MAIN MENU */
+  .bg-light {
+    background-color: white !important;
+  }
+  .navbar {
+    padding: 0rem 0rem !important;
+  }
+  .navbar-brand {
+    margin-left: 2%;
+    padding: .8rem .1rem;
+  }
+  .navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.9);
+    border-style: none;
+  }
+  .navbar-nav {
+    margin-right: 5%;
+  }
+  .nav-item, .active-nav-item {
+    font-family: 'Minion Pro';
+    font-style:italic;
+    text-transform: uppercase;
+    font-size: 15pt;
+    color: #011627;
+    padding-left: 20px;
+  }
+  .nav-link {
+    padding-bottom: 0px;
+  }
+  .navbar-nav>li>a {
+    text-decoration: none;
+    border-bottom-style: solid; 
+    border-bottom-color: white;
+    border-bottom-width: 4px;
+  }
+  .navbar-nav>li>a:focus, .navbar-nav>li>a:hover {
+    text-decoration: none;
+    border-bottom-style: solid; 
+    border-bottom-color: #555555;
+    border-bottom-width: 4px;
+  }
+  .active>a, .active-nav-item>a {
+    text-decoration: none !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #555555 !important;
+    border-bottom-width: 4px !important;
+  }
+  
+  
+  /* HEADER */
+  .header-navbar {
+    margin-right: 5%;
+    padding: .3rem .5rem 0rem .5rem !important; 
+  }
+  .navbar-header {
+    padding: 0rem .5rem !important;
+  }
+  .btn-login {
+    height: 40px;
+    border-radius: 30px;
+    margin: 0px 30px;
+    padding: 2px 45px;
+    color: white;
+    background-color: #011627;
+    font-size: 14px;
+    border-style: none;
+  }
+  .sm-link>a>img {
+    height: 20px;
+    padding-left: 20px;
+  }
+  
+  /* CTA BUTTONS */
+  .cta-row {
+    padding-top: 8%
+  }
+  .main-cta-block {
+    padding-bottom: 100%;
+    position: relative;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,.9);
+    background-size: auto auto;
+    background-size: cover;
+    box-shadow: 5px 10px 18px #888888;
+  }
+  .cta-1 {
+    padding-top: 10%;
+    font-size: 86pt;
+  }
+  .cta-2 {
+    font-style:italic;
+    font-size: 42pt;
+  }
+  .main-cta-block .pad {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    font-family:'MinionPro-CnItDisp', 'Minion Pro Cond Italic Display', 'Minion Pro';
+    font-stretch: condensed;
+    color: #FC4786; 
+  }
+  .main-cta-block:hover, .main-cta-block:focus  {
+    box-shadow: 0px 0px 0px #000000;
+    background-color: rgba(250,250,250,1);
+  }
+  
+  /* NEWS-BLOCK */
+  
+  .news-block {
+    position: fixed;
+    width: 35%;
+    height: 15%;
+    background-color: rgba(0,0,0,.2);
+    bottom: 0;
+    
+  }
+  .news {
+    float: left;
+    color: white;
+    padding: 2% 4%;
+    font-size: 1.2rem;
+  }
+  .news-link{
+    float: right;
+    text-decoration: none;
+    
+  }

@@ -23,8 +23,12 @@
 
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!--
     <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
     <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
+    -->
+    <link href="{{ url(asset('/css/uni_style_welcome.css')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -32,69 +36,154 @@
         }
     </style>
 </head>
-<body id="app-layout" class="frontpage">
-
+<body>
 <script src="{{ url(asset('/js/vendor.js')) }}"></script>
-
-
-<div class="jumbotron main">
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{url('/')}}"><img src="{{ url(asset('/css/logo.svg')) }}" alt="Tallinna Ülikool"></a>
-
-            </div>
-            <div id="navbar" class="navbar-collapse collapse pull-right">
-
-
+  <div class="header-container">
+    <!-- HEADER -->
+    <div class="header-navbar">
+      <nav class="navbar navbar-expand-sm right bg-light navbar-light navbar-header">
+        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
+        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
+        @if (Auth::guest())
+            <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
+        @else
+            <div><a href="{{ url('/logout') }}"><button class="btn-login">{{trans('nav.logout')}}</button></a></div>
+            <div><a href="{{ url('profile') }}"><button class="btn-login">{{trans('nav.profile')}}</button></a></div>
+        @endif
+        @if (App::getLocale() == 'en')
+            <span class="navbar-text">
+                <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
+            </span>
+        @elseif(App::getLocale() == 'et')
+            <span class="navbar-text">
+                <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
+            </span>
+        @endif
+        
+      </nav> 
+    </div>
+    
+    <!-- MAIN MENU -->
+    <div class="menu-positioning">
+      <nav class="navbar navbar-expand-lg bg-light navbar-light">
+        
+        <!-- Logo -->
+        <a class="navbar-brand" href="http://elu.dev">
+            <img src="{{ url(asset('/css/TLY_ELU.svg')) }}" alt="TLÜ ELU">
+        </a>
+        
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Links -->
+        <div class="collapse navbar-collapse right" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            @if (Auth::guest())
+                <li {{ setActive('projects') }} class="nav-item">
+                    <a class="nav-link" href="{{ url('/projects/open') }}">{{trans('front.search')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a>
+                </li>
+                <li {{ setActive('faq') }} class="nav-item">
+                    <a class="nav-link" href="{{ url('/faq') }}">{{trans('front.faq')}}</a>
+                </li>
+            @else
+                <li {{ setActive('projects') }} class="nav-item">
+                    <a class="nav-link" href="{{ url('/projects/open') }}">{{trans('front.search')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ETTEVÕTTELE</a>
+                </li>
+                -->
+                <li {{ setActive('faq') }} class="nav-item">
+                    <a class="nav-link" href="{{ url('/faq') }}">{{trans('front.faq')}}</a>
+                </li>
+            @endif
+          </ul>
+        </div>
+        
+      </nav>
+    </div>
+    
+  </div>
+  
+  <!-- CTA BUTTONS -->
+  
+  <div class="container">
+    <!-- <div class="container-cta"> -->
+      <div class="row cta-row">     
+        <div class=" col-lg-4">
+          <div class="main-cta-block">
+            <a href="https://elu2.tlu.ee/projects/open">
+              <div class="pad">
+                <p class="cta-1">ELU</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class=" col-lg-4">
+          <div class="main-cta-block">
+            <a href="https://elu2.tlu.ee/projects/open">
+              <div class="pad">
+                <img src="../../projects.svg" height="110vw">
+                <p class="cta-2">Projektid</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class=" col-lg-4">
+          <div class="main-cta-block">
+            <a href="https://elu2.tlu.ee/projects/open">
+              <div class="pad">
+                <img src="../../idea.svg" height="120vw">
+                <p class="cta-2">Esita idee</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- NEWS -->
+      <div class="row">     
+        <div class=" col-lg-4">
+          <div class="news-block">
+            <div class="news">
+                @if (App::getLocale() == 'et')
+                    @if(!empty($news->body_et))
+                    {!! $news->body_et !!}
+                    @endif
+                @elseif(App::getLocale() == 'en')
+                    @if(!empty($news->body_en))
+                    {!! $news->body_en !!}
+                    @endif
+                @endif
+              <div class="news-link"><a href="#">{{trans('front.news')}}</a></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
 
 
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
 
-                    <li>
-                        @if (App::getLocale() == 'en')
-                            <a href="{{ route('lang.switch', 'et') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['et'] }}</a>
-                        @elseif(App::getLocale() == 'et')
-                            <a href="{{ route('lang.switch', 'en') }}"><i class="fa fa-globe"></i> {{ Config::get('languages')['en'] }}</a>
-                        @endif
-
-                    </li>
-
-                    {{--Dropdown menu with more natural switch of languages--}}
-                    {{--<li class="dropdown" role="presentation">--}}
-                        {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">--}}
-                            {{--<i class="fa fa-globe"></i> {{ Config::get('languages')[App::getLocale()] }}--}}
-                            {{--<span class="caret"></span>--}}
-                        {{--</a>--}}
-
-                        {{--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">--}}
-                            {{--@foreach (Config::get('languages') as $lang => $language)--}}
-                                {{--@if ($lang != App::getLocale())--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>--}}
-                                    {{--</li>--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-
-
-                    <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
-                    <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
-                    <li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li>
-
                     @if (!Auth::guest())
-
-                    <li {{ setActive('seminaries') }}><a href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a></li>
-
                         @if (Auth::user()->is('oppejoud'))
 
                             @if (App::getLocale() == 'en')
@@ -130,10 +219,6 @@
 
                     @endif
 
-
-                    {{--@if (Auth::user())--}}
-                    {{--<li><a href="{{ url('/project') }}"><i class="fa fa-plus"></i> Lisa</a></li>--}}
-                    {{--@endif--}}
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -222,193 +307,4 @@
         </div>
     </nav>
 
-
-    <div class="container">
-        <h1 class="sr-only">Erialasid lõimiv uuendus - ELU</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="block01 block01b">
-                    <div class="pad"></div>
-                    <a href="{{ url('/faq') }}">
-                        <div class="circular">
-                            <div>
-                                <span class="glyphicon ico-target ico-color01-full"></span>
-                                <h4>{{trans('front.what')}}</h4>
-                            </div>
-                            <div>
-                                <span class="glyphicon ico-labyrinth ico-color02-full"></span>
-                                <h4>{{trans('front.why')}}</h4>
-                            </div>
-                            <div>
-                                <span class="glyphicon ico-calendar ico-color03-full"></span>
-                                <h4>{{trans('front.when')}}</h4>
-                            </div>
-                            <div>
-                                <span class="glyphicon ico-brainstorm ico-color02-full"></span>
-                                <h4>{{trans('front.with_who')}}</h4>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <h2>{{trans('front.what_is')}} ELU?</h2>
-
-                @if (App::getLocale() == 'et')
-                    {!! getFirstParagraph($info->body_et) !!}
-                @elseif(App::getLocale() == 'en')
-                    {!! getFirstParagraph($info->body_en) !!}
-                @endif
-
-                <p><a class="btn btn-default" href="#about-elu" role="button">{{trans('front.read_more')}} <span class="glyphicon ico-arrow-down" aria-hidden="true"></span></a></p>
-            </div>
-            <div class="col-md-4">
-                <div class="block01">
-                    <a href="{{ url('/projects/open') }}">
-                        <div class="pad">
-                            <span class="glyphicon ico-search"></span>
-                            <p><strong>{{trans('front.search')}}</strong> {{trans('front.project_team')}}</p>
-                        </div>
-                    </a>
-                </div>
-                <h2>{{trans('front.idea_fair')}}</h2>
-                @if (App::getLocale() == 'et')
-                    {!! getFirstParagraph($fair_info->body_et) !!}
-                @elseif(App::getLocale() == 'en')
-                    {!! getFirstParagraph($fair_info->body_en) !!}
-                @endif
-                {{--<p>{{trans('front.idea_fair.desc')}}</p>--}}
-                <p><a class="btn btn-default" href="{{ url('/projects/open') }}" role="button">{{trans('front.all_projects')}} <span class="glyphicon ico-arrow-right" aria-hidden="true"></span></a></p>
-            </div>
-            <div class="col-md-4">
-                <div class="block01 block01c">
-                    @if (Auth::guest())
-                        <a href="{{ url('/student/project/new') }}">
-                            <div class="pad">
-                                <span class="glyphicon ico-idea"></span>
-                                <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
-                            </div>
-                        </a>
-                    @else
-                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
-                            <a href="{{ url('/student/project/new') }}">
-                                <div class="pad">
-                                    <span class="glyphicon ico-idea"></span>
-                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
-                                </div>
-                            </a>
-                        @elseif(Auth::user()->is('oppejoud'))
-                            @if (App::getLocale() == 'et')
-                                <a href="{{ url('/project/new?lang=et') }}">
-                            @elseif (App::getLocale() == 'en')
-                                <a href="{{ url('/project/new?lang=en') }}">
-                            @endif
-                                <div class="pad">
-                                    <span class="glyphicon ico-idea"></span>
-                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
-                                </div>
-                            </a>
-                        @else
-                            <a href="{{ url('/project/open') }}">
-                                <div class="pad">
-                                    <span class="glyphicon ico-idea"></span>
-                                    <p><strong>{{trans('front.i_have_idea')}}</strong> {{trans('front.write_down')}}</p>
-                                </div>
-                            </a>
-                        @endif
-                    @endif
-
-                </div>
-                <h2>{{trans('front.news')}}</h2>
-                @if (App::getLocale() == 'et')
-                    @if(!empty($news->body_et))
-                    {!! $news->body_et !!}
-                    @endif
-                @elseif(App::getLocale() == 'en')
-                    @if(!empty($news->body_en))
-                    {!! $news->body_en !!}
-                    @endif
-                @endif
-                {{--<p>{{trans('front.news.desc')}}</p>--}}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="container" id="about-elu">
-    <!-- Example row of columns -->
-    <h2 class="h1">{{trans('front.what_is')}} <span class="logo"><span>E</span><span>L</span><span>U</span></span>?</h2>
-    <p class="lead">
-        @if (App::getLocale() == 'et')
-            {!! getFirstParagraph($info->body_et) !!}
-        @elseif(App::getLocale() == 'en')
-            {!! getFirstParagraph($info->body_en) !!}
-        @endif
-    </p>
-    <div class="row">
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-target ico-color01 ico-xl"></span>
-            <h3><a href="{{ url('faq#item1') }}">{{trans('front.what')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($what->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($what->body_en) !!}
-            @endif
-        </div>
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-labyrinth ico-color02 ico-xl"></span>
-            <h3><a href="{{ url('faq#item2') }}">{{trans('front.why')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($why->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($why->body_en) !!}
-            @endif
-
-        </div>
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-calendar ico-color03 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item3') }}">{{trans('front.when')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($when->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($when->body_en) !!}
-            @endif
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-brainstorm ico-color03 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item4') }}">{{trans('front.with_who')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($with_who->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($with_who->body_en) !!}
-            @endif
-        </div>
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-inspire ico-color01 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item5') }}">{{trans('front.how')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($how->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($how->body_en) !!}
-            @endif
-
-        </div>
-        <div class="col-md-4 margt">
-            <span class="glyphicon ico-idea ico-color02 ico-xl"></span>
-            <h3><a href="{{ url('/faq#item6') }}">{{trans('front.which')}}</a></h3>
-            @if (App::getLocale() == 'et')
-                {!! getFirstParagraph($which->body_et) !!}
-            @elseif(App::getLocale() == 'en')
-                {!! getFirstParagraph($which->body_en) !!}
-            @endif
-        </div>
-    </div>
-
-</div>
-
-@include('layouts.footer')
-</body>
 </html>

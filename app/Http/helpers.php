@@ -16,7 +16,7 @@ function getFirstParagraph($string)
  */
 function setActive($path)
 {
-  return \Request::is($path . '*') ? ' class=active' :  '';
+  return \Request::is($path . '*') ? ' class=active-nav-item' :  '';
 }
 
 

@@ -148,6 +148,7 @@
           <div class="main-cta-block">
             <a href="https://elu2.tlu.ee/projects/open">
               <div class="pad">
+              <span class="glyphicon ico-idea"></span>
                 <img src="../../idea.svg" height="120vw">
                 <p class="cta-2">Esita idee</p>
               </div>

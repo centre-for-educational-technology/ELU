@@ -216,6 +216,14 @@ jQuery(document).ready(function($) {
     return false;
   });
 
+    if (document.getElementById('nav-projects').classList.contains('active-nav-item')) {
+      document.getElementById('projects-sub-nav').classList.remove('unseen');
+    }
+    if (document.getElementById('nav-admin').classList.contains('active-nav-item')) {
+        document.getElementById('admin-sub-nav').classList.remove('unseen');
+    }
+/*
+*/
 
   // Populating fields after a failed submit/refresh
   try {

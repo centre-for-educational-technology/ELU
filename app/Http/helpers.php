@@ -20,6 +20,18 @@ function setActive($path)
 }
 
 
+/**
+ * Return nav-here if current path begins with this path.
+ *
+ * @param string $path
+ * @return string
+ */
+function setActiveSubNav($path)
+{
+  return \Request::is($path . '*') ? ' class=active-sub-nav-link' :  '';
+}
+
+
 function isPath($path)
 {
   return \Request::is($path . '*') ? true :  false;

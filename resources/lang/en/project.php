@@ -120,6 +120,7 @@ return [
     'new_group_name' => 'Group name',
     'project_groups' => 'Project groups',
     'finish_project_button' => 'Finish project',
+    'finish_project_submenu' => 'Finish project',
     'summary' => 'General impression',
     'summary_title' => 'Summary',
     'group_members' => 'Group members',

@@ -37,203 +37,179 @@
     </style>
 </head>
 <body>
-<script src="{{ url(asset('/js/vendor.js')) }}"></script>
-  <div class="header-container">
+    <script src="{{ url(asset('/js/vendor.js')) }}"></script>
+    
     <!-- HEADER -->
-    <div class="header-navbar">
-      <nav class="navbar navbar-expand-sm right bg-light navbar-light navbar-header">
-        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
-        <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
-        @if (Auth::guest())
-            <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
-        @else
-            <div><a href="{{ url('/logout') }}"><button class="btn-login">{{trans('nav.logout')}}</button></a></div>
-            <div><a href="{{ url('profile') }}"><button class="btn-login">{{trans('nav.profile')}}</button></a></div>
-        @endif
-        @if (App::getLocale() == 'en')
-            <span class="navbar-text">
-                <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
-            </span>
-        @elseif(App::getLocale() == 'et')
-            <span class="navbar-text">
-                <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
-            </span>
-        @endif
-        
-      </nav> 
-    </div>
-    
-    <!-- MAIN MENU -->
-    <div class="menu-positioning">
-      <nav class="navbar navbar-expand-lg bg-light navbar-light">
-        
-        <!-- Logo -->
-        <a class="navbar-brand" href="http://elu.dev">
-            <img src="{{ url(asset('/css/TLY_ELU.svg')) }}" alt="TLÜ ELU">
-        </a>
-        
-        <!-- Toggler/collapsibe Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- Links -->
-        <div class="collapse navbar-collapse right" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            @if (Auth::guest())
-                <li {{ setActive('projects') }} class="nav-item">
-                    <a class="nav-link" href="{{ url('/projects/open') }}">{{trans('front.search')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a>
-                </li>
-                <li {{ setActive('faq') }} class="nav-item">
-                    <a class="nav-link" href="{{ url('/faq') }}">{{trans('front.faq')}}</a>
-                </li>
-            @else
-                <li {{ setActive('projects') }} class="nav-item">
-                    <a class="nav-link" href="{{ url('/projects/open') }}">{{trans('front.search')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a>
-                </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ETTEVÕTTELE</a>
-                </li>
-                -->
-                <li {{ setActive('faq') }} class="nav-item">
-                    <a class="nav-link" href="{{ url('/faq') }}">{{trans('front.faq')}}</a>
-                </li>
-            @endif
-          </ul>
-        </div>
-        
-      </nav>
-    </div>
-    
-  </div>
-  
-  <!-- CTA BUTTONS -->
-  
-  <div class="container">
-    <!-- <div class="container-cta"> -->
-      <div class="row cta-row">     
-        <div class=" col-lg-4">
-          <div class="main-cta-block">
-            <a href="https://elu2.tlu.ee/projects/open">
-              <div class="pad">
-                <p class="cta-1">ELU</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class=" col-lg-4">
-          <div class="main-cta-block">
-            <a href="https://elu2.tlu.ee/projects/open">
-              <div class="pad">
-                <img src="../../projects.svg" height="110vw">
-                <p class="cta-2">Projektid</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class=" col-lg-4">
-          <div class="main-cta-block">
-            <a href="https://elu2.tlu.ee/projects/open">
-              <div class="pad">
-              <span class="glyphicon ico-idea"></span>
-                <img src="../../idea.svg" height="120vw">
-                <p class="cta-2">Esita idee</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- NEWS -->
-      <div class="row">     
-        <div class=" col-lg-4">
-          <div class="news-block">
-            <div class="news">
-                @if (App::getLocale() == 'et')
-                    @if(!empty($news->body_et))
-                    {!! $news->body_et !!}
-                    @endif
-                @elseif(App::getLocale() == 'en')
-                    @if(!empty($news->body_en))
-                    {!! $news->body_en !!}
-                    @endif
+    <div class="header-container">
+
+        <div class="header-navbar">
+            <nav class="navbar navbar-expand-sm right bg-light navbar-light navbar-header">
+                
+                <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
+                <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
+                @if (Auth::guest())
+                    <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
+                @else
+                    <div><a href="{{ url('/logout') }}"><button class="btn-login">{{trans('nav.logout')}}</button></a></div>
+                    <div><a href="{{ url('profile') }}"><button class="btn-login">{{trans('nav.profile')}}</button></a></div>
                 @endif
-              <div class="news-link"><a href="#">{{trans('front.news')}}</a></div>
-          </div>
+                @if (App::getLocale() == 'en')
+                    <span class="navbar-text">
+                        <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
+                    </span>
+                @elseif(App::getLocale() == 'et')
+                    <span class="navbar-text">
+                        <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
+                    </span>
+                @endif
+                
+            </nav>
         </div>
+    
+        <!-- MAIN MENU -->
+        <div class="menu-positioning">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light">
+                
+                <!-- Logo -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ url(asset('/css/TLY_ELU.svg')) }}" alt="TLÜ ELU">
+                </a>
+                
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Links -->
+                <div class="collapse navbar-collapse right" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/projects/open') }}">{{trans('front.search')}}</a>
+                        </li>
+                        @if (Auth::guest())
+                        @elseif (!Auth::guest())
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a>
+                            </li>
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">ETTEVÕTTELE</a>
+                            </li>
+                            -->
+                            @if (Auth::user()->is('admin'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/admin/all-projects') }}">Admin paneel</a>
+                                </li>
+                            @endif
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a>
+                        </li>
+                        <li {{ setActive('faq') }} class="nav-item">
+                            <a class="nav-link" href="{{ url('/faq') }}">{{trans('front.faq')}}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
         </div>
-      </div>
+    
+    </div>
+  
+    
+    <div class="container">
+
+        <!-- CTA BUTTONS -->
+        <div class="row cta-row">     
+            <div class=" col-lg-4">
+                <div class="main-cta-block">
+                    <a href="{{ url('/faq') }}">
+                        <div class="pad">
+                            <p class="cta-1">ELU</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class=" col-lg-4">
+                <div class="main-cta-block">
+                    <a href="{{ url('/projects/open') }}">
+                        <div class="pad">
+                            <img src="../../projects.svg" height="110vw">
+                            <p class="cta-2">Projektid</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class=" col-lg-4">
+                <div class="main-cta-block">
+                    @if (Auth::guest())
+                    <a href="{{ url('/login/choose') }}">
+                    @else
+                        @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+                        <a href="{{ url('/student/project/new') }}">
+                        @elseif(Auth::user()->is('oppejoud'))
+                        <a href="{{ url('/project/new') }}">
+                        @elseif(Auth::user()->is('admin'))
+                        <a href="{{ url('/project/new') }}">
+                        @else
+                        <a href="{{ url('/login/choose') }}">
+                        @endif
+                    @endif
+                        <div class="pad">
+                            <span class="glyphicon ico-idea"></span>
+                            <img src="../../idea.svg" height="120vw">
+                            <p class="cta-2">Esita idee</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+      
+        <!-- NEWS -->
+        <div class="row">     
+            <div class=" col-lg-4">
+                <div class="news-block" style="overflow:auto;">
+                    <div class="news">
+                        @if (App::getLocale() == 'et')
+                            @if(!empty($news->body_et))
+                            {!! $news->body_et !!}
+                            @endif
+                        @elseif(App::getLocale() == 'en')
+                            @if(!empty($news->body_en))
+                            {!! $news->body_en !!}
+                            @endif
+                        @endif
+                        <!--
+                        <div class="news-link"><a href="#">{{trans('front.news')}}</a></div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
-  </body>
+</body>
 
 
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav menu01">
-
                     @if (!Auth::guest())
                         @if (Auth::user()->is('oppejoud'))
-
-                            @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @elseif(App::getLocale() == 'et')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
-
                             <li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>
-
-                            {{--
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> {{trans('front.add')}} <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url('/project/new?lang=et') }}">Eesti keeles</a></li>
-                                    <li><a href="{{ url('/project/new?lang=en') }}">In english</a></li>
-                                </ul>
-                            </li>
-                            --}}
                         @endif
-
                         @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
-
-                            <!-- Same as for the teacher, but putting it here, so when there come different materials for teachers and students, it's ready for a change. -->
-                            @if (App::getLocale() == 'en')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @elseif(App::getLocale() == 'et')
-                                <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
-
                             <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif
-
                     @endif
-
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav menu01 navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-
-                        <li {{ setActive('login') }}>
-                            <p class="navbar-btn">
-                                <a href="{{ url('/login/choose') }}" class="btn btn-default">{{trans('nav.login')}}</a>
-                            </p>
-                        </li>
-                        {{--<li><a href="{{ url('/register') }}">Lisa Konto</a></li>--}}
-                    @else
+                    @if (!Auth::guest())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }}

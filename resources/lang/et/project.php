@@ -123,6 +123,7 @@ return [
     'new_group_name' => 'Rühma nimi',
     'project_groups' => 'Projekti rühmad',
     'finish_project_button' => 'Lõpeta projekt',
+    'finish_project_submenu' => 'Vormista lõpparuanne',
     'summary_title' => 'Kokkuvõtted',
     'group_members' => 'Rühma liikmed',
     //kustutada

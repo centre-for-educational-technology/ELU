@@ -137,8 +137,10 @@
                 <div class="main-cta-block">
                     <a href="{{ url('/projects/open') }}">
                         <div class="pad">
-                            <img src="../../projects.svg" height="110vw">
-                            <p class="cta-2">Projektid</p>
+                            <p class="cta-2">
+                                <img src="{{ url(asset('/css/search.svg')) }}" class="big-icons" alt="search" height="110vw">
+                            </p>
+                            <p class="cta-2">{{ trans('front.all_projects') }}</p>
                         </div>
                     </a>
                 </div>
@@ -159,9 +161,10 @@
                         @endif
                     @endif
                         <div class="pad">
-                            <span class="glyphicon ico-idea"></span>
-                            <img src="../../idea.svg" height="120vw">
-                            <p class="cta-2">Esita idee</p>
+                            <p class="cta-2">
+                                <img src="{{ url(asset('/css/brain.svg')) }}" class="big-icons" alt="brain" height="120vw">
+                            </p>
+                            <p class="cta-2">{{ trans('front.i_have_idea') }}</p>
                         </div>
                     </a>
                 </div>

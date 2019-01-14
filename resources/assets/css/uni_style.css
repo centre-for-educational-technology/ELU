@@ -543,3 +543,63 @@ input+.tool-tip, textarea+.tool-tip {
   margin-bottom: 15px;
   padding-right: 0px;
 }
+
+
+.icons {
+    width: 20px;
+    cursor: pointer;
+}
+
+.smaller-icons {
+    width: 15px;
+    cursor: pointer;
+}
+
+.disabledForm {
+    opacity: 0.1 !important;
+    pointer-events: none !important;
+}
+
+html, body, .offset-to-show-pink {
+    height: 100%;
+}
+
+.life-pink-background {
+    height: 80%;
+}
+
+.nav-pills .nav-link.active {
+    color: rgba(0,0,0,.7);
+    background-color: white !important;
+    text-decoration: none !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #555555 !important;
+    border-bottom-width: 4px !important;
+
+}
+
+.nav-pills .nav-link {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    font-stretch: condensed;
+    text-transform: uppercase;
+    font-size: 20pt;
+    color: rgba(0,0,0,.5);
+    border-radius: 0;
+}
+
+.center-content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    font-stretch: condensed;
+    color: rgba(0,0,0,.5);
+}
+
+a:hover {
+    color: rgba(0,0,0,.7);
+}

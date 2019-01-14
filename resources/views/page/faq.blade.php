@@ -1,163 +1,79 @@
 @extends('layouts.app')
 
 @section('content')
-    {{--<div class="container">--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-md-10 col-md-offset-1">--}}
-                {{--<div class="panel panel-default">--}}
-                    {{--<div class="panel-heading"><h3>KKK</h3></div>--}}
-                    {{--<div class="panel-body faq">--}}
-                        {{--{!! nl2br($faq->body) !!}--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
 
-
-{{--XXX Static content--}}
     <div class="container">
         <h1>{{trans('faq.faq')}}</h1>
         <div class="row">
-            <div class="col-md-4 margt">
-                <ul class="nav menu02 nav-stacked">
-                    <li role="presentation" class="active"><a data-toggle="tab" href="#item1">{{trans('faq.what')}}</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#item2">{{trans('faq.why')}}</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#item3">{{trans('faq.when')}}</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#item4">{{trans('faq.with_who')}}</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#item5">{{trans('faq.how')}}</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#item6">{{trans('faq.which')}}</a></li>
-                </ul>
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active show" id="item1-tab" role="tab" data-toggle="pill" href="#item1" aria-controls="item1" aria-selected="true">{{trans('faq.what')}}</a>
+                    <a class="nav-link" id="item2-tab" role="tab" data-toggle="pill" href="#item2" aria-controls="item2" aria-selected="false">{{trans('faq.why')}}</a>
+                    <a class="nav-link" id="item3-tab" role="tab" data-toggle="pill" href="#item3" aria-controls="item3" aria-selected="false">{{trans('faq.when')}}</a>
+                    <a class="nav-link" id="item4-tab" role="tab" data-toggle="pill" href="#item4" aria-controls="item4" aria-selected="false">{{trans('faq.with_who')}}</a>
+                    <a class="nav-link" id="item5-tab" role="tab" data-toggle="pill" href="#item5" aria-controls="item5" aria-selected="false">{{trans('faq.how')}}</a>
+                    <a class="nav-link" id="item6-tab" role="tab" data-toggle="pill" href="#item6" aria-controls="item6" aria-selected="false">{{trans('faq.which')}}</a>
+                </div>
             </div>
-            <div class="col-md-8 margt content tab-content">
-                <div id="item1" class="tab-pane fade in active">
-                    <h2 class="h3 text-uppercase">{{trans('faq.what')}}
-                    </h2>
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
 
-                    @if (App::getLocale() == 'et')
-                        {!! $what->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $what->body_en !!}
-                    @endif
+                    <div id="item1" role="tabpanel" aria-labelledby="item1-tab" class="tab-pane show active">
+                        <h3>{{trans('faq.what')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $what->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $what->body_en !!}
+                        @endif
+                    </div>
 
-                    {{--<h3>{{trans('faq.what_table_header')}}</h3>--}}
+                    <div id="item2" role="tabpanel" aria-labelledby="item2-tab" class="tab-pane">
+                        <h3>{{trans('faq.why')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $why->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $why->body_en !!}
+                        @endif
+                    </div>
 
-                    {{--<table class="table table-bordered table-striped table-responsive what-table">--}}
-                        {{--<thead>--}}
-                        {{--<tr class="what-table-accent">--}}
-                            {{--<th colspan="2">--}}
-                                {{--{{trans('faq.what_table_before')}}--}}
-                            {{--</th>--}}
-                            {{--<th colspan="2">--}}
-                                {{--{{trans('faq.what_table_during')}}--}}
-                            {{--</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                            {{--<th>--}}
-                                {{--{{trans('faq.what_table_until_fair')}}--}}
-                            {{--</th>--}}
-                            {{--<th>--}}
-                                {{--{{trans('faq.what_table_fair')}}--}}
-                            {{--</th>--}}
-                            {{--<th>--}}
-                                {{--{{trans('faq.what_table_sem')}}--}}
-                            {{--</th>--}}
-                            {{--<th>--}}
-                                {{--{{trans('faq.what_table_until_sem')}}--}}
-                            {{--</th>--}}
-                        {{--</tr>--}}
+                    <div id="item3" role="tabpanel" aria-labelledby="item3-tab" class="tab-pane">
+                        <h3>{{trans('faq.when')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $when->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $when->body_en !!}
+                        @endif
+                    </div>
 
-                        {{--</thead>--}}
-                        {{--<tbody>--}}
-                        {{--<tr class="what-table-content">--}}
-                            {{--<td>--}}
-                                {{--<h4 class="what-table-sub-accent">{{trans('faq.what_table_preparation')}}</h4>--}}
-                                {{--<ul>--}}
-                                    {{--<li>{{trans('faq.what_table_preparation.desc')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_preparation.desc2')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_preparation.desc3')}}</li>--}}
-                                {{--</ul>--}}
-                            {{--</td>--}}
+                    <div id="item4" role="tabpanel" aria-labelledby="item4-tab" class="tab-pane">
+                        <h3>{{trans('faq.with_who')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $with_who->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $with_who->body_en !!}
+                        @endif
+                    </div>
 
-                            {{--<td>--}}
-                                {{--<h4 class="what-table-sub-accent">{{trans('faq.what_table_finding')}}</h4>--}}
-                                {{--<ul>--}}
-                                    {{--<li>{{trans('faq.what_table_finding.desc')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_finding.desc2')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_finding.desc3')}}</li>--}}
-                                    {{--<b><li>{{trans('faq.what_table_finding.desc4')}}</li></b>--}}
-                                {{--</ul>--}}
-                            {{--</td>--}}
+                    <div id="item5" role="tabpanel" aria-labelledby="item5-tab" class="tab-pane">
+                        <h3>{{trans('faq.how')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $how->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $how->body_en !!}
+                        @endif
+                    </div>
 
-                            {{--<td>--}}
-                                {{--<h4 class="what-table-sub-accent">{{trans('faq.what_table_carrying')}}</h4>--}}
-                                {{--<ul>--}}
-                                    {{--<b><li>{{trans('faq.what_table_carrying.desc')}}</li></b>--}}
-                                    {{--<li>{{trans('faq.what_table_carrying.desc2')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_carrying.desc3')}}</li>--}}
-                                    {{--<li>{{trans('faq.what_table_carrying.desc4')}}</li>--}}
-                                    {{--<b><li>{{trans('faq.what_table_carrying.desc5')}}</li></b>--}}
-                                {{--</ul>--}}
-                            {{--</td>--}}
-
-                            {{--<td>--}}
-                                {{--<h4 class="what-table-sub-accent">{{trans('faq.what_table_defining')}}</h4>--}}
-                                {{--<ul>--}}
-                                    {{--<li>{{trans('faq.what_table_defining.desc')}}</li>--}}
-                                    {{--<b><li>{{trans('faq.what_table_defining.desc2')}}</li></b>--}}
-                                    {{--<li>{{trans('faq.what_table_defining.desc3')}}</li>--}}
-                                {{--</ul>--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--</tbody>--}}
-                    {{--</table>--}}
-
+                    <div id="item6" role="tabpanel" aria-labelledby="item6-tab" class="tab-pane">
+                        <h3>{{trans('faq.which')}}</h3>
+                        @if (App::getLocale() == 'et')
+                            {!! $which->body_et !!}
+                        @elseif(App::getLocale() == 'en')
+                            {!! $which->body_en !!}
+                        @endif
+                    </div>
 
                 </div>
-                <div id="item2" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">{{trans('faq.why')}}</h2>
-                    @if (App::getLocale() == 'et')
-                        {!! $why->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $why->body_en !!}
-                    @endif
-                </div>
-                <div id="item3" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">{{trans('faq.when')}}</h2>
-                    @if (App::getLocale() == 'et')
-                        {!! $when->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $when->body_en !!}
-                    @endif
-                </div>
-                <div id="item4" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">{{trans('faq.with_who')}}</h2>
-                    @if (App::getLocale() == 'et')
-                        {!! $with_who->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $with_who->body_en !!}
-                    @endif
-                </div>
-                <div id="item5" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">{{trans('faq.how')}}</h2>
-                    @if (App::getLocale() == 'et')
-                        {!! $how->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $how->body_en !!}
-                    @endif
-                </div>
-                <div id="item6" class="tab-pane fade">
-                    <h2 class="h3 text-uppercase">{{trans('faq.which')}}</h2>
-                    @if (App::getLocale() == 'et')
-                        {!! $which->body_et !!}
-                    @elseif(App::getLocale() == 'en')
-                        {!! $which->body_en !!}
-                    @endif
-                </div>
-
             </div>
-
         </div>
-
     </div>
 @endsection

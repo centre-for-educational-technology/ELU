@@ -198,6 +198,7 @@ return [
     'new_project_saved_notification' => 'Project form saved with filled fields, availability to finish it later.',
     'project_saved_notification' => 'Project ":name_et//:name_en" saved (not submitted to reviewing).',
     'project_added_notification' => 'Project ":name_et//:name_en" submitted for reviewing, you will be contacted.',
+    'project_accepted_notification' => 'Project ":name_et//:name_en" set active.',
 		'presentation_of_results_december' => 'December/January',
 		'presentation_of_results_may' => 'May/June',
 		'changes_saved' => 'Changes saved',

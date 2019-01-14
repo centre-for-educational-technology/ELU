@@ -47,7 +47,7 @@
             <div class="col-sm-11 col-lg-10" >
                 <h1>{{trans('project.adding')}}</h1>
                 <div class="show-info-p h4">
-                    <span id="open_learning_outcomes" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom unseen"></span>{{ trans('project.about_fulfilling_expectations') }}
+                    <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
                 </div>
                 <div id="learning_outcomes" class="show-info-p p-light unseen"> {{ trans('project.expectations_to_meet_for') }}
                     <ul>
@@ -78,14 +78,14 @@
             <div class="col-sm-1 col-lg-2"></div>
             <div class="col-sm-5 col-lg-5">
                 <div class="input-element">
-                    <input type="checkbox" name="project_in_estonian" class="hidden" id="languageChoiceET" value="true" checked>
+                    <input type="checkbox" name="project_in_estonian" class="unseen" id="languageChoiceET" value="true" checked>
                     <button class="btn-check full-col" id="btnLanguageET">Eesti keel</button>
                 </div>
             </div>
             <div class="col-sm-5 col-lg-5">
                 <div class="input-element">
                 <div></div>
-                    <input type="checkbox" name="project_in_english" class="hidden" id="languageChoiceEN" value="true" checked>
+                    <input type="checkbox" name="project_in_english" class="unseen" id="languageChoiceEN" value="true" checked>
                     <button class="btn-check full-col" id="btnLanguageEN">English</button>
                 </div>
             </div>
@@ -246,7 +246,7 @@
             </div>
             <!-- Tags in English -->
             <div class="col-sm-5 col-lg-5 form_english">
-                <?php App::setLocale('et'); ?>
+                <?php App::setLocale('en'); ?>
                 <div class="input-element">
                     <label for="tags_en" class="h3 left">{{ trans('project.keywords') }} *
                         <span class="red-light unseen"></span>
@@ -432,8 +432,8 @@
                     <input type="text" class="date meeting_date_et">
                     <!-- Icons for adding/removing another Estonian meeting input field -->
                     <div class="date-tools">
-                        <span id="add_meeting_et" class="glyphicon glyphicon-plus"></span>
-                        <span id="remove_meeting_et" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_meeting_et"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                        <span id="remove_meeting_et"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
                     </div>
                     <textarea class="meeting_info_et" cols="30" rows="10"></textarea>
                     <div class="validation-error unseen">validation-error</div>
@@ -452,8 +452,8 @@
                     <input type="text" class="date meeting_date_en">
                     <!-- Icons for adding/removing another Estonian meeting input field -->
                     <div class="date-tools">
-                        <span id="add_meeting_en" class="glyphicon glyphicon-plus"></span>
-                        <span id="remove_meeting_en" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_meeting_en"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                        <span id="remove_meeting_en"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
                     </div>
                     <textarea class="meeting_info_en" cols="30" rows="10"></textarea>
                     <div class="validation-error unseen">validation-error</div>
@@ -564,8 +564,8 @@
 
                     <!-- Icons for adding/removing cosupervisor input -->
                     <div class="pull-right">
-                        <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
-                        <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
+                        <span id="add_cosupervisor"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                        <span id="remove_cosupervisor"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
                     </div>
 
                 </div>

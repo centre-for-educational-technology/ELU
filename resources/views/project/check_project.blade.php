@@ -58,14 +58,14 @@
                     <div class="col-sm-1 col-lg-2"></div>
                     <div class="col-sm-5 col-lg-5">
                         <div class="input-element">
-                            <input type="checkbox" name="project_in_estonian" class="hidden" id="languageChoiceET" value="true" checked>
+                            <input type="checkbox" name="project_in_estonian" class="unseen" id="languageChoiceET" value="true" checked>
                             <button class="btn-check full-col" id="btnLanguageET">Eesti keel</button>
                         </div>
                     </div>
                     <div class="col-sm-5 col-lg-5">
                         <div class="input-element">
                         <div></div>
-                            <input type="checkbox" name="project_in_english" class="hidden" id="languageChoiceEN" value="true" checked>
+                            <input type="checkbox" name="project_in_english" class="unseen" id="languageChoiceEN" value="true" checked>
                             <button class="btn-check full-col" id="btnLanguageEN">English</button>
                         </div>
                     </div>
@@ -82,11 +82,11 @@
 
                 <!-- Reminder about fulfilling learning outcomes -->
                 <p>
-                    <span id="open_learning_outcomes" style="display:none;" class="glyphicon glyphicon-triangle-right"></span><span id="close_learning_outcomes" class="glyphicon glyphicon-triangle-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
+                    <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
                 </p>
 
                 <!-- Course's learning outcomes  -->
-                <div id="learning_outcomes"><p>{{ trans('project.expectations_to_meet_for') }}</p>
+                <div id="learning_outcomes" class="show-info-p p-light unseen"><p>{{ trans('project.expectations_to_meet_for') }}</p>
                 <p>
                     <ul>
                         <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
@@ -574,6 +574,10 @@
                                     <textarea rows="5" style="width: 100%;" class="meeting_info_et" placeholder="{{ trans('project.meeting_additional_info') }}"></textarea>
                                 </div>
                             </div>
+                            <div class="date-tools">
+                                <span id="add_meeting_et"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                                <span id="remove_meeting_et"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
+                            </div>
                         </div>
                         <div id='other_meetings_et'>
                         </div>
@@ -624,6 +628,10 @@
                                 <div class="col-lg-7">
                                     <textarea rows="5" style="width: 100%;" class="meeting_info_en" placeholder="{{ trans('project.meeting_additional_info') }}"></textarea>
                                 </div>
+                            </div>
+                            <div class="date-tools">
+                                <span id="add_meeting_en"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                                <span id="remove_meeting_en"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
                             </div>
                         </div>
                         <div id='other_meetings_en'>
@@ -726,13 +734,14 @@
 
                     <!-- Icons for adding/removing cosupervisor input -->
                     <div class="pull-right">
-                        <span id="remove_cosupervisor" class="glyphicon glyphicon-trash"></span>
-                        <span id="add_cosupervisor" class="glyphicon glyphicon-plus"></span>
+                        <span id="add_cosupervisor"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                        <span id="remove_cosupervisor"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
                     </div>
 
                 </div>
             <!-- End of the fourth block -->
             </div>
+            <br><br><br><br><br><br><br><br><br>
 
 
             <!-- Submit options -->

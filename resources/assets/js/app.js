@@ -216,10 +216,12 @@ jQuery(document).ready(function($) {
     return false;
   });
 
-    if (document.getElementById('nav-projects').classList.contains('active-nav-item')) {
-      document.getElementById('projects-sub-nav').classList.remove('unseen');
+    if (document.getElementById('nav-projects') && document.getElementById('nav-projects').classList.contains('active-nav-item')) {
+        document.getElementById('nav-to-hide').classList.add('unseen');
+        document.getElementById('projects-sub-nav').classList.remove('unseen');
     }
-    if (document.getElementById('nav-admin').classList.contains('active-nav-item')) {
+    if (document.getElementById('nav-admin') && document.getElementById('nav-admin').classList.contains('active-nav-item')) {
+        document.getElementById('nav-to-hide').classList.add('unseen');
         document.getElementById('admin-sub-nav').classList.remove('unseen');
     }
 /*
@@ -561,12 +563,13 @@ jQuery(document).ready(function($) {
   function addTag (language) {
     newTag = document.createElement('span');
     newTag.className = 'tag left';
-    newTag.innerHTML = $('input.tags_'+language+'').val() + '<span class=\'glyphicon glyphicon-remove\'></span>';
-    $(newTag).children('span.glyphicon-remove').on('click', function () {
+    newTag.innerHTML = $('input.tags_'+language+'').val() + '<span><img src="'+window.Laravel.base_path+'/css/x.svg" class="smaller-icons" alt="delete"></span>';
+    $(newTag).children('span').on('click', function () {
       $(this).parent().remove();
     });
     $('#tags_'+language+'_output').append(newTag);
   }
+
   
 
   $('#add_meeting_et').on('click', function () {$('#other_meetings_et').append(getMeetingFieldToAdd('et'));});

@@ -114,7 +114,7 @@ body {
   }
   .cta-2 {
     font-style:italic;
-    font-size: 42pt;
+    font-size: 40pt;
   }
   .main-cta-block .pad {
     position: absolute;
@@ -162,3 +162,9 @@ body {
     text-decoration: none;
     
   }
+
+
+.big-icons {
+    width: 175px;
+    cursor: pointer;
+}

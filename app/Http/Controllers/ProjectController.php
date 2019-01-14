@@ -615,7 +615,7 @@ class ProjectController extends Controller
     
     $project->available_to_join = 0;
     $project->see_hidden_tokken = hash('sha512', $project->id);
-
+    
     
     if($request->featured_image != null){
       if($project->featured_image !=null){
@@ -639,7 +639,7 @@ class ProjectController extends Controller
     }
 
     $project->save();
-   
+
     //Attach users with teacher role    
     $teachers = $project->users()->select('id')->wherePivot('participation_role', 'author')->get();
     $teachers_ids = array();
@@ -669,7 +669,7 @@ class ProjectController extends Controller
         $project->users()->attach($different_user, ['participation_role' => 'author']);
       }
     }
-    
+
 
     $project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
 
@@ -696,12 +696,11 @@ class ProjectController extends Controller
     }
 
     $project->save();
-
     $projects = Project::whereHas('users', function($q)
     {
-      $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
+        $q->where('participation_role','LIKE','%author%')->where('id', Auth::user()->id);
     })->where('deleted', NULL)->orderBy('created_at', 'desc')->paginate(5);
-
+    
     if ($request->submit_project) {
       return \Redirect::to('teacher/my-projects')
           ->with('message', trans('project.project_added_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
@@ -710,6 +709,10 @@ class ProjectController extends Controller
       return \Redirect::to('teacher/my-projects')
           ->with('message', trans('project.project_saved_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
           ->with('projects', $projects);
+    } elseif ($request->accept_project) {
+        return \Redirect::to('admin/all-projects')
+        ->with('message', trans('project.project_accepted_notification', ['name_et' => $project->name_et, 'name_en' => $project->name_en]))
+        ->with('projects', $projects);
     }
   }
 
@@ -1788,14 +1791,14 @@ class ProjectController extends Controller
   public function indexAnalytics()
   {
 
-    $projects = Project::where('publishing_status', '=', '1')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('status', '=', '5')->orWhere('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
 
 
-    $open_projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->count();
+    $open_projects = Project::where('status', '=', '5')->where('available_to_join', '=', '1')->where('deleted', NULL)->count();
 
-    $ongoing_projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->count();
+    $ongoing_projects = Project::where('status', '=', '5')->where('available_to_join', '=', '0')->where('deleted', NULL)->count();
 
-    $finished_projects = Project::where('publishing_status', 1)->where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->count();
+    $finished_projects = Project::where('status', '=', '0')->where('deleted', NULL)->orderBy('name', 'asc')->count();
 
     return view('admin.analytics')
         ->with('projects', $projects)

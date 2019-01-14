@@ -204,6 +204,7 @@ return [
     'new_project_saved_notification' => 'Projekti ankeedi hetkeseis salvestatud, võimalus hiljem edasi täita.',
     'project_saved_notification' => 'Projekt ":name_et//:name_en" salvestatud (aga esitamata).',
     'project_added_notification' => 'Projekt ":name_et//:name_en" esitatud, teiega võetakse ühendust.',
+    'project_accepted_notification' => 'Projekt ":name_et//:name_en" avaldatud.',
 		'presentation_of_results_december' => 'detsember/jaanuar',
 		'presentation_of_results_may' => 'mai/juuni',
 		'changes_saved' => 'Muudatused on salvestatud',

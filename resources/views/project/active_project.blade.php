@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 @if(\Session::has('message'))
 
     @if(\Session::get('message')['type'] == 'joined')
@@ -404,3 +408,6 @@
     </div>
 
 </div>
+Tere!!!!!
+
+@endsection

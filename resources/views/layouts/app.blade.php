@@ -39,7 +39,7 @@
       <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
       <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
     -->
-    <link href="{{ url(asset('/css/uni_style.css?echo date(\'his\')')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style.css?asd')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -203,8 +203,18 @@
             </nav>
 
         
-        <!-------- PROJECT SUBMENU -------->
+        
+            <!-------- SUBMENU FOR SMOOTH PAGE TRANSITIONS -------->
 
+            <nav id="nav-to-hide" class="navbar navbar-expand-lg bg-dark navbar-dark" >
+                <ul class="navbar-nav sub-navbar">
+                    <li class="nav-item">
+                        <a class="nav-link sub-nav-link" style="visibility:hidden;" href="#">{{ trans('front.add') }}</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-------- PROJECT SUBMENU -------->
 
             <nav id="projects-sub-nav" class="navbar navbar-expand-lg bg-dark navbar-dark unseen" >
                 
@@ -265,6 +275,7 @@
             @yield('content')
 
             @yield('footer-scripts')
+            <br><br><br>
             @include('layouts.footer')
         </div>
     </div>

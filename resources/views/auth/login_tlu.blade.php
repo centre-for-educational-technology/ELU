@@ -6,7 +6,7 @@
             <a href="{{ url('/login/tlu') }}"><input type="submit" class="submit-form" value="{{ trans('login.login_tlu_button') }}"></a>
         </div>
         <div style="text-align: center;">
-            <h5><a href="{{ url('login') }}">{{trans('login.no_tlu_button')}}</a></h5>
+            <h5><a class="mpci" href="{{ url('login') }}">{{trans('login.no_tlu_button')}}</a></h5>
         </div>
     </div>
 

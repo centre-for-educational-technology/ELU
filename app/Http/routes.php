@@ -370,11 +370,11 @@ Route::group(['middleware' =>['web']], function () {
         Route::group(['middleware' => ['superadmin']], function () {
 
           //Activity log summary
-          Route::get('admin/log', 'AdminController@getActivityLogItems');
+          Route::get('superadmin/log', 'AdminController@getActivityLogItems');
 
 
 	        //Update courses
-	        Route::get('admin/courses/update', function () {
+	        Route::get('superadmin/courses/update', function () {
 		        return view('admin.update_courses');
 	        });
 

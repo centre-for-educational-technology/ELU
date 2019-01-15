@@ -1,0 +1,156 @@
+/* MINION PRO FONTS START */
+@font-face {
+    font-family: 'Minion Pro';
+    font-stretch: condensed;
+    font-style: italic;
+    src: url('../fonts/MinionPro\ CnItDisp.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    src: url('../fonts/MinionPro\ It.otf') format("opentype");
+}
+/* MINION PRO FONTS END */
+
+
+
+
+
+/* MAIN MENU START */
+.bg-light {
+    background-color: white !important;
+}
+.navbar {
+    padding: 0rem 0rem !important;
+}
+.navbar-brand {
+    margin-left: 2%;
+    padding: .8rem .1rem;
+}
+.navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.9);
+    border-style: none;
+}
+.navbar-nav {
+    margin-right: 5%;
+}
+.nav-item, .active-nav-item {
+    font-family: 'Minion Pro';
+    font-style:italic;
+    text-transform: uppercase;
+    font-size: 15pt;
+    color: #011627;
+    padding-left: 20px;
+}
+.nav-link {
+    padding-bottom: 0px;
+}
+.navbar-nav>li>a {
+    text-decoration: none;
+    border-bottom-style: solid; 
+    border-bottom-color: white;
+    border-bottom-width: 4px;
+}
+.navbar-nav>li>a:focus, .navbar-nav>li>a:hover {
+    text-decoration: none;
+    border-bottom-style: solid; 
+    border-bottom-color: #555555;
+    border-bottom-width: 4px;
+}
+.active>a, .active-nav-item>a {
+    text-decoration: none !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #555555 !important;
+    border-bottom-width: 4px !important;
+}
+/* MAIN MENU END */
+
+
+
+
+
+/* HEADER START */
+.navbar-role {
+    height: 30px;
+    background: #D4D4D4;
+    border-radius: 20px;
+    padding: 2px 12px 0 12px;
+}
+.navbar-name {
+    height: 30px;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding: 2px 12px 0 12px;
+    color: white;
+    background-color: #011627;
+    font-size: 14px;
+    border-style: none;
+}
+.header-navbar {
+    margin-right: 5%;
+    padding: .3rem .5rem 0rem .5rem !important; 
+}
+.navbar-header {
+    padding: 0rem .5rem !important;
+}
+.btn-login {
+    height: 40px;
+    border-radius: 30px;
+    margin: 0px 30px;
+    padding: 2px 45px;
+    color: white;
+    background-color: #011627;
+    font-size: 14px;
+    border-style: none;
+}
+.sm-link>a>img {
+    height: 20px;
+    padding-left: 20px;
+}
+/* HEADER END */
+
+
+
+
+
+/* NAVBAR POSOTIONING START */
+.navbar-left-padding {
+    padding: 0rem 2.5rem !important;
+}
+.navbar-left {
+    justify-content: flex-start;
+}
+.navbar-right {
+    justify-content: flex-end;
+}
+.header-container {
+    background-color: white;
+}
+.center {
+    justify-content: center;
+}
+.menu-positioning{
+    width: 100% !important;
+}
+/* NAVBAR POSOTIONING END */
+
+
+
+
+
+/* LINK STYLING START */
+a.mpci {
+    font-family: 'Minion Pro';
+    font-style: italic;
+    font-stretch: condensed;
+    color: rgba(0,0,0,.5);
+}
+a.nav-link {
+    font-stretch: normal;
+    font-weight: 400;
+}
+a:hover {
+    color: rgba(0,0,0,.7);
+}
+/* LINK STYLING START */

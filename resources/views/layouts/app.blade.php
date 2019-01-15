@@ -39,7 +39,8 @@
       <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
       <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
     -->
-    <link href="{{ url(asset('/css/uni_style.css?asd')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style_common.css')) }}" rel="stylesheet">
+    <link href="{{ url(asset('/css/uni_style.css')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -130,26 +131,56 @@
     <div class="header-container">
         <!-- HEADER -->
         <div class="header-navbar">
-            <nav class="navbar navbar-expand-sm navbar-right bg-light navbar-light navbar-header">
-                <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
-                <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
-                @if (Auth::guest())
-                    <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
-                @else
-                    <div><a href="{{ url('/logout') }}"><button class="btn-login">{{trans('nav.logout')}}</button></a></div>
-                    <div><a href="{{ url('profile') }}"><button class="btn-login">{{trans('nav.profile')}}</button></a></div>
-                @endif
-                @if (App::getLocale() == 'en')
-                    <span class="navbar-text">
-                        <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
-                    </span>
-                @elseif(App::getLocale() == 'et')
-                    <span class="navbar-text">
-                        <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
-                    </span>
-                @endif
-                
-            </nav> 
+            <div class="row">
+                <nav class="col-6 navbar navbar-expand-sm navbar-left bg-light navbar-light navbar-header navbar-left-padding">
+
+                    <div class="navbar-left">
+                        @if (!Auth::guest())
+                            <span class="navbar-name">{{ Auth::user()->name }}</span>
+
+                            @if (Auth::user()->is('oppejoud'))
+                                <span class="navbar-role">{{trans('nav.oppejoud')}}</span>
+                            @endif
+
+                            @if (Auth::user()->is('student'))
+                                <span class="navbar-role">{{trans('nav.student')}}</span>
+                            @endif
+
+                            @if (Auth::user()->is('admin'))
+                                <span class="navbar-role">{{trans('nav.admin')}}</span>
+                            @endif
+
+                            @if (Auth::user()->is('superadmin'))
+                                <span class="navbar-role">{{trans('nav.superadmin')}}</span>
+                            @endif
+
+                            @if (Auth::user()->is('project_moderator'))
+                                <span class="navbar-role">{{trans('nav.project_moderator')}}</span>
+                            @endif
+                        @endif
+                    </div>
+                </nav>
+                <nav class="col-6 navbar navbar-expand-sm navbar-right bg-light navbar-light navbar-header">
+                    <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/youtube.svg')) }}" alt="youtube"></a></div>
+                    <div class="sm-link"><a href="#"><img src="{{ url(asset('/css/facebook.svg')) }}" alt="facebook"></a></div>
+                    @if (Auth::guest())
+                        <div><a href="{{ url('/login/choose') }}"><button class="btn-login">{{trans('nav.login')}}</button></a></div>
+                    @else
+                        <div><a href="{{ url('/logout') }}"><button class="btn-login">{{trans('nav.logout')}}</button></a></div>
+                        <div><a href="{{ url('profile') }}"><button class="btn-login">{{trans('nav.profile')}}</button></a></div>
+                    @endif
+                    @if (App::getLocale() == 'en')
+                        <span class="navbar-text">
+                            <a href="{{ route('lang.switch', 'et') }}" label="choose language ET">eesti</a>
+                        </span>
+                    @elseif(App::getLocale() == 'et')
+                        <span class="navbar-text">
+                            <a href="{{ route('lang.switch', 'en') }}" label="choose language EN">english</a>
+                        </span>
+                    @endif
+                    
+                </nav> 
+            </div>
         </div>
 
         <!-- MAIN MENU -->
@@ -188,6 +219,11 @@
                             @if (Auth::user()->is('admin'))
                                 <li {{ setActive('admin') }} {{ setActive('news/') }} {{ setActive('faq/') }} id="nav-admin" class="nav-item">
                                     <a class="nav-link" href="{{ url('/admin/all-projects') }}">Admin paneel</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->is('superadmin'))
+                                <li {{ setActive('superadmin') }} id="nav-superadmin" class="nav-item">
+                                    <a class="nav-link" href="{{ url('/superadmin/log') }}">Superadmin paneel</a>
                                 </li>
                             @endif
                         @endif
@@ -235,7 +271,7 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a {{ setActive('projects') }} class="nav-link sub-nav-link" href="{{ url('projects/open') }}">{{ trans('nav.my_projects_student') }}</a>
+                                <a class="nav-link sub-nav-link" href="{{ url('projects/open') }}">{{ trans('nav.my_projects_student') }}</a>
                             </li>
                         @endif
                         @if (Auth::user()->isMemberOfProject()['id'])
@@ -243,13 +279,14 @@
                                 <a class="nav-link sub-nav-link" href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']).'/finish' }}">{{ trans('project.finish_project_submenu') }}</a>
                             </li>
                         @endif
+                    @else
                     @endif
                     
                 </ul>
                 
             </nav>
 
-            <nav id="admin-sub-nav" class="navbar navbar-expand-lg bg-dark navbar-dark unseen" >
+            <nav id="admin-sub-nav" class="navbar navbar-expand-lg bg-dark navbar-dark unseen">
                 
                 <!-- Links -->
                 <ul class="navbar-nav sub-navbar">
@@ -266,6 +303,14 @@
                 
             </nav>
 
+            <nav id="superadmin-sub-nav" class="navbar navbar-expand-lg bg-dark navbar-dark unseen">
+                <!-- Links -->
+                <ul class="navbar-nav sub-navbar">
+                    <li class="nav-item"><a {{ setActiveSubNav('superadmin/log') }} class="nav-link sub-nav-link" href="{{ url('superadmin/log') }}">Activity log</a></li>
+                    <li class="nav-item"><a {{ setActiveSubNav('superadmin/courses/update') }} class="nav-link sub-nav-link" href="{{ url('superadmin/courses/update') }}">Kursuste uuendamine</a></li>
+                </ul>
+            </nav>
+
         </div>
         
     </div>
@@ -275,7 +320,7 @@
             @yield('content')
 
             @yield('footer-scripts')
-            <br><br><br>
+            <div class="space-for-footer"><br><br><br></div>
             @include('layouts.footer')
         </div>
     </div>

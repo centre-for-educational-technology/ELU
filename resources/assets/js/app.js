@@ -224,6 +224,10 @@ jQuery(document).ready(function($) {
         document.getElementById('nav-to-hide').classList.add('unseen');
         document.getElementById('admin-sub-nav').classList.remove('unseen');
     }
+    if (document.getElementById('nav-superadmin') && document.getElementById('nav-superadmin').classList.contains('active-nav-item')) {
+        document.getElementById('nav-to-hide').classList.add('unseen');
+        document.getElementById('superadmin-sub-nav').classList.remove('unseen');
+    }
 /*
 */
 

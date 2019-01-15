@@ -70,7 +70,7 @@
 
                 <tr>
                     <td>
-                        <a href="{{ url('/password/reset') }}">{{trans('login.forgot_password')}}</a>
+                        <a class="mpci" href="{{ url('/password/reset') }}">{{trans('login.forgot_password')}}</a>
                     </td>
                 </tr>
             </table>

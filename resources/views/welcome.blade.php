@@ -173,7 +173,7 @@
                     <a href="{{ url('/projects/open') }}">
                         <div class="pad">
                             <p class="cta-2">
-                                <img src="{{ url(asset('/css/search.svg')) }}" class="big-icons" alt="search" height="110vw">
+                                <img src="{{ url(asset('/css/projects.svg')) }}" class="big-icons" alt="search" height="110vw">
                             </p>
                             <p class="cta-2">{{ trans('front.all_projects') }}</p>
                         </div>
@@ -197,7 +197,7 @@
                     @endif
                         <div class="pad">
                             <p class="cta-2">
-                                <img src="{{ url(asset('/css/brain.svg')) }}" class="big-icons" alt="brain" height="120vw">
+                                <img src="{{ url(asset('/css/idea.svg')) }}" class="big-icons" alt="brain" height="120vw">
                             </p>
                             <p class="cta-2">{{ trans('front.i_have_idea') }}</p>
                         </div>

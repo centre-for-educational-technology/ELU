@@ -256,15 +256,18 @@
                 
                 <!-- Links -->
                 <ul class="navbar-nav sub-navbar">
-                    <li class="nav-item">
-                        <a {{ setActiveSubNav('project/new') }} class="nav-link sub-nav-link" href="{{ url('/project/new') }}">{{ trans('front.add') }}</a>
-                    </li>
                     @if (Auth::guest())
                     @elseif (Auth::user()->is('oppejoud'))
+                        <li class="nav-item">
+                            <a {{ setActiveSubNav('project/new') }} class="nav-link sub-nav-link" href="{{ url('/project/new') }}">{{ trans('front.add') }}</a>
+                        </li>
                         <li class="nav-item">
                             <a {{ setActiveSubNav('teacher/my-projects') }} class="nav-link sub-nav-link" href="{{ url('teacher/my-projects') }}">{{ trans('nav.my_projects_teacher') }}</a>
                         </li>
                     @elseif (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+                        <li class="nav-item">
+                            <a {{ setActiveSubNav('student/project/new') }} class="nav-link sub-nav-link" href="{{ url('/project/new') }}">{{ trans('front.add') }}</a>
+                        </li>
                         @if (Auth::user()->isMemberOfProject()['id'])
                             <li class="nav-item">
                                 <a {{ setActiveSubNav('student/my-projects') }} class="nav-link sub-nav-link" href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}">{{ trans('nav.my_projects_student') }}</a>

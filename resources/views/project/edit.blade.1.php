@@ -11,7 +11,6 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                {{--
                     @if($current_project->submitted_by_student == 1)
 
                         @if($current_project->requires_review == 1)
@@ -24,7 +23,7 @@
                         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
                     @endif
 
-                --}}
+
 
                 </div>
 
@@ -38,25 +37,9 @@
                     {{ csrf_field() }}
 
                     <div class="row">
-                <!-- Reminder about fulfilling learning outcomes -->
-                    <div class="col-sm-1 col-lg-2"> </div>
-                    <div class="col-sm-11 col-lg-10" >
-                        <h1>{{trans('project.edit')}}</h1>
-                        <div class="show-info-p h4">
-                            <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
-                        </div>
-                        <div id="learning_outcomes" class="show-info-p p-light unseen"> {{ trans('project.expectations_to_meet_for') }}
-                            <ul>
-                                <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
+            <div class=col-lg-6>
+                <!-- Description about project language selection -->
+                <p></p>
 
                 <!-- Project language selection -->
                 <div class="row form-row">
@@ -86,81 +69,153 @@
                         </div>
                     </div>
                 </div>
-                
+                <!--
+                <div class="col-lg-12 panel panel-heading">
+                    <p>
+                        {{ trans('project.active_language_selection') }}
+                    </p>
+                    <span id="languageChoiceET"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
+                    <span id="languageChoiceEN"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
+                </div>
+                -->
+
+                <!-- Reminder about fulfilling learning outcomes -->
+                <p>
+                    <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
+                </p>
+
+                <!-- Course's learning outcomes  -->
+                <div id="learning_outcomes" class="show-info-p p-light unseen"><p>{{ trans('project.expectations_to_meet_for') }}</p>
+                <p>
+                    <ul>
+                        <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
+                    </ul>
+                </p>
+                </div>
+
+            </div>
+            <div class=col-lg-6>
+                <!-- General comments about the project from LIFE coordinators -->
+                <p></p>
+            </div>
+            </div>
 
             <?php $startingLanguage = App::getLocale(); ?>
             <!-- Start of the first block -->
             <div class="col-lg-12 panel panel-heading">
 
-                <!-- PROJECT NAME -->
-                <div class="row form-row">
-                    <div class="col-sm-1 col-lg-2"></div>
-                    <!-- Project name in Estonian -->
-                    <div class="col-sm-5 col-lg-5 form_estonian">
-                        <?php App::setLocale('et'); ?>
-                        <div class="input-element form-group">
-                            <label class="h3 left">{{ trans('project.name') }} *
-                                <span class="tooltiptext">{{ trans('project.name_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project name input in Estonian -->
-                            <input type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}" class="input-field form-control">
-                            <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
-                        </div>
-                    </div>
-                    <!-- Project name in English -->
-                    <div class="col-sm-5 col-lg-5 form_english">
-                        <?php App::setLocale('en'); ?>
-                        <div class="input-element">
-                            <label class="h3 left">{{ trans('project.name') }} *
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project name input in English -->
-                            <input type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}" class="input-field">
-                            <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
-                        </div>
-                    </div>
-                
+        <!-- PROJECT NAME -->
+        <div class="row form-row">
+            <div class="col-sm-1 col-lg-2"></div>
+            <!-- Project name in Estonian -->
+            <div class="col-sm-5 col-lg-5 form_estonian">
+                <?php App::setLocale('et'); ?>
+                <div class="input-element form-group">
+                    <label class="h3 left">{{ trans('project.name') }} *
+                        <span class="tooltiptext">{{ trans('project.name_hover') }}</span>
+                        <span class="red-light unseen"></span>
+                    </label>
+                    <!-- Project name input in Estonian -->
+                    <input type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}" class="input-field form-control">
+                    <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
+                    <div class="validation-error unseen">validation-error</div>
                 </div>
+            </div>
+            <!-- Project name in English -->
+            <div class="col-sm-5 col-lg-5 form_english">
+                <?php App::setLocale('en'); ?>
+                <div class="input-element">
+                    <label class="h3 left">{{ trans('project.name') }} *
+                        <span class="red-light unseen"></span>
+                    </label>
+                    <!-- Project name input in English -->
+                    <input type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}" class="input-field">
+                    <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
+                    <div class="validation-error unseen">validation-error</div>
+                </div>
+            </div>
+        
+        </div>
+                <!-- PROJECT NAME -->
+                <!-- Project name in Estonian -->
+                <!-- Project name input in Estonian -->
+                <!-- Comment for name in Estonian -->
+                <!--
+                <div class="col-lg-12">
 
+
+                    <div class="col-lg-6 form_estonian">
+                        <?php App::setLocale('et'); ?>
+                        <div class="form-group">
+                            <p><label for="name_et">{{ trans('project.name') }} *</label></p>
+                            <input class="form-control" type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}">
+                        </div>
+
+                        <div id="comment_name_et"></div>
+
+                    </div>
+
+                    <div class="col-lg-6 form_english">
+                        
+                        <?php App::setLocale('en'); ?>
+                        <div class="form-group">
+                            <p><label for="name_en">{{ trans('project.name') }} *</label></p>
+                            <input class="form-control" type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}">
+                        </div>
+                        
+                        <div id="comment_name_en"></div>
+                        
+                    </div>
+                </div>
+            -->
+            <!-- Comment for name in English -->
+            <!-- Project name input in English -->
+                <!-- Project name in English -->
+                
 
                 <!-- DESCRIPTION -->
-                <div class="row form-row">
-                    <div class="col-sm-1 col-lg-2"></div>
+                <div class="col-lg-12">
+
                     <!-- Project description in Estonian -->
-                    <div class="col-sm-5 col-lg-5 form_estonian">
+                    <div class="col-lg-6 form_estonian">
+
+                        <!-- Project description input in Estonian -->
                         <?php App::setLocale('et'); ?>
-                        <div class="input-element">
-                            <label for="description_et" class="h3 left">{{ trans('project.description') }} *
-                                <span class="tooltiptext">{{ trans('project.description_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project description input in Estonian -->
-                            <textarea id="description_et" name="description_et" cols="30" rows="10">{!! (empty(old('description_et')) ? $current_project->description_et :  old('description_et')) !!}</textarea>
-                            <div class="tool-tip">{{ trans('project.description_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
+                        <div class="form-group">
+                            <p><label for="description_et">
+                                {{ trans('project.description') }} *
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
+                            </label></p>
+                            <textarea class="mceSimple" id="description_et" name="description_et">{!! (empty(old('description_et')) ? $current_project->description_et :  old('description_et')) !!}</textarea>
                         </div>
+
+                        <!-- Comment for description in Estonian -->
+                        <div id="comment_description_et"></div>
+
                     </div>
+
                     <!-- Project description in English -->
-                    <div class="col-sm-5 col-lg-5 form_english" > 
+                    <div class="col-lg-6 form_english">
+
+                        <!-- Project description input in English -->
                         <?php App::setLocale('en'); ?>
-                        <div class="input-element">
-                            <label for="description_en" class="h3 left">{{ trans('project.description') }} *
-                                <span class="tooltiptext">{{ trans('project.description_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project description input in English -->
-                            <textarea id="description_en" name="description_en" cols="30" rows="10">{!! (empty(old('description_en')) ? $current_project->description_en :  old('description_en')) !!}</textarea>
-                            <div class="tool-tip">{{ trans('project.description_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
+                        <div class="form-group">
+                            <p><label for="description_en">
+                                {{ trans('project.description') }} *
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
+                            </label></p>
+                            <textarea class="mceSimple" id="description_en" name="description_en">{!! (empty(old('description_en')) ? $current_project->description_en :  old('description_en')) !!}</textarea>
                         </div>
+
+                        <!-- Comment for description in English -->
+                        <div id="comment_description_en"></div>
+
                     </div>
                 </div>
-
-
-<!-- Pooleli -->
 
 
                 <!-- PROJECT OUTCOME -->

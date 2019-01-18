@@ -242,5 +242,7 @@ return [
     'status_active' => 'Aktiivne',
     'final_view' => 'Vaata üle',
     'to_project' => 'Vaata',
+    //
+    'all' => 'Projektid',
   ];
   

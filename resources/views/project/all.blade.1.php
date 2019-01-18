@@ -1,0 +1,524 @@
+@if (count($projects) > 0)
+    <div class="row">
+        <div class="col-md-4 margt">
+            <ul class="nav menu02 menu02b nav-stacked">
+                @foreach($projects as $index =>$project)
+
+                    @if($index == 0)
+                        @if ($project->languages == 'et')
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
+                        @elseif ($project->languages == 'en')
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @else
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#project{{$index}}">{{ $project->name_et }} // {{ $project->name_en }}</a></li>
+                        @endif
+                    @else
+                        @if ($project->languages == 'et')
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_et}}</a></li>
+                        @elseif ($project->languages == 'en')
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{$project->name_en}}</a></li>
+                        @else
+                            <li role="presentation"><a data-toggle="tab" href="#project{{$index}}">{{ $project->name_et }} // {{ $project->name_en }}</a></li>
+                        @endif
+                    @endif
+                @endforeach
+
+            </ul>
+
+
+            <div class="row">
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Dropdown: <span class="selected"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        vali keel
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">inglise keel</a>
+                        <a class="dropdown-item" href="#">eesti keel</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Staatus
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Tagasi lükatud</a>
+                        <a class="dropdown-item" href="#">Link 2</a>
+                        <a class="dropdown-item" href="#">Link 3</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <table class="table">
+                <tr>
+                    <th class="jrk">#</th>
+                    <th class="nimi">Projekti nimi</th>
+                    <th class="kohti"><!--Kohti--></th>
+                </tr>
+                @php
+                    $project_index=1;
+                @endphp
+                @foreach($projects as $index =>$project)
+                    <tr>
+                        <td>{{ $project_index }}</td>
+                        <td>
+                            <div class="container">
+                                @if ($project->languages == 'et')
+                                    <h5><a href="{{ url('/project/'.$project->id) }}">{{$project->name_et}}</a></h5>
+                                @elseif ($project->languages == 'en')
+                                    <h5><a href="{{ url('/project/'.$project->id) }}">{{$project->name_en}}</a></h5>
+                                @else
+                                    <h5><a href="{{ url('/project/'.$project->id) }}">{{ $project->name_et }} // {{ $project->name_en }}</a><h5>
+                                @endif
+                                <!--
+                                <span data-toggle="collapse" data-target="#demo">Loe rohkem>></span>
+                                <div id="demo" class="collapse">
+                                    <div class="btn-group">
+                                        <button><a href="#">Otsi sarnaseid projekte</a></button>
+                                    </div>
+                                    <div class="tag-group">
+                                        <div class="tag-search">tag</div>
+                                        <div class="tag-search">taaaaaaaaaaaag</div>
+                                        <div class="tag-search">taaaaaaaaaaaag</div>
+                                        <div class="tag-search">taaaaaaaaaaaag</div>
+                                    </div>
+                                -->
+                                </div>
+                            </div>
+                        </td>
+                        <td><!--3--></td>
+                    </tr>
+                    @php
+                        $project_index += 1;
+                    @endphp
+                @endforeach
+            </table>
+
+
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {{ $projects->links() }}
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-8 margt content tab-content">
+            @foreach($projects as $index =>$project)
+
+                @if($index == 0)
+                    <div id="project{{$index}}" class="tab-pane fade in active">
+                @else
+                    <div id="project{{$index}}" class="tab-pane fade">
+                @endif
+
+                    @if ($project->languages == 'et')
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }}  <i class="fa fa-external-link title-link"></i></h2></a>
+                    @elseif ($project->languages == 'en')
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_en }}  <i class="fa fa-external-link title-link"></i></h2></a>
+                    @else
+                        <a href="{{url('project/'.$project->id)}}" target="_blank"><h2>{{ $project->name_et }} // {{ $project->name_en }}  <i class="fa fa-external-link title-link"></i></h2></a>
+                    @endif
+                    
+
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="form-group nomargin">
+                                <p><input class="form-control" name="share_url" title="Share link" value="{{url('project/'.$project->id)}}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!empty($project->featured_image))
+                        <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$project->featured_image)}}"></p>
+                    @endif
+
+                    @if (!empty($project->featured_video_link))
+                        <div class="embed-responsive embed-responsive-16by9">
+                            {!! $project->featured_video_link !!}
+                        </div>
+                    @endif
+
+
+                    <h3>{{trans('project.description')}}</h3>
+                    @if ($project->languages == 'et')
+                        <p>{!! $project->description_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->description_en !!}</p>
+                    @else
+                        <p>{!! $project->description_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->description_en !!}</p>
+                    @endif
+
+
+                    <h3>{{trans('project.interdisciplinary_desc')}}</h3>
+                    @if ($project->languages == 'et')
+                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->interdisciplinary_approach_en !!}</p>
+                    @else
+                        <p>{!! $project->interdisciplinary_approach_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->interdisciplinary_approach_en !!}</p>
+                    @endif
+
+
+                    <h3>{{trans('project.outcomes')}}</h3>
+                    @if ($project->languages == 'et')
+                        <p>{!! $project->project_outcomes_et !!}</p>
+                    @elseif ($project->languages == 'en')
+                        <p>{!! $project->project_outcomes_en !!}</p>
+                    @else
+                        <p>{!! $project->project_outcomes_et !!}</p>
+                        <p>//</p>
+                        <p>{!! $project->project_outcomes_en !!}</p>
+                    @endif
+
+                    <div class="row mt2em">
+
+                        <div class="col-md-6">
+
+                            @if(!empty($project->meeting_info))
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
+                                <p>{{$project->meeting_info}}</p>
+                            @endif
+
+                            <h3><span class="glyphicon ico-target"></span>{{trans('project.language')}}</h3>
+                            @if ( $project->languages == 'et' )
+                                <p>Eesti</p>
+                            @elseif ( $project->languages == 'en' )
+                                <p>English</p>
+                            @else
+                                <p>Eesti</p>
+                                <p>English</p>
+                            @endif
+
+
+                            <h3><span class="glyphicon ico-duration"></span>{{trans('project.duration')}}</h3>
+                            <ul class="list-unstyled list01">
+                                @if ( $project->study_term == 0 )
+                                    <li>{{trans('project.autumn_semester')}}</li>
+                                @elseif ( $project->study_term == 1 )
+                                    <li>{{trans('project.spring_semester')}}</li>
+                                @elseif ( $project->study_term == 2 )
+                                    <li>{{trans('project.autumn_spring')}}</li>
+                                @elseif ( $project->study_term == 3 )
+                                    <li>{{trans('project.spring_autumn')}}</li>
+                                @endif
+
+                                <p>{{$project->project_year}}</p>
+
+                            </ul>
+
+                            @if (!empty($project->meeting_dates))
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meetings_dates')}}</h3>
+                                @if($project->meeting_dates == 'NONE')
+                                    <p>{{trans('project.to_be_arranged')}}</p>
+                                @else
+                                    <p>{{$project->meeting_dates}}</p>
+                                @endif
+
+                            @endif
+
+
+                            @if ( $project->languages == 'et' )
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                                @foreach (json_decode($project->meetings_et) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @elseif ( $project->languages == 'en' )
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates')}}</h3>
+                                @foreach (json_decode($project->meetings_en) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @else
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_et')}}</h3>
+                                @foreach (json_decode($project->meetings_et) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                                <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_dates_en')}}</h3>
+                                @foreach (json_decode($project->meetings_en) as $meeting)
+                                    <p>{{$meeting[0]}} - {{$meeting[1]}}</p>
+                                @endforeach
+                            @endif
+
+
+                            @if (!empty($project->presentation_results))
+                                <h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>
+                                @if($project->presentation_results == 0)
+                                    <p>{{trans('project.presentation_of_results_december')}}</p>
+                                @else
+                                    <p>{{trans('project.presentation_of_results_may')}}</p>
+                                @endif
+                            @endif
+
+
+                            @if (!empty($project->evaluation_date_id))
+                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
+                                <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
+                            @endif
+
+
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+
+
+                            @if ( $project->languages == 'et' && !empty($project->additional_info_et))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                                <p>{{$project->additional_info_et}}</p>
+                            @elseif ( $project->languages == 'en' && !empty($project->additional_info_en))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                                <p>{{$project->additional_info_en}}</p>
+                            @else
+                                @if (!empty($project->additional_info_et))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_et')}}</h3>
+                                <p>{{$project->additional_info_et}}</p>
+                                @endif
+                                @if (!empty($project->additional_info_en))
+                                <h3><span class="glyphicon ico-labyrinth"></span>{{trans('project.extra_info_en')}}</h3>
+                                <p>{{$project->additional_info_en}}</p>
+                                @endif
+                            @endif
+
+
+
+                            <h3><span class="glyphicon ico-mentor"></span>{{trans('project.supervisor')}}</h3>
+                            <ul class="list-unstyled list01 tags">
+                                <li><span class="label label-primary">{{ getUserName(getUserById($project->supervisor)) }} ({{ getUserEmail(getUserById($project->supervisor)) }})</span></li>
+                            </ul>
+
+
+
+                            @if(!empty($project->co_supervisors))
+
+                                <h3><span class="glyphicon ico-mentor"></span>{{trans('project.cosupervisor')}}</h3>
+                                <ul class="list-unstyled list01 tags">
+                                @foreach (json_decode($project->co_supervisors) as $co_supervisor)
+                                    <li><span class="label label-primary">{{ getUserName(getUserById($co_supervisor)) }} ({{ getUserEmail(getUserById($co_supervisor)) }})</span></li>
+                                @endforeach
+                                </ul>
+
+                            @endif
+
+
+
+                            <h3><span class="glyphicon ico-tag"></span>{{trans('project.keywords')}}</h3>
+                            <ul class="list-unstyled list01 tags keywords">
+                                @foreach (explode(',', $project->tags_et) as $tag)
+                                    <li><span class="label label-primary">{{ $tag }}</span></li>
+                                @endforeach
+                            </ul>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <h3><span class="glyphicon ico-inspire"></span>{{trans('search.join')}}</h3>
+                    @if(empty($isStudentMyProjectsView))
+                    {{--Check for join deadline--}}
+                        @if ($project->available_to_join == 0)
+                            <p class="red">{{trans('project.deadline_over')}}</p>
+                            @if (!Auth::guest() && $project->currentUserIs('member'))
+                                <form action="{{ url('finish/'.$project->id) }}">
+                                    <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
+                                </form>
+                            @endif
+                        @else
+                            @if(Auth::check())
+                                @if(Auth::user()->is('student'))
+                                    @if ($project->currentUserIs('member'))
+                                        <form action="{{ url('leave/'.$project->id) }}" method="POST">
+                                            {{ csrf_field() }}
+
+                                            <button type="submit" class="btn btn-danger btn-lg">
+                                               {{trans('project.leave_project_button')}}
+                                            </button>
+                                        </form>
+                                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
+
+                                    @elseif(Auth::user()->isMemberOfProject())
+
+                                        <p class="text-warning">{{trans('project.already_in_team_notification')}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
+
+                                    @else
+                                        @if(checkIfThereIsSpaceInProject($project))
+                                                <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+
+                                                    <button type="submit" class="btn btn-primary btn-lg">
+                                                        {{trans('search.join_button')}}
+                                                    </button>
+                                                </form>
+                                        @else
+                                                <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">
+                                                    {{trans('search.join_button')}}
+                                                </button>
+                                        @endif
+
+                                    @endif
+                                @else
+                                    <p>{{trans('project.no_student_role_notification')}}</p>
+                                @endif
+
+
+                            @else
+                                <p>{{trans('project.log_in_and_join_notification')}}</p>
+                            @endif
+
+
+                        @endif
+
+                    @else
+
+                        <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
+
+                        {{--@if ($project->currentUserIs('member'))--}}
+                            {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
+
+                                {{--<button type="submit" class="btn btn-danger btn-lg">--}}
+                                    {{--<i class="fa fa-btn fa-frown-o"></i>{{trans('project.leave_project_button')}}--}}
+                                {{--</button>--}}
+                            {{--</form>--}}
+
+                        {{--@else--}}
+                            {{--<form action="{{ url('join/'.$project->id) }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
+
+                                {{--<button type="submit" class="btn btn-success btn-lg">--}}
+                                    {{--<i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}--}}
+                                {{--</button>--}}
+                            {{--</form>--}}
+                        {{--@endif--}}
+
+                    @endif
+
+
+
+
+                    <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>
+                    <h3 class="tag-label">
+                        {{--Check if there are members in this project; later used to decide whether to build a panel with emails listing--}}
+                        @php
+                            $members_count=0;
+                        @endphp
+
+                        @foreach ($project->users as $user)
+                            @if ( $user->pivot->participation_role == 'member' )
+                                @php
+                                    $members_count++;
+                                @endphp
+                                @if(!empty($user->full_name))
+                                    @php
+                                        $parts = explode(" ", $user->full_name);
+                                        $lastname = array_pop($parts);
+                                        $firstname = implode(" ", $parts);
+                                    @endphp
+                                    <span class="label label-primary">{{ $firstname }}
+                                        @if(!$user->courses->isEmpty())
+                                            @foreach($user->courses as $course)
+                                                / {{ getCourseName($course) }}
+                                            @endforeach
+                                        @endif
+                                        {{$isTeacher? '('.getUserEmail($user).')' : ''}}
+                                </span>
+                                @else
+                                    @php
+                                        $parts = explode(" ", $user->name);
+                                        if (count($parts)>1){
+                                            $lastname = array_pop($parts);
+                                            $firstname = implode(" ", $parts);
+                                        }else{
+                                            $firstname = $user->name;
+                                        }
+                                    @endphp
+                                    <span class="label label-primary">{{ $firstname }} {{$isTeacher? '('.getUserEmail($user).')' : ''}}</span>
+                                @endif
+                            @endif
+                        @endforeach
+                    </h3>
+
+
+                    @if($isTeacher && $members_count>0)
+                        <div  class="panel email-list panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{trans('search.team_emails')}}</h3>
+                                <span class="pull-right clickable panel-collapsed"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-xs-8 mailto-list">
+                                    @php
+                                        $members_emails = '';
+                                    @endphp
+                                    @foreach ($project->users as $user)
+                                        @if ( $user->pivot->participation_role == 'member' )
+                                            @php
+                                                $members_emails .=getUserEmail($user).',';
+                                            @endphp
+                                        @endif
+                                    @endforeach
+
+
+                                    <div class="form-group nomargin">
+                                        <input class="form-control" name="share_url" title="Members emails" value="{{$members_emails}}">
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-4">
+                                    <a href="mailto:{{$members_emails}}" class="btn btn-info pull-right" role="button">{{trans('search.send_to_all_button')}}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endif
+
+
+
+
+                    </div>
+            @endforeach
+                    </div>
+        </div>
+
+
+@else
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{trans('project.no_project_found')}}</h3>
+        </div>
+        <div class="panel-body">
+            @if (!Auth::guest())
+                {{trans('project.no_project_found_desc_logged')}}
+            @else
+                {{trans('project.no_project_found_desc_not_logged')}}
+            @endif
+        </div>
+    </div>
+
+    </div>
+@endif

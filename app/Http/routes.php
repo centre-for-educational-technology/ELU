@@ -421,7 +421,7 @@ Route::group(['middleware' =>['web']], function () {
 
         Route::post('leave/{id}', 'ProjectController@leaveProject');
 
-
+/*
         Route::get('student/project/new', function () {
 
 //	        if(\App::getLocale() == 'en'){
@@ -430,10 +430,20 @@ Route::group(['middleware' =>['web']], function () {
 //		        $courses = Course::select('id','oppekava_est')->get();
 //	        }
 //
-	        return view('user.student.new_project');
-        });
 
-        Route::post('student/project/new', 'ProjectController@storeProjectByStudent');
+            $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
+            {
+            $q->where('name', 'oppejoud');
+            })->get();
+
+            $author =  Auth::user()->id;
+
+
+	        return view('project.new', compact('teachers, author'));
+        });
+*/
+        Route::get('student/project/new', 'ProjectController@add');
+        Route::post('student/project/new', 'ProjectController@store');
 
       });
 

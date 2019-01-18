@@ -236,4 +236,6 @@ return [
     'status_active' => 'Active',
     'final_view' => 'View submission',
     'to_project' => 'To project',
+    //
+    'all' => 'Projects',
 ];

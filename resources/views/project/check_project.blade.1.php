@@ -11,8 +11,7 @@
             @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
-                {{--
-                    @if($current_project->submitted_by_student == 1)
+<!--                    @if($current_project->submitted_by_student == 1)
 
                         @if($current_project->requires_review == 1)
                             <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}} <span class='label label-info'>{{trans('project.student_idea_label')}}</span> <span class='label label-danger'>{{trans('project.idea_not_in_use_label')}}</span></h3>
@@ -23,8 +22,8 @@
                     @else
                         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{trans('project.edit')}}</h3>
                     @endif
+-->
 
-                --}}
 
                 </div>
 
@@ -38,24 +37,9 @@
                     {{ csrf_field() }}
 
                     <div class="row">
-                <!-- Reminder about fulfilling learning outcomes -->
-                    <div class="col-sm-1 col-lg-2"> </div>
-                    <div class="col-sm-11 col-lg-10" >
-                        <h1>{{trans('project.edit')}}</h1>
-                        <div class="show-info-p h4">
-                            <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
-                        </div>
-                        <div id="learning_outcomes" class="show-info-p p-light unseen"> {{ trans('project.expectations_to_meet_for') }}
-                            <ul>
-                                <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
-                                <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class=col-lg-6>
+                <!-- Description about project language selection -->
+                <p></p>
 
 
                 <!-- Project language selection -->
@@ -86,81 +70,128 @@
                         </div>
                     </div>
                 </div>
-                
+                <!--
+                <div class="col-lg-12 panel panel-heading">
+                    <p>
+                        {{ trans('project.active_language_selection') }}
+                    </p>
+                    <span id="languageChoiceET"><input type="checkbox" name="project_in_estonian" value="true" checked><span>Eesti keel</span></span>
+                    <span id="languageChoiceEN"><input type="checkbox" name="project_in_english" value="true" checked><span>English</span></span>
+                </div>
+                -->
+
+                <!-- Reminder about fulfilling learning outcomes -->
+                <p>
+                    <span id="open_learning_outcomes"><img src="{{ url(asset('/css/caret-right.svg')) }}" class="icons" alt="caret-right"></span><span id="close_learning_outcomes" class="unseen"><img src="{{ url(asset('/css/caret-bottom.svg')) }}" class="icons" alt="caret-bottom"></span>{{ trans('project.about_fulfilling_expectations') }}
+                </p>
+
+                <!-- Course's learning outcomes  -->
+                <div id="learning_outcomes" class="show-info-p p-light unseen"><p>{{ trans('project.expectations_to_meet_for') }}</p>
+                <p>
+                    <ul>
+                        <li>{{ trans('project.expectations_to_meet_for_student_1') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_2') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_3') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_4') }}</li>
+                        <li>{{ trans('project.expectations_to_meet_for_student_5') }}</li>
+                    </ul>
+                </p>
+                </div>
+
+            </div>
+            <div class=col-lg-6>
+                <!-- General comments about the project from LIFE coordinators -->
+                <p></p>
+            </div>
+            </div>
 
             <?php $startingLanguage = App::getLocale(); ?>
             <!-- Start of the first block -->
             <div class="col-lg-12 panel panel-heading">
 
-                <!-- PROJECT NAME -->
-                <div class="row form-row">
-                    <div class="col-sm-1 col-lg-2"></div>
-                    <!-- Project name in Estonian -->
-                    <div class="col-sm-5 col-lg-5 form_estonian">
-                        <?php App::setLocale('et'); ?>
-                        <div class="input-element form-group">
-                            <label class="h3 left">{{ trans('project.name') }} *
-                                <span class="tooltiptext">{{ trans('project.name_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project name input in Estonian -->
-                            <input type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}" class="input-field form-control">
-                            <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
-                        </div>
-                    </div>
-                    <!-- Project name in English -->
-                    <div class="col-sm-5 col-lg-5 form_english">
-                        <?php App::setLocale('en'); ?>
-                        <div class="input-element">
-                            <label class="h3 left">{{ trans('project.name') }} *
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project name input in English -->
-                            <input type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}" class="input-field">
-                            <div class="tool-tip">{{ trans('project.name_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
-                        </div>
-                    </div>
-                
-                </div>
 
+                <!-- PROJECT NAME -->
+                <div class="col-lg-12">
+
+                    <!-- Project name in Estonian -->
+                    <div class="col-lg-6 form_estonian">
+
+                        <!-- Project name input in Estonian -->
+                        <?php App::setLocale('et'); ?>
+                        <div class="form-group">
+                            <p><label for="name_et">{{ trans('project.name') }} *</label></p>
+                            <input class="form-control" type="text" name="name_et" value="{{ (empty(old('name_et')) ? $current_project->name_et :  old('name_et')) }}">
+                        </div>
+
+                        <!-- Comment for name in Estonian -->
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_name_et" value="{{ (empty(old('comment_name_et')) ? $current_project->comment_name_et :  old('comment_name_et')) }}"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Project name in English -->
+                    <div class="col-lg-6 form_english">
+
+                        <!-- Project name input in English -->
+                        <?php App::setLocale('en'); ?>
+                        <div class="form-group">
+                            <p><label for="name_en">{{ trans('project.name') }} *</label></p>
+                            <input class="form-control" type="text" name="name_en" value="{{ (empty(old('name_en')) ? $current_project->name_en :  old('name_en')) }}">
+                        </div>
+
+                        <!-- Comment for name in English -->
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_name_en" value="{{ (empty(old('comment_name_en')) ? $current_project->comment_name_en :  old('comment_name_en')) }}"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                
 
                 <!-- DESCRIPTION -->
-                <div class="row form-row">
-                    <div class="col-sm-1 col-lg-2"></div>
+                <div class="col-lg-12">
+
                     <!-- Project description in Estonian -->
-                    <div class="col-sm-5 col-lg-5 form_estonian">
+                    <div class="col-lg-6 form_estonian">
+
+                        <!-- Project description input in Estonian -->
                         <?php App::setLocale('et'); ?>
-                        <div class="input-element">
-                            <label for="description_et" class="h3 left">{{ trans('project.description') }} *
-                                <span class="tooltiptext">{{ trans('project.description_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project description input in Estonian -->
-                            <textarea id="description_et" name="description_et" cols="30" rows="10">{!! (empty(old('description_et')) ? $current_project->description_et :  old('description_et')) !!}</textarea>
-                            <div class="tool-tip">{{ trans('project.description_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
+                        <div class="form-group">
+                            <p><label for="description_et">
+                                {{ trans('project.description') }} *
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{ trans('project.description_desc') }}"></i>
+                            </label></p>
+                            <textarea class="mceSimple" id="description_et" name="description_et">{!! (empty(old('description_et')) ? $current_project->description_et :  old('description_et')) !!}</textarea>
                         </div>
+
+                        <!-- Comment for description in Estonian -->
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_description_et" value="{{ (empty(old('comment_description_et')) ? $current_project->comment_description_et :  old('comment_description_et')) }}"></textarea>
+                        </div>
+
                     </div>
+
                     <!-- Project description in English -->
-                    <div class="col-sm-5 col-lg-5 form_english" > 
+                    <div class="col-lg-6 form_english">
+
+                        <!-- Project description input in English -->
                         <?php App::setLocale('en'); ?>
-                        <div class="input-element">
-                            <label for="description_en" class="h3 left">{{ trans('project.description') }} *
-                                <span class="tooltiptext">{{ trans('project.description_hover') }}</span>
-                                <span class="red-light unseen"></span>
-                            </label>
-                            <!-- Project description input in English -->
-                            <textarea id="description_en" name="description_en" cols="30" rows="10">{!! (empty(old('description_en')) ? $current_project->description_en :  old('description_en')) !!}</textarea>
-                            <div class="tool-tip">{{ trans('project.description_tooltip') }}</div>
-                            <div class="validation-error unseen">validation-error</div>
+                        <div class="form-group">
+                            <p><label for="description_en">
+                                {{ trans('project.description') }} *
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.description_desc')}}"></i>
+                            </label></p>
+                            <textarea class="mceSimple" id="description_en" name="description_en">{!! (empty(old('description_en')) ? $current_project->description_en :  old('description_en')) !!}</textarea>
                         </div>
+
+                        <!-- Comment for description in English -->
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_description_en" value="{{ (empty(old('comment_description_en')) ? $current_project->comment_description_en :  old('comment_description_en')) }}"></textarea>
+                        </div>
+
                     </div>
                 </div>
-
-
-<!-- Pooleli -->
 
 
                 <!-- PROJECT OUTCOME -->
@@ -180,7 +211,9 @@
                         </div>
 
                         <!-- Comment for outcome in Estonian -->
-                        <div id="comment_project_outcome_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_project_outcome_et" value="{{ (empty(old('comment_project_outcome_et')) ? $current_project->comment_project_outcome_et :  old('comment_project_outcome_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -198,7 +231,9 @@
                         </div>
 
                         <!-- Comment for outcome in English -->
-                        <div id="comment_project_outcome_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_project_outcome_en" value="{{ (empty(old('comment_project_outcome_en')) ? $current_project->comment_project_outcome_en :  old('comment_project_outcome_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -221,7 +256,9 @@
                         </div>
 
                         <!-- Comment for interdisciplinary approach in Estonian -->
-                        <div id="comment_interdisciplinary_approach_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_interdisciplinary_approach_et" value="{{ (empty(old('comment_interdisciplinary_approach_et')) ? $current_project->comment_interdisciplinary_approach_et :  old('comment_interdisciplinary_approach_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -239,7 +276,9 @@
                         </div>
 
                         <!-- Comment for interdisciplinary approach in English -->
-                        <div id="comment_interdisciplinary_approach_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_interdisciplinary_approach_en" value="{{ (empty(old('comment_interdisciplinary_approach_en')) ? $current_project->comment_interdisciplinary_approach_en :  old('comment_interdisciplinary_approach_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -268,7 +307,9 @@
                         <input type="hidden" name="keywords_et" id="keywords_et" value="{{ (empty(old('tags_et')) ? $current_project->tags_et :  old('tags_et')) }}">
 
                         <!-- Comment for tags in Estonian -->
-                        <div id="comment_tags_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_tags_et" value="{{ (empty(old('comment_tags_et')) ? $current_project->comment_tags_et :  old('comment_tags_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -292,7 +333,9 @@
                         <input type="hidden" name="keywords_en" id="keywords_en" value="{{ (empty(old('tags_en')) ? $current_project->tags_en :  old('tags_en')) }}">
 
                         <!-- Comment for tags in English -->
-                        <div id="comment_tags_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_tags_en" value="{{ (empty(old('comment_tags_en')) ? $current_project->comment_tags_en :  old('comment_tags_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -312,7 +355,9 @@
                         </div>
 
                         <!-- Comment for additional information in Estonian -->
-                        <div id="comment_additional_info_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_additional_info_et" value="{{ (empty(old('comment_additional_info_et')) ? $current_project->comment_additional_info_et :  old('comment_additional_info_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -327,7 +372,9 @@
                         </div>
 
                         <!-- Comment for additional information in English -->
-                        <div id="comment_additional_info_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_additional_info_en" value="{{ (empty(old('comment_additional_info_en')) ? $current_project->comment_additional_info_en :  old('comment_additional_info_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -347,7 +394,9 @@
                         </div>
 
                         <!-- Comment for comment for LIFE coordinators in Estonian -->
-                        <div id="comment_comment_for_coordinators_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_comment_for_coordinators_et" value="{{ (empty(old('comment_comment_for_coordinators_et')) ? $current_project->comment_comment_for_coordinators_et :  old('comment_comment_for_coordinators_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -362,7 +411,9 @@
                         </div>
 
                         <!-- Comment for comment for LIFE coordinators in  -->
-                        <div id="comment_comment_for_coordinators_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_comment_for_coordinators_en" value="{{ (empty(old('comment_comment_for_coordinators_en')) ? $current_project->comment_comment_for_coordinators_en :  old('comment_comment_for_coordinators_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -382,7 +433,9 @@
                         </div>
 
                         <!-- Comment for Partner(s) in Estonian -->
-                        <div id="comment_partners_et"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_partners_et" value="{{ (empty(old('comment_partners_et')) ? $current_project->comment_partners_et :  old('comment_partners_et')) }}"></textarea>
+                        </div>
 
                     </div>
 
@@ -397,7 +450,9 @@
                         </div>
 
                         <!-- Comment for Partner(s) in English -->
-                        <div id="comment_partners_en"></div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="comment_partners_en" value="{{ (empty(old('comment_partners_en')) ? $current_project->comment_partners_en :  old('comment_partners_en')) }}"></textarea>
+                        </div>
 
                     </div>
                 </div>
@@ -417,7 +472,7 @@
                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="top" data-content="{{trans('project.duration_desc')}}"></i>
                 </label>
                 <div class="col-lg-12" id="project_duration">
-                    @if ($current_project->study_term == 0)
+                @if ($current_project->study_term == 0)
                         <div class="col-lg-6">
                             <button type="button" id="duration_0" class="btn btn-info btn-lg btn-block study_term_button">{{ trans('project.autumn_semester') }}</button>
                             <button type="button" id="duration_2" class="btn btn-default btn-lg btn-block study_term_button">{{ trans('project.autumn_spring') }}</button>
@@ -537,6 +592,10 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_meetings_et" value="{{ (empty(old('comment_meetings_et')) ? $current_project->comment_meetings_et :  old('comment_meetings_et')) }}"></textarea>
+                    </div>
+
                 <!-- Meetings in Estonian end -->
                 </div>
 
@@ -588,6 +647,10 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_meetings_en" value="{{ (empty(old('comment_meetings_en')) ? $current_project->comment_meetings_en :  old('comment_meetings_en')) }}"></textarea>
+                    </div>
+
                 <!-- Meetings in English end -->
                 </div>
 
@@ -598,78 +661,87 @@
             <!-- Start of the fourth block -->
             <div class="col-lg-12 panel panel-heading">
                 <div class="col-lg-6">
-                <?php App::setLocale($startingLanguage); ?>
+                    <?php App::setLocale($startingLanguage); ?>
 
-                <!-- Featured video link -->
-                <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
-                <input class="form-control" type="text" name="featured_video_link" value="{{ (empty(old('featured_video_link')) ? $current_project->featured_video_link :  old('featured_video_link')) }}">
+                    <!-- Featured video link -->
+                    <p><label for="featured_video_link">{{ trans('project.video_link') }}</label></p>
+                    <input class="form-control" type="text" name="featured_video_link" value="{{ (empty(old('featured_video_link')) ? $current_project->featured_video_link :  old('featured_video_link')) }}">
 
-                <!-- Featured image -->
-                <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
-                <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ (empty(old('featured_image')) ? $current_project->featured_image :  old('featured_image')) }}">
-                @if (!empty($current_project->featured_image))
-                    <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$current_project->featured_image)}}"></p>
-                @endif
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_featured_video_link" value="{{ (empty(old('comment_featured_video_link')) ? $current_project->comment_featured_video_link :  old('comment_featured_video_link')) }}"></textarea>
+                    </div>
+
+                    <!-- Featured image -->
+                    <p><label for="featured_image">{{ trans('project.featured_image') }}</label></p>
+                    <input type="file" name="featured_image" id="featured_image" class="form-control" value="{{ (empty(old('featured_image')) ? $current_project->featured_image :  old('featured_image')) }}">
+                    @if (!empty($current_project->featured_image))
+                        <p><img class="img-thumbnail img-responsive featured-image" src="{{url('storage/projects_featured_images/'.$current_project->featured_image)}}"></p>
+                    @endif
+
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="comment_featured_image" value="{{ (empty(old('comment_featured_image')) ? $current_project->comment_featured_image :  old('comment_featured_image')) }}"></textarea>
+                    </div>
                 </div>
 
                 <div class="col-lg-6">
-                <!-- Supervisor -->
-                <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
-                <select id="supervisor" class="form-control" name="supervisor">
-                    <option value='-1'> </option>
-                    @if ($teachers->count())
-                        @foreach($teachers as $teacher)
-                            @if (old('supervisor')!='')
-                                @if (old('supervisor')==$teacher->id)
-                                    <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                                @else
-                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                                @endif
-                            @else
-                                @if ($current_project->supervisor == $teacher->id)
-                                    <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
-                                @else
-                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
-                                @endif
-                            @endif
-                        @endforeach
-                    @endif
-                </select>
-
-                <!-- Supervising student -->
-                @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
-                    <!--
-                    <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
-                    -->
-                    <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
-                @endif
-
-                <!-- Cosupervisor -->
-                <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
-                <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
-                <div id="co_supervisor_div">
-                    <!--
-                        <select class="form-control co_supervisor">
+                    <!-- Supervisor -->
+                    <p><label for="supervisor">{{ trans('project.supervisor') }} *</label></p>
+                    <select id="supervisor" class="form-control" name="supervisor">
                         <option value='-1'> </option>
                         @if ($teachers->count())
                             @foreach($teachers as $teacher)
-                                <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                @if (old('supervisor')!='')
+                                    @if (old('supervisor')==$teacher->id)
+                                        <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                                    @else
+                                        <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                    @endif
+                                @else
+                                    @if ($current_project->supervisor == $teacher->id)
+                                        <option value="{{ $teacher->id }}" selected="selected">{{ getUserName($teacher) }}</option>
+                                    @else
+                                        <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                    @endif
+                                @endif
                             @endforeach
                         @endif
                     </select>
-                    -->
-                    <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
-                </div>
 
-                <!-- Icons for adding/removing cosupervisor input -->
-                <div class="pull-right">
-                    <span id="add_cosupervisor"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
-                    <span id="remove_cosupervisor"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
-                </div>
+                    <!-- Supervising student -->
+                    @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
+                        <!--
+                        <p><label for="supervising_student">{{ trans('project.supervising_student') }}</label></p>
+                        -->
+                        <input class="form-control" type="hidden" name="supervising_student" value="{{ Auth::user()->id }}">
+                    @endif
+
+                    <!-- Cosupervisor -->
+                    <p><label for="co_supervisor">{{ trans('project.cosupervisor') }}</label></p>
+                    <!-- div created to have something to append the inputs to, if user wants to add more than one cosupervisor -->
+                    <div id="co_supervisor_div">
+                        <!--
+                        <select class="form-control co_supervisor">
+                            <option value='-1'> </option>
+                            @if ($teachers->count())
+                                @foreach($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ getUserName($teacher) }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        -->
+                        <input type="hidden" id="co_supervisors" name="co_supervisors" value="{{ (empty(old('co_supervisors')) ? $current_project->co_supervisors :  old('co_supervisors')) }}">
+                    </div>
+
+                    <!-- Icons for adding/removing cosupervisor input -->
+                    <div class="pull-right">
+                        <span id="add_cosupervisor"><img src="{{ url(asset('/css/plus.svg')) }}" class="icons" alt="plus"></span>
+                        <span id="remove_cosupervisor"><img src="{{ url(asset('/css/trash.svg')) }}" class="icons" alt="trash"></span>
+                    </div>
 
                 </div>
             <!-- End of the fourth block -->
             </div>
+            <br><br><br><br><br><br><br><br><br>
 
 
             <!-- Submit options -->
@@ -677,7 +749,7 @@
                 <div class="col-lg-4">
                 {{--
                 --}}
-                    <button type="submit" id="save_project" class="btn btn-default btn-lg btn-block">{{ trans('project.save_button') }}</button>
+                    <button type="submit" id="save_project" class="btn btn-danger btn-lg btn-block">{{ trans('project.turn_down_button') }}</button>
                 </div>
                 <div class="col-lg-4">
                     {{--
@@ -687,15 +759,15 @@
                     --}}
                 </div>
                 <div class="col-lg-4">
-                    <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.submit_button') }}</button>
+                    <button type="submit" id="submit_project" class="btn btn-info btn-lg btn-block">{{ trans('project.accept_button') }}</button>
                 </div>
                 
                 <!-- hidden submit button to trigger form validation after using preventDefault() -->
                 <div style="display:none">
-                    <button id="hidden_project_form_submit" type="submit" name="submit_project" value="true"></button>
+                    <button id="hidden_project_form_submit" type="submit" name="accept_project" value="true"></button>
                 </div>
                 <div style="display:none">
-                    <button id="hidden_project_form_save" type="submit" name="save_project" value="true"></button>
+                    <button id="hidden_project_form_save" type="submit" name="turn_down_project" value="true"></button>
                 </div>
             </div>
 
@@ -883,7 +955,7 @@
 
 
             @if($members_count>0)
-                    @if (projectHasGroupsWithMembers($current_project))
+                    @if (ProjectHasGroupsWithMembers($current_project))
 
                     <div class="col-lg-12 text-center">
                         <div class="btn-group">
@@ -903,4 +975,9 @@
             @endif
         </div>
     </div>
+    <script>
+        window.setTimeout(
+            function () {$('.panel-body').css('display', 'block');}, 2000
+        );
+    </script>
 @endsection

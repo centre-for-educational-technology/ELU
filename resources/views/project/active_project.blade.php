@@ -408,6 +408,5 @@
     </div>
 
 </div>
-Tere!!!!!
 
 @endsection

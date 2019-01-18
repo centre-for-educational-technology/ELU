@@ -85,11 +85,14 @@ elixir(function(mix) {
     //mix.less(['app.less']);
 
 
-    mix.version(["css/app.css", "js/app.js", "js/calc-load.js"]);
-
-
+    
     //mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/fonts/bootstrap');
     mix.copy('node_modules/bootstrap/assets/fonts/bootstrap/','public/fonts/bootstrap');
-
+    mix.copy('resources/assets/css/uni_style.css','public/css/uni_style.css');
+    mix.copy('resources/assets/css/uni_style_welcome.css','public/css/uni_style_welcome.css');
+    mix.copy('resources/assets/css/uni_style_common.css','public/css/uni_style_common.css');
+    
+    
+    mix.version(["css/app.css", "js/app.js", "js/calc-load.js", "css/uni_style.css", "css/uni_style_welcome.css", "css/uni_style_common.css"]);
 
 });

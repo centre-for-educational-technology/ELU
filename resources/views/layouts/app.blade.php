@@ -39,8 +39,8 @@
       <link href="{{ url(elixir('css/app.css')) }}" rel="stylesheet">
       <link href="{{ url(asset('/css/styles.css')) }}" rel="stylesheet">
     -->
-    <link href="{{ url(asset('/css/uni_style_common.css')) }}" rel="stylesheet">
-    <link href="{{ url(asset('/css/uni_style.css')) }}" rel="stylesheet">
+    <link href="{{ url(elixir('css/uni_style_common.css')) }}" rel="stylesheet">
+    <link href="{{ url(elixir('css/uni_style.css')) }}" rel="stylesheet">
 
     <style>
         .fa-btn {
@@ -257,6 +257,9 @@
                 <!-- Links -->
                 <ul class="navbar-nav sub-navbar">
                     @if (Auth::guest())
+                        <li class="nav-item">
+                            <a {{ setActiveSubNav('project/new') }} class="nav-link sub-nav-link" href="{{ url('/project/new') }}">{{ trans('front.add') }}</a>
+                        </li>
                     @elseif (Auth::user()->is('oppejoud'))
                         <li class="nav-item">
                             <a {{ setActiveSubNav('project/new') }} class="nav-link sub-nav-link" href="{{ url('/project/new') }}">{{ trans('front.add') }}</a>

@@ -3,13 +3,13 @@
     font-family: 'Minion Pro';
     font-stretch: condensed;
     font-style: italic;
-    src: url('../fonts/MinionPro\ CnItDisp.otf') format("opentype");
+    src: url('../../fonts/MinionPro\ CnItDisp.otf') format("opentype");
 }
 
 @font-face {
     font-family: 'Minion Pro';
     font-style: italic;
-    src: url('../fonts/MinionPro\ It.otf') format("opentype");
+    src: url('../../fonts/MinionPro\ It.otf') format("opentype");
 }
 /* MINION PRO FONTS END */
 

@@ -170,6 +170,21 @@ function projectHasGroupsWithMembers(\App\Project $project){
 }
 
 /**
+ * Return the amount of members a project has
+ * @param \App\Project $project
+ * @return integer
+ */
+function countMembersOfProject(\App\Project $project){
+    $member_count = 0;
+    if(count($project->groups) > 0){
+      foreach ($project->groups as $group){
+        $member_count .= count($group->users);
+      }
+    }
+    return $member_count;
+  }
+
+/**
  * Return true if
  * project has summary field filled in and
  * all the groups related to that project have Results, Activities and Reflection fields filled in

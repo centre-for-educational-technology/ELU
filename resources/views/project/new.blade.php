@@ -483,6 +483,20 @@
                         </div>
 
 
+                        <!-- max_members-->
+                        <div class="form-group">
+                            <label for="max_members" class="col-sm-3 control-label">{{trans('project.max_members')}} *</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="max_members" name="max_members">
+                                    @for ($i=1;$i<=24;$i++)
+                                        <option value="{{ $i }}" {{ $i==24 ? 'selected' : ''}}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+
+
                         <!-- Language-->
                         <div class="form-group">
                             <label for="language" class="col-sm-3 control-label">{{trans('project.language')}} *</label>
@@ -490,7 +504,7 @@
                             <div class="col-sm-6">
                                 <input type="hidden" name="language" value="{{$project_language}}">
                                 <select class="form-control" id="language" name="language" disabled>
-
+                                    
                                     <option value="et" {{$project_language == 'et' ? 'selected' : ''}}>Eesti</option>
 
                                     <option value="en" {{$project_language == 'en' ? 'selected' : ''}}>English</option>

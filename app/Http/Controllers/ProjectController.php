@@ -178,6 +178,7 @@ class ProjectController extends Controller
 
     $project = new Project;
     $project->name = $request->name;
+    $project->max_members = $request->max_members;
     //$project->description = $request->description;
 
     if ($request->description != '<p>undefined</p>') {
@@ -337,6 +338,9 @@ class ProjectController extends Controller
 
     $project = Project::find($id);
     $project->name = $request->name;
+    if ($request->max_members >= countMembersOfProject($project)) {
+        $project->max_members = $request->max_members;
+    }
     $project->description = $request->description;
 
 

@@ -1045,7 +1045,13 @@ class ProjectController extends Controller
 				  'new_member' => getUserNameAndCourse(Auth::user()),
 				  'project_name' => $project->name,
 				  'project_url' => url('project/'.$project->id),
-		  ];
+          ];
+          
+          $person_data = [
+            'project_name' => $project->name,
+			'project_url' => url('project/'.$project->id),
+          ];
+          
 		  $project_authors_emails = array();
 		  foreach ($project->users as $user){
 
@@ -1057,8 +1063,12 @@ class ProjectController extends Controller
 
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-			  //$m->cc($admins_emails)->subject('Uus projektiidee');
-		  });
+          });
+
+          Mail::send('emails.joined_project_notification_to_student', ['data' => $data], function ($m) {
+            $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
+          });
+          
 	  }
 
 

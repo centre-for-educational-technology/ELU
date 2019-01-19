@@ -81,7 +81,60 @@ class AddColumnsToFitProjectsToNewForm extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            $table->dropColumn('created_by');
+            $table->dropColumn('updated_by');
+            $table->dropColumn('languages');
+            $table->dropColumn('name_et');
+            $table->dropColumn('name_en');
+            $table->dropColumn('comment_name_et');
+            $table->dropColumn('comment_name_en');
+            $table->dropColumn('description_et');
+            $table->dropColumn('description_en');
+            $table->dropColumn('comment_description_et');
+            $table->dropColumn('comment_description_en');
+            $table->dropColumn('project_outcomes_et');
+            $table->dropColumn('project_outcomes_en');
+            $table->dropColumn('comment_project_outcomes_et');
+            $table->dropColumn('comment_project_outcomes_en');
+            $table->dropColumn('interdisciplinary_approach_et');
+            $table->dropColumn('interdisciplinary_approach_en');
+            $table->dropColumn('comment_interdisciplinary_approach_et');
+            $table->dropColumn('comment_interdisciplinary_approach_en');
+            $table->dropColumn('tags_et');
+            $table->dropColumn('tags_en');
+            $table->dropColumn('comment_tags_et');
+            $table->dropColumn('comment_tags_en');
+            $table->dropColumn('additional_info_et');
+            $table->dropColumn('additional_info_en');
+            $table->dropColumn('comment_additional_info_et');
+            $table->dropColumn('comment_additional_info_en');
+            $table->dropColumn('comment_for_coordinators_et');
+            $table->dropColumn('comment_for_coordinators_en');
+            $table->dropColumn('comment_comment_for_coordinators_et');
+            $table->dropColumn('comment_comment_for_coordinators_en');
+            $table->dropColumn('partners_et');
+            $table->dropColumn('partners_en');
+            $table->dropColumn('comment_partners_et');
+            $table->dropColumn('comment_partners_en');
+            $table->dropColumn('comment_study_term');
+            $table->dropColumn('meetings_info_et');
+            $table->dropColumn('meetings_info_en');
+            $table->dropColumn('comment_meetings_info_et');
+            $table->dropColumn('comment_meetings_info_en');
+            $table->dropColumn('meetings_et');
+            $table->dropColumn('meetings_en');
+            $table->dropColumn('comment_meetings_et');
+            $table->dropColumn('comment_meetings_en');
+            $table->dropColumn('featured_video_link');
+            $table->dropColumn('comment_featured_video_link');
+            $table->dropColumn('comment_featured_image');
+            $table->dropColumn('supervising_student');
+            $table->dropColumn('co_supervisors');
+            $table->dropColumn('project_year');
+            $table->dropColumn('status');
+            $table->dropColumn('available_to_join');
+            $table->dropColumn('see_hidden_tokken');
+            $table->dropColumn('project_gdrive_folder_id');
         });
     }
 }

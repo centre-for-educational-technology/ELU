@@ -25,7 +25,7 @@ class AddMaxMembersToProject extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            $table->dropColumn('max_members');
         });
     }
 }

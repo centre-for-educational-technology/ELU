@@ -13,7 +13,6 @@ class AddedNameAndClosedByAdmin extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
             $table->string('name')->after('name_en')->nullable();
             $table->tinyInteger('closed_by_admin')->after('available_to_join')->nullable();
         });
@@ -27,7 +26,8 @@ class AddedNameAndClosedByAdmin extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            $table->dropColumn('name');
+            $table->dropColumn('closed_by_admin');
         });
     }
 }

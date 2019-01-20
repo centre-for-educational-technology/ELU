@@ -429,6 +429,10 @@ Route::group(['middleware' => ['web']], function () {
 
   }));
 
+  Route::get('oisJoinConfirmation', function (Request $request) {
+    return file_get_contents('https://ois.tlu.ee/ois2/ois2.elu_kontroll?oppijaId='.$request->oppijaId.'&ainekood='.$request->ainekood);
+  });
+
 
   // ===============================================
   // 404 ===========================================

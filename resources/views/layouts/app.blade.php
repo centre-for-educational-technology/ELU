@@ -48,7 +48,8 @@
 {{--Language parameter used by TinyMCE--}}
 <script>
   window.Laravel = <?php echo json_encode([
-			'language' => App::getLocale(),
+            'language' => App::getLocale(),
+            'user' => Auth::user(),
 			'base_path' => url('/'),
 			'search_user_api_url' => url('api/search/user/'),
 			'add_user_to_group_api_url' => url('api/group/add-user/'),

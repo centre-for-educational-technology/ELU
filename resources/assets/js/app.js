@@ -105,11 +105,48 @@ jQuery(document).ready(function($) {
 
   $("button#join-project-button").on("click", function(e){
 
-    fetch("https://ois.tlu.ee/ois2/ois2.elu_kontroll?oppijaId=74505&ainekood=IFI6030.DT")
-    .then(function (declaration) {
+    let user_tlu_student_id = JSON.parse(window.Laravel.user.tlu_student_id)[0][0].split("@")[0];
+    $.ajax({
+        url: window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+user_tlu_student_id+"&ainekood=YID6001.YM",
+    }).done(function (response) {
+        let textToDisplay = "No TLU student id present.";
+        let showConfirm = false;
+        if (window.Laravel.user.tlu_student_id != null) {
+            let data = JSON.parse(response);
+            let repeat = " ";
+            if (data.deklaratsioon.onKorduv == true) {
+                repeat = " not ";
+            }
+            let attendace = "You would"+repeat+"be attending the course for the first time\n";
+            let price = "Price of declaration: "+data.deklaratsioon.hind+"\n";
+            let info = "Info: "+data.deklaratsioon.teade;
+            textToDisplay = attendace+price+info;
+            if (data.deklaratsioon.saab == true) {
+                showConfirm = true;
+            }
+        }
         swal({
             title: window.Laravel.are_you_sure_notification,
-            text: declaration,
+            text: textToDisplay,
+            type: "info",
+            showCancelButton: true,
+            showConfirmButton: showConfirm,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: window.Laravel.yes,
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false
+        },
+        function(){
+            $(e.target).prev('#join-project').submit();
+        });
+    });
+    /*
+    fetch(window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+"91980"+"&ainekood=YID6001.YM")
+    .then(function (declaration) {
+        console.log(declaration);
+        swal({
+            title: window.Laravel.are_you_sure_notification,
+            text: declaration.response,
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -121,6 +158,7 @@ jQuery(document).ready(function($) {
             $(e.target).prev('#join-project').submit();
         })
     });
+    */
     
 
   });

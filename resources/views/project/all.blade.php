@@ -239,7 +239,7 @@
                                         <p class="text-warning">{{trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()['name']])}} <a href="{{url('project/'.Auth::user()->isMemberOfProject()['id'])}}"> <i class="fa fa-external-link"></i> </a></p>
 
                                     @else
-                                        @if(checkIfThereIsSpaceInProjectGroups($project))
+                                        @if(checkIfThereIsSpaceInProject($project, Auth::user()))
                                                 <form action="{{ url('join/'.$project->id) }}" method="POST">
                                                     {{ csrf_field() }}
 

@@ -480,3 +480,29 @@ function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
 	
 	return false;
 }
+
+/**
+ * Return true if max_members of the project is not reached and there is space for persons major(eriala)
+ * @param \App\Project $project
+ * @return bool
+ */
+function checkIfThereIsSpaceInProject(\App\Project $project, \App\User $user){
+    $max_groups = ceil($project->max_members/8);
+    $members = countMembersOfProject($project);
+    if ($members >= $project->max_members) {
+        return false;
+    }
+    if (count($project->groups) < $max_groups) {
+        return true;
+    }
+    if (count($project->groups) == $max_groups) {
+        foreach ($project->groups as $group){
+            $userIsAcceptable = false;
+            if (checkIfCourseOfThisUserIsAcceptable($groups, $user) && count($group->users) < 8) {
+                $userIsAcceptable = true;
+            }
+            return $userIsAcceptable;
+		}
+    }
+    return false;
+}

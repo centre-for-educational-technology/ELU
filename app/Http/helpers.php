@@ -498,7 +498,7 @@ function checkIfThereIsSpaceInProject(\App\Project $project, \App\User $user){
     if (count($project->groups) == $max_groups) {
         foreach ($project->groups as $group){
             $userIsAcceptable = false;
-            if (checkIfCourseOfThisUserIsAcceptable($groups, $user) && count($group->users) < 8) {
+            if (checkIfCourseOfThisUserIsAcceptable($group, $user) && count($group->users) < 8) {
                 $userIsAcceptable = true;
             }
             return $userIsAcceptable;

@@ -587,7 +587,7 @@
                                 <select class="form-control" {{Auth::user()->is('admin')? '':'disabled'}} id="status" name="status">
 
 
-                                    @if(count(old('status')) > 0)
+                                    @if(old('status', null) != null)
                                         <option value="{{old('status') == 1 ? 1: 0}}" selected>{{old('status') == 1 ? trans('project.active'): trans('project.finished')}}</option>
 
                                         <option value="{{old('status') == 1 ? 0: 1}}">{{old('status') == 0 ? trans('project.active'): trans('project.finished')}}</option>
@@ -699,7 +699,7 @@
                                 @else
                                     @if (Auth::user()->is('admin'))
                                         <select class="form-control" id="publishing_status" name="publishing_status">
-                                            @if(count(old('publishing_status')) > 0)
+                                            @if(old('publishing_status', null) != null)
                                                 <option value="{{old('publishing_status') == 1 ? 1: 0}}" selected>{{old('publishing_status') == 1 ? trans('project.published'): trans('project.hidden')}}</option>
 
                                                 <option value="{{old('publishing_status') == 1 ? 0: 1}}">{{old('publishing_status') == 0 ? trans('project.published'): trans('project.hidden')}}</option>

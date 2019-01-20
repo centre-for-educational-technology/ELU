@@ -101,7 +101,27 @@ jQuery(document).ready(function($) {
         closeOnConfirm: false
       });
     }
+  });
 
+  $("button#join-project-button").on("click", function(e){
+
+    fetch("https://ois.tlu.ee/ois2/ois2.elu_kontroll?oppijaId=74505&ainekood=IFI6030.DT")
+    .then(function (declaration) {
+        swal({
+            title: window.Laravel.are_you_sure_notification,
+            text: declaration,
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: window.Laravel.yes,
+            cancelButtonText: window.Laravel.no,
+            closeOnConfirm: false
+        },
+        function(){
+            $(e.target).prev('#join-project').submit();
+        })
+    });
+    
 
   });
 

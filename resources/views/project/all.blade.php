@@ -240,13 +240,12 @@
 
                                     @else
                                         @if(checkIfThereIsSpaceInProject($project, Auth::user()))
-                                                <form action="{{ url('join/'.$project->id) }}" method="POST">
+                                                <form action="{{ url('join/'.$project->id) }}" id="join-project" method="POST">
                                                     {{ csrf_field() }}
-
-                                                    <button type="submit" class="btn btn-primary btn-lg">
-                                                        {{trans('search.join_button')}}
-                                                    </button>
                                                 </form>
+                                                <button type="submit" id="join-project-button" class="btn btn-primary btn-lg">
+                                                    {{trans('search.join_button')}}
+                                                </button>
                                         @else
                                                 <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">
                                                     {{trans('search.join_button')}}

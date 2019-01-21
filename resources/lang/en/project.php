@@ -43,7 +43,7 @@ return [
     'no_project_found_desc_logged' => 'Add a project or project idea',
 		'no_project_found_desc_not_logged' => 'Log in and add a project or project idea',
     'language' => 'Language',
-    'deadline_over' => 'Registration period is over',
+    'deadline_over' => 'Registration period starts on 4th of February',
     'share_fb' => 'Share on Facebook',
     'share_twitter' => 'Share on Twitter',
     'joined_project_notification' => 'You have joined the project (No need to join on ÕIS)',

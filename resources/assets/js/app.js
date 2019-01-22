@@ -129,7 +129,7 @@ jQuery(document).ready(function($) {
                 price_et = "Tasuline õpe";
                 price_en = "Tuition-based study";
             }
-            let attendace = "You would"+repeat_en+"be attending the course for the first time //Aine elu"+reapet_et+"esmakordne deklareerimine\n";
+            let attendace = "You would"+repeat_en+"be attending the course for the first time //Aine elu"+repeat_et+"esmakordne deklareerimine\n";
             let price = price_en+"//"+price_et+"\n";
             let info = "Info: "+data.deklaratsioon.teade;
             textToDisplay = attendace+price+info;

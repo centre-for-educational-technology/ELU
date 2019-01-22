@@ -116,12 +116,21 @@ jQuery(document).ready(function($) {
         let showConfirm = false;
         if (window.Laravel.user.tlu_student_id != null) {
             let data = JSON.parse(response);
-            let repeat = " ";
+            let repeat_et = " ";
+            let repeat_en = " ";
             if (data.deklaratsioon.onKorduv == true) {
-                repeat = " not ";
+                repeat_et = " mitte ";
+                repeat_en = " not ";
             }
-            let attendace = "You would"+repeat+"be attending the course for the first time\n";
-            let price = "Price of declaration: "+data.deklaratsioon.hind+"\n";
+            if (data.deklaratsioon.hind == 0) {
+                price_et = "Tasuta õpe";
+                price_en = "Tuition-free study";
+            } else {
+                price_et = "Tasuline õpe";
+                price_en = "Tuition-based study";
+            }
+            let attendace = "You would"+repeat_en+"be attending the course for the first time //Aine elu"+reapet_et+"esmakordne deklareerimine\n";
+            let price = price_en+"//"+price_et+"\n";
             let info = "Info: "+data.deklaratsioon.teade;
             textToDisplay = attendace+price+info;
             if (data.deklaratsioon.saab == true) {

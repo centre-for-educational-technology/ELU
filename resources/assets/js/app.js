@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
     $.ajax({
         url: window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+user_tlu_student_id+"&ainekood=YID6001.YM",
     }).done(function (response) {
-        let textToDisplay = "No TLU student id present.";
+        let textToDisplay = "To join a project use TLU account or contact LIFE coordinators//Liitumiseks kasuta TLÜ kasutajakontot või pöördu ELU koordinaatori poole.";
         let showConfirm = false;
         if (window.Laravel.user.tlu_student_id != null) {
             let data = JSON.parse(response);

@@ -112,29 +112,33 @@ jQuery(document).ready(function($) {
     $.ajax({
         url: window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+user_tlu_student_id+"&ainekood=YID6001.YM",
     }).done(function (response) {
+        let data = JSON.parse(response);
         let textToDisplay = "To join a project use TLU account or contact LIFE coordinators//Liitumiseks kasuta TLÜ kasutajakontot või pöördu ELU koordinaatori poole.";
         let showConfirm = false;
-        if (window.Laravel.user.tlu_student_id != null) {
-            let data = JSON.parse(response);
-            let repeat_et = " ";
-            let repeat_en = " ";
-            if (data.deklaratsioon.onKorduv == true) {
-                repeat_et = " mitte ";
-                repeat_en = " not ";
-            }
-            if (data.deklaratsioon.hind == 0) {
-                price_et = "Tasuta õpe";
-                price_en = "Tuition-free study";
-            } else {
-                price_et = "Tasuline õpe";
-                price_en = "Tuition-based study";
-            }
-            let attendace = "You would"+repeat_en+"be attending the course for the first time //Aine elu"+repeat_et+"esmakordne deklareerimine\n";
-            let price = price_en+"//"+price_et+"\n";
-            let info = "Info: "+data.deklaratsioon.teade;
-            textToDisplay = attendace+price+info;
-            if (data.deklaratsioon.saab == true) {
-                showConfirm = true;
+        if (data.Viga) {
+            textToDisplay = data.Viga;
+        } else {
+            if (window.Laravel.user.tlu_student_id != null) {
+                let repeat_et = " ";
+                let repeat_en = " ";
+                if (data.deklaratsioon.onKorduv == true) {
+                    repeat_et = " mitte ";
+                    repeat_en = " not ";
+                }
+                if (data.deklaratsioon.hind == 0) {
+                    price_et = "Tasuta õpe";
+                    price_en = "Tuition-free study";
+                } else {
+                    price_et = "Tasuline õpe";
+                    price_en = "Tuition-based study";
+                }
+                let attendace = "You would"+repeat_en+"be attending the course for the first time //Aine elu"+repeat_et+"esmakordne deklareerimine\n";
+                let price = price_en+"//"+price_et+"\n";
+                let info = "Info: "+data.deklaratsioon.teade;
+                textToDisplay = attendace+price+info;
+                if (data.deklaratsioon.saab == true) {
+                    showConfirm = true;
+                }
             }
         }
         swal({

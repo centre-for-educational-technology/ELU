@@ -117,6 +117,7 @@
                                         <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_4')}}</i></p>
                                         <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_5')}}</i></p>
                                         <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_6')}}</i></p>
+                                        <p class="mceNonEditable">{{trans('project.student_expectations_desc')}}</p>
                                     @else
                                         {!! old('student_expectations') !!}
                                     @endif

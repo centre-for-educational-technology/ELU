@@ -126,20 +126,20 @@
                             @endif
 
 
-                            @if (!empty($project->presentation_results))
-                                <h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>
-                                @if($project->presentation_results == 0)
-                                    <p>{{trans('project.presentation_of_results_december')}}</p>
-                                @else
-                                    <p>{{trans('project.presentation_of_results_may')}}</p>
-                                @endif
-                            @endif
+                            {{--@if (!empty($project->presentation_results))--}}
+                                {{--<h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>--}}
+                                {{--@if($project->presentation_results == 0)--}}
+                                    {{--<p>{{trans('project.presentation_of_results_december')}}</p>--}}
+                                {{--@else--}}
+                                    {{--<p>{{trans('project.presentation_of_results_may')}}</p>--}}
+                                {{--@endif--}}
+                            {{--@endif--}}
 
 
-                            @if (!empty($project->evaluation_date_id))
-                                <h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>
-                                <p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>
-                            @endif
+                            {{--@if (!empty($project->evaluation_date_id))--}}
+                                {{--<h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>--}}
+                                {{--<p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>--}}
+                            {{--@endif--}}
 
                             {{--<div class="row share">--}}
                                 {{--<div class="col-sm-8">--}}

@@ -265,7 +265,7 @@
                         </div>
                     </a>
                 </div>
-                <h2>{{trans('front.idea_fair')}}</h2>
+                <h2>{{trans('front.idea_fair_substitute')}}</h2>
                 @if (App::getLocale() == 'et')
                     {!! getFirstParagraph($fair_info->body_et) !!}
                 @elseif(App::getLocale() == 'en')

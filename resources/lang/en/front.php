@@ -4,6 +4,7 @@ return [
     'what_is' => 'What is',
     'what_is.desc' => 'ELU is a new type of subject where, together with their supervisors, students from different study areas create a project on a topic of their interest whereas suitable methods for carrying out their ideas are chosen by themselves.',
     'add' => 'Add',
+    'idea_fair_substitute' => 'Keep up with LIFE!',
     'idea_fair' =>'Idea Fair',
     'idea_fair.desc' => 'An event that takes place twice a year (in May and December) where projects that start the following semester are introduced. You can ask for more information about ideas that you find interesting and meet future members of your team.',
     'news' => 'News',

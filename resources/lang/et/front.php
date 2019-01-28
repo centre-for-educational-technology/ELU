@@ -4,6 +4,7 @@ return [
     'what_is' => 'Mis on',
     'what_is.desc' => 'ELU on uutmoodi õppeaine, kus erinevate erialade üliõpilased koostöös juhendajatega koostavad projekti endale huvipakkuval teemal, valides seejuures ise sobilikud viisid oma ideede teostamiseks.',
     'add' => 'Lisa',
+    'idea_fair_substitute' => 'Ole ELUga kursis!',
     'idea_fair' =>'Ideelaat',
     'idea_fair.desc' => 'Kaks korda aastas (mais ja detsembris) toimuv üritus, kus tutvustatakse järgmisel semestril alustavaid projekte. Ideelaadal saab küsida huvipakkuvate ideede kohta täpsemat infot ja kohtuda tulevaste rühmakaaslastega.',
     'news' => 'Uudised',

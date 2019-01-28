@@ -627,6 +627,16 @@
                                 </span>
 
                                 </div>
+                                @if (Auth::user()->is('admin'))
+                                    <span>
+                                        Projekt paigutada avatud projektide alla
+                                        @if ($current_project->is_open == true)
+                                            <input type="checkbox" name="is_open" value="true" checked>
+                                        @else
+                                            <input type="checkbox" name="is_open" value="true">
+                                        @endif
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

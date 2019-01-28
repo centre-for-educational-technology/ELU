@@ -52,7 +52,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->orWhere('is_open', '=', '1')->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')
@@ -203,6 +203,7 @@ class ProjectController extends Controller
     }
 
     $project->aim = $request->aim;
+    $project->is_open = 0;
       
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
@@ -360,6 +361,12 @@ class ProjectController extends Controller
 
     }else{
 	    $project->embedded = null;
+    }
+
+    if ($request->is_open == true) {
+        $project->is_open = 1;
+    } else {
+        $project->is_open = 0;
     }
 
 	  $project->aim = $request->aim;

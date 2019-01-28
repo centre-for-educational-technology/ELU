@@ -77,7 +77,7 @@ class ProjectController extends Controller
   {
 
 
-    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
+    $projects = Project::where('publishing_status', '=', '1')->where('status', '=', '1')->where('is_open', '!=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->paginate(20);
 
     if(Auth::user()){
       return view('project.search')

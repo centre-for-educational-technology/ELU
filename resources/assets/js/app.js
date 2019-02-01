@@ -106,7 +106,7 @@ jQuery(document).ready(function($) {
   $("button#join-project-button").on("click", function(e){
 
     let user_tlu_student_id = null
-    if (window.Laravel.user.tlu_student_id) {
+    if (window.Laravel.user.tlu_student_id != null) {
         user_tlu_student_id = JSON.parse(window.Laravel.user.tlu_student_id)[0][0].split("@")[0];
     }
     $.ajax({

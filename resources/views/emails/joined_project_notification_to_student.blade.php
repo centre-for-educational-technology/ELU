@@ -185,9 +185,9 @@
                         </p>
 
                         <p>
-                            <p>Lisainformatsioon</p>
-                            <p>ELU koordinaatorid</p>
-                            <p>elu@tlu.ee</p>
+                            Lisainformatsioon<br>
+                            ELU koordinaatorid<br>
+                            elu@tlu.ee
                         </p>
 
                     </td>
@@ -231,9 +231,9 @@
                         </p>
 
                         <p>
-                            <p>More information</p>
-                            <p>LIFE coordinators</p>
-                            <p>elu@tlu.ee</p>
+                            More information<br>
+                            LIFE coordinators<br>
+                            elu@tlu.ee
                         </p>
 
                     </td>

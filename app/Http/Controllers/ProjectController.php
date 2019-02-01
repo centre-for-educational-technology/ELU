@@ -1070,14 +1070,14 @@ class ProjectController extends Controller
 				  array_push($project_authors_emails, getUserEmail($user));
 
 			  }
-		  }
+          }
+          
+          Mail::send('emails.joined_project_notification_to_student', ['data' => $person_data], function ($m) {
+            $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
+          });
 
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-          });
-
-          Mail::send('emails.joined_project_notification_to_student', ['data' => $data], function ($m) {
-            $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
           });
           
 	  }

@@ -106,8 +106,10 @@ jQuery(document).ready(function($) {
   $("button#join-project-button").on("click", function(e){
 
     let user_tlu_student_id = null
-    if (window.Laravel.user.tlu_student_id != null) {
+    if (window.Laravel.user.tlu_student_id) {
         user_tlu_student_id = JSON.parse(window.Laravel.user.tlu_student_id)[0][0].split("@")[0];
+    } else {
+        user_tlu_student_id = 0;
     }
     $.ajax({
         url: window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+user_tlu_student_id+"&ainekood=YID6001.YM",

@@ -145,26 +145,94 @@
                 </tr>
                 <tr>
                     <td class="content">
-
-                        <h2>Tere / Hello</h2>
+                    
+                        <h2>Hea üliõpilane!</h2>
 
                         <p>
-                            Olete liitunud projektiga <?php echo $data['project_name']; ?>
-                        </p>
-                        <p>–</p>
-                        <p>
-                            You have joined with the project <?php echo $data['project_name']; ?>
+                            Oled registreerunud ELU õppeainesse. <b>Sinu ÕISi õpingukavasse lisatakse ELU õppeosakonna poolt veebruarikuu lõpus ELUveebi registreeringu alusel.</b> ELU õppeainet üliõpilane ise oma õpingukavasse lisada EI SAA!
                         </p>
 
-                        <table>
-                            <tr>
-                                <td align="center">
-                                    <p>
-                                        <a href="<?php echo $data['project_url']; ?>" class="button">Vaata projekti / Open project</a>
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
+                        <p>
+                            <b>1) Esimene kohtumine</b>
+                            <p>
+                                Projekti esimesel kohtumisel osalemine on <u>kohustuslik!</u> Esimese kohtumise aeg ja koht on kirjas projekti ankeedis või täpsusta see juhendajaga, kelle kontakti leiad ankeedist.
+                            </p>
+                        </p>
+
+                        <p>
+                            <b>2) Õppeaine maht ja läbimine</b>
+                            <p>
+                                ELU ehk erialasid lõimiv uuendus on projekti- ja probleemõppel põhinev 6 EAPne (=156 töötundi) ainekursus, mille hindamine on arvestuslik ehk mitteeristatav.
+                                Õppeaine läbimise tingimused ja hindamiskriteeriumid on kirjas:
+                                <ul>
+                                    <li><a href="https://drive.google.com/file/d/1wbsduxUZ2y3uiC17IWbCD3RgddQK7EVC/view">Ainekaardis</a></li>
+                                    <li><a href="https://docs.google.com/document/d/1-Tt9hrAq474lzWcoa1ZV6Bzw51CHKQnq64K2kGfUjFc/edit">Kursuseprogrammis</a> (koostatakse projekti alguses koostöös juhendajaga)</li>
+                                    <li><a href="https://docs.google.com/document/d/1BiJmcN7oRpw4i7Rfia-6q7im9AUAUXToggProBo2tTs/edit">Üliõpilase ABC-s</a></li>
+                                </ul>
+                            </p>
+                        </p>
+
+                        <p>
+                            <b>3) ELU õppeaine läbimist toetavad materjalid</b> (sh projekti eelarve kasutamine, koostöine
+                            õppimine, koolitusmaterjalid, meeskonnatöö jne) on leitavad: <a href="https://elu.tlu.ee">elu.tlu.ee</a> ---&gt; sisse logides →
+                            menüüst <a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0">Materjalid</a>.
+                        </p>
+
+                        <p>
+                            <b>4) Mare maja III korrusel on klaasseinaga eraldatud kolm ELU õppeala (Infera, Media ja
+                            Supera),</b> mida saab broneerida projekti meeskonnaga kohtumiseks. Vaata vabasid aegu
+                            ASIO-st (ruumikalender MARE) ja broneerimiseks kirjuta elu@tlu.ee.
+                        </p>
+
+                        <p>
+                            <p>Lisainformatsioon</p>
+                            <p>ELU koordinaatorid</p>
+                            <p><u style="color:blue;">elu@tlu.ee</u></p>
+                        </p>
+
+                    </td>
+
+                    <td class="content">
+                    
+                        <h2>Dear Student</h2>
+
+                        <p>
+                            You have registered for a LIFE course. <b>Based on the registration on LIFE website, the Academic Affairs Office will add the course to your study plan in the Study Information System (SIS) at the end of February.</b> Students themselves CANNOT add the LIFE course to their study plan.
+                        </p>
+
+                        <p>
+                            <b>1) First meeting</b>
+                            <p>
+                                Taking part in the first project meeting is <u>compulsory!</u> The time and place of the first meeting can be found in the project description, or you can ask from the supervisor whose contacts you can find in the description.
+                            </p>
+                        </p>
+
+                        <p>
+                            <b>2) Course volume and requirements for taking the course</b>
+                            <p>
+                                LIFE (Learning in Interdisciplinary Focused Environment) is a study course of 6 ECTS (=156 working hours) and it is focused on project- and problem-based learning. The course is assessed on a non-differentiated assessment scale (Pass/Fail).
+                                Requirements for passing the course and assessment criteria can be found in:
+                                <ul>
+                                    <li><a href="https://drive.google.com/file/d/18nix8GlC7UxXYAjFI2_j4dEHL39yB3M2/view">Course description</a></li>
+                                    <li><a href="https://docs.google.com/document/d/1WjJyqCNtYSQeYvUsn43qvx5LUB3TqjctYOSQyOZ8nLs/edit">Course programme</a> (created at the beginning of the project together with the supervisor)</li>
+                                    <li><a href="https://docs.google.com/document/d/1Lyx-BrCiJR1ISzLEzx-EJUB64nroBGZuwAaLtCD0nVk/edit">Student Guidelines</a></li>
+                                </ul>
+                            </p>
+                        </p>
+
+                        <p>
+                            <b>3) Supportive materials for taking a LIFE course</b> (incl. guidelines for using the budget, training materials and materials on collaborative learning and teamwork etc.) can be found at: <a href="https://elu.tlu.ee">elu.tlu.ee</a> (log in) → <a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0">Materials.</a>.
+                        </p>
+
+                        <p>
+                            <b>4) On the third floor of Mare building you will find three LIFE study areas (Infera, Media and Supera) separated by a glass wall.</b> They can be booked for project team meetings. You can check the availability in ASIO (room calendar MARE) and send an email to elu@tlu.ee for booking a room.
+                        </p>
+
+                        <p>
+                            <p>More information</p>
+                            <p>LIFE coordinators</p>
+                            <p><u style="color:blue;">elu@tlu.ee</u></p>
+                        </p>
 
                     </td>
                 </tr>

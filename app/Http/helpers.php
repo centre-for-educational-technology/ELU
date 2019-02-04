@@ -178,7 +178,7 @@ function countMembersOfProject(\App\Project $project){
     $member_count = 0;
     if(count($project->groups) > 0){
       foreach ($project->groups as $group){
-        $member_count .= count($group->users);
+        $member_count += count($group->users);
       }
     }
     return $member_count;

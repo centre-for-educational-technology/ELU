@@ -150,7 +150,7 @@ return [
     'other' => 'Muu',
     'autumn_spring' => 'Sügis+kevad',
     'spring_autumn' => 'Kevad+sügis',
-    'declined_project_join_notification_max_members_limit' => 'Kahjuks on projektis juba kohad täietud',
+    'declined_project_join_notification_max_members_limit' => 'Kahjuks on projektis juba kohad täidetud',
     'declined_project_join_notification_max_courses_limit' => 'Kahjuks on projektis juba sinu erialaga kohad täietud',
     'find_something_else_notification' => 'Otsi midagi veel',
     'new_project_added_notification' => 'Uus projekt on lisatud!',

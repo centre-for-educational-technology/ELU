@@ -45,6 +45,7 @@ class SimpleSamlController extends Controller
         $new_user->full_name = $attrs['cn'][0];
         $new_user->email = $attrs['mail'][0];
         $new_user->password = Hash::make('');
+        $new_user->id_code = $attrs['PersonalIDCode'][0];
 
         $new_user->save();
 
@@ -56,6 +57,34 @@ class SimpleSamlController extends Controller
 
           else if(in_array('student', $attrs['eduPersonAffiliation'])){
             $new_user->roles()->attach(2);
+
+            if (isset($attrs['tluStudentID'])) {
+                if (count($attrs['tluStudentID']) > 0) {
+                  $tluStudentIdString = "[";
+                  for ($i=0;$i<count($attrs['tluStudentID']);$i++) {
+                    $tluStudentIdString .= "{\"".$i."\":\"".$attrs['tluStudentID'][$i]."\"}";
+                    if ($i != count($attrs['tluStudentID'])-1) {
+                      $tluStudentIdString .= ",";
+                    }
+                  }
+                  $tluStudentIdString .= "]";
+                  $new_user->tlu_student_id = $tluStudentIdString;
+                }
+              }
+              
+              if (count($attrs['tluStudy']) > 0) {
+                $tluStudyString = "[";
+                for ($i=0;$i<count($attrs['tluStudy']);$i++) {
+                  $tluStudyString .= "{\"".$i."\":\"".$attrs['tluStudy'][$i]."\"}";
+                  if ($i != count($attrs['tluStudy'])-1) {
+                    $tluStudyString .= ",";
+                  }
+                }
+                $tluStudyString .= "]";
+                $new_user->tlu_study = $tluStudyString;
+              }
+
+              $new_user->save();
 
 
             if(!empty($attrs['eduPersonScopedAffiliation'])){

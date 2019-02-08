@@ -936,16 +936,26 @@ class ProjectController extends Controller
 
     $project = Project::find($id);
 
-	  if(Auth::user()->isMemberOfProject()){
+    if(Auth::user()->isMemberOfProject()){
 
-		  return \Redirect::to('project/'.$project->id)
-				  ->with('message', [
-						  'text' => trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name']),
-						  'type' => 'already_in_project'
-				  ])
-				  ->with('project', $project);
+        return \Redirect::to('project/'.$project->id)
+                ->with('message', [
+                        'text' => trans('project.already_in_team_notification', ['name' => Auth::user()->isMemberOfProject()]['name']),
+                        'type' => 'already_in_project'
+                ])
+                ->with('project', $project);
 
-	  }
+    }
+      
+    if (countMembersOfProject($project) >= $project->max_members) {
+        //Max members limit exceeded
+        return \Redirect::to('project/'.$project->id)
+            ->with('message', [
+                    'text' => trans('project.declined_project_join_notification_max_members_limit').': "'.$project->name.'"',
+                    'type' => 'declined'
+            ])
+            ->with('project', $project);
+    }
 
 
     if( count($project->groups) >= 3){

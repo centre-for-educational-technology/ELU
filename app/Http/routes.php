@@ -651,13 +651,13 @@ Route::group(['middleware' => ['web']], function () {
                     array_push($author_names_array, $author->full_name);
                 }
             }
-
+            /*
             foreach ($cosupervisors as $cosupervisor) {
                 if ($cosupervisor) {
                     array_push($cosupervisor_names_array, $cosupervisor->full_name);
                 }
             }
-
+            */
             try {
                 $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
             } catch (Exception  $exception) {
@@ -732,13 +732,13 @@ Route::group(['middleware' => ['web']], function () {
                     array_push($author_names_array, $author->full_name);
                 }
             }
-
+            /*
             foreach ($cosupervisors as $cosupervisor) {
                 if ($cosupervisor) {
                     array_push($cosupervisor_names_array, $cosupervisor->full_name);
                 }
             }
-
+            */
             try {
                 $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
             } catch (Exception  $exception) {
@@ -828,13 +828,13 @@ Route::group(['middleware' => ['web']], function () {
                         array_push($author_names_array, $author->full_name);
                     }
                 }
-    
+                /*
                 foreach ($cosupervisors as $cosupervisor) {
                     if ($cosupervisor) {
                         array_push($cosupervisor_names_array, $cosupervisor->full_name);
                     }
                 }
-
+                */
                 try {
                     $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
                 } catch (Exception  $exception) {

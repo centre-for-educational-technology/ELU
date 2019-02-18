@@ -475,13 +475,11 @@ Route::group(['middleware' => ['web']], function () {
             }
 
             $supervisor_id_code = $authors[0]->id_code;
-            $supervisor_name = explode(' ', $authors[0]->full_name);
-            try {
+            $supervisor_name = $authors[0]->full_name;
+            $split_supervisor_name = explode(' ', $supervisor_name);
 
-            } catch (Exception  $exception) {
 
-            }
-            $declaration = array('oppijaId' => $tlu_student_id, 'ainekood' => $course_code, 'oppejoudIk' => $supervisor_id_code, 'oppejoudEesnimi' => $supervisor_name[0], 'oppejoudPerenimi' => $supervisor_name[1]);
+            $declaration = array('oppijaId' => $tlu_student_id, 'ainekood' => $course_code, 'oppejoudIk' => $supervisor_id_code, 'oppejoudEesnimi' => $supervisor_name, 'oppejoudPerenimi' => $supervisor_name);
             /*
             */
 

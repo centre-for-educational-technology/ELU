@@ -344,9 +344,14 @@ Route::group(['middleware' =>['web']], function () {
                     array_push($declarations, $declaration);
                 }
         
-                $declarations_json = json_encode($declarations);
+                $declarations_json = ['deklaratsioonid' => $declarations];
+
+                $header = array (
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'charset' => 'utf-8'
+                );
                 
-                return $declarations_json;
+                return response()->json($declarations_json, 200, $header, JSON_UNESCAPED_UNICODE);
         
             });
 
@@ -405,9 +410,14 @@ Route::group(['middleware' =>['web']], function () {
                     array_push($declarations, $declaration);
                 }
         
-                $declarations_json = json_encode($declarations);
+                $declarations_json = ['deklaratsioonid' => $declarations];
                 
-                return $declarations_json;
+                $header = array (
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'charset' => 'utf-8'
+                );
+                
+                return response()->json($declarations_json, 200, $header, JSON_UNESCAPED_UNICODE);
         
             });
 
@@ -469,9 +479,14 @@ Route::group(['middleware' =>['web']], function () {
 
                 }
         
-                $declarations_json = json_encode($declarations);
+                $declarations_json = ['deklaratsioonid' => $declarations];
                 
-                return $declarations_json;
+                $header = array (
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'charset' => 'utf-8'
+                );
+                
+                return response()->json($declarations_json, 200, $header, JSON_UNESCAPED_UNICODE);
         
             });
 

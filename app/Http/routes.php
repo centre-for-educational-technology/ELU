@@ -479,9 +479,7 @@ Route::group(['middleware' => ['web']], function () {
             $split_supervisor_name = explode(' ', $supervisor_name);
 
 
-            $declaration = array('oppijaId' => $tlu_student_id, 'ainekood' => $course_code, 'oppejoudIk' => $supervisor_id_code, 'oppejoudEesnimi' => $supervisor_name, 'oppejoudPerenimi' => $supervisor_name);
-            /*
-            */
+            $declaration = array('oppijaId' => $tlu_student_id, 'ainekood' => $course_code, 'oppejoudIk' => $supervisor_id_code, 'oppejoudEesnimi' => $split_supervisor_name[0], 'oppejoudPerenimi' => end($split_supervisor_name));
 
             array_push($declarations, $declaration);
         }

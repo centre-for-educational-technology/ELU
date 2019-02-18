@@ -355,6 +355,67 @@ Route::group(['middleware' =>['web']], function () {
         
             });
 
+            Route::get('declarationsInCaseNoNull', function () {
+
+                $declarations = array();
+                $course_code = env('COURSE_CODE');
+                
+                $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+                
+                $students_ids = array();
+        
+                foreach ($projects as $project){
+                    $members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+                    if(count($members)>0){
+                        foreach ($members as $member){
+                            array_push($students_ids, $member->id);
+                        }
+        
+                    }
+        
+                }
+        
+                foreach ($students_ids as $student_id){
+                    $user = User::find($student_id);
+                    $project = Project::find($user->isMemberOfProject()['id']);
+                    $authors = getProjectAuthors($project);
+                    $cosupervisors = getProjectCosupervisors($project);
+        
+                    try {
+                        $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
+                    } catch (Exception  $exception) {
+                        $tlu_student_id = 0;
+                    }
+        
+                    $supervisor_id_code = $authors[0]->id_code;
+                    $supervisor_name = $authors[0]->full_name;
+                    $split_supervisor_name = explode(' ', $supervisor_name);
+        
+        
+                    $declaration = array(
+                        'oppijaId' => $tlu_student_id,
+                        'ainekood' => $course_code,
+                        'oppejoudIk' => $supervisor_id_code,
+                        'oppejoudEesnimi' => $split_supervisor_name[0],
+                        'oppejoudPerenimi' => end($split_supervisor_name)
+                    );
+        
+                    if ($tlu_student_id != null && $course_code != null && $supervisor_id_code != null && $supervisor_name != null) {
+                        array_push($declarations, $declaration);
+                    }
+                }
+        
+                $declarations_json = ['deklaratsioonid' => $declarations];
+
+                $header = array (
+                    'Content-Type' => 'application/json; charset=UTF-8',
+                    'charset' => 'utf-8'
+                );
+                
+                return response()->json($declarations_json, 200, $header, JSON_UNESCAPED_UNICODE);
+        
+            });
+
             Route::get('declarationsWithCsvData', function () {
 
                 $declarations = array();

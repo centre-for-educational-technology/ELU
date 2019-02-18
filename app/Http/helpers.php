@@ -537,3 +537,13 @@ function getProjectCosupervisors(\App\Project $project){
     }
     return $cosupervisors;
 }
+
+
+/**
+ * Return string containing array contents
+ * @param array $data
+ * @return string
+ */
+function arrayToImplodeString(array $data){
+    return implode(', ', $data);
+}

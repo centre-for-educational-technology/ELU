@@ -393,13 +393,13 @@ Route::group(['middleware' =>['web']], function () {
                         'oppejoudIk' => $supervisor_id_code,
                         'oppejoudEesnimi' => $split_supervisor_name[0],
                         'oppejoudPerenimi' => end($split_supervisor_name),
-                        'eesJaPerekonnanimi' => self::getUserName($user),
+                        'eesJaPerekonnanimi' => getUserName($user),
                         'email' => $user->email,
                         'kursus' => getUserCourse($user),
                         'projektiNimi' => $project->name,
                         'projektiId' => $project->id,
-                        'juhendajad' => self::arrayToImplodeString($authors),
-                        'kaasjuhendajad' => self::arrayToImplodeString($cosupervisors)
+                        'juhendajad' => arrayToImplodeString($authors),
+                        'kaasjuhendajad' => arrayToImplodeString($cosupervisors)
                     );
         
                     array_push($declarations, $declaration);

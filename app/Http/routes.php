@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Course;
 use App\Group;
 use App\EvaluationDate;
+use Carbon\Carbon;
 
 
 
@@ -365,74 +366,134 @@ Route::group(['middleware' =>['web']], function () {
 Route::group(['middleware' => ['web']], function () {
 
 
-  Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
+    Route::get('/login/tlu', 'SimpleSamlController@redirectToProvider');
 
 
-  Route::get('/login/choose', function () {
+    Route::get('/login/choose', function () {
 
-    return view('auth.login_tlu');
-  });
-
-
-  Route::auth();
+        return view('auth.login_tlu');
+    });
 
 
-
-
-  Route::get('/', 'PageController@index');
-
-
-  Route::get('/faq', 'PageController@indexFaq');
-
-
-
-  Route::get('/projects/open', 'ProjectController@indexOpenProjects');
-
-  Route::get('/projects/ongoing', 'ProjectController@indexOngoingProjects');
-
-  Route::get('/projects/finished', 'ProjectController@indexFinishedProjects');
-
-
-  Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
-
-
-  Route::get('/projects/open/search', 'ProjectController@getOpenProjectsSearch');
-
-  Route::get('/projects/ongoing/search', 'ProjectController@getOngoingProjectsSearch');
-
-  Route::get('/projects/finished/search', 'ProjectController@getFinishedProjectsSearch');
-
-
-
-  Route::get('project/{id}', array('as' => 'project', function ($id) {
-
-
-    $project = Project::find($id);
-
-    if($project){
-	    if(Auth::user()){
-		    return view('project.project')
-				    ->with('project', $project)
-				    ->with('isTeacher', Auth::user()->is('oppejoud'));
-	    }else{
-		    return view('project.project')
-				    ->with('project', $project)
-				    ->with('isTeacher', false);
-	    }
-
-    }else{
-    	return view('errors.404');
-    }
+    Route::auth();
 
 
 
 
-  }));
+    Route::get('/', 'PageController@index');
 
-  Route::get('oisJoinConfirmation', function (Request $request) {
-    return file_get_contents('https://ois.tlu.ee/ois2/ois2.elu_kontroll?oppijaId='.$request->oppijaId.'&ainekood='.$request->ainekood);
-  });
 
+    Route::get('/faq', 'PageController@indexFaq');
+
+
+
+    Route::get('/projects/open', 'ProjectController@indexOpenProjects');
+
+    Route::get('/projects/ongoing', 'ProjectController@indexOngoingProjects');
+
+    Route::get('/projects/finished', 'ProjectController@indexFinishedProjects');
+
+
+    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+
+    Route::get('/projects/open/search', 'ProjectController@getOpenProjectsSearch');
+
+    Route::get('/projects/ongoing/search', 'ProjectController@getOngoingProjectsSearch');
+
+    Route::get('/projects/finished/search', 'ProjectController@getFinishedProjectsSearch');
+
+
+
+    Route::get('project/{id}', array('as' => 'project', function ($id) {
+
+        $project = Project::find($id);
+
+        if($project){
+            if(Auth::user()){
+                return view('project.project')
+                        ->with('project', $project)
+                        ->with('isTeacher', Auth::user()->is('oppejoud'));
+            }else{
+                return view('project.project')
+                        ->with('project', $project)
+                        ->with('isTeacher', false);
+            }
+
+        }else{
+            return view('errors.404');
+        }
+
+    }));
+
+    Route::get('oisJoinConfirmation', function (Request $request) {
+        return file_get_contents('https://ois.tlu.ee/ois2/ois2.elu_kontroll?oppijaId='.$request->oppijaId.'&ainekood='.$request->ainekood);
+    });
+
+    Route::get('getCurrentSemester', function () {
+        $year = date('o');
+        $month = date('n');
+        if ($month > 6) {
+            $semester = 'autumn';
+        } else {
+            $semester = 'spring';
+        }
+        $full_semester = $year.'_'.$semester;
+        return $full_semester;
+    });
+
+    Route::get('declarations', function () {
+
+        $declarations = array();
+        $course_code = env('COURSE_CODE');
+        
+        $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+        
+        $students_ids = array();
+
+		foreach ($projects as $project){
+			$members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+			if(count($members)>0){
+				foreach ($members as $member){
+					array_push($students_ids, $member->id);
+				}
+
+			}
+
+        }
+
+        foreach ($students_ids as $student_id){
+            $user = User::find($student_id);
+            $project = Project::find($user->isMemberOfProject()['id']);
+            $authors = getProjectAuthors($project);
+            $cosupervisors = getProjectCosupervisors($project);
+
+            try {
+                $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
+            } catch (Exception  $exception) {
+                $tlu_student_id = 0;
+            }
+
+            $supervisor_id_code = $authors[0]->id_code;
+            $supervisor_name = explode(' ', $authors[0]->full_name);
+            try {
+
+            } catch (Exception  $exception) {
+
+            }
+            $declaration = array('oppijaId' => $tlu_student_id, 'ainekood' => $course_code, 'oppejoudIk' => $supervisor_id_code, 'oppejoudEesnimi' => $supervisor_name[0], 'oppejoudPerenimi' => $supervisor_name[1]);
+            /*
+            */
+
+            array_push($declarations, $declaration);
+        }
+
+        $declarations_json = json_encode($declarations);
+        
+        //var_dump(json_decode(User::find($students_ids[0])->tlu_student_id, true)[0][0].str_split());
+        return $declarations_json;
+
+    });
 
   // ===============================================
   // 404 ===========================================

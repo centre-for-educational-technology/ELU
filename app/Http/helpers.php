@@ -506,3 +506,34 @@ function checkIfThereIsSpaceInProject(\App\Project $project, \App\User $user){
     }
     return false;
 }
+
+/**
+ * Return authors of a project
+ * @param \App\Project $project
+ * @return array of \App\Users
+ */
+function getProjectAuthors(\App\Project $project){
+    $authors = array();
+    foreach ($project->users as $user){
+        if($user->pivot->participation_role == 'author'){
+            array_push($authors, $user);
+        }
+    }
+    return $authors;
+  }
+
+
+/**
+ * Return cosupervisors of a project
+ * @param \App\Project $project
+ * @return array of \App\Users
+ */
+function getProjectCosupervisors(\App\Project $project){
+    $cosupervisors = array();
+    foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor) {
+
+        array_push($cosupervisors, $single_cosupervisor);
+
+    }
+    return $cosupervisors;
+}

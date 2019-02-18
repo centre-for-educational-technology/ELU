@@ -643,6 +643,21 @@ Route::group(['middleware' => ['web']], function () {
             $authors = getProjectAuthors($project);
             $cosupervisors = getProjectCosupervisors($project);
 
+            $author_names_array = array();
+            $cosupervisor_names_array = array();
+
+            foreach ($authors as $author) {
+                if ($author) {
+                    array_push($author_names_array, $author->full_name);
+                }
+            }
+
+            foreach ($cosupervisors as $cosupervisor) {
+                if ($cosupervisor) {
+                    array_push($cosupervisor_names_array, $cosupervisor->full_name);
+                }
+            }
+
             try {
                 $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
             } catch (Exception  $exception) {
@@ -665,8 +680,8 @@ Route::group(['middleware' => ['web']], function () {
                 'kursus' => getUserCourse($user),
                 'projektiNimi' => $project->name,
                 'projektiId' => $project->id,
-                'juhendajad' => $authors,
-                'kaasjuhendajad' => $cosupervisors
+                'juhendajad' => $author_names_array,
+                'kaasjuhendajad' => $cosupervisor_names_array
             );
 
             array_push($declarations, $declaration);
@@ -709,6 +724,21 @@ Route::group(['middleware' => ['web']], function () {
             $authors = getProjectAuthors($project);
             $cosupervisors = getProjectCosupervisors($project);
 
+            $author_names_array = array();
+            $cosupervisor_names_array = array();
+
+            foreach ($authors as $author) {
+                if ($author) {
+                    array_push($author_names_array, $author->full_name);
+                }
+            }
+
+            foreach ($cosupervisors as $cosupervisor) {
+                if ($cosupervisor) {
+                    array_push($cosupervisor_names_array, $cosupervisor->full_name);
+                }
+            }
+
             try {
                 $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
             } catch (Exception  $exception) {
@@ -731,8 +761,8 @@ Route::group(['middleware' => ['web']], function () {
                 'kursus' => getUserCourse($user),
                 'projektiNimi' => $project->name,
                 'projektiId' => $project->id,
-                'juhendajad' => $authors,
-                'kaasjuhendajad' => $cosupervisors
+                'juhendajad' => $author_names_array,
+                'kaasjuhendajad' => $cosupervisor_names_array
             );
 
             if ($tlu_student_id == null || $course_code == null || $supervisor_id_code == null || $supervisor_name == null) {
@@ -793,6 +823,18 @@ Route::group(['middleware' => ['web']], function () {
                 $authors = getProjectAuthors($project);
                 $cosupervisors = getProjectCosupervisors($project);
 
+                foreach ($authors as $author) {
+                    if ($author) {
+                        array_push($author_names_array, $author->full_name);
+                    }
+                }
+    
+                foreach ($cosupervisors as $cosupervisor) {
+                    if ($cosupervisor) {
+                        array_push($cosupervisor_names_array, $cosupervisor->full_name);
+                    }
+                }
+
                 try {
                     $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
                 } catch (Exception  $exception) {
@@ -809,7 +851,7 @@ Route::group(['middleware' => ['web']], function () {
                     $isDone = 'TEHTUD';
                 }
 
-                fputcsv($handle, array(getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], arrayToImplodeString($authors), arrayToImplodeString($cosupervisors), $tlu_student_id, $isDone), ',');
+                fputcsv($handle, array(getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], arrayToImplodeString($author_names_array), arrayToImplodeString($cosupervisor_names_array), $tlu_student_id, $isDone), ',');
             }
 
         };

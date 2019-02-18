@@ -681,7 +681,7 @@ Route::group(['middleware' => ['web']], function () {
                 'projektiNimi' => $project->name,
                 'projektiId' => $project->id,
                 'juhendajad' => $author_names_array,
-                'kaasjuhendajad' => $cosupervisor_names_array
+                'kaasjuhendajad' => $cosupervisors
             );
 
             array_push($declarations, $declaration);
@@ -762,7 +762,7 @@ Route::group(['middleware' => ['web']], function () {
                 'projektiNimi' => $project->name,
                 'projektiId' => $project->id,
                 'juhendajad' => $author_names_array,
-                'kaasjuhendajad' => $cosupervisor_names_array
+                'kaasjuhendajad' => $cosupervisors
             );
 
             if ($tlu_student_id == null || $course_code == null || $supervisor_id_code == null || $supervisor_name == null) {
@@ -851,7 +851,7 @@ Route::group(['middleware' => ['web']], function () {
                     $isDone = 'TEHTUD';
                 }
 
-                fputcsv($handle, array(getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], arrayToImplodeString($author_names_array), arrayToImplodeString($cosupervisor_names_array), $tlu_student_id, $isDone), ',');
+                fputcsv($handle, array(getUserName($user), $user->email, getUserCourse($user), $user->isMemberOfProject()['name'], arrayToImplodeString($author_names_array), arrayToImplodeString($cosupervisors), $tlu_student_id, $isDone), ',');
             }
 
         };

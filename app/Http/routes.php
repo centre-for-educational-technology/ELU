@@ -398,11 +398,75 @@ Route::group(['middleware' =>['web']], function () {
                         'kursus' => getUserCourse($user),
                         'projektiNimi' => $project->name,
                         'projektiId' => $project->id,
-                        'juhendajad' => arrayToImplodeString($authors),
-                        'kaasjuhendajad' => arrayToImplodeString($cosupervisors)
+                        'juhendajad' => $authors,
+                        'kaasjuhendajad' => $cosupervisors
                     );
         
                     array_push($declarations, $declaration);
+                }
+        
+                $declarations_json = json_encode($declarations);
+                
+                return $declarations_json;
+        
+            });
+
+            Route::get('declarationsWithCsvDataInCaseNull', function () {
+
+                $declarations = array();
+                $course_code = env('COURSE_CODE');
+                
+                $projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '<', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+                
+                $students_ids = array();
+        
+                foreach ($projects as $project){
+                    $members = $project->users()->select('id')->wherePivot('participation_role', 'member')->get();
+                    if(count($members)>0){
+                        foreach ($members as $member){
+                            array_push($students_ids, $member->id);
+                        }
+        
+                    }
+        
+                }
+        
+                foreach ($students_ids as $student_id){
+                    $user = User::find($student_id);
+                    $project = Project::find($user->isMemberOfProject()['id']);
+                    $authors = getProjectAuthors($project);
+                    $cosupervisors = getProjectCosupervisors($project);
+        
+                    try {
+                        $tlu_student_id = explode('@', json_decode($user->tlu_student_id, true)[0][0])[0];
+                    } catch (Exception  $exception) {
+                        $tlu_student_id = 0;
+                    }
+        
+                    $supervisor_id_code = $authors[0]->id_code;
+                    $supervisor_name = $authors[0]->full_name;
+                    $split_supervisor_name = explode(' ', $supervisor_name);
+        
+        
+                    $declaration = array(
+                        'oppijaId' => $tlu_student_id,
+                        'ainekood' => $course_code,
+                        'oppejoudIk' => $supervisor_id_code,
+                        'oppejoudEesnimi' => $split_supervisor_name[0],
+                        'oppejoudPerenimi' => end($split_supervisor_name),
+                        'eesJaPerekonnanimi' => getUserName($user),
+                        'email' => $user->email,
+                        'kursus' => getUserCourse($user),
+                        'projektiNimi' => $project->name,
+                        'projektiId' => $project->id,
+                        'juhendajad' => $authors,
+                        'kaasjuhendajad' => $cosupervisors
+                    );
+        
+                    if ($tlu_student_id == null || $course_code == null || $supervisor_id_code == null || $supervisor_name == null) {
+                        array_push($declarations, $declaration);
+                    }
+
                 }
         
                 $declarations_json = json_encode($declarations);

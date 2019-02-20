@@ -823,6 +823,8 @@ Route::group(['middleware' => ['web']], function () {
                 $authors = getProjectAuthors($project);
                 $cosupervisors = getProjectCosupervisors($project);
 
+                $author_names_array = array();
+
                 foreach ($authors as $author) {
                     if ($author) {
                         array_push($author_names_array, $author->full_name);

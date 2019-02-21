@@ -30,7 +30,7 @@ return [
     'email' => 'E-posti aadress',
     'other' => 'Muu',
     'specify_institution' => 'Palun täpsusta',
-    'field' => 'Eriala'
+    'field' => 'Õppekava'
 ];
 
 

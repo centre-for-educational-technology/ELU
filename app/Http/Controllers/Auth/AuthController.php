@@ -54,7 +54,7 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'institution' => 'required|min:3',
             'other-institution' => 'min:3',
-            'course' => 'min:3',
+            'course' => 'required|min:3',
             'g-recaptcha-response' => 'required|captcha'
         ]);
     }

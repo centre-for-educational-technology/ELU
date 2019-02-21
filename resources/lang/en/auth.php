@@ -23,5 +23,5 @@ return [
     'email' => 'Email',
     'other' => 'Other',
     'specify_institution' => 'Please specify',
-    'field' => 'Course'
+    'field' => 'Study programme'
 ];

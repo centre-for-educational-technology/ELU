@@ -1944,14 +1944,14 @@ class ProjectController extends Controller
 
 
 		if($isFirstTimeSupervisor && $members_count <= 8){
-			$total_points = 9;
+			$total_points = 4;
+			$limit_per_one = 3;
+		} else if($isFirstTimeSupervisor && $members_count <= 17){
+			$total_points = 8;
 			$limit_per_one = 6;
-		} else if($isFirstTimeSupervisor && $members_count <= 16){
-			$total_points = 11;
-			$limit_per_one = 8;
 		} else if($isFirstTimeSupervisor) {
-			$total_points = 13;
-			$limit_per_one = 10;
+			$total_points = 12;
+			$limit_per_one = 9;
 		}
 
 

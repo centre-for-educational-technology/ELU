@@ -389,6 +389,8 @@ class ProjectController extends Controller
 
 	  $project->presentation_results = $request->presentation_results;
 
+    $project->is_first_time_supervisor = $request->is_first_time_supervisor;
+
 
     //XXX to be removed
     //$project->integrated_areas = $request->integrated_areas;

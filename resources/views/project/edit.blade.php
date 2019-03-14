@@ -563,13 +563,13 @@
                                     @endif
 
                                 </select>
+                                @if(Auth::user()->is('admin'))
+                                    <span>
+                                        Esmakordne juhendaja
+                                        <input type="checkbox" name="is_first_time_supervisor" {{ $current_project->is_first_time_supervisor == 1 ? selected : "" }}>
+                                    </span>
+                                @endif
                             </div>
-                            @if(!Auth::user()->is('admin'))
-                                <span>
-                                    Esmakordne juhendaja
-                                    <input type="checkbox" name="is_first_time_supervisor" {{ $current_project->is_first_time_supervisor == 1 ? selected : }}>
-                                </span>
-                            @endif
                         </div>
 
                         <!-- Co-supervisors -->

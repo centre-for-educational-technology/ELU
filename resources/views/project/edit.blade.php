@@ -566,11 +566,7 @@
                                 @if(Auth::user()->is('admin'))
                                     <span>
                                         Esmakordne juhendaja
-                                        @if ($current_project->is_first_time_supervisor == 1)
-                                            <input type="checkbox" name="is_first_time_supervisor" selected>
-                                        @else
-                                            <input type="checkbox" name="is_first_time_supervisor">
-                                        @endif
+                                        <input type="checkbox" name="is_first_time_supervisor" {{ $current_project->is_first_time_supervisor == 1 ? "checked" : "" }}>
                                     </span>
                                 @endif
                             </div>

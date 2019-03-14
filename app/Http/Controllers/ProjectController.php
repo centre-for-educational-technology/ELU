@@ -389,7 +389,11 @@ class ProjectController extends Controller
 
 	  $project->presentation_results = $request->presentation_results;
 
-    $project->is_first_time_supervisor = $request->is_first_time_supervisor;
+    if ($request->is_first_time_supervisor == true) {
+      $project->is_first_time_supervisor = 1;
+    } else {
+      $project->is_first_time_supervisor = 0;
+    }
 
 
     //XXX to be removed

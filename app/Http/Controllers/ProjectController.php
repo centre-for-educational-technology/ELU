@@ -204,7 +204,7 @@ class ProjectController extends Controller
 
     $project->aim = $request->aim;
     $project->is_open = 0;
-      
+
 	  $project->interdisciplinary_desc = $request->interdisciplinary_desc;
 
     if ($request->novelty_desc != '<p>undefined</p>') {
@@ -946,7 +946,7 @@ class ProjectController extends Controller
                 ->with('project', $project);
 
     }
-      
+
     if (countMembersOfProject($project) >= $project->max_members) {
         //Max members limit exceeded
         return \Redirect::to('project/'.$project->id)
@@ -1067,12 +1067,12 @@ class ProjectController extends Controller
 				  'project_name' => $project->name,
 				  'project_url' => url('project/'.$project->id),
           ];
-          
+
           $person_data = [
             'project_name' => $project->name,
 			'project_url' => url('project/'.$project->id),
           ];
-          
+
 		  $project_authors_emails = array();
 		  foreach ($project->users as $user){
 
@@ -1081,7 +1081,7 @@ class ProjectController extends Controller
 
 			  }
           }
-          
+
           Mail::send('emails.joined_project_notification_to_student', ['data' => $person_data], function ($m) {
             $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
           });
@@ -1089,7 +1089,7 @@ class ProjectController extends Controller
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
           });
-          
+
 	  }
 
 
@@ -1927,6 +1927,9 @@ class ProjectController extends Controller
 			}
 		//}
 
+      if ($project->is_first_time_supervisor == 1) {
+        $isFirstTimeSupervisor = true;
+      }
 
 		if($members_count <= 8){
 			$total_points = 3;
@@ -1992,6 +1995,10 @@ class ProjectController extends Controller
 				$isFirstTimeSupervisor = true;
 			}
 		//}
+
+    if ($project->is_first_time_supervisor == 1) {
+      $isFirstTimeSupervisor = true;
+    }
 
 
 		if($members_count <= 8){

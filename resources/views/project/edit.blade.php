@@ -564,6 +564,12 @@
 
                                 </select>
                             </div>
+                            @if(!Auth::user()->is('admin'))
+                                <span>
+                                    Esmakordne juhendaja
+                                    <input type="checkbox" name="is_first_time_supervisor" {{ $current_project->is_first_time_supervisor == 1 ? selected : }}>
+                                </span>
+                            @endif
                         </div>
 
                         <!-- Co-supervisors -->
@@ -722,13 +728,13 @@
                                     @else
                                         <input type="hidden" name="publishing_status" value=0>
                                         <select class="form-control" id="publishing_status" name="publishing_status" disabled>
-                                            
+
                                             <option value="0" selected>{{trans('project.hidden')}}</option>
-                                            
+
                                             <option value="1">{{trans('project.published')}}</option>
-                                        
+
                                         </select>
-                                        
+
                                         <!-- Tooltip letting users know why the project status is hidden at first -->
                                         {{trans('project.reason_of_initial_hiddenness')}}
                                     @endif

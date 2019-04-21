@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
 
   $.ajaxSetup({
@@ -38,32 +38,32 @@ jQuery(document).ready(function($) {
 
 
   // Tags input
-  $('input #tags').on('change', function(event) {
+  $('input #tags').on('change', function (event) {
     var $element = $(event.target),
       $container = $element.closest('.example');
 
     var val = $element.val();
     if (val === null)
       val = "null";
-    $('code', $('pre.val', $container)).html( ($.isArray(val) ? JSON.stringify(val) : "\"" + val.replace('"', '\\"') + "\"") );
+    $('code', $('pre.val', $container)).html(($.isArray(val) ? JSON.stringify(val) : "\"" + val.replace('"', '\\"') + "\""));
     $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
   }).trigger('change');
 
 
   // Sweet alert
-  $("button#delete").on("click", function(e){
+  $("button#delete").on("click", function (e) {
 
     swal({
-        title: window.Laravel.are_you_sure_notification,
-        text: window.Laravel.cannot_restore_notification,
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: window.Laravel.yes_delete,
-        cancelButtonText: window.Laravel.no,
-        closeOnConfirm: false
-      },
-      function(){
+      title: window.Laravel.are_you_sure_notification,
+      text: window.Laravel.cannot_restore_notification,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: window.Laravel.yes_delete,
+      cancelButtonText: window.Laravel.no,
+      closeOnConfirm: false
+    },
+      function () {
         $(e.target).prev('.delete-project').submit();
 
       });
@@ -71,18 +71,18 @@ jQuery(document).ready(function($) {
   });
 
 
-  $("button#delete-user-button").on("click", function(e){
+  $("button#delete-user-button").on("click", function (e) {
 
     swal({
-        title: window.Laravel.are_you_sure_notification,
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: window.Laravel.yes_delete,
-        cancelButtonText: window.Laravel.no,
-        closeOnConfirm: false
-      },
-      function(){
+      title: window.Laravel.are_you_sure_notification,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: window.Laravel.yes_delete,
+      cancelButtonText: window.Laravel.no,
+      closeOnConfirm: false
+    },
+      function () {
         $(e.target).prev('.delete-user').submit();
 
       });
@@ -90,8 +90,8 @@ jQuery(document).ready(function($) {
   });
 
 
-  $("a#groups-finish-button").on("click", function(e){
-    if(!$("a#groups-finish-button").hasClass('not-empty')){
+  $("a#groups-finish-button").on("click", function (e) {
+    if (!$("a#groups-finish-button").hasClass('not-empty')) {
       e.preventDefault();
 
       swal({
@@ -103,59 +103,59 @@ jQuery(document).ready(function($) {
     }
   });
 
-  $("button#join-project-button").on("click", function(e){
-
+  $("button#join-project-button").on("click", function (e) {
+    e.preventDefault();
     let user_tlu_student_id = null
     if (window.Laravel.user.tlu_student_id) {
-        user_tlu_student_id = JSON.parse(window.Laravel.user.tlu_student_id)[0][0].split("@")[0];
+      user_tlu_student_id = JSON.parse(window.Laravel.user.tlu_student_id)[0][0].split("@")[0];
     } else {
-        user_tlu_student_id = 0;
+      user_tlu_student_id = 0;
     }
     $.ajax({
-        url: window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+user_tlu_student_id+"&ainekood=YID6001.YM",
+      url: window.Laravel.base_path + "/oisJoinConfirmation?oppijaId=" + user_tlu_student_id + "&ainekood=YID6001.YM",
     }).done(function (response) {
-        let data = JSON.parse(response);
-        let textToDisplay = "ELU õppeainega liitumiseks kasuta TLÜ kasutajakontot või kirjuta elu@tlu.ee // To join LIFE course please use TLU account or contact elu@tlu.ee\n";
-        let showConfirm = false;
-        if (data.Viga) {
-            textToDisplay = data.Viga;
-        } else {
-            if (window.Laravel.user.tlu_student_id != null) {
-                let info = "";
-                let attendace = "Registreerud ELU õppeainesse esmakordselt / This is your first registration to LIFE course\n";
-                if (data.deklaratsioon.onKorduv == true) {
-                    attendace = "Olete ELU õppeaine juba läbinud. Osalemiseks kontakteeruge elu@tlu.ee / If you want to join to the LIFE course second time, please contact LIFE coordinators elu@tlu.ee\n";
-                }
-                if (data.deklaratsioon.teade != null) {
-                    info = "Info: "+data.deklaratsioon.teade;
-                }
-                if (data.deklaratsioon.hind == 0) {
-                    price_et = "Tasuta õpe";
-                    price_en = "Tuition-free study";
-                } else {
-                    price_et = "Tasuline õpe";
-                    price_en = "Tuition-based study";
-                }
-                let price = price_en+"//"+price_et+"\n";
-                textToDisplay = attendace+price+info;
-                if (data.deklaratsioon.saab == true) {
-                    showConfirm = true;
-                }
-            }
+      let data = JSON.parse(response);
+      let textToDisplay = "ELU õppeainega liitumiseks kasuta TLÜ kasutajakontot või kirjuta elu@tlu.ee // To join LIFE course please use TLU account or contact elu@tlu.ee\n";
+      let showConfirm = false;
+      if (data.Viga) {
+        textToDisplay = data.Viga;
+      } else {
+        if (window.Laravel.user.tlu_student_id != null) {
+          let info = "";
+          let attendace = "Registreerud ELU õppeainesse esmakordselt / This is your first registration to LIFE course\n";
+          if (data.deklaratsioon.onKorduv == true) {
+            attendace = "Olete ELU õppeaine juba läbinud. Osalemiseks kontakteeruge elu@tlu.ee / If you want to join to the LIFE course second time, please contact LIFE coordinators elu@tlu.ee\n";
+          }
+          if (data.deklaratsioon.teade != null) {
+            info = "Info: " + data.deklaratsioon.teade;
+          }
+          if (data.deklaratsioon.hind == 0) {
+            price_et = "Tasuta õpe";
+            price_en = "Tuition-free study";
+          } else {
+            price_et = "Tasuline õpe";
+            price_en = "Tuition-based study";
+          }
+          let price = price_en + "//" + price_et + "\n";
+          textToDisplay = attendace + price + info;
+          if (data.deklaratsioon.saab == true) {
+            showConfirm = true;
+          }
         }
-        swal({
-            title: window.Laravel.are_you_sure_notification,
-            text: textToDisplay,
-            type: "info",
-            showCancelButton: true,
-            showConfirmButton: showConfirm,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: window.Laravel.yes,
-            cancelButtonText: "Cancel",
-            closeOnConfirm: false
-        },
-        function(){
-            $(e.target).prev('#join-project').submit();
+      }
+      swal({
+        title: window.Laravel.are_you_sure_notification,
+        text: textToDisplay,
+        type: "info",
+        showCancelButton: true,
+        showConfirmButton: showConfirm,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: window.Laravel.yes,
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false
+      },
+        function () {
+          $(e.target).prev('#join-project').submit();
         });
     });
     /*
@@ -177,7 +177,7 @@ jQuery(document).ready(function($) {
         })
     });
     */
-    
+
 
   });
 
@@ -207,7 +207,7 @@ jQuery(document).ready(function($) {
         return {
           results: $.map(data, function (item) {
             return {
-              text: (item.full_name ? item.full_name : item.name) + ' ('+(item.contact_email? item.contact_email : item.email)+')',
+              text: (item.full_name ? item.full_name : item.name) + ' (' + (item.contact_email ? item.contact_email : item.email) + ')',
               id: item.id
             }
           })
@@ -220,10 +220,10 @@ jQuery(document).ready(function($) {
   });
 
   //Smooth scroll for front page
-  $('body.frontpage a[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+  $('body.frontpage a[href*="#"]:not([href="#"])').click(function () {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
           scrollTop: target.offset().top
@@ -237,14 +237,14 @@ jQuery(document).ready(function($) {
 
   //Go from front page to certain tab in FAQ page
   var hash = window.location.hash;
-  if(hash.startsWith('#item')){
+  if (hash.startsWith('#item')) {
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
   }
 
   //Search form
-  $('.search-panel .navbar-nav').find('a').click(function(e) {
+  $('.search-panel .navbar-nav').find('a').click(function (e) {
     e.preventDefault();
-    var param = $(this).attr("href").replace("#","");
+    var param = $(this).attr("href").replace("#", "");
     var concept = $(this).text();
     $('.search-panel span#search_concept').text(concept);
     $('.form-group #search_param').val(param);
@@ -252,7 +252,7 @@ jQuery(document).ready(function($) {
 
   var selector = '.search-panel .navbar-nav li';
 
-  $(selector).on('click', function(){
+  $(selector).on('click', function () {
     $(selector).removeClass('active');
     $(this).addClass('active');
   });
@@ -262,9 +262,9 @@ jQuery(document).ready(function($) {
   //Panel used in search view to show a list of member emails
   $('.panel-heading span.clickable').parents('.panel').find('.panel-body').slideUp();
 
-  $('.panel-heading span.clickable').on("click", function(e){
+  $('.panel-heading span.clickable').on("click", function (e) {
     var $this = $(this);
-    if(!$this.hasClass('panel-collapsed')) {
+    if (!$this.hasClass('panel-collapsed')) {
       $this.parents('.panel').find('.panel-body').slideUp();
       $this.addClass('panel-collapsed');
       $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
@@ -277,13 +277,13 @@ jQuery(document).ready(function($) {
 
 
   //Facebook sharing button handler, Facebook SDK for JavaScript
-  function postToFeed(url){
-    var obj = {method: 'feed',link: url};
-    function callback(response){}
+  function postToFeed(url) {
+    var obj = { method: 'feed', link: url };
+    function callback(response) { }
     FB.ui(obj, callback);
   }
 
-  $('.btnShare').click(function(){
+  $('.btnShare').click(function () {
     elem = $(this);
     postToFeed(elem.prop('href'));
 
@@ -292,38 +292,38 @@ jQuery(document).ready(function($) {
 
 
   //TinyMC
-  tinyMCE.baseURL = window.Laravel.base_path+"/js/tinymce";
+  tinyMCE.baseURL = window.Laravel.base_path + "/js/tinymce";
 
   tinymce.init({
-    mode : "textareas",
-    theme : "modern",
+    mode: "textareas",
+    theme: "modern",
     language: window.Laravel.language,
     plugins: ["link", "paste"],
     menubar: false,
     toolbar: "link",
     removeformat: [
-      {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
-      {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
-      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true,}
+      { selector: 'b,strong,em,i,font,u,strike', remove: 'all', split: true, expand: false, block_expand: true, deep: true },
+      { selector: 'span', attributes: ['style', 'class'], remove: 'empty', split: true, expand: false, deep: true },
+      { selector: '*', attributes: ['style', 'class'], split: false, expand: false, deep: true, }
     ],
     selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
-    editor_selector : "mceSimpleLink",
+    editor_selector: "mceSimpleLink",
     paste_as_text: true
   });
 
   tinyMCE.init({
-    mode : "textareas",
+    mode: "textareas",
     language: window.Laravel.language,
     plugins: ["link", "lists", "paste", "noneditable", "preventdelete"],
-    height : "350",
+    height: "350",
     removeformat: [
-      {selector: 'b,strong,em,i,font,u,strike', remove : 'all', split : true, expand : false, block_expand: true, deep : true},
-      {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
-      {selector: '*', attributes : ['style', 'class'], split : false, expand : false, deep : true}
+      { selector: 'b,strong,em,i,font,u,strike', remove: 'all', split: true, expand: false, block_expand: true, deep: true },
+      { selector: 'span', attributes: ['style', 'class'], remove: 'empty', split: true, expand: false, deep: true },
+      { selector: '*', attributes: ['style', 'class'], split: false, expand: false, deep: true }
     ],
     toolbar: "redo undo bold italic numlist bullist link",
     menubar: false,
-    editor_selector : "mceSimple",
+    editor_selector: "mceSimple",
     paste_as_text: true
   });
 
@@ -347,16 +347,16 @@ jQuery(document).ready(function($) {
   });
 
 
-  function removeExcessWhitespaceFromString (string) {
+  function removeExcessWhitespaceFromString(string) {
     var stringLength = string.length;
     var outputString = "";
-    for (var i=0;i<stringLength-1;i++) {
-      if (!(string[i] === " " && string[i+1] === " " || string[i] === " " && string[i+1] === "<" || string[i-1] === ">" && string[i] === " ")) {
+    for (var i = 0; i < stringLength - 1; i++) {
+      if (!(string[i] === " " && string[i + 1] === " " || string[i] === " " && string[i + 1] === "<" || string[i - 1] === ">" && string[i] === " ")) {
         outputString += string[i];
       }
     }
     if (string[stringLength] !== " ") {
-      outputString += string[stringLength-1]
+      outputString += string[stringLength - 1]
     }
     // Removing empty tags
     var helper = $('<div>').append(outputString);
@@ -365,7 +365,7 @@ jQuery(document).ready(function($) {
     return outputString;
   }
 
-  function removeEmptyIfNoChildren (element) {
+  function removeEmptyIfNoChildren(element) {
     if (element.children().length > 0) {
       element.children().each(function () {
         removeEmptyIfNoChildren($(this));
@@ -377,9 +377,9 @@ jQuery(document).ready(function($) {
   }
 
   //Front page logo translation
-  if(window.Laravel.language == 'en'){
+  if (window.Laravel.language == 'en') {
     $('.block01.block01b > .pad').css("background", 'url(css/bg05_en.png) no-repeat 50% 50%');
-  }else{
+  } else {
     $('.block01.block01b > .pad').css("background", 'url(css/bg05.png) no-repeat 50% 50%');
   }
 
@@ -390,23 +390,23 @@ jQuery(document).ready(function($) {
   });
 
 
-  if($("#project_all_members").length) {
+  if ($("#project_all_members").length) {
 
     //Project id used by ProjectModerator middleware
     var url = window.location.pathname;
-    var segments = url.split( '/' );
-    var project_id =  segments[segments.length-2];
+    var segments = url.split('/');
+    var project_id = segments[segments.length - 2];
 
 
     //Drag and drop project group members functionality
     Sortable.create(project_all_members, {
-      group: { name: "project-all-members", pull: true, put:true },
+      group: { name: "project-all-members", pull: true, put: true },
       animation: 150,
       handle: '.drag-handle'
     });
 
     var el = $('.project-group');
-    $(el).each(function (i,e) {
+    $(el).each(function (i, e) {
       var sortable = Sortable.create(e, {
         group: {
           name: el.attr('group-id'),
@@ -437,9 +437,9 @@ jQuery(document).ready(function($) {
               user: $(itemEl).attr('user-id')
 
             }
-          }).done(function( msg ) {
+          }).done(function (msg) {
             console.log(msg);
-            if($('a#groups-finish-button').length){
+            if ($('a#groups-finish-button').length) {
               $('a#groups-finish-button').addClass('not-empty');
             }
 
@@ -459,7 +459,7 @@ jQuery(document).ready(function($) {
 
   function fillValues() {
     var value = $("#tlu_email").val();
-    var fields= $(".contact-email");
+    var fields = $(".contact-email");
     fields.each(function (i) {
       $(this).val(value);
     });
@@ -468,11 +468,11 @@ jQuery(document).ready(function($) {
 
 
   //Add custom institution field in user registration form
-  $('#institution').on('change',function(){
-    if( $(this).val() === window.Laravel.other_institution){
+  $('#institution').on('change', function () {
+    if ($(this).val() === window.Laravel.other_institution) {
       $("#other-institution").show()
     }
-    else{
+    else {
       $("#other-institution").hide()
     }
   });
@@ -485,9 +485,9 @@ jQuery(document).ready(function($) {
 
   add_links_field_buttons.each(function (i, obj) {
     var group_id = $(obj).attr("group-id");
-    $(obj).click(function(e){
+    $(obj).click(function (e) {
       e.preventDefault();
-      var $div = $(this).next( ".group-materials").children().last();
+      var $div = $(this).next(".group-materials").children().last();
 
       var num = $div.prop("id");
 
@@ -495,14 +495,14 @@ jQuery(document).ready(function($) {
 
 
       var clone = $($div).clone();
-      clone.prop('id', 'group_materials_'+group_id+'_'+(num+1));
+      clone.prop('id', 'group_materials_' + group_id + '_' + (num + 1));
       clone.find("input").val("");
       clone.insertAfter($div);
 
       var tagsinput = clone.find('.tags');
       clone.find('.bootstrap-tagsinput').remove();
 
-      $(tagsinput).attr('name', 'group_material_tags['+group_id+'][]');
+      $(tagsinput).attr('name', 'group_material_tags[' + group_id + '][]');
       $(tagsinput).addClass('form-control tags');
       tagsinput.tagsinput();
       tagsinput.tagsinput('removeAll');
@@ -523,7 +523,7 @@ jQuery(document).ready(function($) {
 
   remove_links_field_button.each(function (i, obj) {
     var group_id = $(obj).attr("group-id");
-    $(obj).click(function(e){
+    $(obj).click(function (e) {
 
       e.preventDefault();
       var $div = $(this).parent().children(":last-child");
@@ -532,7 +532,7 @@ jQuery(document).ready(function($) {
 
       num = parseInt(num.split("_").pop());
 
-      if(num>0){
+      if (num > 0) {
         $div.remove();
       }
 
@@ -549,13 +549,13 @@ jQuery(document).ready(function($) {
   $('[data-toggle="popover"]').popover();
 
 
-  $('#clear-embedded').click(function(){
+  $('#clear-embedded').click(function () {
     $('#embedded')
       .val('')
   });
 
 
-  $('#clear-group-embedded').click(function(){
+  $('#clear-group-embedded').click(function () {
     $(this).prev('input').val('');
   });
 
@@ -567,13 +567,13 @@ jQuery(document).ready(function($) {
 
   //Group title renaming;
   $('.group-name').editable({
-    send:'always',
+    send: 'always',
     ajaxOptions: {
       dataType: 'json',
       type: 'post',
 
     },
-    params: function(params) {
+    params: function (params) {
       //originally params contain pk, name and value
       params.id = $(this).closest("div").attr("project-id");
       return params;
@@ -596,18 +596,18 @@ dropzones.each(function (i) {
     var resourceName = "Poster";
     var accepted = "application/pdf";
     var maxNumberOfFiles = 1;
-    var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
+    var group_id = parseInt($(this).prop("id").match(/\d+/g), 10);
 
-    var project_id = $("#presentationUpload"+group_id).attr("project-id");
-    var dropzone_name = "#presentationUpload"+group_id;
+    var project_id = $("#presentationUpload" + group_id).attr("project-id");
+    var dropzone_name = "#presentationUpload" + group_id;
   } else {
     var resourceName = "Materials";
     var accepted = "";
     var maxNumberOfFiles = 100;
-    var group_id = parseInt( $(this).prop("id").match(/\d+/g), 10 );
+    var group_id = parseInt($(this).prop("id").match(/\d+/g), 10);
 
-    var project_id = $("#materialsUpload"+group_id).attr("project-id");
-    var dropzone_name = "#materialsUpload"+group_id;
+    var project_id = $("#materialsUpload" + group_id).attr("project-id");
+    var dropzone_name = "#materialsUpload" + group_id;
   }
   if (this.getAttribute('auth') == 'student') {
     var routeTo = 'finish';
@@ -615,8 +615,8 @@ dropzones.each(function (i) {
     var routeTo = 'project';
   }
 
-    var myDropzone = new Dropzone(dropzone_name, {
-    url: window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/finish/upload"+resourceName,
+  var myDropzone = new Dropzone(dropzone_name, {
+    url: window.Laravel.base_path + "/" + routeTo + "/" + project_id + "/finish/upload" + resourceName,
     params: {
       id: project_id,
       _token: window.Laravel.csfr_token,
@@ -631,35 +631,35 @@ dropzones.each(function (i) {
 
     addRemoveLinks: true,
 
-    init:function() {
+    init: function () {
 
 
       // Add server images
       var myDropzone = this;
 
-      $.get(window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/api/group-"+resourceName+"?groupid="+group_id, function(data) {
+      $.get(window.Laravel.base_path + "/" + routeTo + "/" + project_id + "/api/group-" + resourceName + "?groupid=" + group_id, function (data) {
 
 
         $.each(data.images, function (key, value) {
-          var file = {name: value.filename, size: value.size};
+          var file = { name: value.filename, size: value.size };
           myDropzone.options.addedfile.call(myDropzone, file);
-          myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path+"/storage/projects_groups_images/"+group_id+"/"+value.name);
+          myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path + "/storage/projects_groups_images/" + group_id + "/" + value.name);
           myDropzone.emit("complete", file);
           var btndelete = file.previewElement.querySelector("[data-dz-remove]");
-          btndelete.setAttribute("id", 'delete-media-name-'+value.name);
+          btndelete.setAttribute("id", 'delete-media-name-' + value.name);
 
         });
       });
 
-      this.on("removedfile", function(file) {
+      this.on("removedfile", function (file) {
 
         var btndelete = file.previewElement.querySelector("[data-dz-remove]");
-        if(btndelete.hasAttribute("id")) {
+        if (btndelete.hasAttribute("id")) {
           var filename = btndelete.getAttribute("id").substr(18);
         }
 
         $.ajax({
-          url: window.Laravel.base_path+"/"+routeTo+"/"+project_id+"/finish/delete"+resourceName,
+          url: window.Laravel.base_path + "/" + routeTo + "/" + project_id + "/finish/delete" + resourceName,
           dataType: 'json',
           delay: 250,
           method: 'POST',
@@ -671,18 +671,18 @@ dropzones.each(function (i) {
             group_id: group_id
 
           }
-        }).done(function( msg ) {
+        }).done(function (msg) {
           console.log(msg);
 
         });
 
-      } );
+      });
     },
-    success: function(file, serverResponse) {
+    success: function (file, serverResponse) {
       var fileuploded = file.previewElement.querySelector("[data-dz-name]");
       fileuploded.innerHTML = serverResponse.newfilename;
       var btndelete = file.previewElement.querySelector("[data-dz-remove]");
-      btndelete.setAttribute("id", 'delete-media-name-'+serverResponse.newfilename);
+      btndelete.setAttribute("id", 'delete-media-name-' + serverResponse.newfilename);
       window.alert('Upload successful');
     }
   });
@@ -701,33 +701,33 @@ dropzones.each(function (i) {
   <a href="posts/2" data-method="delete" data-token="{{csrf_token()}}">
  */
 
-(function() {
+(function () {
 
   var laravel = {
-    initialize: function() {
+    initialize: function () {
       this.methodLinks = $('a[data-method]');
       this.token = $('a[data-token]');
       this.registerEvents();
     },
 
-    registerEvents: function() {
+    registerEvents: function () {
       this.methodLinks.on('click', this.handleMethod);
     },
 
-    handleMethod: function(e) {
+    handleMethod: function (e) {
       var link = $(this);
       var httpMethod = link.data('method').toUpperCase();
       var form;
 
       // If the data-method attribute is not PUT or DELETE,
       // then we don't know what to do. Just ignore.
-      if ( $.inArray(httpMethod, ['PUT', 'DELETE']) === - 1 ) {
+      if ($.inArray(httpMethod, ['PUT', 'DELETE']) === - 1) {
         return;
       }
 
       // Allow user to optionally provide data-confirm="Are you sure?"
-      if ( link.data('confirm') ) {
-        if ( ! laravel.verifyConfirm(link) ) {
+      if (link.data('confirm')) {
+        if (!laravel.verifyConfirm(link)) {
           return false;
         }
       }
@@ -738,11 +738,11 @@ dropzones.each(function (i) {
       e.preventDefault();
     },
 
-    verifyConfirm: function(link) {
+    verifyConfirm: function (link) {
       return confirm(link.data('confirm'));
     },
 
-    createForm: function(link) {
+    createForm: function (link) {
       var form =
         $('<form>', {
           'method': 'POST',
@@ -771,3 +771,39 @@ dropzones.each(function (i) {
   laravel.initialize();
 
 })();
+
+
+
+// Show or hide additional question input field
+const add_question_field_button = document.querySelector('.add_question_field_button');
+const remove_question_field_button = document.querySelector('.remove_question_field_button');
+const extra_q = document.querySelectorAll('.extra_q');
+let q_counter = -1; // -1 => no additional questions, 0 => one question, 1 => two questions
+
+if (extra_q.length !== 0) {
+  if (!extra_q[0].hasAttribute('hidden')) {
+    q_counter = 0;
+  }
+  if (!extra_q[1].hasAttribute('hidden')) {
+    q_counter = 1;
+  }
+
+  const handle_add_button_click = () => {
+    if (q_counter < 1) {
+      q_counter++;
+    }
+    extra_q[q_counter].hidden = false;
+  }
+
+  const handle_remove_button_click = () => {
+    if (q_counter > -1) {
+      extra_q[q_counter].hidden = true;
+      //remove user input
+      extra_q[q_counter].lastElementChild.firstElementChild.value = '';
+      q_counter--;
+    }
+  }
+  add_question_field_button.addEventListener('click', handle_add_button_click);
+  remove_question_field_button.addEventListener('click', handle_remove_button_click);
+}
+

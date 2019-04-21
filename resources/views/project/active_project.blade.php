@@ -1,3 +1,6 @@
+<!-- Display Validation Errors -->
+@include('common.errors')
+
 @if(\Session::has('message'))
 
     @if(\Session::get('message')['type'] == 'joined')
@@ -347,12 +350,8 @@
 
                     @else
                         @if(checkIfThereIsSpaceInProject($project, Auth::user()))
-                            <form action="{{ url('join/'.$project->id) }}" id="join-project" method="POST">
-                                {{ csrf_field() }}
-                            </form>
-                            <button type="submit" id="join-project-button" class="btn btn-primary btn-lg">
-                                {{trans('search.join_button')}}
-                            </button>
+
+                            @include('project.join_project_form')
 
                         @else
                             <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">

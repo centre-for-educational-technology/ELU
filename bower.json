@@ -4,5 +4,8 @@
     "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#d4971777a957d1d3134b1d90a695a3169111f65f",
     "Sortable": "sortablejs#^1.5.1",
     "fancybox": "^3.0.47"
+  },
+  "resolutions": {
+    "eonasdan-bootstrap-datetimepicker": "d4971777a957d1d3134b1d90a695a3169111f65f"
   }
 }

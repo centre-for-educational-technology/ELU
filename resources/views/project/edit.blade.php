@@ -656,6 +656,97 @@
                         </div>
 
 
+                        <div class="well well-sm">
+                            <!-- Questions for students who want to join project -->
+                            <h4><strong>{{ trans('project.questions_for_students') }}</strong></h4>
+                            <div class="form-group">
+                                <label for="join_q1" class="col-sm-3 control-label">{{ trans('project.question') }}1</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" name="join_q1" id="join_q1" class="form-control" value="{{trans('project.why_join')}}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Student contribution -->
+                            <div class="form-group">
+                                <label for="join_q2" class="col-sm-3 control-label">{{ trans('project.question') }}2</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" name="join_q2" id="join_q2" class="form-control" value="{{trans('project.my_contribution')}}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Student expectations -->
+                            <div class="form-group">
+                                <label for="join_q3" class="col-sm-3 control-label">{{ trans('project.question') }}3</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" name="join_q3" id="join_q3" class="form-control" value="{{trans('project.my_expectations')}}" readonly>
+                                </div>
+                            </div>
+
+
+                            <!-- Additional question 1  -->
+                            @if ($current_project->join_extra_q1)
+            
+                                <div class="form-group extra_q">
+                                    <label for="join_extra_q1" class="col-sm-3 control-label">{{ trans('project.additional_question') }}1</label>
+            
+                                        <div class="col-sm-6">
+                                            <input type="text" name="join_extra_q1" id="join_extra_q1" class="form-control" value="{{$current_project->join_extra_q1}}">
+                                        </div>
+                                </div>
+                            @else 
+                                <div class="form-group extra_q" hidden>
+                                    <label for="join_extra_q1" class="col-sm-3 control-label">{{ trans('project.additional_question') }}1</label>
+
+                                        <div class="col-sm-6">
+                                            <input type="text" name="join_extra_q1" id="join_extra_q1" class="form-control" value="">
+                                        </div>
+                                </div>
+                            @endif
+
+
+                            <!-- Additional question 2  -->
+                            @if ($current_project->join_extra_q2)
+                                <div class="form-group extra_q">
+                                    <label for="join_extra_q2" class="col-sm-3 control-label">{{ trans('project.additional_question') }}2</label>
+            
+                                    <div class="col-sm-6">
+                                        <input type="text" name="join_extra_q2" id="join_extra_q2" class="form-control" value="{{$current_project->join_extra_q2}}">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="form-group extra_q" hidden>
+                                    <label for="join_extra_q2" class="col-sm-3 control-label">{{ trans('project.additional_question') }}2</label>
+            
+                                    <div class="col-sm-6">
+                                        <input type="text" name="join_extra_q2" id="join_extra_q2" class="form-control" value="">
+                                    </div>
+                                </div>
+                            @endif        
+
+                            {{-- Add and remove question buttons --}}
+                            <p>
+                                    <div class="">{{ trans('project.option_to_add') }}</div>
+                            </p>
+                            
+                            <p>
+                                <div class="col-sm-3"></div>
+                                <button type="button" class="btn btn-default btn-sm add_question_field_button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{trans('project.add_field')}}
+                                </button>
+                            </p>
+                            <p>
+                                <div class="col-sm-3"></div>
+                                <button type="button" class="btn btn-default btn-sm remove_question_field_button" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> {{trans('project.delete')}}
+                                </button>
+                            </p>
+                        </div>
+
+                        
+
                         <!-- max_members-->
                         <div class="form-group">
                             <label for="max_members" class="col-sm-3 control-label">{{trans('project.max_members')}} *</label>

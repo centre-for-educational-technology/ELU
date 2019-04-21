@@ -7969,11 +7969,9 @@ body.compensate-for-scrollbar {
 }
 .fancybox-can-swipe .fancybox-content,
 .fancybox-can-pan .fancybox-content {
-  cursor: -webkit-grab;
   cursor: grab;
 }
 .fancybox-is-grabbing .fancybox-content {
-  cursor: -webkit-grabbing;
   cursor: grabbing;
 }
 .fancybox-container [data-selectable='true'] {
@@ -8684,7 +8682,6 @@ body.compensate-for-scrollbar {
 }
 .dropzone .dz-preview:hover .dz-image img {
   transform: scale(1.05, 1.05);
-  -webkit-filter: blur(8px);
   filter: blur(8px);
 }
 .dropzone .dz-preview .dz-image {

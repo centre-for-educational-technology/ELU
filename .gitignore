@@ -7,3 +7,4 @@ Homestead.json
 /public/.htaccess
 /resources/assets/bower/
 /.idea/
+package-lock.json

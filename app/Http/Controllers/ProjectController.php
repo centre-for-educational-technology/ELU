@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\ProjectByStudentRequest;
+use App\Http\Requests\JoinProjectRequest;
+
 
 use App\Project;
 
@@ -277,6 +279,11 @@ class ProjectController extends Controller
 
     $project->extra_info = $request->extra_info;
 
+    $project->join_q1 = $request->join_q1;
+    $project->join_q2 = $request->join_q2;
+    $project->join_q3 = $request->join_q3;
+    $project->join_extra_q1 = $request->join_extra_q1;
+    $project->join_extra_q2 = $request->join_extra_q2;
 
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
@@ -477,6 +484,11 @@ class ProjectController extends Controller
 
     $project->extra_info = $request->extra_info;
 
+    $project->join_q1 = $request->join_q1;
+    $project->join_q2 = $request->join_q2;
+    $project->join_q3 = $request->join_q3;
+    $project->join_extra_q1 = $request->join_extra_q1;
+    $project->join_extra_q2 = $request->join_extra_q2;
 
     $join_deadline = date_create_from_format('m/d/Y', $request->join_deadline);
     $project->join_deadline = date("Y-m-d", $join_deadline->getTimestamp());
@@ -936,11 +948,21 @@ class ProjectController extends Controller
   /**
    * Join project team is used by user with student role
    */
-  public function joinProject($id)
-  {
-
-
+  public function joinProject(Request $request, $id)
+  {    
     $project = Project::find($id);
+  
+    //custom validator to redirect user to project page in case of error
+    $reqRules = new JoinProjectRequest;
+    $validator =Validator::make($request->all(), $reqRules->rules(sizeof($request->all()))
+    );
+
+    if ($validator->fails()) {
+      return redirect('project/'.$project->id)
+                  ->withErrors(['*.required' => 'All fields are required'])
+                  ->withInput();
+  }
+
 
     if(Auth::user()->isMemberOfProject()){
 
@@ -1059,13 +1081,22 @@ class ProjectController extends Controller
 	    $new_group->users()->syncWithoutDetaching([Auth::user()->id]);
     }
 
+//Join project form 
+ $join_a1 = $request->join_a1;
+ $join_a2 = $request->join_a2;
+ $join_a3 = $request->join_a3;
+ $join_extra_a1 = NULL;
+ $join_extra_a2 = NULL;
 
+ if($request->join_extra_a1){
+   $join_extra_a1 = $request->join_extra_a1;
+ }
+ if($request->join_extra_a2){
+  $join_extra_a2 = $request->join_extra_a2;
+}
 
-
-
-
-    //Attach user with member role
-    $project->users()->attach(Auth::user()->id, ['participation_role' => 'member']);
+    //Attach user with member role + Save joining form answers
+    $project->users()->attach(Auth::user()->id, ['participation_role' => 'member', 'join_a1' => $join_a1, 'join_a2' => $join_a2, 'join_a3' => $join_a3, 'join_extra_a1' => $join_extra_a1, 'join_extra_a2' => $join_extra_a2]);
 
 	  if($project->get_notifications){
 		  $data = [
@@ -1307,7 +1338,13 @@ class ProjectController extends Controller
 
     $project->submitted_by_student = true;
 
-	  $project->requires_review = true;
+    $project->requires_review = true;
+    
+    $project->join_q1 = $request->join_q1;
+    $project->join_q2 = $request->join_q2;
+    $project->join_q3 = $request->join_q3;
+    $project->join_extra_q1 = $request->join_extra_q1;
+    $project->join_extra_q2 = $request->join_extra_q2;
 
 
     $project->save();

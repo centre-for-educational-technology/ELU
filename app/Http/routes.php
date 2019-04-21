@@ -238,7 +238,7 @@ Route::group(['middleware' =>['web']], function () {
 
             Route::get('admin/analytics/download/teachers/ongoing/load', 'ProjectController@exportAnalyticsToCSVOngoingProjectsTeachersLoad');
 
-
+            
             Route::get('admin/evaluation-dates', 'AdminController@indexEvaluationDates');
 
             Route::post('admin/evaluation-dates', 'AdminController@editEvaluationDates');

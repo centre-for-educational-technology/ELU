@@ -638,8 +638,6 @@ dropzones.each(function (i) {
       var myDropzone = this;
 
       $.get(window.Laravel.base_path + "/" + routeTo + "/" + project_id + "/api/group-" + resourceName + "?groupid=" + group_id, function (data) {
-
-
         $.each(data.images, function (key, value) {
           var file = { name: value.filename, size: value.size };
           myDropzone.options.addedfile.call(myDropzone, file);
@@ -647,6 +645,10 @@ dropzones.each(function (i) {
           myDropzone.emit("complete", file);
           var btndelete = file.previewElement.querySelector("[data-dz-remove]");
           btndelete.setAttribute("id", 'delete-media-name-' + value.name);
+
+          console.log(data);
+          //value.filename: Failname.jpg
+          //value.name    : gdriveIDadfsdaf.png
 
         });
       });

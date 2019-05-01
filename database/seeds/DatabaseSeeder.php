@@ -27,10 +27,18 @@ class DatabaseSeeder extends Seeder
 
         $this->call('DeleteRoleColumnInUserSeeder');
         $this->command->info('Role column deleted from User table.');
+
         $this->call('AddSuperAdminRoleSeeder');
         $this->command->info('Super admins added');
 
         $this->call('AddProjectModeratorRoleSeeder');
         $this->command->info('Project moderator role added');
+
+        $this->call('MakeFeaturedImagesFolderSeeder');
+        $this->command->info('Featured images folder created');
+
+        $this->call('MakeGroupsGalleriesFolderSeeder');
+        $this->command->info('GroupsGalleries folder created');
+        
      }
 }

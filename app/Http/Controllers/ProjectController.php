@@ -2199,24 +2199,6 @@ class ProjectController extends Controller
       return "Missing required parameter(s)";
     }
     $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
-    $existing_folders = array();
-    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\'', $gdrive_list_output);
-    foreach ($gdrive_list_output as $folder) {
-      $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
-        $existing_folders[$helper[0]] = $helper[1];
-      if (count($helper) != 5) {
-        for ($i=0;$i<count($helper)-5;$i++) {
-          $existing_folders[$helper[0]] .= ' '.$helper[2+$i];
-        }
-      }
-    }
-
-    if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\'', $semester_folder);
-      $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
-    } else {
-      $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
-    }
 
     $projects = Project::where('publishing_status', '=', '1')->where(function ($query) use ($request) {
       if ($request->semester == 's') {
@@ -2235,11 +2217,36 @@ class ProjectController extends Controller
         exit();
       }
     })->get();
-    foreach ($projects as $p) {
-      if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester.'/'.$p->name, $existing_folders)) {
-        exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$semester_folder_id.' \''.$p->name.'\'');
+
+    //get gdrive content
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $semester_folder = $contents->where('type', 'dir')->where('name', $semester)->first();
+    
+    //check if semester folder exists
+    if(!$semester_folder){
+      Storage::cloud()->makeDirectory($semester);
+      print($semester." folder created");
+
+      //get gdrive content with freshly made 'semester' folder
+      $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+      $semester_folder = $contents->where('type', 'dir')->where('name', $semester)->first();
+    }
+    
+    //existing gdrive folder names into new array
+    $existing_folders = array();
+    foreach ($contents as $f){
+      array_push($existing_folders,$f['name']);
+    }
+
+    //create missing folders
+    foreach ($projects as $p){
+      if(!in_array($p['name'], $existing_folders)){
+        Storage::cloud()->makeDirectory($semester_folder['path'].'/'. $p->name);
       }
     }
+    
   }
 
   public function getFolderNames(Request $request) {
@@ -2249,24 +2256,6 @@ class ProjectController extends Controller
       return "Missing required parameter(s)";
     }
     $semester = $ending_year.'-'.strval(intval($ending_year)+1).'_'.strtoupper($ending_semester);
-    $existing_folders = array();
-    exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'\'', $gdrive_list_output);
-    foreach ($gdrive_list_output as $folder) {
-      $helper = explode(' ',preg_replace('/\s+/', ' ', $folder));
-        $existing_folders[$helper[0]] = $helper[1];
-      if (count($helper) != 5) {
-        for ($i=0;$i<count($helper)-5;$i++) {
-          $existing_folders[$helper[0]] .= ' '.$helper[2+$i];
-        }
-      }
-    }
-
-    if (!in_array(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders)) {
-      exec(env('SCRIPTS_FOLDER').'make_folder.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.env('GOOGLE_FOLDER_ID').' \''.$semester.'\'', $semester_folder);
-      $semester_folder_id = explode(' ',preg_replace('/\s+/', ' ', $semester_folder[0]))[1];
-    } else {
-      $semester_folder_id = array_search(env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$semester, $existing_folders);
-    }
 
     $projects = Project::where('publishing_status', '=', '1')->where(function ($query) use ($request) {
       if ($request->semester == 's') {
@@ -2285,9 +2274,16 @@ class ProjectController extends Controller
         exit();
       }
     })->get();
-    foreach ($projects as $p) {
-      echo $p->name."<br>";
-    }
+    // foreach ($projects as $p) {
+    //   echo $p->name."<br>";
+    // }
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $semester_folder_path = $contents->where('name', $request->foldername)->first();
+    
+    return $contents->where('type', 'file')->where('filename', 'Quality news')->first();
+
   }
 
   public function attachGroupPresentation(Request $request) {
@@ -2313,15 +2309,33 @@ class ProjectController extends Controller
       $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
     }
 
-    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('http://', 'http:/', str_replace('\'', '', $project->name)).'\'')))[0];
+    ///////////////DRIVE API//////////////
+    ///////////////DRIVE API//////////////
+    //Get project folder path
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $project_folder_path = $contents->where('type', 'dir')->where('name', $project->name)->first()['path'];
+    
+    // Upload using a stream...
+    $filename = Input::file('file')->getClientOriginalName();
+    $filePath = Input::file('file')->getRealPath();
+    Storage::cloud()->put($project_folder_path.'/'.$filename, fopen($filePath, 'r+'));
+  
+    //Get uploaded file id to give it permissions
+    $dir = '/';
+    $recursive = true;
+    $file = collect(Storage::cloud()->listContents($dir,$recursive))->where('type', 'file')->where('name', $filename)->first();
+    $file_gdrive_id = $file['basename'];
 
-    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
-
-    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
-
-    exec(env('SCRIPTS_FOLDER').'share.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$file_gdrive_id);
+    $service = Storage::cloud()->getAdapter()->getService();
+    $permission = new \Google_Service_Drive_Permission();
+    $permission->setRole('reader');
+    $permission->setType('anyone');
+    $permission->setAllowFileDiscovery(false);
+    $permissions = $service->permissions->create($file['basename'], $permission); 
+    ///////////////DRIVE API//////////////
+    ///////////////DRIVE API//////////////
 
     if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
       $files = json_decode($group->group_posters_gdrive_ids, true);
@@ -2375,9 +2389,9 @@ class ProjectController extends Controller
         array_push($admins_emails, getUserEmail($admin));
       }
 
-      Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
-        $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
-      });
+      // Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
+      //   $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
+      // });
 
     if ($file_gdrive_id == null) {
       return Response::json('error', 400);
@@ -2391,12 +2405,6 @@ class ProjectController extends Controller
 
     $group = Group::find($request->group_id);
 
-    $input = Input::all();
-
-    $rules = array(
-        'file' => 'image|max:30000',
-    );
-
     $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
     $project = Project::find($project_id);
     $project_semester = '';
@@ -2409,16 +2417,36 @@ class ProjectController extends Controller
     } else {
       $project_semester = strval($project->study_year).'-'.strval($project->study_year+1).'_K';
     }
+    
+    ///////////////DRIVE API//////////////
+    ///////////////DRIVE API//////////////
+    //Get project folder path
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+    $project_folder_path = $contents->where('type', 'dir')->where('name', $project->name)->first()['path'];
 
-    // Saving file to gdrive with the help of scripts and grive 1, not working with team drives unfortunately
-    $folder_id = explode(' ',preg_replace('/\s+/', ' ', exec(env('SCRIPTS_FOLDER').'folders.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' \''.env('FROM_ROOT_TO_SEMESTER_FOLDER_PATH').'/'.$project_semester.'/'.str_replace('http://', 'http:/', str_replace('\'', '', $project->name)).'\'')))[0];
+    //Upload file
+    $filename = Input::file('file')->getClientOriginalName();
+    $filePath = Input::file('file')->getRealPath();
+    $fileData = File::get($filePath);
+    Storage::cloud()->put($project_folder_path.'/'.$filename, $fileData);
+   
+    //Get uploaded file id ('path' or 'basename')
+    $dir = '/';
+    $recursive = true;
+    $file = collect(Storage::cloud()->listContents($dir,$recursive))->where('type', 'file')->where('name', $filename)->first();
+    $file_gdrive_id = $file['basename'];  
 
-    $fileToUpload = Input::file('file')->getRealPath().' '.$folder_id.' "'.Input::file('file')->getClientOriginalName().'"';
-    exec(env('SCRIPTS_FOLDER').'upload.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$fileToUpload, $uploadedFileId);
-
-    $file_gdrive_id = explode(' ',preg_replace('/\s+/', ' ', $uploadedFileId[1]))[1];
-
-    exec(env('SCRIPTS_FOLDER').'share.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.$file_gdrive_id);
+    // Change permissions
+    $service = Storage::cloud()->getAdapter()->getService();
+    $permission = new \Google_Service_Drive_Permission();
+    $permission->setRole('reader');
+    $permission->setType('anyone');
+    $permission->setAllowFileDiscovery(false);
+    $permissions = $service->permissions->create($file['basename'], $permission);
+    ///////////////DRIVE API//////////////
+    ///////////////DRIVE API//////////////
 
     if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
       $files = json_decode($group->group_materials_gdrive_ids, true);
@@ -2428,7 +2456,7 @@ class ProjectController extends Controller
       }
     }else{
       $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
-      $new_file = $files;
+      //$new_file = $files;
     }
 
     $group->group_materials_gdrive_ids = json_encode($files);
@@ -2544,8 +2572,16 @@ class ProjectController extends Controller
 
     $group->save();
 
+    //Find file in the google drive and delete
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $drivefile = collect(Storage::cloud()->listContents($dir, $recursive))
+        ->where('type', 'file')
+        ->where('basename', pathinfo($file, PATHINFO_FILENAME))
+        ->first();
+    Storage::cloud()->delete($drivefile['path']);
+
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
-    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4));
 
     return Response::json([$file, $files]);
 
@@ -2568,8 +2604,17 @@ class ProjectController extends Controller
 
     $group->save();
 
+     // Now find that file and use its ID (path) to delete it
+     $dir = '/';
+     $recursive = true; // Get subdirectories also?
+     $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+     $drivefile = $contents
+         ->where('type', 'file')
+         ->where('basename', pathinfo($file, PATHINFO_FILENAME))
+         ->first(); // there can be duplicate file names!
+     Storage::cloud()->delete($drivefile['path']);
+    
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
-    $deletedFromDrive = exec(env('SCRIPTS_FOLDER').'delete_file.sh '.env('GDRIVE_APP_PATH').' '.env('DRIVE_AUTH').' '.substr($file, 0, strlen($file)-4));
 
     return Response::json([$file, $files]);
 

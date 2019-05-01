@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'dev_email' => 'rando083@tlu.ee'
+    'dev_email' => 'kurist@tlu.ee'
 ];

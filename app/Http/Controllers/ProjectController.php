@@ -2274,27 +2274,15 @@ class ProjectController extends Controller
         exit();
       }
     })->get();
-    // foreach ($projects as $p) {
-    //   echo $p->name."<br>";
-    // }
-    $dir = '/';
-    $recursive = true; // Get subdirectories also?
-    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-    $semester_folder_path = $contents->where('name', $request->foldername)->first();
-    
-    return $contents->where('type', 'file')->where('filename', 'Quality news')->first();
+    foreach ($projects as $p) {
+      echo $p->name."<br>";
+    }
 
   }
 
   public function attachGroupPresentation(Request $request) {
 
     $group = Group::find($request->group_id);
-
-    $input = Input::all();
-
-    $rules = array(
-        'file' => 'image|max:30000',
-    );
 
     $project_id = \DB::table('groups')->where('id', $group->id)->first()->project_id;
     $project = Project::find($project_id);
@@ -2389,9 +2377,9 @@ class ProjectController extends Controller
         array_push($admins_emails, getUserEmail($admin));
       }
 
-      // Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
-      //   $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
-      // });
+      Mail::send('emails.new_poster_notification', ['data' => $data], function ($m) use ($admins_emails) {
+        $m->to($admins_emails)->replyTo(getUserEmail(Auth::user()), getUserName(Auth::user()))->subject('Uus poster');
+      });
 
     if ($file_gdrive_id == null) {
       return Response::json('error', 400);
@@ -2456,7 +2444,6 @@ class ProjectController extends Controller
       }
     }else{
       $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
-      //$new_file = $files;
     }
 
     $group->group_materials_gdrive_ids = json_encode($files);
@@ -2563,16 +2550,12 @@ class ProjectController extends Controller
     if (array_key_exists($file, $files)) {
       unset($files[$file]);
     }
-    /*
-    if(($key = array_search($file, $files)) !== false) {
-      unset($files[$key]);
-    }
-*/
+
     $group->group_posters_gdrive_ids = json_encode($files);
 
     $group->save();
 
-    //Find file in the google drive and delete
+    //Find file in google drive and delete
     $dir = '/';
     $recursive = true; // Get subdirectories also?
     $drivefile = collect(Storage::cloud()->listContents($dir, $recursive))

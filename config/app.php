@@ -169,7 +169,8 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 		    Maatwebsite\Excel\ExcelServiceProvider::class,
-		    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+            Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+            App\Providers\GoogleDriveServiceProvider::class,
     ],
 
     /*

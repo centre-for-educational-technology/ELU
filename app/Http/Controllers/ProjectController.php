@@ -2302,18 +2302,23 @@ class ProjectController extends Controller
     //Get project folder path
     $dir = '/';
     $recursive = true; // Get subdirectories also?
-    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-    $project_folder_path = $contents->where('type', 'dir')->where('name', $project->name)->first()['path'];
+    $project_folder_id = collect(Storage::cloud()->listContents($dir, $recursive))
+      ->where('type', 'dir')
+      ->where('name', $project->name)
+      ->first()['basename'];
     
     // Upload using a stream...
     $filename = Input::file('file')->getClientOriginalName();
     $filePath = Input::file('file')->getRealPath();
-    Storage::cloud()->put($project_folder_path.'/'.$filename, fopen($filePath, 'r+'));
+    Storage::cloud()->put($project_folder_id.'/'.$filename, fopen($filePath, 'r+'));
   
     //Get uploaded file id to give it permissions
     $dir = '/';
     $recursive = true;
-    $file = collect(Storage::cloud()->listContents($dir,$recursive))->where('type', 'file')->where('name', $filename)->first();
+    $file = collect(Storage::cloud()->listContents($dir,$recursive))
+      ->where('type', 'file')
+      ->where('name', $filename)
+      ->first();
     $file_gdrive_id = $file['basename'];
 
     $service = Storage::cloud()->getAdapter()->getService();
@@ -2411,20 +2416,24 @@ class ProjectController extends Controller
     //Get project folder path
     $dir = '/';
     $recursive = true; // Get subdirectories also?
-    $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-    $project_folder_path = $contents->where('type', 'dir')->where('name', $project->name)->first()['path'];
+    $project_folder_id = collect(Storage::cloud()->listContents($dir, $recursive))
+      ->where('type', 'dir')
+      ->where('name', $project->name)
+      ->first()['basename'];
 
     //Upload file
     $filename = Input::file('file')->getClientOriginalName();
     $filePath = Input::file('file')->getRealPath();
     $fileData = File::get($filePath);
-    Storage::cloud()->put($project_folder_path.'/'.$filename, $fileData);
+    Storage::cloud()->put($project_folder_id.'/'.$filename, $fileData);
    
-    //Get uploaded file id ('path' or 'basename')
+    //Get uploaded file id ('basename')
     $dir = '/';
     $recursive = true;
-    $file = collect(Storage::cloud()->listContents($dir,$recursive))->where('type', 'file')->where('name', $filename)->first();
-    $file_gdrive_id = $file['basename'];  
+    $file_gdrive_id = collect(Storage::cloud()->listContents($dir,$recursive))
+      ->where('type', 'file')
+      ->where('name', $filename)
+      ->first()['basename'];
 
     // Change permissions
     $service = Storage::cloud()->getAdapter()->getService();
@@ -2432,7 +2441,7 @@ class ProjectController extends Controller
     $permission->setRole('reader');
     $permission->setType('anyone');
     $permission->setAllowFileDiscovery(false);
-    $permissions = $service->permissions->create($file['basename'], $permission);
+    $permissions = $service->permissions->create($file_gdrive_id, $permission);
     ///////////////DRIVE API//////////////
     ///////////////DRIVE API//////////////
 
@@ -2562,7 +2571,7 @@ class ProjectController extends Controller
         ->where('type', 'file')
         ->where('basename', pathinfo($file, PATHINFO_FILENAME))
         ->first();
-    Storage::cloud()->delete($drivefile['path']);
+    Storage::cloud()->delete($drivefile['basename']);
 
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
 
@@ -2595,7 +2604,7 @@ class ProjectController extends Controller
          ->where('type', 'file')
          ->where('basename', pathinfo($file, PATHINFO_FILENAME))
          ->first(); // there can be duplicate file names!
-     Storage::cloud()->delete($drivefile['path']);
+     Storage::cloud()->delete($drivefile['basename']);
     
     File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
 

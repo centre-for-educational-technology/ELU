@@ -646,7 +646,6 @@ dropzones.each(function (i) {
           var btndelete = file.previewElement.querySelector("[data-dz-remove]");
           btndelete.setAttribute("id", 'delete-media-name-' + value.name);
 
-          console.log(data);
           //value.filename: Failname.jpg
           //value.name    : gdriveIDadfsdaf.png
 
@@ -681,8 +680,8 @@ dropzones.each(function (i) {
       });
     },
     success: function (file, serverResponse) {
-      var fileuploded = file.previewElement.querySelector("[data-dz-name]");
-      fileuploded.innerHTML = serverResponse.newfilename;
+      // var fileuploded = file.previewElement.querySelector("[data-dz-name]");
+      // fileuploded.innerHTML = serverResponse.newfilename;
       var btndelete = file.previewElement.querySelector("[data-dz-remove]");
       btndelete.setAttribute("id", 'delete-media-name-' + serverResponse.newfilename);
       window.alert('Upload successful');

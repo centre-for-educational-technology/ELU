@@ -2387,9 +2387,9 @@ class ProjectController extends Controller
       });
 
     if ($file_gdrive_id == null) {
-      return Response::json('error', 400);
+      return Response::json('error', 500);
     } else {
-      return Response::json('success', 200);
+      return response()->json(['gdrive_id' => $file_gdrive_id], 201);
     }
   }
 
@@ -2462,9 +2462,9 @@ class ProjectController extends Controller
     unlink(Input::file('file')->getRealPath());
 
     if ($file_gdrive_id == null) {
-      return Response::json('error', 400);
+      return Response::json('error', 500);
     } else {
-      return Response::json('success', 200);
+      return response()->json(['gdrive_id' => $file_gdrive_id], 201);
     }
   }
 

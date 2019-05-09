@@ -589,6 +589,7 @@ jQuery(document).ready(function ($) {
 
 Dropzone.autoDiscover = false;
 Dropzone.prototype.defaultOptions.dictRemoveFile = window.Laravel.remove_file_button;
+Dropzone.prototype.defaultOptions.dictCancelUpload = '';
 
 var dropzones = $(".dropzone");
 dropzones.each(function (i) {
@@ -640,23 +641,35 @@ dropzones.each(function (i) {
       $.get(window.Laravel.base_path + "/" + routeTo + "/" + project_id + "/api/group-" + resourceName + "?groupid=" + group_id, function (data) {
         $.each(data.images, function (key, value) {
           var file = { name: value.filename, size: value.size };
-          myDropzone.options.addedfile.call(myDropzone, file);
+          myDropzone.emit("addedfile", file);
           myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path + "/storage/projects_groups_images/" + group_id + "/" + value.name);
           myDropzone.emit("complete", file);
           var btndelete = file.previewElement.querySelector("[data-dz-remove]");
           btndelete.setAttribute("id", 'delete-media-name-' + value.name);
-
           //value.filename: Failname.jpg
           //value.name    : gdriveIDadfsdaf.png
-
+          
+          if(resourceName === "Poster"){
+            myDropzone.options.maxFiles = 0;
+          }
+          
         });
       });
 
-      this.on("removedfile", function (file) {
+      myDropzone.on("maxfilesexceeded", function(file) { 
+        myDropzone.removeFile(file);
+        window.alert('You can only upload 1 poster!');
+      });
+
+      myDropzone.on("removedfile", function (file) {
 
         var btndelete = file.previewElement.querySelector("[data-dz-remove]");
         if (btndelete.hasAttribute("id")) {
           var filename = btndelete.getAttribute("id").substr(18);
+
+          if(resourceName === "Poster"){
+            myDropzone.options.maxFiles = 1;
+          }
         }
 
         $.ajax({
@@ -673,17 +686,14 @@ dropzones.each(function (i) {
 
           }
         }).done(function (msg) {
-          console.log(msg);
 
         });
 
       });
     },
     success: function (file, serverResponse) {
-      // var fileuploded = file.previewElement.querySelector("[data-dz-name]");
-      // fileuploded.innerHTML = serverResponse.newfilename;
       var btndelete = file.previewElement.querySelector("[data-dz-remove]");
-      btndelete.setAttribute("id", 'delete-media-name-' + serverResponse.newfilename);
+      btndelete.setAttribute("id", 'delete-media-name-' + serverResponse.gdrive_id + '.png');
       window.alert('Upload successful');
     }
   });

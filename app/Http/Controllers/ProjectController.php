@@ -34,7 +34,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\FinishedProjectRequest;
 use App\Http\Requests\AddProjectGroupRequest;
 use App\Http\Requests\AttachUsersRequest;
-use App\EvaluationDate;
 use App\CosupervisorsPoints;
 
 use Imagick;
@@ -142,8 +141,6 @@ class ProjectController extends Controller
     {
       $q->where('id', Auth::user()->id);
     })->get();
-    //\dd($projects);
-
 
 
     $teachers = User::select('id','name', 'full_name')->whereHas('roles', function($q)
@@ -151,21 +148,10 @@ class ProjectController extends Controller
       $q->where('name', 'oppejoud');
     })->get();
 
-    /*
-	  if(\App::getLocale() == 'en'){
-		  $courses = Course::select('id','oppekava_eng')->get();
-	  }else{
-		  $courses = Course::select('id','oppekava_est')->get();
-	  }
-    */
-
-
-	  $evaluation_dates = EvaluationDate::orderBy('id', 'desc')->take(3)->get();
-
 
     $author =  Auth::user()->id;
 
-    return view('project.new', compact('teachers', 'author', 'projects', 'evaluation_dates', 'project_language'));
+    return view('project.new', compact('teachers', 'author', 'projects', 'project_language'));
 
 
   }
@@ -181,7 +167,6 @@ class ProjectController extends Controller
     $project = new Project;
     $project->name = $request->name;
     $project->max_members = $request->max_members;
-    //$project->description = $request->description;
 
     if ($request->description != '<p>undefined</p>') {
 	    $project->description = $request->description;
@@ -225,40 +210,13 @@ class ProjectController extends Controller
 		  $project->meeting_dates = 'NONE';
 	  }
 
-	  $project->evaluation_date_id = $request->evaluation_date;
-
 	  $project->presentation_results = $request->presentation_results;
-
-
-    //$project->integrated_areas = $request->integrated_areas;
-
 
     $project->meeting_info = $request->meeting_info;
 
     $project->study_term = $request->study_term;
 
     $project->study_year = $request->study_year;
-
-
-
-    //$project->student_outcomes = $request->student_outcomes;
-
-    //$project->courses = $request->related_courses;
-
-
-    //$project->institute = $request->institutes;
-
-    /*
-    if($request->project_start){
-      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-      $project->start = date("Y-m-d", $date_start->getTimestamp());
-    }
-
-    if($request->project_end){
-      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-      $project->end = date("Y-m-d", $date_end->getTimestamp());
-    }
-    */
 
 
     // Co-supervisors saved into supervisor column
@@ -300,15 +258,6 @@ class ProjectController extends Controller
 
     $project->save();
 
-
-    //Attach study areas
-    /*
-    $study_areas = $request->input('study_areas');
-    foreach ($study_areas as $study_area){
-
-      $project->getCourses()->attach($study_area);
-    }
-    */
 
     //Attach users with teacher role
     $supervisors = $request->input('supervisors');
@@ -392,8 +341,6 @@ class ProjectController extends Controller
 		  $project->meeting_dates = 'NONE';
 	  }
 
-	  $project->evaluation_date_id = $request->evaluation_date;
-
 	  $project->presentation_results = $request->presentation_results;
 
     if ($request->is_first_time_supervisor == true) {
@@ -410,40 +357,9 @@ class ProjectController extends Controller
 
     $project->meeting_info = $request->meeting_info;
 
-    //Attach study areas
-    //$study_areas = $request->input('study_areas');
-    //$project->getCourses()->sync($study_areas);
-
-
     $project->study_term = $request->study_term;
 
     $project->study_year = $request->study_year;
-
-
-
-    //$project->project_outcomes = $request->project_outcomes;
-    //$project->student_outcomes = $request->student_outcomes;
-
-
-    //XXX to be removed
-    /*
-    $project->courses = $request->related_courses;
-
-
-    $project->institute = $request->institutes;
-
-
-    if($request->project_start){
-      $date_start = date_create_from_format('m/d/Y', $request->project_start);
-      $project->start = date("Y-m-d", $date_start->getTimestamp());
-    }
-
-    if($request->project_end){
-      $date_end = date_create_from_format('m/d/Y', $request->project_end);
-      $project->end = date("Y-m-d", $date_end->getTimestamp());
-    }
-    */
-
 
     $project->supervisor = $request->cosupervisors;
 

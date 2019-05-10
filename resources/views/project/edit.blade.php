@@ -256,7 +256,7 @@
 
                             <!-- Presentation of project results -->
                             <div class="form-group">
-                                <label class="col-sm-3" style="text-align: right">{{trans('project.presentation_of_results')}}</label>
+                                <label class="col-sm-3 control-label" style="text-align: right">{{trans('project.presentation_of_results')}}</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" id="presentation_results" name="presentation_results">
 
@@ -277,78 +277,8 @@
 
                             </div>
 
-                            <!-- Interim evaluation date -->
-                            <div class="form-group">
-                                <label for="evaluation_date" class="col-sm-3 control-label">{{trans('project.evaluation_date')}}</label>
-
-                                <div class="col-sm-6">
-
-                                    <select class="form-control" id="evaluation_date" name="evaluation_date">
-
-                                        @if(!empty(old('evaluation_date')))
-                                            @foreach($evaluation_dates as $evaluation_date)
-                                                <option value="{{$evaluation_date->id}}" {{old('evaluation_date') == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
-                                            @endforeach
-                                        @else
-                                            @foreach($evaluation_dates as $evaluation_date)
-                                                <option value="{{$evaluation_date->id}}" {{$current_project->evaluation_date_id == $evaluation_date->id ? 'selected' : ''}}>{{date("m/d/Y", strtotime($evaluation_date->evaluation_date))}}</option>
-                                            @endforeach
-                                        @endif
-
-
-                                    </select>
-                                </div>
-                            </div>
-
-
 
                         </div>
-
-                        {{--<!-- Study area -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="study_areas" class="col-sm-3 control-label">{{trans('project.study_area')}}</label>--}}
-
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<select class="js-example-basic-multiple form-control" id="study_areas" name="study_areas[]" multiple>--}}
-
-
-
-                                    {{--@if ($courses->count())--}}
-
-                                        {{--@foreach($courses as $course)--}}
-
-                                                {{--@if(!empty(old('study_areas')))--}}
-                                                    {{--<option {{ in_array( $course->id, old('study_areas')) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
-
-                                                {{--@elseif($linked_courses_ids)--}}
-                                                    {{--<option {{ in_array($course->id, $linked_courses_ids) ? "selected":"" }} value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
-
-                                                {{--@else--}}
-                                                    {{--<option value="{{ $course->id }}">{{ getCourseName($course) }}</option>--}}
-
-                                            {{--@endif--}}
-
-                                        {{--@endforeach--}}
-
-                                    {{--@endif--}}
-
-
-                                {{--</select>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        <!-- Integrated areas -->
-                        <!-- XXX to be removed -->
-                        {{--<div class="form-group">--}}
-                            {{--<label for="integrated_areas" class="col-sm-3 control-label">{{trans('project.integrated_study_areas')}} <p>{{trans('project.one_per_line')}}</p></label>--}}
-
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<textarea name="integrated_areas" id="integrated_areas" class="form-control">{{ (empty(old('integrated_areas')) ? $current_project->integrated_areas : old('integrated_areas')) }}</textarea>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
 
 
                         <!-- Study term -->
@@ -416,126 +346,6 @@
                                 </select>
                             </div>
                         </div>
-
-
-
-                        {{--<!-- Student Outcomes -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="student_outcomes" class="col-sm-3 control-label">Tudengi õpiväljundid <p>Üks per rida</p></label>--}}
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<textarea name="student_outcomes" id="student_outcomes" class="form-control">{{ (empty($current_project) ? old('student_outcomes') : $current_project->student_outcomes) }}</textarea>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        {{--<!-- Related Courses -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="related_courses" class="col-sm-3 control-label">{{trans('project.related_courses')}} <p>{{trans('project.one_per_line')}}</p></label>--}}
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<textarea name="related_courses" id="related_courses" class="form-control">{{ (empty(old('related_courses')) ?  $current_project->courses : old('related_courses')) }}</textarea>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        {{--<!-- Project start -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="project_start" class="col-sm-3 control-label">{{trans('project.start')}}</label>--}}
-                            {{--<div class='col-sm-6'>--}}
-                                {{--<div class='input-group date' id='project_start'>--}}
-
-                                    {{--<input type='text' class="form-control" name="project_start" id="project_start" value="{{ (empty($current_project) ? old('project_start') : empty($current_project->start) ? old('project_start') :$current_project->start) }}"/>--}}
-                                    {{--<span class="input-group-addon">--}}
-                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                                    {{--</span>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        {{--<!-- Project end -->--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label for="project_end" class="col-sm-3 control-label">{{trans('project.end')}}</label>--}}
-                            {{--<div class='col-sm-6'>--}}
-                                {{--<div class='input-group date' id='project_end'>--}}
-                                    {{--<input type='text' class="form-control" name="project_end" id="project_end" value="{{ (empty($current_project) ? old('project_end') : empty($current_project->end) ? old('project_end') :$current_project->end) }}"/>--}}
-                                    {{--<span class="input-group-addon">--}}
-                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                                    {{--</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-
-
-                        <!-- Institutes -->
-                        {{--<div class="form-group">--}}
-                            {{--<label for="institutes" class="col-sm-3 control-label">{{trans('project.institute')}}</label>--}}
-
-                            {{--<div class="col-sm-6">--}}
-                                {{--<select class="form-control" id="institutes" name="institutes">--}}
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 0 )--}}
-                                        {{--<option value="0" selected>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="0">Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 1)--}}
-                                        {{--<option value="1" selected>Digitehnoloogiate instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="1">Digitehnoloogiate instituut</option>--}}
-                                    {{--@endif--}}
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 2)--}}
-                                        {{--<option value="2" selected>Humanitaarteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="2">Humanitaarteaduste instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 3)--}}
-                                        {{--<option value="3" selected>Haridusteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="3">Haridusteaduste instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 4)--}}
-                                        {{--<option value="4" selected>Loodus- ja terviseteaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="4">Loodus- ja terviseteaduste instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 5)--}}
-                                        {{--<option value="5" selected>Rakvere kolledž</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="5">Rakvere kolledž</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 6)--}}
-                                        {{--<option value="6" selected>Haapsalu kolledž</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="6">Haapsalu kolledž</option>--}}
-                                    {{--@endif--}}
-
-
-                                    {{--@if ((!empty($current_project) ?  $current_project->institute : old('institutes')) == 7)--}}
-                                        {{--<option value="7" selected>Ühiskonnateaduste instituut</option>--}}
-                                    {{--@else--}}
-                                        {{--<option value="7">Ühiskonnateaduste instituut</option>--}}
-                                    {{--@endif--}}
-
-
-                                {{--</select>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
 
 
                         <!-- Supervisors -->

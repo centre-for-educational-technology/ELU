@@ -2227,33 +2227,34 @@ class ProjectController extends Controller
     $filename = Input::file('file')->getClientOriginalName();
     $filePath = Input::file('file')->getRealPath();
     Storage::cloud()->put($project_folder_id.'/'.$filename, fopen($filePath, 'r+'));
-  
+    
     //Get uploaded file id to give it permissions
-    $dir = '/';
-    $recursive = true;
-    $file = collect(Storage::cloud()->listContents($dir,$recursive))
+    $dir = $project_folder_id;
+    $recursive = false;
+    $content = collect(Storage::cloud()->listContents($dir,$recursive));
+    $file_gdrive_id = $content
       ->where('type', 'file')
       ->where('name', $filename)
-      ->first();
-    $file_gdrive_id = $file['basename'];
+      ->where('timestamp', $content->max('timestamp'))
+      ->first()['basename'];
 
     $service = Storage::cloud()->getAdapter()->getService();
     $permission = new \Google_Service_Drive_Permission();
     $permission->setRole('reader');
     $permission->setType('anyone');
     $permission->setAllowFileDiscovery(false);
-    $permissions = $service->permissions->create($file['basename'], $permission); 
+    $permissions = $service->permissions->create($file_gdrive_id, $permission); 
     ///////////////DRIVE API//////////////
     ///////////////DRIVE API//////////////
 
     if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
       $files = json_decode($group->group_posters_gdrive_ids, true);
-      $new_file = $this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
+      $new_file = $this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id);
       if($new_file){
         $files[$new_file]=Input::file('file')->getClientOriginalName();
       }
     }else{
-      $files = array($this->uploadPosterThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
+      $files = array($this->uploadMaterialsThumbnail(Input::file('file'), $group->id, $file_gdrive_id)=>Input::file('file')->getClientOriginalName());
       $new_file = $files;
     }
 
@@ -2344,11 +2345,13 @@ class ProjectController extends Controller
     Storage::cloud()->put($project_folder_id.'/'.$filename, $fileData);
    
     //Get uploaded file id ('basename')
-    $dir = '/';
-    $recursive = true;
-    $file_gdrive_id = collect(Storage::cloud()->listContents($dir,$recursive))
+    $dir = $project_folder_id;
+    $recursive = false;
+    $content = collect(Storage::cloud()->listContents($dir,$recursive));
+    $file_gdrive_id = $content
       ->where('type', 'file')
       ->where('name', $filename)
+      ->where('timestamp', $content->max('timestamp'))
       ->first()['basename'];
 
     // Change permissions
@@ -2480,16 +2483,14 @@ class ProjectController extends Controller
 
     $group->save();
 
-    //Find file in google drive and delete
-    $dir = '/';
-    $recursive = true; // Get subdirectories also?
-    $drivefile = collect(Storage::cloud()->listContents($dir, $recursive))
-        ->where('type', 'file')
-        ->where('basename', pathinfo($file, PATHINFO_FILENAME))
-        ->first();
-    Storage::cloud()->delete($drivefile['basename']);
+    //Delete file based on gdriveID
+    $drive_id = pathinfo($file,PATHINFO_FILENAME);
 
-    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    Storage::cloud()->delete($drive_id);
+
+    if(file_exists(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file)){
+      File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    }
 
     return Response::json([$file, $files]);
 
@@ -2512,17 +2513,14 @@ class ProjectController extends Controller
 
     $group->save();
 
-     // Now find that file and use its ID (path) to delete it
-     $dir = '/';
-     $recursive = true; // Get subdirectories also?
-     $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-     $drivefile = $contents
-         ->where('type', 'file')
-         ->where('basename', pathinfo($file, PATHINFO_FILENAME))
-         ->first(); // there can be duplicate file names!
-     Storage::cloud()->delete($drivefile['basename']);
+    //Delete file from gdrive based on gdriveID
+    $drive_id =pathinfo($file, PATHINFO_FILENAME);
+
+    Storage::cloud()->delete($drive_id);
     
-    File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    if(file_exists(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file)){
+      File::delete(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$file);
+    }
 
     return Response::json([$file, $files]);
 
@@ -2540,10 +2538,14 @@ class ProjectController extends Controller
 
     if(!empty(json_decode($group->group_posters_gdrive_ids, true))){
       foreach (json_decode($group->group_posters_gdrive_ids, true) as $image => $name){
+        $fileSize = 0;
+        if(file_exists(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)){
+          $fileSize = File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+        }
 
         $imageAnswer[] = [
             'name' => $image,
-            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image),
+            'size' => $fileSize,
             'filename' => $name
         ];
       }
@@ -2566,10 +2568,14 @@ class ProjectController extends Controller
 
     if(!empty(json_decode($group->group_materials_gdrive_ids, true))){
       foreach (json_decode($group->group_materials_gdrive_ids, true) as $image => $name){
+        $fileSize = 0;
+        if(file_exists(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image)){
+          $fileSize = File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image);
+        }
 
         $imageAnswer[] = [
             'name' => $image,
-            'size' => File::size(public_path().'/storage/projects_groups_images/'.$group->id.'/'.$image),
+            'size' => $fileSize,
             'filename' => $name
         ];
       }

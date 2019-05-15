@@ -589,7 +589,7 @@ jQuery(document).ready(function ($) {
 
 Dropzone.autoDiscover = false;
 Dropzone.prototype.defaultOptions.dictRemoveFile = window.Laravel.remove_file_button;
-Dropzone.prototype.defaultOptions.dictCancelUpload = '';
+Dropzone.prototype.defaultOptions.dictCancelUpload = 'Uploading';
 
 var dropzones = $(".dropzone");
 dropzones.each(function (i) {

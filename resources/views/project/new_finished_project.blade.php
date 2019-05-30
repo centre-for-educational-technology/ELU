@@ -82,7 +82,7 @@
                     <p>{{$project->study_year}}/{{$project->study_year+1}} ({{getProjectSemester($project)}})</p>
                 @endif
 
-                @if (!Auth::guest() && $project->currentUserIs('member') && (($project->study_year==2017 && ($project->study_term==3 || $project->study_term==2 || $project->study_term==1)) || $project->study_year>2017))
+                @if (!Auth::guest() && $project->currentUserIs('member') || $project->currentUserIs('author') && (($project->study_year==2017 && ($project->study_term==3 || $project->study_term==2 || $project->study_term==1)) || $project->study_year>2017))
                     <form action="{{ url('finish/'.$project->id) }}">
                         <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>
                     </form>

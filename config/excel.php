@@ -438,8 +438,8 @@ return array(
 
         'encoding'                => [
 
-            'input'  => 'windows-1250',
-            'output' => 'windows-1250'
+            'input'  => 'UTF-8',
+            'output' => 'UTF-8'
 
         ],
 

@@ -176,9 +176,9 @@ function projectHasGroupsWithMembers(\App\Project $project){
  */
 function countMembersOfProject(\App\Project $project){
     $member_count = 0;
-    if(count($project->groups) > 0){
-      foreach ($project->groups as $group){
-        $member_count += count($group->users);
+    foreach ($project->users()->get() as $user){
+      if($user->pivot->participation_role == 'member'){
+        $member_count += 1;
       }
     }
     return $member_count;

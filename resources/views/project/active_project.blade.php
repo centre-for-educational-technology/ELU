@@ -122,40 +122,6 @@
 
             <div class="col-md-6">
 
-
-                {{--XXX to be removed--}}
-                {{--@if(!empty($project->integrated_areas))--}}
-
-                    {{--<h3><span class="glyphicon ico-topics"></span>{{trans('project.integrated_study_areas')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01">--}}
-                        {{--@foreach (explode(PHP_EOL, $project->integrated_areas) as $integrated_area)--}}
-                            {{--<li>{{ $integrated_area }}</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-
-                {{--@endif--}}
-
-                {{--XXX to be removed--}}
-                {{--@if(!empty($project->courses))--}}
-                    {{--<h3><span class="glyphicon ico-status"></span>{{trans('project.related_courses')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01">--}}
-                        {{--@foreach (explode(PHP_EOL, $project->courses) as $course)--}}
-                            {{--<li>{{ $course }}</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--@endif--}}
-
-
-                {{--@if(count($project->getCourses)>0)--}}
-                    {{--<h3><span class="glyphicon ico-topics"></span>{{trans('project.study_area')}}</h3>--}}
-                    {{--<ul class="list-unstyled list01 tags keywords">--}}
-                        {{--@foreach ($project->getCourses as $course)--}}
-                            {{--<li><span class="label label-primary">{{ getCourseName($course) }}</span></li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--@endif--}}
-
-
                 @if(!empty($project->meeting_info))
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('project.meeting_info')}}</h3>
                     <p>{{$project->meeting_info}}</p>
@@ -195,61 +161,6 @@
                     @endif
 
                 @endif
-
-
-                {{--@if (!empty($project->presentation_results))--}}
-                    {{--<h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>--}}
-                    {{--@if($project->presentation_results == 0)--}}
-                        {{--<p>{{trans('project.presentation_of_results_december')}}</p>--}}
-                    {{--@else--}}
-                        {{--<p>{{trans('project.presentation_of_results_may')}}</p>--}}
-                    {{--@endif--}}
-                {{--@endif--}}
-
-
-
-                {{--@if (!empty($project->evaluation_date_id))--}}
-                    {{--<h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>--}}
-                    {{--<p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>--}}
-                {{--@endif--}}
-
-
-
-                {{--<h3><span class="glyphicon ico-status"></span>{{trans('project.status')}}</h3>--}}
-                {{--<ul class="list-unstyled list01">--}}
-                {{--@if ( $project->status == 0 )--}}
-                {{--<li>{{trans('project.finished')}}</li>--}}
-                {{--@elseif ( $project->status == 1 )--}}
-                {{--<li>{{trans('project.active')}}</li>--}}
-                {{--@endif--}}
-                {{--</ul>--}}
-
-
-
-
-                {{--<h3><span class="glyphicon ico-target"></span>Instituut</h3>--}}
-                {{--<ul class="list-unstyled list01">--}}
-                {{--@if ( $project->institute == 0 )--}}
-                {{--<li>Balti filmi, meedia, kunstide ja kommunikatsiooni instituut</li>--}}
-                {{--@elseif ( $project->institute == 1 )--}}
-                {{--<li>Digitehnoloogiate instituut</li>--}}
-                {{--@elseif ( $project->institute == 2 )--}}
-                {{--<li>Humanitaarteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 3 )--}}
-                {{--<li>Haridusteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 4 )--}}
-                {{--<li>Loodus- ja terviseteaduste instituut</li>--}}
-                {{--@elseif ( $project->institute == 5 )--}}
-                {{--<li>Rakvere kolledž</li>--}}
-                {{--@elseif ( $project->institute == 6 )--}}
-                {{--<li>Haapsalu kolledž</li>--}}
-                {{--@elseif ( $project->institute == 7 )--}}
-                {{--<li>Ühiskonnateaduste instituut</li>--}}
-                {{--@endif--}}
-                {{--</ul>--}}
-
-
-
 
                 <div class="row share">
                     <div class="col-sm-6">
@@ -372,8 +283,32 @@
 
         @endif
 
+        {{-- Midterm section --}}
+        <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
+        @if (Auth::check() && $project->status == 1 && $project->currentUserIs('member') )
 
+            <form action="{{ url('midterm/'.$project->id) }}">
+                <button type="submit" class="btn btn-warning ">Esita</button>
+            </form>
+        @endif
 
+        @if (count($project->groups())>0)
+            @foreach ($project->groups as $group)
+                @php
+                    $materials = json_decode($group->midterm_material_gdrive_ids, true);
+                @endphp
+                @if (!empty($materials))
+                    <p>Grupp {{$group->name}}:</p>
+                    <ul class="group-materials-links">
+                        @foreach ($materials as $drive_id=>$name)
+                            <li>
+                                <a href="https://drive.google.com/file/d/{{$drive_id}}/view" target="_blank">{{$name}}<i class="fa phpdebugbar-fa-external-link"></i></a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            @endforeach
+        @endif
 
 
         <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

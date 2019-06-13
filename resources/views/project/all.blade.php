@@ -128,39 +128,6 @@
 
                             @endif
 
-
-                            {{--@if (!empty($project->presentation_results))--}}
-                                {{--<h3><span class="glyphicon ico-duration"></span>{{trans('project.presentation_of_results')}}</h3>--}}
-                                {{--@if($project->presentation_results == 0)--}}
-                                    {{--<p>{{trans('project.presentation_of_results_december')}}</p>--}}
-                                {{--@else--}}
-                                    {{--<p>{{trans('project.presentation_of_results_may')}}</p>--}}
-                                {{--@endif--}}
-                            {{--@endif--}}
-
-
-                            {{--@if (!empty($project->evaluation_date_id))--}}
-                                {{--<h3><span class="glyphicon ico-calendar"></span>{{trans('project.evaluation_date')}}</h3>--}}
-                                {{--<p>{{date("m/d/Y", strtotime(\App\EvaluationDate::find($project->evaluation_date_id)->evaluation_date))}}</p>--}}
-                            {{--@endif--}}
-
-                            {{--<div class="row share">--}}
-                                {{--<div class="col-sm-8">--}}
-
-                                    {{--<a href="{{url('project/'.$project->id)}}" data-image="{{ url(asset('/css/bg05.png')) }}" data-title="{{$project->name}}" data-desc="{{ str_limit(strip_tags($project->description), 150) }}" class="btnShare btn btn-block btn-social btn-facebook">--}}
-                                        {{--<span class="fa fa-facebook"></span> {{trans('project.share_fb')}}--}}
-                                    {{--</a>--}}
-
-                                    {{--<a class="btn btn-block btn-social btn-twitter"--}}
-                                       {{--href="https://twitter.com/intent/tweet?text={{ rawurlencode(str_limit($project->name, 80)) }}%20{{url('project/'.$project->id)}}"--}}
-                                       {{--hashtags="elu,tlu">--}}
-                                        {{--<span class="fa fa-twitter"></span> {{trans('project.share_twitter')}}--}}
-                                    {{--</a>--}}
-
-                                {{--</div>--}}
-                            {{--</div>--}}
-
-
                         </div>
 
 
@@ -269,28 +236,37 @@
 
                         <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
-                        {{--@if ($project->currentUserIs('member'))--}}
-                            {{--<form action="{{ url('leave/'.$project->id) }}" method="POST">--}}
-                                {{--{{ csrf_field() }}--}}
-
-                                {{--<button type="submit" class="btn btn-danger btn-lg">--}}
-                                    {{--<i class="fa fa-btn fa-frown-o"></i>{{trans('project.leave_project_button')}}--}}
-                                {{--</button>--}}
-                            {{--</form>--}}
-
-                        {{--@else--}}
-                            {{--<form action="{{ url('join/'.$project->id) }}" method="POST">--}}
-                                {{--{{ csrf_field() }}--}}
-
-                                {{--<button type="submit" class="btn btn-success btn-lg">--}}
-                                    {{--<i class="fa fa-btn fa-rocket"></i>{{trans('search.join_button')}}--}}
-                                {{--</button>--}}
-                            {{--</form>--}}
-                        {{--@endif--}}
-
                     @endif
 
 
+                    {{-- Midterm section --}}
+                    @if ($project->status == 1)
+                        <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
+                    @endif
+                    @if (Auth::check() && $project->status == 1 && $project->currentUserIs('member') )
+
+                        <form action="{{ url('midterm/'.$project->id) }}">
+                            <button type="submit" class="btn btn-warning ">Esita</button>
+                        </form>
+                    @endif
+
+                    @if (count($project->groups())>0)
+                        @foreach ($project->groups as $group)
+                            @php
+                                $materials = json_decode($group->midterm_material_gdrive_ids, true);
+                            @endphp
+                            @if (!empty($materials))
+                                <p>Grupp {{$group->name}}:</p>
+                                <ul class="group-materials-links">
+                                    @foreach ($materials as $drive_id=>$name)
+                                        <li>
+                                            <a href="https://drive.google.com/file/d/{{$drive_id}}/view" target="_blank">{{$name}}<i class="fa phpdebugbar-fa-external-link"></i></a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        @endforeach
+                    @endif
 
 
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

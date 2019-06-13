@@ -282,6 +282,10 @@ Route::group(['middleware' =>['web']], function () {
 
             Route::post('finish/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
 
+            Route::post('midterm/{id}/finish/uploadMidtermMaterials', 'ProjectController@attachMidtermMaterial');
+            Route::post('midterm/{id}/finish/deleteMidtermMaterials', 'ProjectController@deleteMidtermMaterial');
+            Route::get('midterm/{id}', 'ProjectController@midtermMaterials');
+            Route::get('midterm/{id}/api/group-MidtermMaterials', 'ProjectController@getGroupMidtermMaterials');
 
             Route::get('finish/{id}/api/group-Poster', 'ProjectController@getGroupPoster');
 
@@ -291,17 +295,8 @@ Route::group(['middleware' =>['web']], function () {
 
             Route::post('finishv2/{id}', 'ProjectController@saveFinishedProjectv2');
 
-            /*
-            Route::get('student/my-projects', array('as' => 'student/my-projects', function () {
-            $projects = Project::whereHas('users', function ($q) {
-                $q->where('participation_role', 'LIKE', '%member%')->where('id', Auth::user()->id);
-            })->where('publishing_status', 1)->orderBy('created_at', 'desc')->paginate(5);
 
 
-            return view('user.student.my_projects', [
-                'projects' => $projects]);
-            }));
-            */
 
             Route::post('join/{id}', 'ProjectController@joinProject');
 

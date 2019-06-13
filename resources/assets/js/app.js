@@ -601,7 +601,16 @@ dropzones.each(function (i) {
 
     var project_id = $("#presentationUpload" + group_id).attr("project-id");
     var dropzone_name = "#presentationUpload" + group_id;
-  } else {
+  } else if(this.id.indexOf("midtermMaterialsUpload") !== -1) {
+    var resourceName = "MidtermMaterials";
+    var accepted = "";
+    var maxNumberOfFiles = 100;
+    var group_id = parseInt($(this).prop("id").match(/\d+/g), 10);
+
+    var project_id = $("#midtermMaterialsUpload" + group_id).attr("project-id");
+    var dropzone_name = "#midtermMaterialsUpload" + group_id;
+  }
+  else {
     var resourceName = "Materials";
     var accepted = "";
     var maxNumberOfFiles = 100;
@@ -610,7 +619,10 @@ dropzones.each(function (i) {
     var project_id = $("#materialsUpload" + group_id).attr("project-id");
     var dropzone_name = "#materialsUpload" + group_id;
   }
-  if (this.getAttribute('auth') == 'student') {
+
+  if (this.id.indexOf("midtermMaterialsUpload") !== -1){
+    var routeTo = 'midterm';
+  } else if (this.getAttribute('auth') == 'student') {
     var routeTo = 'finish';
   } else {
     var routeTo = 'project';
@@ -642,12 +654,10 @@ dropzones.each(function (i) {
         $.each(data.images, function (key, value) {
           var file = { name: value.filename, size: value.size };
           myDropzone.emit("addedfile", file);
-          myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path + "/storage/projects_groups_images/" + group_id + "/" + value.name);
+          // myDropzone.createThumbnailFromUrl(file, window.Laravel.base_path + "/storage/projects_groups_images/" + group_id + "/" + value.name);
           myDropzone.emit("complete", file);
           var btndelete = file.previewElement.querySelector("[data-dz-remove]");
           btndelete.setAttribute("id", 'delete-media-name-' + value.name);
-          //value.filename: Failname.jpg
-          //value.name    : gdriveIDadfsdaf.png
           
           if(resourceName === "Poster"){
             myDropzone.options.maxFiles = 0;

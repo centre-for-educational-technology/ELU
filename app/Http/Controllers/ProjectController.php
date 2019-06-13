@@ -2891,4 +2891,121 @@ class ProjectController extends Controller
 
   }
 
+  public function midtermMaterials($id){
+    $project = \App\Project::find($id);
+    $student_group_id = '';
+    if (Auth::user()->is('student') && !Auth::user()->is('admin') && !Auth::user()->is('oppejoud')) {
+      $student_group_id = \DB::table('group_user')->where('user_id', Auth::user()->id)->first()->group_id;
+      $student_project_id = \DB::table('groups')->where('id', $student_group_id)->first()->project_id;
+      if ($student_project_id != $id) {
+        return view('errors.404');
+      }
+    }
+    return view('project.mid_term_upload')
+      ->with('current_project', $project)
+      ->with('student_group', $student_group_id);
+  }
+
+  public function attachMidtermMaterial(Request $req){
+
+    $group = Group::find($req->group_id);
+    $project = Project::find($group->project_id);
+
+    //upload file to gdrive with permissions
+    $dir = '/';
+    $recursive = true; // Get subdirectories also?
+    $project_folder_id = collect(Storage::cloud()->listContents($dir, $recursive))
+      ->where('type', 'dir')
+      ->where('name', $project->name)
+      ->first()['basename'];
+
+    //Upload file
+    $filename = Input::file('file')->getClientOriginalName();
+    $filePath = Input::file('file')->getRealPath();
+    $fileData = File::get($filePath);
+    Storage::cloud()->put($project_folder_id.'/'.$filename, $fileData);
+   
+    //Get uploaded file id
+    $dir = $project_folder_id;
+    $recursive = false;
+    $content = collect(Storage::cloud()->listContents($dir,$recursive));
+    $file_gdrive_id = $content
+      ->where('type', 'file')
+      ->where('name', $filename)
+      ->where('timestamp', $content->max('timestamp'))
+      ->first()['basename'];
+
+    // Give permissions
+    $service = Storage::cloud()->getAdapter()->getService();
+    $permission = new \Google_Service_Drive_Permission();
+    $permission->setRole('reader');
+    $permission->setType('anyone');
+    $permission->setAllowFileDiscovery(false);
+    $permissions = $service->permissions->create($file_gdrive_id, $permission);
+
+    // Store driveID in DB
+    if(!empty(json_decode($group->midterm_material_gdrive_ids, true))){
+      $files = json_decode($group->midterm_material_gdrive_ids, true);
+      if($file_gdrive_id){
+        $files[$file_gdrive_id]=Input::file('file')->getClientOriginalName();
+      }
+    }else{
+      $files = array($file_gdrive_id=>Input::file('file')->getClientOriginalName());
+    }
+
+    $group->midterm_material_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    unlink(Input::file('file')->getRealPath());
+
+    if ($file_gdrive_id == null) {
+      return Response::json('error', 500);
+    } else {
+      return response()->json(['gdrive_id' => $file_gdrive_id], 201);
+    }
+  }
+
+  public function deleteMidtermMaterial(Request $req){
+    $drive_id = $req->name;
+
+    $group = Group::find($req->group_id);
+
+    $files = json_decode($group->midterm_material_gdrive_ids, true);
+
+    if (array_key_exists($drive_id, $files)) {
+      unset($files[$drive_id]);
+    }
+
+    $group->midterm_material_gdrive_ids = json_encode($files);
+
+    $group->save();
+
+    Storage::cloud()->delete($drive_id);
+    
+    return Response::json([$drive_id, $files]);
+  }
+
+  public function getGroupMidtermMaterials(Request $request){
+    $group = Group::find($request->query('groupid'));
+
+    $imageAnswer = [];
+
+    if(!empty(json_decode($group->midterm_material_gdrive_ids, true))){
+      foreach (json_decode($group->midterm_material_gdrive_ids, true) as $drive_id => $filename){
+
+        $imageAnswer[] = [
+            'name' => $drive_id,
+            'size' => 11111,
+            'filename' => $filename
+        ];
+      }
+    }
+
+    return response()->json([
+        'images' => $imageAnswer
+    ]);
+  }
+
+
 }

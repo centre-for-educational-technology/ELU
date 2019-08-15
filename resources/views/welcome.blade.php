@@ -89,19 +89,19 @@
 
                     <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
                     <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
-                    <li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li>
+                    {{-- <li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li> --}}
 
                     @if (!Auth::guest())
 
-                    <li {{ setActive('seminaries') }}><a href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a></li>
+                    {{-- <li {{ setActive('seminaries') }}><a href="https://docs.google.com/document/d/1h8wX0TjFTFCnZPlXj0gccZUoLk8TGc9iWv_AEZHBkWI/edit" target="_blank">{{trans('front.seminaries')}}</a></li> --}}
 
                         @if (Auth::user()->is('oppejoud'))
 
-                            @if (App::getLocale() == 'en')
+                            {{-- @if (App::getLocale() == 'en')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @elseif(App::getLocale() == 'et')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
+                            @endif --}}
 
                             {{--<li {{ setActive('project/new') }}><a href="{{ url('/project/new') }}"><i class="fa fa-plus"></i> {{trans('front.add')}}</a></li>--}}
 
@@ -117,11 +117,11 @@
                         @if (Auth::user()->is('student') && !Auth::user()->is('oppejoud'))
 
                             <!-- Same as for the teacher, but putting it here, so when there come different materials for teachers and students, it's ready for a change. -->
-                            @if (App::getLocale() == 'en')
+                            {{-- @if (App::getLocale() == 'en')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
                             @elseif(App::getLocale() == 'et')
                                 <li><a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0" target="_blank">{{trans('front.materials')}}</a></li>
-                            @endif
+                            @endif --}}
 
                             <li {{ setActive('student/project/new') }}><a href="{{ url('student/project/new') }}">{{trans('front.i_have_idea')}}</a></li>
                         @endif

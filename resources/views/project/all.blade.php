@@ -184,8 +184,12 @@
                     @if(empty($isStudentMyProjectsView))
                     {{--Check for join deadline--}}
                         @if (Carbon\Carbon::today()->format('Y-m-d') > Str::limit($project->join_deadline, 10, ''))
+                            @if ($project->is_open)
+                                <p class="red">{{trans('project.joining_info')}}</p>
+                            @else
+                                <p class="red">{{trans('project.deadline_over')}}</p>
+                            @endif
                         {{--@if (Carbon\Carbon::today()->format('Y-m-d') > '2018-02-05')--}}
-                            <p class="red">{{trans('project.deadline_over')}}</p>
                             @if (!Auth::guest() && $project->currentUserIs('member'))
                             <form action="{{ url('finish/'.$project->id) }}">
                                 <button type="submit" class="btn btn-danger btn-lg">{{trans('project.add_materials')}}</button>

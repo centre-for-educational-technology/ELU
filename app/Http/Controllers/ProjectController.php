@@ -869,15 +869,15 @@ class ProjectController extends Controller
     $project = Project::find($id);
   
     //custom validator to redirect user to project page in case of error
-    $reqRules = new JoinProjectRequest;
-    $validator =Validator::make($request->all(), $reqRules->rules(sizeof($request->all()))
-    );
+    // $reqRules = new JoinProjectRequest;
+    // $validator =Validator::make($request->all(), $reqRules->rules(sizeof($request->all()))
+    // );
 
-    if ($validator->fails()) {
-      return redirect('project/'.$project->id)
-                  ->withErrors(['*.required' => 'All fields are required'])
-                  ->withInput();
-  }
+    // if ($validator->fails()) {
+    //   return redirect('project/'.$project->id)
+    //               ->withErrors(['*.required' => 'All fields are required'])
+    //               ->withInput();
+    // }
 
 
     if(Auth::user()->isMemberOfProject()){

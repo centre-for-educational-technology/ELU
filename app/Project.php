@@ -14,7 +14,7 @@ class Project extends Model
 
   public function users()
   {
-    return $this->belongsToMany('App\User')->withPivot('participation_role', 'points');
+    return $this->belongsToMany('App\User')->withPivot('participation_role', 'points', 'join_a1', 'join_a2', 'join_a3', 'join_extra_a1', 'join_extra_a2');
   }
 
 

@@ -150,12 +150,18 @@
 
                         <p>
                             Uus tudeng <?php echo $data['new_member']; ?> on liitunud teie projektiga "<?php echo $data['project_name']; ?>".
+                            
                         </p>
-                        <p>–</p>
                         <p>
                             A new student <?php echo $data['new_member']; ?> has joined your project "<?php echo $data['project_name']; ?>".
                         </p>
-
+                        
+                        <p>–</p>
+                        @foreach ($data['QA'] as $question=>$answer)
+                            <p><b>{{$question}}</b></p>
+                            <p>{{$answer}}</p>
+                        @endforeach
+                        
                         <table>
                             <tr>
                                 <td align="center">

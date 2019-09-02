@@ -1014,34 +1014,40 @@ class ProjectController extends Controller
     //Attach user with member role + Save joining form answers
     $project->users()->attach(Auth::user()->id, ['participation_role' => 'member', 'join_a1' => $join_a1, 'join_a2' => $join_a2, 'join_a3' => $join_a3, 'join_extra_a1' => $join_extra_a1, 'join_extra_a2' => $join_extra_a2]);
 
+    //Send mail to student
+    $person_data = [
+      'project_name' => $project->name,
+      'project_url' => url('project/'.$project->id),
+    ];
+
+    Mail::send('emails.joined_project_notification_to_student', ['data' => $person_data], function ($m) {
+      $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
+    });
+
+    //Send mail to authors
 	  if($project->get_notifications){
 		  $data = [
 				  'new_member' => getUserNameAndCourse(Auth::user()),
 				  'project_name' => $project->name,
-				  'project_url' => url('project/'.$project->id),
-          ];
-
-          $person_data = [
-            'project_name' => $project->name,
-			'project_url' => url('project/'.$project->id),
-          ];
+          'project_url' => url('project/'.$project->id),
+          'QA' => [$project->join_q1 => $project->users()->find(Auth::user()->id)->pivot->join_a1,
+                   $project->join_q2 => $project->users()->find(Auth::user()->id)->pivot->join_a2, 
+                   $project->join_q3 => $project->users()->find(Auth::user()->id)->pivot->join_a3,
+                   $project->join_extra_q1 => $project->users()->find(Auth::user()->id)->pivot->join_extra_a1,
+                   $project->join_extra_q2 => $project->users()->find(Auth::user()->id)->pivot->join_extra_a2],
+      ];
 
 		  $project_authors_emails = array();
 		  foreach ($project->users as $user){
 
 			  if($user->pivot->participation_role == 'author'){
 				  array_push($project_authors_emails, getUserEmail($user));
-
 			  }
-          }
-
-          Mail::send('emails.joined_project_notification_to_student', ['data' => $person_data], function ($m) {
-            $m->to(getUserEmail(Auth::user()))->subject('Liitumine ELU projektiga / Joining LIFE project');
-          });
+      }   
 
 		  Mail::send('emails.joined_project_notification', ['data' => $data], function ($m) use ($project_authors_emails) {
 			  $m->to($project_authors_emails)->subject('Uus projekti liige / New project member');
-          });
+      });
 
 	  }
 

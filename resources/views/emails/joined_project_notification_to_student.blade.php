@@ -149,7 +149,7 @@
                         <h2>Hea üliõpilane!</h2>
 
                         <p>
-                            Oled registreerunud ELU õppeainesse. <b>Sinu ÕISi õpingukavasse lisatakse ELU õppeosakonna poolt veebruarikuu lõpus ELUveebi registreeringu alusel.</b> ELU õppeainet üliõpilane ise oma õpingukavasse lisada EI SAA!
+                            Oled registreerunud ELU õppeainesse. <b>Sinu ÕISi õpingukavasse lisatakse ELU õppeosakonna poolt septembrikuu lõpus ELUveebi registreeringu alusel.</b> ELU õppeainet üliõpilane ise oma õpingukavasse lisada EI SAA!
                         </p>
 
                         <p>
@@ -165,28 +165,39 @@
                                 ELU ehk erialasid lõimiv uuendus on projekti- ja probleemõppel põhinev 6 EAPne (=156 töötundi) ainekursus, mille hindamine on arvestuslik ehk mitteeristatav.
                                 Õppeaine läbimise tingimused ja hindamiskriteeriumid on kirjas:
                                 <ul>
-                                    <li><a href="https://drive.google.com/file/d/1wbsduxUZ2y3uiC17IWbCD3RgddQK7EVC/view">Ainekaardis</a></li>
-                                    <li><a href="https://docs.google.com/document/d/1-Tt9hrAq474lzWcoa1ZV6Bzw51CHKQnq64K2kGfUjFc/edit">Kursuseprogrammis</a> (koostatakse projekti alguses koostöös juhendajaga)</li>
+                                    <li><a href="https://ois2.tlu.ee/tluois/aine/YID6001.YM">Ainekaardis</a></li>
                                     <li><a href="https://docs.google.com/document/d/1BiJmcN7oRpw4i7Rfia-6q7im9AUAUXToggProBo2tTs/edit">Üliõpilase ABC-s</a></li>
                                 </ul>
                             </p>
                         </p>
 
                         <p>
-                            <b>3) ELU õppeaine läbimist toetavad materjalid</b> (sh projekti eelarve kasutamine, koostöine
-                            õppimine, koolitusmaterjalid, meeskonnatöö jne) on leitavad: <a href="https://elu.tlu.ee">elu.tlu.ee</a> ---&gt; sisse logides →
-                            menüüst <a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0">Materjalid</a>.
+                            <b><u>3) ELU õppeaine Moodle: YID6001.YM ELU õppeaine õpikeskkond 2019/2020</u></b>
+                            <p>ELU õppeainega liitunud üliõpilasele saadetakse ELU veebilehel registreeritud e-mailile kutse liituda ELU üldise Moodle kursusega <b>YID6001.YM ELU õppeaine õpikeskkond 2019/2020</b> kus:
+                            
+                                <ul> 
+                                    <li>jagatakse ELU õppeainega seotud üldist infot</li>
+                                    <li>on kättesaadavad ELU õppeainet toetavad materjalid (ELU kontseptsioon, üliõpilase ABC, eelarve kasutamise juhend, kohustuslike tööde juhendid)</li>
+                                    <li>esitatakse ELU kohustuslikud tööd (vahekokkuvõte, projekti portfoolio, esitlus)</li>
+                                    <li>toimub registreerimine töötubadesse/seminaridele, vahenädala tagasiside sessioonile ja ELU esitluspäevale</li>
+                                </ul>
+                            </p>
                         </p>
 
                         <p>
-                            <b>4) Mare maja III korrusel on klaasseinaga eraldatud kolm ELU õppeala (Infera, Media ja
-                            Supera),</b> mida saab broneerida projekti meeskonnaga kohtumiseks. Vaata vabasid aegu
-                            ASIO-st (ruumikalender MARE) ja broneerimiseks kirjuta elu@tlu.ee.
+                            <b>4) ELU infotund alustavale üliõpilasele</b> 
+                            <p>ELU infotunnil antakse ülevaade ELU õppeaine eesmärkidest, õpiväljunditest, õppeaine sooritamise tingimustest, korraldusest Moodle's ning ELU raames toimuvatest töötubadest/seminaridest. Sügissemestri infotunnid toimuvad (ELU alal Mare maja III korrus):
+                            </p>
                         </p>
+
+                        <h5 style="text-align:center"><b><u>kolmapäeval 11.09 kell 12.00-13.00 ja 15.30-16.30</u></b></h5>
+                        <h5 style="text-align:center"><b><u>neljapäeval 12.09 kell 12.00-13.00 ja 15.30-16.30</u></b></h5>
+                        <h5 style="text-align:center"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeLRhUsDiB9e0RJT0Mm6Qo6dFF5HA3J8VUeDyEpQPOoqJSbYw/viewform">REGISTREERI!</a></h5>
+
 
                         <p>
                             Lisainformatsioon<br>
-                            ELU koordinaatorid<br>
+                            ELU koordinaatorilt<br>
                             elu@tlu.ee
                         </p>
 
@@ -199,7 +210,7 @@
                         <h2>Dear Student</h2>
 
                         <p>
-                            You have registered for a LIFE course. <b>Based on the registration on LIFE website, the Academic Affairs Office will add the course to your study plan in the Study Information System (SIS) at the end of February.</b> Students themselves CANNOT add the LIFE course to their study plan.
+                            You have registered for a LIFE course. <b>Based on the registration on LIFE website, the Academic Affairs Office will add the course to your study plan in the Study Information System (SIS) at the end of September.</b> Students themselves CANNOT add the LIFE course to their study plan.
                         </p>
 
                         <p>
@@ -215,19 +226,28 @@
                                 LIFE (Learning in Interdisciplinary Focused Environment) is a study course of 6 ECTS (=156 working hours) and it is focused on project- and problem-based learning. The course is assessed on a non-differentiated assessment scale (Pass/Fail).
                                 Requirements for passing the course and assessment criteria can be found in:
                                 <ul>
-                                    <li><a href="https://drive.google.com/file/d/18nix8GlC7UxXYAjFI2_j4dEHL39yB3M2/view">Course description</a></li>
-                                    <li><a href="https://docs.google.com/document/d/1WjJyqCNtYSQeYvUsn43qvx5LUB3TqjctYOSQyOZ8nLs/edit">Course programme</a> (created at the beginning of the project together with the supervisor)</li>
+                                    <li><a href="https://ois2.tlu.ee/tluois/subject/YID6001.YM">Course description</a></li>
                                     <li><a href="https://docs.google.com/document/d/1Lyx-BrCiJR1ISzLEzx-EJUB64nroBGZuwAaLtCD0nVk/edit">Student Guidelines</a></li>
                                 </ul>
                             </p>
                         </p>
 
                         <p>
-                            <b>3) Supportive materials for taking a LIFE course</b> (incl. guidelines for using the budget, training materials and materials on collaborative learning and teamwork etc.) can be found at: <a href="https://elu.tlu.ee">elu.tlu.ee</a> (log in) → <a href="https://drive.google.com/drive/folders/0BxOqwuSVpflsMlBfR2FiZm93ZE0">Materials.</a>.
+                            <b>3) LIFE course Moodle: YID6001.YM LIFE course learning environment 2019/2020</b>
+                            <p>The student who has joined the LIFE course will be sent an e-mail invitation to join a Moodle course, intended for all students, LIFE course learning environment 2019/2020, where:
+                            </p>
+                            <ul>
+                                <li>general information related to LIFE course is shared;</li>
+                                <li>LIFE course support materials can be found (the concept of LIFE, Student Guidelines, Guidelines for using project funds, guidelines for compulsory tasks);</li>
+                                <li>compulsory tasks are submitted;</li>
+                                <li>registration for workshops/seminars, feedback session during the intermediate week and LIFE projects’ presentation day takes place</li>
+                            </ul>
                         </p>
 
                         <p>
-                            <b>4) On the third floor of Mare building you will find three LIFE study areas (Infera, Media and Supera) separated by a glass wall.</b> They can be booked for project team meetings. You can check the availability in ASIO (room calendar MARE) and send an email to elu@tlu.ee for booking a room.
+                            <b>4) LIFE info seminar for a new students</b> 
+                            <p>The LIFE info seminar provides an overview about the course objectives, learning outcomes, terms and conditions in Moodle and information about LIFE workshops. The info seminar takes place at Mare study area (Mare 3rd floor) on September 13 at 14:00-15:00.</p>
+                            <h5 style="text-align:center"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfpmbx-brUwe7XRVZnmtpUEy-X1Q8rrgggAFo2qOxLB2N1UEQ/viewform">REGISTER!</a></h5>
                         </p>
 
                         <p>

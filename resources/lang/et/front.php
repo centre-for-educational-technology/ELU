@@ -32,5 +32,6 @@ return [
     'tallinn_university' => 'Tallinna Ülikool',
     'academic_calendar' => 'ELU kalender',
     'seminaries' => 'Töötoad',
-    'materials' => 'Materjalid'
+    'materials' => 'Materjalid',
+    'calendar_headline' => 'ELU kalendrist leiad õppeainega seotud kohustuslike tööde ja koolituste/seminaride info. Lisainfo ',
 ];

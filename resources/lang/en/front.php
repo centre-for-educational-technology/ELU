@@ -32,5 +32,6 @@ return [
     'tallinn_university' => 'Tallinn University',
     'academic_calendar' => 'LIFE calendar',
     'seminaries' => 'Workshops',
-    'materials' => 'Materials'
+    'materials' => 'Materials',
+    'calendar_headline' => 'In the LIFE calendar you will find important deadlines and LIFE workshops information. More information: '
 ];

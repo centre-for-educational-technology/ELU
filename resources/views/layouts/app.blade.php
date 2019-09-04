@@ -176,6 +176,8 @@
 
                     <li {{ setActive('projects') }}><a href="{{ url('/projects/open') }}">{{trans('front.search')}}</a></li>
                     <li {{ setActive('faq') }}><a href="{{ url('/faq') }}">{{trans('front.faq')}}</a></li>
+                    <li {{ setActive('calendar') }}><a href="{{ url('/calendar') }}">{{trans('front.academic_calendar')}}</a></li>
+
                     {{-- <li {{ setActive('calendar') }}><a href="https://docs.google.com/document/d/1tuLxJ3KL27HcS7JmfdxuZD05djkEaoPHkHBlSinwEZg/edit" target="_blank">{{trans('front.academic_calendar')}}</a></li> --}}
 
                     @if (!Auth::guest())

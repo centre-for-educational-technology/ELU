@@ -348,6 +348,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/faq', 'PageController@indexFaq');
 
+    Route::get('/calendar', function () {
+        return view('page.calendar');
+    });
+
 
     Route::get('/projects/open', 'ProjectController@indexOpenProjects');
 

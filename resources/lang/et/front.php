@@ -33,5 +33,5 @@ return [
     'academic_calendar' => 'ELU kalender',
     'seminaries' => 'Töötoad',
     'materials' => 'Materjalid',
-    'calendar_headline' => 'ELU kalendrist leiad õppeainega seotud kohustuslike tööde ja koolituste/seminaride info. Lisainfo ',
+    'calendar_headline' => 'ELU kalendrist leiad õppeainega seotud kohustuslike tööde tähtajad ja koolituste/seminaride info. Küsimuste korral kirjuta ',
 ];

@@ -1756,6 +1756,52 @@ class ProjectController extends Controller
 
 
 		return Response::stream($callback, 200, $headers);
+  }
+  
+  /**
+	 * Get student responses to join questions in form of csv file
+	 */
+	public function exportAnalyticsToCSVStudentResponses()
+	{
+
+
+		$headers = array(
+				"Content-type" => "text/csv",
+				"Content-Disposition" => "attachment; filename=elu_open.csv",
+				"Pragma" => "no-cache",
+				"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+				"Expires" => "0"
+		);
+
+
+		$projects = Project::where('publishing_status', 1)->where('status', '=', '1')->where('join_deadline', '>=', Carbon::today()->format('Y-m-d'))->where('deleted', NULL)->orderBy('name', 'asc')->get();
+
+		$columns = array('Project id','Project name', 'Student name', 'Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5', 'Answer 1', 'Answer 2', 'Answer 3', 'Answer 4', 'Answer 5');
+
+
+		$callback = function() use ($projects, $columns)
+		{
+			$handle = fopen('php://output', 'w');
+			fputcsv($handle, $columns);
+
+			foreach($projects as $project) {
+
+        $members = $project->users->all();
+        
+        foreach($members as $member){
+
+          fputcsv($handle, array($project->id, $project->name, $member->name, $project->join_q1, $project->join_q2, $project->join_q3, $project->join_extra_q1, $project->join_extra_q2,$member->pivot->join_a1, $member->pivot->join_a2, $member->pivot->join_a3, $member->pivot->join_extra_a1, $member->pivot->join_extra_a2), ',');
+        }
+
+
+			}
+
+
+			fclose($handle);
+		};
+
+
+		return Response::stream($callback, 200, $headers);
 	}
 
 

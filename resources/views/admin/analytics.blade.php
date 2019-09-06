@@ -110,6 +110,13 @@
 
             </div>
 
+            <h3>Tudengite vastused</h3>
+            <h4>{{trans('search.open_projects')}}</h4>
+            <div class="btn-group">
+                <a class="btn btn-lg btn-success" download href="{{ url('/admin/analytics/download/student/responses') }}"><i class="fa fa-btn fa-download"></i>Laadi alla</a>
+
+            </div>
+
 
 
 

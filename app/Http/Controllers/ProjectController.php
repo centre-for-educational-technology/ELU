@@ -1789,7 +1789,9 @@ class ProjectController extends Controller
         $members = $project->users->all();
         
         foreach($members as $member){
-
+          if(!$member->pivot->join_a1){
+            continue;
+          }
           fputcsv($handle, array($project->id, $project->name, $member->full_name, $project->join_q1, $project->join_q2, $project->join_q3, $project->join_extra_q1, $project->join_extra_q2,$member->pivot->join_a1, $member->pivot->join_a2, $member->pivot->join_a3, $member->pivot->join_extra_a1, $member->pivot->join_extra_a2), ',');
         }
 

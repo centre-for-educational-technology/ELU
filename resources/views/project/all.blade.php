@@ -240,7 +240,7 @@
 
 
                     {{-- Midterm section --}}
-                    @if ($project->status == 1)
+                    {{-- @if ($project->status == 1)
                         <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
                     @endif
                     @if (Auth::check() && $project->status == 1 && $project->currentUserIs('member') )
@@ -266,7 +266,7 @@
                                 </ul>
                             @endif
                         @endforeach
-                    @endif
+                    @endif --}}
 
 
                     <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

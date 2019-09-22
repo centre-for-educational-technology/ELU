@@ -283,10 +283,10 @@ Route::group(['middleware' =>['web']], function () {
 
             Route::post('finish/{id}/finish/deleteMaterials', 'ProjectController@deleteMaterial');
 
-            Route::post('midterm/{id}/finish/uploadMidtermMaterials', 'ProjectController@attachMidtermMaterial');
-            Route::post('midterm/{id}/finish/deleteMidtermMaterials', 'ProjectController@deleteMidtermMaterial');
-            Route::get('midterm/{id}', 'ProjectController@midtermMaterials');
-            Route::get('midterm/{id}/api/group-MidtermMaterials', 'ProjectController@getGroupMidtermMaterials');
+            // Route::post('midterm/{id}/finish/uploadMidtermMaterials', 'ProjectController@attachMidtermMaterial');
+            // Route::post('midterm/{id}/finish/deleteMidtermMaterials', 'ProjectController@deleteMidtermMaterial');
+            // Route::get('midterm/{id}', 'ProjectController@midtermMaterials');
+            // Route::get('midterm/{id}/api/group-MidtermMaterials', 'ProjectController@getGroupMidtermMaterials');
 
             Route::get('finish/{id}/api/group-Poster', 'ProjectController@getGroupPoster');
 

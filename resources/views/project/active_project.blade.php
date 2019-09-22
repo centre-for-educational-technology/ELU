@@ -288,7 +288,7 @@
         @endif
 
         {{-- Midterm section --}}
-        <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
+        {{-- <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
         @if (Auth::check() && $project->status == 1 && $project->currentUserIs('member') )
 
             <form action="{{ url('midterm/'.$project->id) }}">
@@ -312,7 +312,7 @@
                     </ul>
                 @endif
             @endforeach
-        @endif
+        @endif --}}
 
 
         <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

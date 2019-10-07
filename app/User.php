@@ -41,17 +41,28 @@ class User extends Authenticatable
     return $this->belongsToMany('App\Group');
   }
 
-
+  //isMemberOfActiveproject?
   public function isMemberOfProject(){
     foreach ($this->projects()->get() as $project){
       if($project->pivot->participation_role == 'member'){
-        if($project->requires_review == false){
+        if($project->requires_review == false && $project->status == 1 && $project->publishing_status == 1){
           return array('name' => $project->name,
               'id'=>$project->id);
         }
 
       }
 
+    }
+    return false;
+  }
+
+  public function isMemberOfFinishedProject(){
+    foreach ($this->projects()->get() as $project){
+      if($project->pivot->participation_role == 'member'){
+        if($project->status == 0 && $project->publishing_status == 1){
+          return $project->id;
+        }
+      }
     }
     return false;
   }

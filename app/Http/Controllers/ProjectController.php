@@ -879,8 +879,25 @@ class ProjectController extends Controller
     //               ->withInput();
     // }
 
+    //Remove student from finished project and group. For people who need to take ELU again. 
+    if(Auth::user()->isMemberOfFinishedProject()){
+      
+      $projectId = Auth::user()->isMemberOfFinishedProject();
 
-    if(Auth::user()->isMemberOfProject()){
+      $oldProject = Project::find($projectId);
+
+      $user = User::find(Auth::user()->id);
+      
+      $oldProject->users()->detach($user);
+
+      $user_group =  userBelongsToGroup($user);
+
+      if($user_group){
+        $user_group->first()->users()->detach($user);
+      }
+    }
+    
+    if(Auth::user()->isMemberOfProject() && !Auth::user()->isMemberOfFinishedProject()){
 
         return \Redirect::to('project/'.$project->id)
                 ->with('message', [

@@ -372,7 +372,12 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('project/{id}', array('as' => 'project', function ($id) {
-
+        
+        //Hide project temporarily
+        if($id == 477){
+            return view('errors.404');
+        }
+        
         $project = Project::find($id);
 
         if($project){

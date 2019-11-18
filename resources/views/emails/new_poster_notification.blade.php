@@ -149,7 +149,7 @@
                         <h2>Tere</h2>
 
                         <p>
-                            Uus poster on lisatud kasutaja <?php echo $data['project_author']; ?> poolt.
+                            Uus portfoolio on lisatud kasutaja <?php echo $data['project_author']; ?> poolt.
                         </p>
                         <table>
                             <tr>

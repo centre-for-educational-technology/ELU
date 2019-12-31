@@ -15,7 +15,8 @@
                             <li><a href="#author">{{trans('search.supervisor')}}</a></li>
                         </ul>
                     </div>
-                    @if (Route::getCurrentRoute()->getPath() == "projects/finished" && Auth::user() && Auth::user()->is('admin'))
+                    
+                    @if (Route::current()->uri() == "projects/finished" && Auth::user() && Auth::user()->is('admin'))
                         <a href="/projects/finished/search?sort_param=semester">Sorteeri semestrite kaupa</a>
                     @endif
                 </div>

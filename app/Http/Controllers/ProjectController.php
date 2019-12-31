@@ -2846,6 +2846,11 @@ class ProjectController extends Controller
    */
   private function uploadFeaturedImage(&$request, $id){
 
+    if(!File::exists(public_path('storage/projects_featured_images/'.$id))) {
+      // path does not exist
+      File::makeDirectory(public_path('storage/projects_featured_images/'.$id), 0755, true);
+    }
+
     $featured_image = $request->file('featured_image');
 
     $destinationPath = 'storage/projects_featured_images/';

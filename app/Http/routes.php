@@ -341,7 +341,8 @@ Route::group(['middleware' => ['web']], function () {
     });
 
 
-    Route::auth();
+    Auth::routes();
+    Route::get('/logout', 'Auth\LoginController@logout');
 
 
     Route::get('/', 'PageController@index');

@@ -4,6 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => 'ELU',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Version
     |--------------------------------------------------------------------------
     */
@@ -162,16 +174,18 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
         Barryvdh\Debugbar\ServiceProvider::class,
         Cohensive\Embed\EmbedServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-		    Maatwebsite\Excel\ExcelServiceProvider::class,
-            App\Providers\GoogleDriveServiceProvider::class,
-            Sentry\Laravel\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Sentry\Laravel\ServiceProvider::class,
     ],
 
     /*
@@ -204,6 +218,7 @@ return [
         'Lang'      => Illuminate\Support\Facades\Lang::class,
         'Log'       => Illuminate\Support\Facades\Log::class,
         'Mail'      => Illuminate\Support\Facades\Mail::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password'  => Illuminate\Support\Facades\Password::class,
         'Queue'     => Illuminate\Support\Facades\Queue::class,
         'Redirect'  => Illuminate\Support\Facades\Redirect::class,

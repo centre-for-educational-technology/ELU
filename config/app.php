@@ -169,8 +169,8 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 		    Maatwebsite\Excel\ExcelServiceProvider::class,
-            Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
             App\Providers\GoogleDriveServiceProvider::class,
+            Sentry\Laravel\ServiceProvider::class,
     ],
 
     /*
@@ -220,8 +220,8 @@ return [
         'Str'       => Illuminate\Support\Str::class,
         'Embed'     => Cohensive\Embed\Facades\Embed::class,
         'Image' => Intervention\Image\Facades\Image::class,
-		    'Excel' => 'Maatwebsite\Excel\Facades\Excel',
-		    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+		    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+            'Sentry' => Sentry\Laravel\Facade::class,
 
     ],
 

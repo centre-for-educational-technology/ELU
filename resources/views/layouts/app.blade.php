@@ -280,13 +280,14 @@
                                     <li><a href="{{ url('teacher/my-projects') }}"><i class="fa fa-btn fa-pencil"></i>{{trans('nav.my_projects_teacher')}}</a></li>
                                 @endif
 
-                                {{--XXX Change to student--}}
                                 @if (Auth::user()->is('student'))
-                                    {{--<li><a href="{{ url('student/my-projects') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>--}}
 
                                     @if(Auth::user()->isMemberOfProject()['id'])
                                         <li><a href="{{ url('project/'.Auth::user()->isMemberOfProject()['id']) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
-
+                                    
+                                    @elseif(Auth::user()->isMemberOfFinishedProject())
+                                        <li><a href="{{ url('project/'.Auth::user()->isMemberOfFinishedProject()) }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
+    
                                     @else
                                         <li><a href="{{ url('projects/open') }}"><i class="fa fa-btn fa-lightbulb-o"></i>{{trans('nav.my_projects_student')}}</a></li>
 

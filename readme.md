@@ -1,12 +1,12 @@
 # ELU application
 
-Version 1.0
+Version 1.1
 
-Running on Laravel 5.2.45
+Running on Laravel 5.4.x-dev (fixes compability bug with php7.3)
 
 ## Requirements
 
-* PHP 7.0 and higher
+* PHP 7.3
 
 * SSH enabled on server
 

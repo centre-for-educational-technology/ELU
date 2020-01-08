@@ -21,28 +21,12 @@ class JoinProjectRequest extends Request
      *
      * @return array
      */
-    public function rules($size)
-    {   
-        if($size==4){
-            return [
-                'join_a1' => 'required|max:255',
-                'join_a2' => 'required|max:255',
-                'join_a3' => 'required|max:255',
-            ];
-        }else if($size==5){
-            return [
-                'join_a1' => 'required|max:255',
-                'join_a2' => 'required|max:255',
-                'join_a3' => 'required|max:255',
-                'join_extra_a1' => 'required|max:255',
-            ];
-        }
+    public function rules()
+    {
         return [
             'join_a1' => 'required|max:255',
             'join_a2' => 'required|max:255',
             'join_a3' => 'required|max:255',
-            'join_extra_a1' => 'required|max:255',
-            'join_extra_a2' => 'required|max:255',
         ];
     }
 

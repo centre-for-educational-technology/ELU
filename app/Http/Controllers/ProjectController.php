@@ -856,8 +856,8 @@ class ProjectController extends Controller
   /**
    * Join project team is used by user with student role
    */
-  public function joinProject(Request $request, $id)
-  {    
+  public function joinProject(JoinProjectRequest $request, $id)
+  {
     $project = Project::find($id);
   
     //custom validator to redirect user to project page in case of error

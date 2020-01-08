@@ -25,36 +25,14 @@ class ProjectRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            /*
-            'description' => array(
-                'required',
-                'max:9000'
-            ),
-            */
-		        'aim' => 'required|max:9000',
-		        // 'novelty_desc' => 'required|max:9000',
-		        'project_outcomes' => 'required|max:9000',
-	        
-//          XXX to be removed
-//            'integrated_areas' => 'max:3000',
-//            'related_courses' => 'max:3000',
-
-//            'study_areas' => 'required',
+            'aim' => 'required|max:9000',
+            'project_outcomes' => 'required|max:9000',
+            'meetings_dates_text' => 'required|max:3000',
             'embedded' => 'active_url',
-//            'project_outcomes' => 'required|max:3000',
-//            'student_outcomes' => 'required|max:3000',
-
-//            'project_start' => 'required|max:100',
-//            'project_end' => 'required|max:100',
             'join_deadline' => 'required|max:100',
-//            'join_link' => 'active_url',
-//            'group_link' => 'active_url',
             'study_term' => 'required',
-//            'institutes' => 'required',
             'supervisors' => 'required',
             'cosupervisors' => 'max:3000',
-//            'status' => 'required',
-//            'publishing_status' => 'required',
             'tags' => 'required|max:3000',
             'extra_info' => 'max:3000',
             'featured_image' => 'image',

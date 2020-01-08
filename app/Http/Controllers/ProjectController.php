@@ -204,11 +204,7 @@ class ProjectController extends Controller
 
 	  $project->student_expectations = $request->student_expectations;
 
-	  if(!empty($request->meetings_dates_text)){
-		  $project->meeting_dates = $request->meetings_dates_text;
-	  }else{
-		  $project->meeting_dates = 'NONE';
-	  }
+    $project->meeting_dates = $request->meetings_dates_text;
 
 	  $project->presentation_results = $request->presentation_results;
 
@@ -335,11 +331,7 @@ class ProjectController extends Controller
 
 	  $project->student_expectations = $request->student_expectations;
 
-	  if(!empty($request->meetings_dates_text)){
-		  $project->meeting_dates = $request->meetings_dates_text;
-	  }else{
-		  $project->meeting_dates = 'NONE';
-	  }
+    $project->meeting_dates = $request->meetings_dates_text;
 
 	  $project->presentation_results = $request->presentation_results;
 

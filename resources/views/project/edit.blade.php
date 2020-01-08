@@ -209,48 +209,14 @@
 
                             <!-- Dates for group meetings -->
                             <div class="form-group">
-                                <label for="meetings_dates_text" class="col-sm-3 control-label">{{trans('project.meetings_dates')}}</label>
-
+                                <label for="meetings_dates_text" class="col-sm-3 control-label">{{trans('project.meetings_dates')}} *</label>
+                                
                                 <div class="col-sm-6">
-
-
-                                    @if(empty(old('meetings_dates_text') || old('meetings_dates_radio')))
-                                            @if($current_project->meeting_dates == "NONE")
-                                                <div class="radio">
-                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" checked> {{trans('project.to_be_arranged')}}</label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio"> {{trans('project.other')}}</label>
-                                                </div>
-
-                                                <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" disabled>
-
-                                            @else
-
-                                                <div class="radio">
-                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio"> {{trans('project.to_be_arranged')}}</label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" checked> {{trans('project.other')}}</label>
-                                                </div>
-
-
-                                                <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  $current_project->meeting_dates }}">
-
-                                            @endif
-
+                                    @if ($current_project->meeting_dates == 'NONE')
+                                        <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  !empty(old('meetings_dates_text'))? old('meetings_dates_text') : '' }}">
                                     @else
-                                            <div class="radio">
-                                                <label><input onclick="document.getElementById('meetings_dates_text').disabled = true;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" {{!empty(old('meetings_dates_radio'))? 'checked' : ''}}> {{trans('project.to_be_arranged')}}</label>
-                                            </div>
-                                            <div class="radio">
-                                                <label><input onclick="document.getElementById('meetings_dates_text').disabled = false;" type="radio" name="meetings_dates_radio" id="meetings_dates_radio" {{!empty(old('meetings_dates_text'))? 'checked' : ''}}> {{trans('project.other')}}:</label>
-                                            </div>
-
-                                            <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  !empty(old('meetings_dates_text'))? old('meetings_dates_text') : '' }}">
-
+                                        <input type="text" name="meetings_dates_text" id="meetings_dates_text" class="form-control" value="{{  !empty(old('meetings_dates_text'))? old('meetings_dates_text') : $current_project->meeting_dates }}">
                                     @endif
-
                                 </div>
                             </div>
 

@@ -43,7 +43,7 @@
                             <th>Roll</th>
                             <th>Lisa halduriks</th>
                             <th>Lisa õppejõuks</th>
-                            <th>Lisa projektihalduriks</th>
+                            {{-- <th>Lisa projektihalduriks</th> --}}
 
                             </thead>
                             <tbody>
@@ -127,13 +127,13 @@
                                     </td>
 
                                     <!-- Assign project moderator Button -->
-                                    <td>
+                                    {{-- <td>
 
                                         @if ($user->is('project_moderator'))
 
                                             <form action="{{ url('admin/users/'.$user->id).'/remove-project-moderator' }}" method="POST">
                                                 {{ csrf_field() }}
-                                                {{--{{ method_field('PATCH') }}--}}
+                                                <!-- method_field('PATCH') -->
 
                                                 <button type="submit" class="btn btn-danger pull-left btn-sm">
                                                     <i class="fa fa-btn fa-university"></i>Kustuta
@@ -142,7 +142,7 @@
                                         @else
                                             <form action="{{ url('admin/users/'.$user->id).'/add-project-moderator' }}" method="POST">
                                                 {{ csrf_field() }}
-                                                {{--{{ method_field('PATCH') }}--}}
+                                                <!-- method_field('PATCH') -->
 
                                                 <button type="submit" class="btn btn-warning pull-left btn-sm">
                                                     <i class="fa fa-btn fa-star-o"></i>Lisa
@@ -152,7 +152,7 @@
 
                                         @endif
 
-                                    </td>
+                                    </td> --}}
 
                                 </tr>
                             @endforeach

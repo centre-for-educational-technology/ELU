@@ -924,7 +924,7 @@ class ProjectController extends Controller
 
 	    //Find a place
     	foreach ($project->groups as $key=>$group){
-    		if(count($group->users) <= 7){
+    		if(count($group->users) <= 5){
     			if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
 
 
@@ -967,7 +967,7 @@ class ProjectController extends Controller
 
 	    //Find a place
 	    foreach ($project->groups as $key=>$group){
-	    	if(count($group->users) <= 7){
+	    	if(count($group->users) <= 5){
 			    if(checkIfCourseOfThisUserIsAcceptable($group, Auth::user())){
 				    $group->users()->syncWithoutDetaching([Auth::user()->id]);
 				    break;

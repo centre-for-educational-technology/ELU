@@ -15,7 +15,8 @@
         "intervention/image": "^2.3",
         "maatwebsite/excel": "~2.1.0",
         "nao-pon/flysystem-google-drive": "~1.1",
-        "sentry/sentry-laravel": "1.5.0"
+        "sentry/sentry-laravel": "1.5.0",
+        "laravel/tinker": "1.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -59,7 +60,7 @@
     },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true,
+        "sort-packages": false,
         "optimize-autoloader": true
     }
 }

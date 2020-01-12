@@ -529,8 +529,8 @@
 
                             <div class="col-sm-6">
                                 <select class="form-control" id="max_members" name="max_members">
-                                    @for ($i=1;$i<=24;$i++)
-                                        <option value="{{ $i }}" {{ $current_project->max_members == $i ? 'selected' : ''}}>{{ $i }}</option>
+                                    @for ($i=6;$i<=18;$i++)
+                                        <option value="{{ $i }}" {{ $current_project->max_members >= $i ? 'selected' : ''}}>{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>

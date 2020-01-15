@@ -374,8 +374,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('project/{id}', array('as' => 'project', function ($id) {
         
-        //Hide project temporarily
-        if($id == 477){
+        //Hide project temporarily from public
+        if($id == 477 && !Auth::user()){
             return view('errors.404');
         }
         

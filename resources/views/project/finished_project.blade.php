@@ -240,9 +240,9 @@
                                     @if(!empty($posters))
                                         @foreach($posters as $poster => $name)
                                             <div class="row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12 embed-responsive embed-responsive-4by3">
                                                     @php
-                                                        echo '<iframe src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview" width="900px" height="900px"></iframe>';
+                                                        echo '<iframe class="embed-responsive-item" src="https://drive.google.com/file/d/'.substr($poster, 0, strlen($poster)-4).'/preview" ></iframe>';
                                                     @endphp
 
                                                 </div>

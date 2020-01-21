@@ -7,22 +7,16 @@
                 {{ csrf_field() }}
 
                 <div class="col-lg-4 col-md-4">
+                    <select class="form-control" id="" name="search_param">
+                        <option value="project" active>{{trans('search.project')}}</option>
+                        <option value="member">{{trans('search.team_member')}}</option>
+                        <option value="author">{{trans('search.supervisor')}}</option>
+                        
+                        @if(strstr(Route::current()->uri(), "projects/finished"))
+                            <option value="term">{{trans('search.term')}}</option>
+                        @endif
+                    </select>
 
-                    <div class="input-group-btn search-panel">
-                        <ul class="nav navbar-nav menu01" role="menu">
-                            <li class="active"><a href="#project">{{trans('search.project')}}</a></li>
-                            <li><a href="#member">{{trans('search.team_member')}}</a></li>
-                            <li><a href="#author">{{trans('search.supervisor')}}</a></li>
-                            
-                            @if(strstr(Route::current()->uri(), "projects/finished"))
-                                <li><a href="#term">Projekti Kestus</a></li>
-                            @endif
-                        </ul>
-                    </div>
-                    
-                    {{-- @if (Route::current()->uri() == "projects/finished")
-                        <a href="/projects/finished/search?sort_param=semester">Sorteeri semestrite kaupa</a>
-                    @endif --}}
                 </div>
 
 
@@ -30,7 +24,7 @@
                     <div class="col-lg-10 col-md-8">
                         <div class="form-group nomargin search-input">
 
-                            <input type="hidden" name="search_param" value="project" id="search_param">
+                            {{-- <input type="hidden" name="search_param" value="project" id="search_param"> --}}
                             <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
                         </div>
                     </div>

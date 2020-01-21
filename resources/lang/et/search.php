@@ -5,6 +5,7 @@ return [
     'project' => 'Projekti',
     'team_member' => 'Kaaslast',
     'supervisor'=> 'Juhendajat',
+    'term' => 'Projekti kestus',
     'enter_name' =>'Sisesta nimi',
     'join' => 'Projektiga liitumine',
     'join_button' => 'Liitun projektiga',

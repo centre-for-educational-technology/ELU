@@ -5,6 +5,7 @@ return [
     'project' => 'Project',
     'team_member' => 'Team member',
     'supervisor'=> 'Supervisor',
+    'term' => 'Project duration',
     'enter_name' =>'Enter a name',
     'join' => 'Join the project',
     'join_button' => 'Join',

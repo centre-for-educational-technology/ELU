@@ -65,10 +65,10 @@
 
                                                             <!--Group images -->
                                                             <div class="form-group">
-                                                                <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_portfolio_desc')}}<p>{{trans('project.reminder_for_portfolio')}}</p></label>
+                                                                <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_presentation_desc')}}<p>{{trans('project.reminder_for_presentation')}}</p></label>
                                                                 <div class="col-sm-8">
                                                                     <div class="dropzone" id="presentationUpload{{$group->id}}" project-id="{{$current_project->id}}" auth="student" group-id="{{$group->id}}">
-                                                                        <div class="dz-message" data-dz-message><span>{{trans('project.drop_portfolio_upload')}}</span></div>
+                                                                        <div class="dz-message" data-dz-message><span>{{trans('project.drop_presentation_upload')}}</span></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -242,12 +242,12 @@
 
                                                     <h3>{{trans('project.group_results_heading')}}</h3>
 
-                                                    <!--Group images -->
+                                                    <!--Group presentation -->
                                                     <div class="form-group">
-                                                        <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_portfolio_desc')}}<p>{{trans('project.reminder_for_portfolio')}}</p></label>
+                                                        <label for="presentationUpload[{{$group->id}}]" class="col-sm-3 control-label">{{trans('project.group_presentation_desc')}}<p>{{trans('project.reminder_for_presentation')}}</p></label>
                                                         <div class="col-sm-8">
                                                             <div class="dropzone" id="presentationUpload{{$group->id}}" project-id="{{$current_project->id}}" group-id="{{$group->id}}">
-                                                                <div class="dz-message" data-dz-message><span>{{trans('project.drop_portfolio_upload')}}</span></div>
+                                                                <div class="dz-message" data-dz-message><span>{{trans('project.drop_presentation_upload')}}</span></div>
                                                             </div>
                                                         </div>
                                                     </div>

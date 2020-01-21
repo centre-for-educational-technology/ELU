@@ -686,7 +686,36 @@ class ProjectController extends Controller
         ->orderBy('study_year', 'desc')->where('deleted', NULL)->orderBy('study_term', 'desc')->paginate(20);
 
 
-    } else {
+    }elseif ($param == 'term'){
+      preg_match_all('/\d{4}/', $name, $matches);
+      $ending_semester = strrchr($name, 's') ? 's' : 'k';
+      $ending_year;
+
+      if(count($matches[0]) < 1){
+        return [];
+      }else {
+        $ending_year = intval($matches[0][0]);
+      }
+
+      $projects = Project::where('publishing_status', 1)->where('status', 0)->where('deleted', NULL)->where(function ($query) use ($ending_semester, $ending_year) {
+        if ($ending_semester == 's') {
+          $query->where(function ($subquery) use ($ending_year) {
+            $subquery->where('study_term', 0)->where('study_year', $ending_year);
+          })->orWhere(function ($subquery) use ($ending_year) {
+            $subquery->where('study_term', 3)->where('study_year', $ending_year-1);
+          });
+        } elseif ($ending_semester == 'k') {
+          $query->where(function ($subquery) use ($ending_year) {
+            $subquery->where('study_term', 1)->where('study_year', $ending_year);
+          })->orWhere(function ($subquery) use ($ending_year) {
+            $subquery->where('study_term', 2)->where('study_year', $ending_year);
+          });
+        } else {
+          exit();
+        }
+      })->orderBy('name', 'asc')->paginate(20)->appends(['search' => $name, 'search_param' => $param]);
+    
+    }else {
       $projects = Project::where('publishing_status', 1)->where('status', '=', '0')
           ->where(function ($query) use ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');

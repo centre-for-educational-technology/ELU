@@ -13,12 +13,16 @@
                             <li class="active"><a href="#project">{{trans('search.project')}}</a></li>
                             <li><a href="#member">{{trans('search.team_member')}}</a></li>
                             <li><a href="#author">{{trans('search.supervisor')}}</a></li>
+                            
+                            @if(strstr(Route::current()->uri(), "projects/finished"))
+                                <li><a href="#term">Projekti Kestus</a></li>
+                            @endif
                         </ul>
                     </div>
                     
-                    @if (Route::current()->uri() == "projects/finished" && Auth::user() && Auth::user()->is('admin'))
+                    {{-- @if (Route::current()->uri() == "projects/finished")
                         <a href="/projects/finished/search?sort_param=semester">Sorteeri semestrite kaupa</a>
-                    @endif
+                    @endif --}}
                 </div>
 
 

@@ -14,5 +14,6 @@ return [
     'send_to_all_button' => 'Saada kiri',
     'open_projects' => 'Avatud projektid',
     'ongoing_projects' => 'Käimasolevad projektid',
-    'finished_projects' => 'Lõppenud projektid'
+    'finished_projects' => 'Lõppenud projektid',
+    'enter_year_and_semester' => 'Sisesta õppeaasta ja semester'
 ];

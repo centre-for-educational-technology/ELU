@@ -67,7 +67,7 @@
 			'get_project_sp_load_api_url' => url('api/supervisors-load/get/'),
 			'changes_saved' => trans('project.changes_saved'),
 			'error' => trans('project.error'),
-			'name' => trans('auth.name'),
+            'name' => trans('auth.name'),
 	]); ?>
 </script>
 <script>

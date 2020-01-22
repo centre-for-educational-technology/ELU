@@ -7,13 +7,13 @@
                 {{ csrf_field() }}
 
                 <div class="col-lg-4 col-md-4">
-                    <select class="form-control" id="" name="search_param">
-                        <option value="project" active>{{trans('search.project')}}</option>
-                        <option value="member">{{trans('search.team_member')}}</option>
-                        <option value="author">{{trans('search.supervisor')}}</option>
+                    <select class="form-control" id="search_param" name="search_param">
+                        <option value="project" {{request()->search_param == 'project' ? 'selected' : ''}}>{{trans('search.project')}}</option>
+                        <option value="member" {{request()->search_param == 'member' ? 'selected' : ''}}>{{trans('search.team_member')}}</option>
+                        <option value="author" {{request()->search_param == 'author' ? 'selected' : ''}}>{{trans('search.supervisor')}}</option>
                         
                         @if(strstr(Route::current()->uri(), "projects/finished"))
-                            <option value="term">{{trans('search.term')}}</option>
+                            <option value="term" {{request()->search_param == 'term' ? 'selected' : ''}}>{{trans('search.term')}}</option>
                         @endif
                     </select>
 
@@ -25,7 +25,7 @@
                         <div class="form-group nomargin search-input">
 
                             {{-- <input type="hidden" name="search_param" value="project" id="search_param"> --}}
-                            <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
+                            <input type="text" class="form-control" name="search" placeholder="{{request()->search_param == 'term' ? trans('search.enter_year_and_semester') : trans('search.enter_name')}}">
                         </div>
                     </div>
 

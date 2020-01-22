@@ -241,22 +241,19 @@ jQuery(document).ready(function ($) {
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
   }
 
-  //Search form
-  $('.search-panel .navbar-nav').find('a').click(function (e) {
-    e.preventDefault();
-    var param = $(this).attr("href").replace("#", "");
-    var concept = $(this).text();
-    $('.search-panel span#search_concept').text(concept);
-    $('.form-group #search_param').val(param);
-  });
+  // Change project-search placeholder dynamically
+  let searchDropdown = document.querySelector('.search-project #search_param');
+  searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
 
-  var selector = '.search-panel .navbar-nav li';
-
-  $(selector).on('click', function () {
-    $(selector).removeClass('active');
-    $(this).addClass('active');
-  });
-
+  function updateSearchFieldPlaceholder() {
+    let searchField = document.querySelector('.search-project .search-input input');
+    
+    if(this.value === 'term'){
+      searchField.placeholder = trans.search.enter_year_and_semester;
+    }else{
+      searchField.placeholder = trans.search.enter_name;
+    }
+  }
 
 
   //Panel used in search view to show a list of member emails

@@ -14,5 +14,6 @@ return [
     'send_to_all_button' => 'Send email to all',
     'open_projects' => 'Open projects',
     'ongoing_projects' => 'Ongoing projects',
-    'finished_projects' => 'Finished projects'
+    'finished_projects' => 'Finished projects',
+    'enter_year_and_semester' => 'Enter year and semester (kevad or sügis)'
 ];

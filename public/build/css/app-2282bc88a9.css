@@ -2985,7 +2985,6 @@ select[multiple].input-lg {
   line-height: 1.42857143;
   border-radius: 4px;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
@@ -7262,7 +7261,6 @@ a.editable-click.editable-disabled:hover {
   cursor: pointer;
   display: block;
   height: 28px;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-user-select: none;
@@ -7287,7 +7285,6 @@ a.editable-click.editable-disabled:hover {
   cursor: pointer;
   display: block;
   min-height: 32px;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-user-select: none;
@@ -7333,7 +7330,6 @@ a.editable-click.editable-disabled:hover {
 }
 .select2-results__option {
   padding: 6px;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-user-select: none;
@@ -7870,7 +7866,6 @@ body.compensate-for-scrollbar {
   top: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
@@ -7956,7 +7951,6 @@ body.compensate-for-scrollbar {
   transform-origin: top left;
   transition-property: transform, opacity;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   z-index: 99995;
@@ -7990,7 +7984,6 @@ body.compensate-for-scrollbar {
   position: absolute;
   top: 0;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   width: 100%;
@@ -8372,7 +8365,6 @@ body.compensate-for-scrollbar {
   text-decoration: none;
   transition: all .2s;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   white-space: nowrap;

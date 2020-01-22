@@ -241,20 +241,6 @@ jQuery(document).ready(function ($) {
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
   }
 
-  // Change project-search placeholder dynamically
-  let searchDropdown = document.querySelector('.search-project #search_param');
-  searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
-
-  function updateSearchFieldPlaceholder() {
-    let searchField = document.querySelector('.search-project .search-input input');
-    
-    if(this.value === 'term'){
-      searchField.placeholder = trans.search.enter_year_and_semester;
-    }else{
-      searchField.placeholder = trans.search.enter_name;
-    }
-  }
-
 
   //Panel used in search view to show a list of member emails
   $('.panel-heading span.clickable').parents('.panel').find('.panel-body').slideUp();
@@ -825,3 +811,16 @@ if (extra_q.length !== 0) {
   remove_question_field_button.addEventListener('click', handle_remove_button_click);
 }
 
+  // Change project-search placeholder dynamically
+  let searchDropdown = document.querySelector('.search-project #search_param');
+  searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
+
+  function updateSearchFieldPlaceholder() {
+    let searchField = document.querySelector('.search-project .search-input input');
+    
+    if(this.value === 'term'){
+      searchField.placeholder = trans.search.enter_year_and_semester;
+    }else{
+      searchField.placeholder = trans.search.enter_name;
+    }
+  }

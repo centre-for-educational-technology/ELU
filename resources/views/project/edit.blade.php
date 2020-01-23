@@ -138,10 +138,12 @@
                             <label for="student_expectations" class="col-sm-3 control-label">{{trans('project.student_expectations')}}</label>
 
                             <div class="col-sm-6">
-                                <textarea name="student_expectations" id="student_expectations" class="form-control mceSimple">
+                                <textarea name="student_expectations" id="student_expectations" class="form-control mceSimple" readonly="readonly">
                                     @if(empty( old('student_expectations')))
+                                    <div class="mceNonEditable">
+
                                         @if(!empty($current_project->student_expectations))
-                                            {!! $current_project->student_expectations !!}
+                                            {{$current_project->student_expectations}}
                                         @else
                                             <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_1')}}</i></p>
                                             <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_2')}}</i></p>
@@ -150,10 +152,11 @@
                                             <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_5')}}</i></p>
                                             <p class="mceNonEditable"><i>{{trans('project.student_expectations_desc_6')}}</i></p>
                                         @endif
-
-                                    @else
-                                        {!! old('student_expectations') !!}
-                                    @endif
+                                        
+                                        @else
+                                        {{ old('student_expectations') }}
+                                        @endif
+                                    </div>
                                 </textarea>
                             </div>
                             @if (Auth::user()->is('admin'))

@@ -307,7 +307,11 @@ jQuery(document).ready(function ($) {
     toolbar: "redo undo bold italic numlist bullist link",
     menubar: false,
     editor_selector: "mceSimple",
-    paste_as_text: true
+    paste_as_text: true,
+    setup: function(ed) {
+      if($('#'+ed.id).attr('readonly'))
+        ed.settings.readonly = true;
+    }
   });
 
   $('#submit-project-button').on('click', function (e) {
@@ -839,7 +843,10 @@ if (extra_q.length !== 0) {
 
 // Change project-search placeholder dynamically
 let searchDropdown = document.querySelector('.search-project #search_param');
-searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
+
+if(searchDropdown){
+  searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
+}
 
 function updateSearchFieldPlaceholder() {
   let searchField = document.querySelector('.search-project .search-input input');

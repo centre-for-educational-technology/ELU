@@ -9,13 +9,12 @@
 
                 <div class="col-lg-4 col-md-4">
 
-                    <div class="input-group-btn search-panel">
-                        <ul class="nav navbar-nav menu01" role="menu">
-                            <li class="active"><a href="#project">{{trans('search.project')}}</a></li>
-                            <li><a href="#member">Liiget</a></li>
-                            <li><a href="#author">{{trans('search.supervisor')}}</a></li>
-                        </ul>
-                    </div>
+                    <select class="form-control" id="search_param" name="search_param">
+                        <option value="project" {{request()->search_param == 'project' ? 'selected' : ''}}>{{trans('search.project')}}</option>
+                        <option value="member" {{request()->search_param == 'member' ? 'selected' : ''}}>{{trans('search.team_member')}}</option>
+                        <option value="author" {{request()->search_param == 'author' ? 'selected' : ''}}>{{trans('search.supervisor')}}</option>
+                        <option value="term" {{request()->search_param == 'term' ? 'selected' : ''}}>{{trans('search.term')}}</option>
+                    </select>
                 </div>
 
 
@@ -23,8 +22,7 @@
                     <div class="col-lg-9 col-md-8">
                         <div class="form-group nomargin search-input">
 
-                            <input type="hidden" name="search_param" value="project" id="search_param">
-                            <input type="text" class="form-control" name="search" placeholder="{{trans('search.enter_name')}}">
+                            <input type="text" class="form-control" name="search" placeholder="{{request()->search_param == 'term' ? trans('search.enter_year_and_semester') : trans('search.enter_name')}}">
                         </div>
                     </div>
 

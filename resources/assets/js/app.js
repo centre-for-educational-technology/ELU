@@ -385,7 +385,36 @@ jQuery(document).ready(function ($) {
     Sortable.create(project_all_members, {
       group: { name: "project-all-members", pull: true, put: true },
       animation: 150,
-      handle: '.drag-handle'
+      handle: '.drag-handle',
+      onAdd: function (evt) {
+        var itemEl = evt.item;  // dragged HTMLElement
+        var from = evt.from;
+        data = {
+          id: project_id,
+          to: $(itemEl).parent().attr('group-id'),
+          from: $(from).attr('group-id'),
+          user: $(itemEl).attr('user-id')
+
+        }
+        $.ajax({
+          url: window.Laravel.add_user_to_group_api_url,
+          dataType: 'json',
+          delay: 250,
+          method: 'POST',
+          cache: false,
+          data: {
+
+            id: project_id,
+            to: $(itemEl).parent().attr('group-id'),
+            from: $(from).attr('group-id'),
+            user: $(itemEl).attr('user-id')
+
+          }
+        }).done(function (msg) {
+          console.log(msg);
+
+        });
+      }
     });
 
     var el = $('.project-group');
@@ -404,7 +433,6 @@ jQuery(document).ready(function ($) {
 
           var itemEl = evt.item;  // dragged HTMLElement
           var from = evt.from;
-
 
           $.ajax({
             url: window.Laravel.add_user_to_group_api_url,
@@ -776,8 +804,6 @@ dropzones.each(function (i) {
 
 })();
 
-
-
 // Show or hide additional question input field
 const add_question_field_button = document.querySelector('.add_question_field_button');
 const remove_question_field_button = document.querySelector('.remove_question_field_button');
@@ -811,16 +837,16 @@ if (extra_q.length !== 0) {
   remove_question_field_button.addEventListener('click', handle_remove_button_click);
 }
 
-  // Change project-search placeholder dynamically
-  let searchDropdown = document.querySelector('.search-project #search_param');
-  searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
+// Change project-search placeholder dynamically
+let searchDropdown = document.querySelector('.search-project #search_param');
+searchDropdown.addEventListener('change', updateSearchFieldPlaceholder);
 
-  function updateSearchFieldPlaceholder() {
-    let searchField = document.querySelector('.search-project .search-input input');
-    
-    if(this.value === 'term'){
-      searchField.placeholder = trans.search.enter_year_and_semester;
-    }else{
-      searchField.placeholder = trans.search.enter_name;
-    }
+function updateSearchFieldPlaceholder() {
+  let searchField = document.querySelector('.search-project .search-input input');
+  
+  if(this.value === 'term'){
+    searchField.placeholder = trans.search.enter_year_and_semester;
+  }else{
+    searchField.placeholder = trans.search.enter_name;
   }
+}

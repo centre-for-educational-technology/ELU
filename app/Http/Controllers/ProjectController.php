@@ -1907,23 +1907,16 @@ class ProjectController extends Controller
 
     $from_group = null;
 
-    if($request->from != 'project_all_members'){
-      $from_group = Group::find($request->from);
-    }
-
-
-
-    $to_group = Group::find($request->to);
-
-
+    $from_group = Group::find($request->from);
 
     if($from_group){
-      \Debugbar::info($request->user);
       $from_group->users()->detach($user_id);
     }
-
-
-    $to_group->users()->syncWithoutDetaching([$user_id]);
+    
+    if($request->to != 'project_all_members'){
+      $to_group = Group::find($request->to);
+      $to_group->users()->syncWithoutDetaching([$user_id]);
+    }
 
     return Response::json('Groups saved');
   }

@@ -450,7 +450,7 @@ function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user)
 
 	if(getGroupUsersCoursesIds($group)){
 		foreach (getGroupUsersCoursesIds($group) as $course_id => $times){
-			if($course_id == $user_course && $times>=3){
+			if($course_id == $user_course && $times>=2){
 				return false;
 			}
 			
@@ -462,24 +462,6 @@ function checkIfCourseOfThisUserIsAcceptable(\App\Group $group, \App\User $user)
 	
 }
 
-/**
- * Return true if one of the groups has less than 8 members and all 3 groups are in use
- * @param \App\Project $project
- * @return bool
- */
-function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
-	if(count($project->groups) < 3){
-		return true;
-	}else{
-		foreach ($project->groups as $group){
-			if(count($group->users) < 8){
-				return true;
-			}
-		}
-	}
-	
-	return false;
-}
 
 /**
  * Return true if max_members of the project is not reached and there is space for persons major(eriala)
@@ -487,7 +469,7 @@ function checkIfThereIsSpaceInProjectGroups(\App\Project $project){
  * @return bool
  */
 function checkIfThereIsSpaceInProject(\App\Project $project, \App\User $user){
-    $max_groups = ceil($project->max_members/8);
+    $max_groups = ceil($project->max_members/6);
     $members = countMembersOfProject($project);
     if ($members >= $project->max_members) {
         return false;
@@ -498,7 +480,7 @@ function checkIfThereIsSpaceInProject(\App\Project $project, \App\User $user){
     if (count($project->groups) >= $max_groups && $members < $project->max_members) {
         $userIsAcceptable = false;
         foreach ($project->groups as $group){
-            if (checkIfCourseOfThisUserIsAcceptable($group, $user) && count($group->users) < 8) {
+            if (checkIfCourseOfThisUserIsAcceptable($group, $user) && count($group->users) < 6) {
                 $userIsAcceptable = true;
             }
 		}

@@ -251,11 +251,11 @@
                 @if(Auth::user()->is('student'))
                     @if ($project->currentUserIs('member'))
                         <form action="{{ url('leave/'.$project->id) }}" method="POST">
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                        <button type="submit" class="btn btn-danger btn-lg">
-                        {{trans('project.leave_project_button')}}
-                        </button>
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                {{trans('project.leave_project_button')}}
+                            </button>
                         </form>
                         <p class="text-success">{{trans('project.already_joined_this_notification')}}</p>
 
@@ -269,10 +269,15 @@
                             @include('project.join_project_form')
 
                         @else
-                            <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">
-                                {{trans('search.join_button')}}
-                            </button>
-
+                            @if (countMembersOfProject($project) >= $project->max_members)
+                                <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_members_limit')}}">
+                                    {{trans('search.join_button')}}
+                                </button>
+                            @else
+                                <button type="submit" class="btn btn-primary btn-lg disabled" rel="tooltip" data-title="{{trans('project.declined_project_join_notification_max_courses_limit')}}">
+                                    {{trans('search.join_button')}}
+                                </button>
+                            @endif
                         @endif
                     @endif
                 @else
@@ -287,32 +292,6 @@
 
         @endif
 
-        {{-- Midterm section --}}
-        {{-- <h3><span class="glyphicon ico-calendar"></span>Vahekokkuvõtted</h3>
-        @if (Auth::check() && $project->status == 1 && $project->currentUserIs('member') )
-
-            <form action="{{ url('midterm/'.$project->id) }}">
-                <button type="submit" class="btn btn-warning ">Esita</button>
-            </form>
-        @endif
-
-        @if (count($project->groups())>0)
-            @foreach ($project->groups as $group)
-                @php
-                    $materials = json_decode($group->midterm_material_gdrive_ids, true);
-                @endphp
-                @if (!empty($materials))
-                    <p>Grupp {{$group->name}}:</p>
-                    <ul class="group-materials-links">
-                        @foreach ($materials as $drive_id=>$name)
-                            <li>
-                                <a href="https://drive.google.com/file/d/{{$drive_id}}/view" target="_blank">{{$name}}<i class="fa phpdebugbar-fa-external-link"></i></a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-            @endforeach
-        @endif --}}
 
 
         <h3><span class="glyphicon ico-brainstorm"></span>{{trans('search.team')}}</h3>

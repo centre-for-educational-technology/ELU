@@ -166,4 +166,11 @@ class PageController extends Controller
 
 
   }
+
+  public function listFakeUsers()
+  {
+    $users = \App\User::where('institution', 'fake')->paginate(20);
+
+    return view('page.listFakeUsers')->with(['users' => $users]);
+  }
 }

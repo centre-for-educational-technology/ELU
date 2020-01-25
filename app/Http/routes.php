@@ -354,6 +354,8 @@ Route::group(['middleware' => ['web']], function () {
         return view('page.calendar');
     });
 
+    Route::get('/fakeusers', 'PageController@listFakeUsers');
+
 
     Route::get('/projects/open', 'ProjectController@indexOpenProjects');
 

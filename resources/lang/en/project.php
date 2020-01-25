@@ -43,7 +43,7 @@ return [
     'no_project_found_desc_not_logged' => 'Log in and add a project or project idea',
     'language' => 'Language',
     'deadline_over' => 'Registration period is over',
-    'joining_info' => 'In autumn semester the registration to LIFE projects is open between 2.09-9.09.',
+    'joining_info' => 'In autumn semester the registration to LIFE project is open between 3.02-10.02.2020',
     'share_fb' => 'Share on Facebook',
     'share_twitter' => 'Share on Twitter',
     'joined_project_notification' => 'You have joined the project (No need to join on ÕIS)',

@@ -43,7 +43,7 @@ return [
     'no_project_found_desc_not_logged' => 'Logi sisse ja lisa projekt või projektiidee',
     'language' => 'Keel',
     'deadline_over' => 'Projektiga liitumine on lõppenud',
-    'joining_info' => 'Sügissemestri ELU projektidega liitumine toimub ajavahemikus 2.09 - 9.09.2019',
+    'joining_info' => 'Kevadsemestri ELU projektidega liitumine toimub ajavahemikus 3.02 - 10.02.2020',
     'share_fb' => 'Jaga Facebookis',
     'share_twitter' => 'Jaga Twitteris',
     'joined_project_notification' => 'Oled liitunud projektiga (ÕISis registreerimist ei toimu)',

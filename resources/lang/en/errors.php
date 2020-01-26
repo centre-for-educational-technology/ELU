@@ -24,4 +24,5 @@ return [
 		'404' => 'Page not found.',
 		'button_search' => 'Search project',
 		'not_image' => 'That is not an image',
+		'all_required' => 'All fields are required!',
 ];

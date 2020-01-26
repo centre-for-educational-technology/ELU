@@ -73,6 +73,7 @@ Route::group(['middleware' =>['web']], function () {
 
             Route::post('api/calculate-load/set', 'ProjectController@setSupervisorsLoadForProject');
 
+            Route::get('/project/{project}/student-answers', 'ProjectController@listStudentAnswers');
 
         });
 

@@ -111,73 +111,82 @@ jQuery(document).ready(function ($) {
     } else {
       user_tlu_student_id = 0;
     }
-    $.ajax({
-      url: window.Laravel.base_path + "/oisJoinConfirmation?oppijaId=" + user_tlu_student_id + "&ainekood=YID6001.YM",
-    }).done(function (response) {
-      let data = JSON.parse(response);
-      let textToDisplay = "ELU õppeainega liitumiseks kasuta TLÜ kasutajakontot või kirjuta elu@tlu.ee // To join LIFE course please use TLU account or contact elu@tlu.ee\n";
-      let showConfirm = false;
-      if (data.Viga) {
-        textToDisplay = data.Viga;
-      } else {
-        if (window.Laravel.user.tlu_student_id != null) {
-          let info = "";
-          let attendace = "Registreerud ELU õppeainesse esmakordselt / This is your first registration to LIFE course\n";
-          if (data.deklaratsioon.onKorduv == true) {
-            attendace = "Olete ELU õppeaine juba läbinud. Osalemiseks kontakteeruge elu@tlu.ee / If you want to join to the LIFE course second time, please contact LIFE coordinators elu@tlu.ee\n";
-          }
-          if (data.deklaratsioon.teade != null) {
-            info = "Info: " + data.deklaratsioon.teade;
-          }
-          if (data.deklaratsioon.hind == 0) {
-            price_et = "Tasuta õpe";
-            price_en = "Tuition-free study";
-          } else {
-            price_et = "Tasuline õpe";
-            price_en = "Tuition-based study";
-          }
-          let price = price_en + "//" + price_et + "\n";
-          textToDisplay = attendace + price + info;
-          if (data.deklaratsioon.saab == true) {
-            showConfirm = true;
-          }
-        }
+
+    function isValidInput(e){
+      let inputs = $(e.target).prev('#join-project').find('.form-control');
+
+      if(inputs[0].value === '' || inputs[1].value === '' || inputs[2].value === ''){
+        return false
+      }else if(inputs.length === 4 && (inputs[3].value === '')){
+        return false
+      }else if (inputs.length === 5 && (inputs[3].value === '' || inputs[4].value === '')){
+        return false
       }
+      return true
+    }
+    
+
+    if(!isValidInput(e)){
       swal({
-        title: window.Laravel.are_you_sure_notification,
-        text: textToDisplay,
-        type: "info",
+        title: window.Laravel.all_required,
+        type: "warning",
         showCancelButton: true,
-        showConfirmButton: showConfirm,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: window.Laravel.yes,
-        cancelButtonText: "Cancel",
-        closeOnConfirm: false
+        showConfirmButton: false,
+        cancelButtonText: "Tagasi",
       },
         function () {
-          $(e.target).prev('#join-project').submit();
         });
-    });
-    /*
-    fetch(window.Laravel.base_path+"/oisJoinConfirmation?oppijaId="+"91980"+"&ainekood=YID6001.YM")
-    .then(function (declaration) {
-        console.log(declaration);
-        swal({
-            title: window.Laravel.are_you_sure_notification,
-            text: declaration.response,
-            type: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: window.Laravel.yes,
-            cancelButtonText: window.Laravel.no,
-            closeOnConfirm: false
-        },
-        function(){
-            $(e.target).prev('#join-project').submit();
-        })
-    });
-    */
+    }else{
 
+      $.ajax({
+        url: window.Laravel.base_path + "/oisJoinConfirmation?oppijaId=" + user_tlu_student_id + "&ainekood=YID6001.YM",
+      }).done(function (response) {
+        let data = JSON.parse(response);
+        let textToDisplay = "ELU õppeainega liitumiseks kasuta TLÜ kasutajakontot või kirjuta elu@tlu.ee // To join LIFE course please use TLU account or contact elu@tlu.ee\n";
+        let showConfirm = false;
+        if (data.Viga) {
+          textToDisplay = data.Viga;
+        } else {
+          if (window.Laravel.user.tlu_student_id != null) {
+            let info = "";
+            let attendace = "Registreerud ELU õppeainesse esmakordselt / This is your first registration to LIFE course\n";
+            if (data.deklaratsioon.onKorduv == true) {
+              attendace = "Olete ELU õppeaine juba läbinud. Osalemiseks kontakteeruge elu@tlu.ee / If you want to join to the LIFE course second time, please contact LIFE coordinators elu@tlu.ee\n";
+            }
+            if (data.deklaratsioon.teade != null) {
+              info = "Info: " + data.deklaratsioon.teade;
+            }
+            if (data.deklaratsioon.hind == 0) {
+              price_et = "Tasuta õpe";
+              price_en = "Tuition-free study";
+            } else {
+              price_et = "Tasuline õpe";
+              price_en = "Tuition-based study";
+            }
+            let price = price_en + "//" + price_et + "\n";
+            textToDisplay = attendace + price + info;
+            if (data.deklaratsioon.saab == true) {
+              showConfirm = true;
+            }
+          }
+        }
+        swal({
+          title: window.Laravel.are_you_sure_notification,
+          text: textToDisplay,
+          type: "info",
+          showCancelButton: true,
+          showConfirmButton: showConfirm,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: window.Laravel.yes,
+          cancelButtonText: "Cancel",
+          closeOnConfirm: false
+        },
+          function () {
+            $(e.target).prev('#join-project').submit();
+          });
+      });
+
+    }
 
   });
 

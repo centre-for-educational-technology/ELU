@@ -55,6 +55,7 @@
                 'changes_saved' => trans('project.changes_saved'),
                 'error' => trans('project.error'),
                 'name' => trans('auth.name'),
+                'all_required' => trans('errors.all_required'),
         ]); ?>
     </script>
 

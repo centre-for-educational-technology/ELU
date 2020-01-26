@@ -24,4 +24,5 @@ return [
 		'404' => 'Lehte ei leitud.',
 		'button_search' => 'Otsi projekt',
 		'not_image' => 'See ei ole pilt',
+		'all_required' => 'Kõik väljad on kohustuslikud!',
 ];

@@ -25,7 +25,7 @@
     @if ($project->join_extra_q1)
       <div class="form-group">
         <label for="join_extra_a1">{{$project->join_extra_q1}} *</label>
-        <input  name="join_extra_a1" id="join_extra_a1" class="form-control"value="{{old('join_a3')}}">
+        <input  name="join_extra_a1" id="join_extra_a1" class="form-control"value="{{old('join_extra_a1')}}">
       </div>
     @endif
 

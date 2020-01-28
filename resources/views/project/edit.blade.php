@@ -406,9 +406,10 @@
                             <div class='col-sm-6'>
                                 <div class='input-group date' id='join_deadline'>
 
-                                    <input type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty(old('join_deadline')) ?  $current_project->join_deadline : old('join_deadline')) }}"/>
+                                    <input {{Auth::user()->is('admin') ? '' : 'readonly'}} type='text' class="form-control" name="join_deadline" id="join_deadline" value="{{ (empty(old('join_deadline')) ?  $current_project->join_deadline : old('join_deadline')) }}"/>
                                     <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar">
+                                    </span>
                                 </span>
 
                                 </div>

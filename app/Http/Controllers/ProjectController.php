@@ -315,10 +315,12 @@ class ProjectController extends Controller
 	    $project->embedded = null;
     }
 
-    if ($request->is_open == true) {
-        $project->is_open = 1;
-    } else {
-        $project->is_open = 0;
+    if(Auth::user()->is('admin')){
+      if ($request->is_open == true) {
+          $project->is_open = 1;
+      } else {
+          $project->is_open = 0;
+      }
     }
 
 	  $project->aim = $request->aim;

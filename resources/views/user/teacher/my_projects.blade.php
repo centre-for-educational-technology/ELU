@@ -27,6 +27,7 @@
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                                 <th>{{trans('project.status')}}</th>
+                                <th>Tudengite vastused</th>
                                 <!--
                                 <th>&nbsp;</th>
                                 -->
@@ -123,20 +124,13 @@
                                                 <span class="label label-info">{{trans('project.active_status')}}</span>
                                             @endif
                                         </td>
-                                        <!--
                                         <td>
-                                            <form class="delete-project" action="{{ url('project/'.$project->id.'/delete') }}" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-
-
-                                            </form>
-                                            <button type="submit" id="delete" class="btn btn-danger btn-sm pull-right">
-                                                <i class="fa fa-btn fa-trash"></i>{{trans('project.delete')}}
-                                            </button>
-
+                                            <div class="col-lg-12 text-center">
+                                                <div class="btn-group">
+                                                    <a class="btn btn-sm btn-primary" href={{"/project/".$project->id."/student-answers"}}><i class="fa fa-btn"></i>Vaata</a>
+                                                </div>
+                                            </div>
                                         </td>
-                                        -->
                                     </tr>
                                 @endforeach
                                 </tbody>

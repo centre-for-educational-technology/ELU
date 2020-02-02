@@ -149,51 +149,56 @@
                         <h2>Hea üliõpilane!</h2>
 
                         <p>
-                            Oled registreerunud ELU õppeainesse. <b>Sinu ÕISi õpingukavasse lisatakse ELU õppeosakonna poolt septembrikuu lõpus ELUveebi registreeringu alusel.</b> ELU õppeainet üliõpilane ise oma õpingukavasse lisada EI SAA!
+                            Oled registreerunud ELU õppeainesse. 
+                            <a href="https://ois2.tlu.ee/tluois/aine/YID6001.YM" target="_blank">ELU ehk erialasid lõimiv uuendus</a>
+                             on projekti- ja probleemõppel põhinev 6 EAPne (=156 töötundi) ainekursus, mille hindamine on arvestuslik ehk mitteeristatav. 
+                            <b>NB! Sinu ÕISi õpingukavasse lisatakse ELU õppeosakonna poolt veebruarikuu lõpuks ELUveebi registreeringu alusel.</b>
+                             ELU õppeainet <u>ei saa</u> üliõpilane ise oma õpingukavasse lisada!
                         </p>
 
                         <p>
-                            <b>1) Esimene kohtumine</b>
+                            ELU projekt saab alguse, kui sellega on liitunud 6 üliõpilast vähemalt kolmelt erinevalt erialalt. Ühe projekti teema alla võib kokku liituda kuni kolm rühma (18 üliõpilast), kes hakkavad 6-liikmelistes meeskondades tegelema erinevate alateemade lahendamisega. 
+                        </p>
+
+                        <p>
+                            <b>1) Veendu, et valisid projekti,</b>
+                            <ul>
+                                <li>mille kohtumiste ajad sobivad Sinu tunniplaaniga;</li>
+                                <li>mille teema on Sinu jaoks motiveeriv ning väljakutset pakkuv;</li>
+                                <li>mis on uudne teadmiste ja sisu poolest või pakub Sulle võimalust oma erialaseid teadmisi täiendada;</li>
+                            </ul>
+                        </p>
+
+                        <p>
+                            <b>2) Esimene kohtumine</b>
                             <p>
-                                Projekti esimesel kohtumisel osalemine on <u>kohustuslik!</u> Esimese kohtumise aeg ja koht on kirjas projekti ankeedis või täpsusta see juhendajaga, kelle kontakti leiad ankeedist.
+                                <b>Projekti esimesel kohtumisel osalemine on <u>kohustuslik!</u></b>
+                                Esimese kohtumise aeg ja koht on kirjas projekti ankeedis või täpsusta see juhendajaga, kelle kontakti leiad ankeedist.
                             </p>
                         </p>
 
                         <p>
-                            <b>2) Õppeaine maht ja läbimine</b>
+                            <b>3) ELU õppeaines osalemise ja sooritamise tingimused</b>
                             <p>
-                                ELU ehk erialasid lõimiv uuendus on projekti- ja probleemõppel põhinev 6 EAPne (=156 töötundi) ainekursus, mille hindamine on arvestuslik ehk mitteeristatav.
-                                Õppeaine läbimise tingimused ja hindamiskriteeriumid on kirjas:
+                                ELU õppeaines on kuus kohustuslikku tööd, millele lisanduvad juhendaja(te) poolt määratud ülesanded. Kohustuslike tööde hulka kuuluvad:
                                 <ul>
-                                    <li><a href="https://ois2.tlu.ee/tluois/aine/YID6001.YM">Ainekaardis</a></li>
-                                    <li><a href="https://docs.google.com/document/d/1BiJmcN7oRpw4i7Rfia-6q7im9AUAUXToggProBo2tTs/edit">Üliõpilase ABC-s</a></li>
+                                    <li><b>Meeskonnatööna:</b> (1) ELU projektile tegevuskava koostamine (2) projekti vahekokkuvõtte koostamine ja esitamine, (3) semestri vahenädalal toimuval tagasiside sessioonil osalemine, (4) ELU projekti portfoolio koostamine, (5) ELU projekti tulemuste esitlemine.</li>
+                                    <li><b>Iseseisvatööna:</b> (6) refleksiooni koostamine meeskonna rolli täitmisest ja teiste liikmete panusest projekti.</li>
                                 </ul>
                             </p>
                         </p>
 
                         <p>
-                            <b><u>3) ELU õppeaine Moodle: YID6001.YM ELU õppeaine õpikeskkond 2019/2020</u></b>
-                            <p>ELU õppeainega liitunud üliõpilasele saadetakse ELU veebilehel registreeritud e-mailile kutse liituda ELU üldise Moodle kursusega <b>YID6001.YM ELU õppeaine õpikeskkond 2019/2020</b> kus:
-                            
+                            <b><u>4) ELU õppeaine Moodle: YID6001.YM ELU õppeaine õpikeskkond 2019/2020</u></b>
+                            <p>ELU õppeainesse registreeritud üliõpilastele saadetakse ELU veebilehel registreeritud e-mailile ELU üldise Moodle’iga liitumise kutseidu <u>alates 11. veebruarist 2020.</u> Moodle kursus toetab ELU õppeaine läbimist, sest seal:
                                 <ul> 
-                                    <li>jagatakse ELU õppeainega seotud üldist infot</li>
-                                    <li>on kättesaadavad ELU õppeainet toetavad materjalid (ELU kontseptsioon, üliõpilase ABC, eelarve kasutamise juhend, kohustuslike tööde juhendid)</li>
-                                    <li>esitatakse ELU kohustuslikud tööd (vahekokkuvõte, projekti portfoolio, esitlus)</li>
-                                    <li>toimub registreerimine töötubadesse/seminaridele, vahenädala tagasiside sessioonile ja ELU esitluspäevale</li>
+                                    <li>jagatakse ELU õppeainega seotud üldist infot;</li>
+                                    <li>on kättesaadavad ELU õppeainet toetavad materjalid (ELU kontseptsioon, <a href="https://docs.google.com/document/d/1BiJmcN7oRpw4i7Rfia-6q7im9AUAUXToggProBo2tTs/edit" target="_blank">üliõpilase ABC</a>, eelarve kasutamise juhend, kohustuslike tööde juhendid);</li>
+                                    <li>esitatakse ELU kohustuslikud tööd (vahekokkuvõte, projekti portfoolio, esitlus);</li>
+                                    <li>toimub registreerimine töötubadesse/seminaridele, vahenädala tagasiside sessioonile ja ELU esitluspäevale.</li>
                                 </ul>
                             </p>
                         </p>
-
-                        <p>
-                            <b>4) ELU infotund alustavale üliõpilasele</b> 
-                            <p>ELU infotunnil antakse ülevaade ELU õppeaine eesmärkidest, õpiväljunditest, õppeaine sooritamise tingimustest, korraldusest Moodle's ning ELU raames toimuvatest töötubadest/seminaridest. Sügissemestri infotunnid toimuvad (ELU alal Mare maja III korrus):
-                            </p>
-                        </p>
-
-                        <h5 style="text-align:center"><b><u>kolmapäeval 11.09 kell 12.00-13.00 ja 15.30-16.30</u></b></h5>
-                        <h5 style="text-align:center"><b><u>neljapäeval 12.09 kell 12.00-13.00 ja 15.30-16.30</u></b></h5>
-                        <h5 style="text-align:center"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeLRhUsDiB9e0RJT0Mm6Qo6dFF5HA3J8VUeDyEpQPOoqJSbYw/viewform">REGISTREERI!</a></h5>
-
 
                         <p>
                             Lisainformatsioon<br>
@@ -210,44 +215,59 @@
                         <h2>Dear Student</h2>
 
                         <p>
-                            You have registered for a LIFE course. <b>Based on the registration on LIFE website, the Academic Affairs Office will add the course to your study plan in the Study Information System (SIS) at the end of September.</b> Students themselves CANNOT add the LIFE course to their study plan.
+                            You have registered for a LIFE course.
+                            <a href="https://ois2.tlu.ee/tluois/aine/YID6001.YM" target="_blank">LIFE (Learning in Interdisciplinary Focused Environment)</a>
+                             is a study course of 6 ECTS (=156 working hours) and it is focused on project- and problem-based learning. The course is assessed on a non-differentiated assessment scale (Pass/Fail).
+                            <b>NB! Based on the registration on LIFE website, the Academic Affairs Office will add the course to your study plan in the Study Information System (SIS) at the end of February.</b>
+                            Students themselves CANNOT add the LIFE course to their study plan.
+                        </p>
+                        
+                        <p>
+                            LIFE project starts when 6 students from at least three different study areas have joined it. Up to three teams of 6 students can join one project, each team being responsible for resolving different subtopics.
+                        </p>
+
+
+                        <p>
+                            <b>1) Make sure that you:</b>
+                            <ul>
+                                <li>Chose a project with the meeting times suitable for you</li>
+                                <li>Chose a project which is motivating and challenging for you</li>
+                                <li>Chose a project which offers new knowledge and innovative content or provides you with an opportunity to enhance field-specific knowledge</li>
+                            </ul>
+
                         </p>
 
                         <p>
-                            <b>1) First meeting</b>
+                            <b>2) First meeting</b>
                             <p>
-                                Taking part in the first project meeting is <u>compulsory!</u> The time and place of the first meeting can be found in the project description, or you can ask from the supervisor whose contacts you can find in the description.
+                                <b>Taking part in the first project meeting is <u>compulsory!</u></b> The time and place of the first meeting can be found in the project description, or you can ask from the supervisor whose contacts you can find in the description.
                             </p>
                         </p>
 
                         <p>
-                            <b>2) Course volume and requirements for taking the course</b>
+                            <b>3) Course volume and requirements for taking the course</b>
                             <p>
-                                LIFE (Learning in Interdisciplinary Focused Environment) is a study course of 6 ECTS (=156 working hours) and it is focused on project- and problem-based learning. The course is assessed on a non-differentiated assessment scale (Pass/Fail).
-                                Requirements for passing the course and assessment criteria can be found in:
-                                <ul>
-                                    <li><a href="https://ois2.tlu.ee/tluois/subject/YID6001.YM">Course description</a></li>
-                                    <li><a href="https://docs.google.com/document/d/1Lyx-BrCiJR1ISzLEzx-EJUB64nroBGZuwAaLtCD0nVk/edit">Student Guidelines</a></li>
-                                </ul>
-                            </p>
-                        </p>
-
-                        <p>
-                            <b>3) LIFE course Moodle: YID6001.YM LIFE course learning environment 2019/2020</b>
-                            <p>The student who has joined the LIFE course will be sent an e-mail invitation to join a Moodle course, intended for all students, LIFE course learning environment 2019/2020, where:
+                                During a LIFE course students have to complete six compulsory tasks, in addition to the tasks assigned by the supervisor(s). The compulsory tasks include: 
                             </p>
                             <ul>
-                                <li>general information related to LIFE course is shared;</li>
-                                <li>LIFE course support materials can be found (the concept of LIFE, Student Guidelines, Guidelines for using project funds, guidelines for compulsory tasks);</li>
-                                <li>compulsory tasks are submitted;</li>
-                                <li>registration for workshops/seminars, feedback session during the intermediate week and LIFE projects’ presentation day takes place</li>
+                                <li>
+                                    <b>As a result of teamwork: </b>(1) Creating the LIFE project plan with the team members; (2) creating and presenting the mid-term report of the project; (3) participation in the feedback session during the intermediate week, (4) making the LIFE project portfolio, (5) presentation of the LIFE project results.
+                                </li>
+                                <li>
+                                    <b>As a result of independent work: </b>(6) self-reflection report about completing the role as a team and about other team members’ contribution to the project.
+                                </li>
                             </ul>
                         </p>
 
                         <p>
-                            <b>4) LIFE info seminar for a new students</b> 
-                            <p>The LIFE info seminar provides an overview about the course objectives, learning outcomes, terms and conditions in Moodle and information about LIFE workshops. The info seminar takes place at Mare study area (Mare 3rd floor) on September 13 at 14:00-15:00.</p>
-                            <h5 style="text-align:center"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfpmbx-brUwe7XRVZnmtpUEy-X1Q8rrgggAFo2qOxLB2N1UEQ/viewform">REGISTER!</a></h5>
+                            <b>4) LIFE course Moodle: YID6001.YM LIFE course learning environment 2019/2020</b> 
+                            <p>The student who has joined the LIFE course will be sent an e-mail invitation to join a Moodle course <b><u>since February 11th</u></b>, intended for all students, LIFE course learning environment 2019/2020, where:</p>
+                            <ul>
+                                <li>general information related to LIFE course is shared;</li>
+                                <li>LIFE course support materials can be found (the concept of LIFE, <a href="https://docs.google.com/document/d/1Lyx-BrCiJR1ISzLEzx-EJUB64nroBGZuwAaLtCD0nVk/edit" target="_blank">Student Guidelines</a>, Guidelines for using project funds, guidelines for compulsory tasks);</li>
+                                <li>compulsory tasks are submitted;</li>
+                                <li>registration for workshops/seminars, feedback session during the intermediate week and LIFE projects’ presentation day takes place.</li>
+                            </ul>
                         </p>
 
                         <p>

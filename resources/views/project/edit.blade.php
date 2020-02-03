@@ -715,7 +715,7 @@
                                     <th>{{trans('project.user')}}</th>
                                     <th>{{trans('login.email')}}</th>
                                     <th>{{trans('project.course')}}</th>
-                                    @if(!Auth::user()->is('project_moderator'))
+                                    @if(Auth::user()->is('admin'))
                                         <th>&nbsp;</th>
                                     @endif
                                     </thead>
@@ -736,7 +736,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                @if(!Auth::user()->is('project_moderator'))
+                                                @if(Auth::user()->is('admin'))
                                                     <td>
                                                         <form class="delete-user" action="{{ url('project/'.$current_project->id).'/unlink/'.$user->id }}" method="POST">
                                                             {{ csrf_field() }}

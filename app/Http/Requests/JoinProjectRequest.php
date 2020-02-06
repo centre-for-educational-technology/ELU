@@ -24,9 +24,9 @@ class JoinProjectRequest extends Request
     public function rules()
     {
         return [
-            'join_a1' => 'required|max:255',
-            'join_a2' => 'required|max:255',
-            'join_a3' => 'required|max:255',
+            'join_a1' => 'required|max:3000',
+            'join_a2' => 'required|max:3000',
+            'join_a3' => 'required|max:3000',
         ];
     }
 

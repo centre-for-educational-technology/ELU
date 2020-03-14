@@ -2075,10 +2075,10 @@ class ProjectController extends Controller
     }
 
 
-		if($members_count <= 8){
+		if($members_count < 8){
 			$total_points = 3;
 			$limit_per_one = 2;
-		}else if($members_count <= 17){
+		}else if($members_count <= 12){
 			$total_points = 6;
 			$limit_per_one = 4;
     }else/* if($members_count <= 24)*/{
@@ -2090,10 +2090,10 @@ class ProjectController extends Controller
 		}*/
 
 
-		if($isFirstTimeSupervisor && $members_count <= 8){
+		if($isFirstTimeSupervisor && $members_count < 8){
 			$total_points = 4;
 			$limit_per_one = 3;
-		} else if($isFirstTimeSupervisor && $members_count <= 16){
+		} else if($isFirstTimeSupervisor && $members_count <= 12){
 			$total_points = 8;
 			$limit_per_one = 6;
 		} else if($isFirstTimeSupervisor) {

@@ -1980,7 +1980,7 @@ class ProjectController extends Controller
 
 		if(!empty($project->supervisor)){
 			foreach (preg_split("/\\r\\n|\\r|\\n/", $project->supervisor) as $single_cosupervisor){
-				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains($single_cosupervisor, 'name')){
+				if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $single_cosupervisor)){
 
 					$found_item = null;
 					$found_item = $project_cosupervisors_points->keyBy('name')->get($single_cosupervisor);
@@ -2026,10 +2026,13 @@ class ProjectController extends Controller
 		} else if($isFirstTimeSupervisor && $members_count <= 12){
 			$total_points = 8;
 			$limit_per_one = 6;
-		} else if($isFirstTimeSupervisor) {
+		} else if($isFirstTimeSupervisor && $members_count <= 18){
 			$total_points = 12;
 			$limit_per_one = 9;
-		}
+		} else if($isFirstTimeSupervisor && $members_count <= 24){
+			$total_points = 13;
+			$limit_per_one = 9;
+		} 
 
 
 
@@ -2096,10 +2099,13 @@ class ProjectController extends Controller
 		} else if($isFirstTimeSupervisor && $members_count <= 12){
 			$total_points = 8;
 			$limit_per_one = 6;
-		} else if($isFirstTimeSupervisor) {
+		} else if($isFirstTimeSupervisor && $members_count <= 18){
 			$total_points = 12;
 			$limit_per_one = 9;
-		}
+		} else if($isFirstTimeSupervisor && $members_count <= 24){
+			$total_points = 13;
+			$limit_per_one = 9;
+		} 
 
 
 		$project_cosupervisors_points = CosupervisorsPoints::where('project_id', $project->id)->get();
@@ -2142,7 +2148,7 @@ class ProjectController extends Controller
 		if(count($data_cosupervisors)>0){
 			foreach ($data_cosupervisors as $item){
 				if($item['points']<=$limit_per_one){
-					if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains($item['name'], 'name')){
+					if(count($project_cosupervisors_points)>0 && $project_cosupervisors_points->contains('name', $item['name'])){
 						\Debugbar::info($item['name']);
 						$item_to_update = null;
 						$item_to_update = $project_cosupervisors_points->keyBy('name')->get($item['name']);

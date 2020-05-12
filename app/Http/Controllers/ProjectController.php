@@ -1389,8 +1389,13 @@ class ProjectController extends Controller
 			foreach ($superadmins as $superadmin){
 				if($admin->id == $superadmin->id){
 					unset($admins[$key]);
-				}
+        }
+        
 			}
+      // Remove specific admins from this list
+      if($admin->email == 'tiinapal@tlu.ee'){
+        unset($admin[$key]);
+      }
 		}
 
 		$admins_emails = array();

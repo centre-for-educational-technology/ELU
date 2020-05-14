@@ -1394,7 +1394,7 @@ class ProjectController extends Controller
 			}
       // Remove specific admins from this list
       if($admin->email == 'tiinapal@tlu.ee'){
-        unset($admin[$key]);
+        unset($admins[$key]);
       }
 		}
 
@@ -1447,7 +1447,11 @@ class ProjectController extends Controller
 				if($admin->id == $superadmin->id){
 					unset($admins[$key]);
 				}
-			}
+      }
+      // Remove specific admins from this list
+      if($admin->email == 'tiinapal@tlu.ee'){
+        unset($admins[$key]);
+      }
 		}
 
 		$admins_emails = array();
